@@ -11,29 +11,29 @@ class Niveau1 extends Tableau
 
         // ------pour TILED-------------
         // nos images principales
-        this.load.image('star', 'assets/Os.png');
-        this.load.image('os', 'assets/os.png');
-        this.load.image('platformStone', 'assets/platformStone.png');
+        this.load.image('star', 'assets/elements/Os.png');
+        this.load.image('os', 'assets/elements/os.png');
+        this.load.image('platformStone', 'assets/elements/platformStone.png');
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere.png');
 
         //les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/tableauTiledCimetiereDbug.json'); // original -> 'tableauTiled.json' & 2nd 'MapTiledLongueur.json'
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha1-0.json'); // -> 'tableauTiled' & 2nd 'MapTiledLongueur' & 3rd 'tableauTiledCimetiereDbug
 
         // -----Decors-------------
-        this.load.image('night', 'assets/nuitEtoileCarre_4.png');
-        this.load.image('night1', 'assets/aurore2.png');//nuitEtoileCarre_5
-        this.load.image('chateauLoin', 'assets/chateauLoin_x896_2.png');
-        this.load.image('grilleHerbe', 'assets/grille_x896_2.png');
-        this.load.image('colines', 'assets/colinesForet_x896.png');
-        this.load.image('ombresTombes', 'assets/ombresTombes_x896_2.png');
-        this.load.image('checkPoint', 'assets/checkPoint.png');
+        this.load.image('night', 'assets/backgrounds/nuitEtoileCarre_4.png');
+        this.load.image('night1', 'assets/backgrounds/aurore2.png');//nuitEtoileCarre_5
+        this.load.image('chateauLoin', 'assets/backgrounds/chateauLoin_x896_2.png');
+        this.load.image('grilleHerbe', 'assets/backgrounds/grille_x896_2.png');
+        this.load.image('colines', 'assets/backgrounds/colinesForet_x896.png');
+        this.load.image('ombresTombes', 'assets/backgrounds/ombresTombes_x896_2.png');
+        this.load.image('checkPoint', 'assets//entities/checkPoint.png');
 
         // -----Elements interactifs-------------
-        this.load.image('vase', 'assets/vase2.png');
+        this.load.image('vase', 'assets/elements/vase2.png');
 
         // -----Monstres-------------
-        this.load.image('monster-fly', 'assets/chauve-souris.png'); // original 'monster-fly'
-        this.load.image('bossSpectre', 'assets/bossSpectre_Remastered.png');
+        this.load.image('monster-fly', 'assets/entities/chauve-souris.png'); // original 'monster-fly'
+        this.load.image('bossSpectre', 'assets/entities/bossSpectre_Remastered.png');
 
         this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie2.png', { frameWidth: 32, frameHeight: 48 } );        
 
@@ -45,7 +45,7 @@ class Niveau1 extends Tableau
         //this.load.image('vent', 'assets/Animation_vent_1.png');
 
         // -----Effets-------------
-        this.load.image('light', 'assets/light.png');
+        this.load.image('light', 'assets/elements/light.png');
 
         // -----Sons-------------
         this.load.audio('brkkk', 'assets/Sound/broke_sound.mp3');
@@ -105,7 +105,7 @@ class Niveau1 extends Tableau
         //this.devant = this.map.createLayer('devant', this.tileset, 0, 0);
 
         // plateformes columbariums
-        let plate1=this.physics.add.sprite(200,293+hauteurDif); // ,"platformStone");
+        /*let plate1=this.physics.add.sprite(200,293+hauteurDif); // ,"platformStone");
         plate1.setDisplaySize(113,7);
         plate1.setOrigin(0,0); // pour positionner plus facilement
         plate1.body.allowGravity=0; // la gravité n'a pas d'effet ici
@@ -201,14 +201,14 @@ class Niveau1 extends Tableau
         plate14.setOrigin(0,0);
         plate14.body.allowGravity=0;
         plate14.setImmovable(true);
-        plate14.refreshBody();
+        plate14.refreshBody();*/
 
         // plateformes mausolés
-        let plate15=this.physics.add.sprite(447,183+hauteurDif); // ,"platformStone");
+        /*let plate15=this.physics.add.sprite(447,183+hauteurDif);
         plate15.setDisplaySize(194,11);
-        plate15.setOrigin(0,0); // pour positionner plus facilement
-        plate15.body.allowGravity=0; // la gravité n'a pas d'effet ici
-        plate15.setImmovable(true); // ne bouge pas quand on rentre dedans
+        plate15.setOrigin(0,0);
+        plate15.body.allowGravity=0;
+        plate15.setImmovable(true);
         plate15.refreshBody();
 
         let plate16=this.physics.add.sprite(1535,183+hauteurDif);
@@ -265,7 +265,7 @@ class Niveau1 extends Tableau
         plate23.setOrigin(0,0);
         plate23.body.allowGravity=0;
         plate23.setImmovable(true);
-        plate23.refreshBody();
+        plate23.refreshBody();*/
 
         //------------------------ on définit les collisions, plusieurs méthodes existent: ------------------------
 
@@ -276,7 +276,7 @@ class Niveau1 extends Tableau
         //this.lave.setCollisionByProperty({ collides: true });
 
         // 2 manière la plus simple (là où il y a des tiles ça collide et sinon non)
-        //this.solides.setCollisionByExclusion(-1, true);
+        this.solides.setCollisionByExclusion(-1, true);
         //this.lave.setCollisionByExclusion(-1, true);
 
         // 3 Permet d'utiliser l'éditeur de collision de Tiled...mais ne semble pas marcher pas avec le moteur de physique ARCADE, donc oubliez cette option :(
@@ -295,7 +295,7 @@ class Niveau1 extends Tableau
         this.starsObjects.forEach(starObject => 
         {
             // Pour chaque étoile on la positionne pour que ça colle bien car les étoiles ne font pas 64x64
-            let star = this.stars.create(starObject.x+32, starObject.y+32 , 'particles','star');
+            let star = this.stars.create(starObject.x, starObject.y-64, 'particles','star');
         });
 
 
@@ -316,7 +316,7 @@ class Niveau1 extends Tableau
         // On crée des zombies pour chaque objet rencontré
         this.zombiesObjects.forEach(monsterObject => 
         {
-            let monster=new MonsterZombie(this,monsterObject.x,monsterObject.y-30);
+            let monster=new MonsterZombie(this,monsterObject.x,monsterObject.y+34);
             this.monstersContainer.add(monster);
             //this.physics.add.collider(monster, this.solides);
         });
@@ -337,7 +337,7 @@ class Niveau1 extends Tableau
         this.vaseObjects = this.map.getObjectLayer('vase')['objects'];
         this.vaseObjects.forEach(monsterObject => 
         {
-            let monster=new ElementVase(this,monsterObject.x+32,monsterObject.y);
+            let monster=new ElementVase(this,monsterObject.x+32,monsterObject.y-32);
             //this.ElementVaseContainer.add(monster);
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
@@ -482,7 +482,7 @@ class Niveau1 extends Tableau
             this.sys.canvas.height,
             'night'
         );
-        this.sky.setOrigin(0,0);
+        this.sky.setOrigin(0,3584); //3584
         this.sky.setScrollFactor(0);//fait en sorte que le ciel ne suive pas la caméra
         this.sky2=this.add.tileSprite(
             0,
@@ -491,7 +491,7 @@ class Niveau1 extends Tableau
             this.sys.canvas.height,
             'night1'
         );
-        this.sky2.setOrigin(0,0);
+        this.sky2.setOrigin(0,3584);
         this.sky2.setScrollFactor(0);
         this.sky2.blendMode=Phaser.BlendModes.ADD;
 
@@ -503,8 +503,8 @@ class Niveau1 extends Tableau
             this.sys.canvas.height,
             'chateauLoin'
         );
+        this.sky3.setOrigin(0,3584);
         this.sky3.setScrollFactor(0);
-        this.sky3.setOrigin(0,0);
         
         this.sky4=this.add.tileSprite
         (
@@ -514,8 +514,8 @@ class Niveau1 extends Tableau
             this.sys.canvas.height,
             'colines'
         );
+        this.sky4.setOrigin(0,3584);
         this.sky4.setScrollFactor(0);
-        this.sky4.setOrigin(0,0);
         
         this.sky5=this.add.tileSprite
         (
@@ -525,8 +525,8 @@ class Niveau1 extends Tableau
             this.sys.canvas.height,
             'grilleHerbe'
         );
+        this.sky5.setOrigin(0,3584);
         this.sky5.setScrollFactor(0);
-        this.sky5.setOrigin(0,0);
 
         this.skyDevant=this.add.tileSprite
         (
@@ -536,8 +536,8 @@ class Niveau1 extends Tableau
             this.sys.canvas.height,
             'ombresTombes'
         );
+        this.skyDevant.setOrigin(0,3584);
         this.skyDevant.setScrollFactor(0);
-        this.skyDevant.setOrigin(0,0);
 
 
         //------------------------ sources lumineuses ------------------------
@@ -752,7 +752,7 @@ class Niveau1 extends Tableau
         //quand on touche la lave (ou autre surface mortelle), on meurt
         this.physics.add.collider(this.player, this.lave,this.playerDie,null,this);
         //plateformes
-        this.physics.add.collider(this.stars, plate1); // les étoiles rebondissent dessus
+        /*this.physics.add.collider(this.stars, plate1); // les étoiles rebondissent dessus
         this.physics.add.collider(this.player, plate1); // le joueur rebondit dessus
         this.physics.add.collider(this.stars, plate2);
         this.physics.add.collider(this.player, plate2);
@@ -797,7 +797,7 @@ class Niveau1 extends Tableau
         this.physics.add.collider(this.stars, plate22);
         this.physics.add.collider(this.player, plate22);
         this.physics.add.collider(this.stars, plate23);
-        this.physics.add.collider(this.player, plate23);
+        this.physics.add.collider(this.player, plate23);*/
 
 
         //------------------------ check points ------------------------

@@ -82,8 +82,6 @@ class Ui extends Phaser.Scene{
         pad.x=this.sys.canvas.width-pad.size-32;
         pad.y=this.sys.canvas.height-pad.size-32;
 
-
-
         let btFs=this.add.image(0,0,'ui/full-screen-icon');
         btFs.setInteractive();
         btFs.on('pointerup', function () {

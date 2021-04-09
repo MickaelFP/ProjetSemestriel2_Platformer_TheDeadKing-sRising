@@ -5,9 +5,9 @@ class TableauStart extends Phaser.Scene {
   
     preload ()
     {
-        this.load.image('startBG', 'assets/startBackground.png');
-        this.load.image('startB', 'assets/startBouton.png');
-        this.load.image('logo', 'assets/PlatformerLogoRemastered.png');
+        this.load.image('startBG', 'assets/backgrounds/startBackground.png');
+        this.load.image('startB', 'assets/elements/startBouton.png');
+        this.load.image('logo', 'assets/elements/PlatformerLogoRemastered.png');
         //this.load.spritesheet('cp', 'assets/cp.png', { frameWidth: 206, frameHeight: 184 } );
         //this.load.audio('welcome1', 'assets/Sound/Dark-Hero-3.mp3');
         this.load.audio('welcome', 'assets/Sound/Piano_Sonata_no_14.mp3');

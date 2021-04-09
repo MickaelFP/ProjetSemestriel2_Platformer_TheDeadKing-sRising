@@ -80,22 +80,22 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         switch (true)
         {
             case this._directionX < 0 && !this.jumping:
-                this.setVelocityX(-160);
+                this.setVelocityX(-640);
                 this.anims.play('left', true);
                 break;
 
             case this._directionX > 0 && !this.jumping:
-                this.setVelocityX(160);
+                this.setVelocityX(640);
                 this.anims.play('right', true);
                 break;
 
             case this._directionX < 0 && this.jumping:
-                this.setVelocityX(-160);
+                this.setVelocityX(-640);
                 this.anims.play('jumpLeft', true);
                 break;
             
             case this._directionX > 0 && this.jumping:
-                this.setVelocityX(160);
+                this.setVelocityX(640);
                 this.anims.play('jumpRight', true);
                 break;
 
