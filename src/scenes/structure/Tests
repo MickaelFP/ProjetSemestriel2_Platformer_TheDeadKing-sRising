@@ -1,0 +1,239 @@
+    //***************** retenir les coordonnées du joueur *****************//
+    
+    /*
+    create()
+    {
+        var direction = 'right';
+    }
+
+    
+    update()
+    {
+        if (cursors.left.isDown) {
+            player.direction = 'left';
+            player.setVelocityX(-160);
+            player.anims.play('left', true);
+        }
+        else if (cursors.right.isDown) {
+            player.direction = 'right';
+            player.setVelocityX(160);
+            player.anims.play('right', true);
+        }
+    }    
+    */
+
+    //*********************************************************************//
+
+
+
+    //***************** essaies de lumières *****************//
+
+    /*
+        var dummy = this.add.image(900, 400, 'light').setVisible(false);
+
+        var light1 = this.lights.addLight(280, 400, 200);
+        var ellipse1 = new Phaser.Geom.Ellipse(light1.x, light1.y, 70, 100);
+    
+        var light2 = this.lights.addLight(650, 386, 200);
+        var ellipse2 = new Phaser.Geom.Ellipse(light2.x, light2.y, 30, 40);
+    
+        var light3 = this.lights.addLight(900, 400, 200);
+
+        this.time.addEvent({
+            delay: 100,
+            callback: function ()
+            {
+                Phaser.Geom.Ellipse.Random(ellipse1, light1);
+                Phaser.Geom.Ellipse.Random(ellipse2, light2);
+            },
+            callbackScope: this,
+            repeat: -1
+        });
+
+        this.tweens.add({
+            targets: [ light3, dummy ],
+            y: 150,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            repeat: -1,
+            duration: 3000
+        });
+
+        // We must enable the light system. By default is disabled
+        this.lights.enable();
+
+    //*********************************************************************//
+
+
+
+
+    //*************** Move monstres en focntion du joueur ******************//
+
+            /**
+     * Quand on dépasse un monstre
+     * il se tourne vers nous
+     * @param {Player} player
+     * @param {Phaser.Physics.Arcade.Sprite} monster
+     *//*
+    monsterMove(player, monster)
+    {
+        let me = this;
+        me.player.body.velocity.x = player.VelocityX;
+        me.monster.body.velocity.x = monster.VelocityX;
+
+        //if (player.x < monster.x && monster.setVelocityX == player.setVelocityX)        
+        if (player.x < monster.x && player.VelocityX > 0)
+        {
+            if(monster.VelocityX <= 0)
+            {
+                monster.flipX = false;
+            }
+            else
+            {
+                monster.flipX = true;
+                monster.setVelocityX = - monster.VelocityX;//-100;
+            }
+        } 
+        else if (player.x < monster.x && player.VelocityX < 0)
+        {
+            if(monster.VelocityX < 0)
+            {
+                monster.flipX = false;
+            }
+            else
+            {
+                monster.flipX = true;
+                monster.setVelocityX = - monster.VelocityX;//-100;
+            }
+        }
+        else if (player.x > monster.x && player.VelocityX > 0)
+        {
+            if(monster.VelocityX > 0)
+            {
+                monster.flipX = false;
+            }
+            else
+            {
+                monster.flipX = true;
+                monster.setVelocityX = - monster.VelocityX;//-100;
+            }
+        }
+        else if (player.x > monster.x && player.VelocityX < 0)
+        {
+            if(monster.VelocityX > 0)
+            {
+                monster.flipX = false;
+            }
+            else
+            {
+                monster.flipX = true;
+                monster.setVelocityX = - monster.VelocityX;//-100;
+            }
+        }
+        else
+        {
+            monster.flipX = false;
+        }                    
+    }*/
+
+    //*********************************************************************//
+
+
+
+
+
+    //*************** casser les monstre immobile sans mourrir à leur contact ******************//
+
+    /*
+    vaseBroke() // update
+    {
+        
+        let me=this;
+        let broke=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"broke")
+        broke.displayWidth=32;
+        broke.displayHeight=32;
+        //broke.visible=false
+        broke.visible=true;
+        broke.rotation = Phaser.Math.Between(0,6);
+        broke.x=this.x; //object.x
+        broke.y=this.y; //object.Y
+    } // FIN DE VASEBROKE
+
+    hitVase(player){
+        let me=this;
+        if(me.disableBody !== true/*,true*/){ //si notre vase n'est pas déjà détruit
+            if(
+                // si le player descend
+                player.body.velocity.y > 0
+                // et si le bas du player est plus haut que le monstre
+                && player.getBounds().bottom < me.getBounds().top+30
+    
+            ){
+                ui.gagne();
+                me.isDead=true; //ok le monstre est mort
+                me.disableBody(true,true);//plus de collisions
+                me.vaseBroke(monster,function(){
+                    //à la fin de la petite anim...ben il se passe rien :)
+                })
+                //petit son de mort du monstre
+                
+                /*
+                me.music = this.sound.add('broke');
+    
+                var musicConfig = 
+                {
+                    mute: false,
+                    volume: 0.3,
+                    rate : 1,
+                    detune: 0,
+                    seek: 0,
+                    loop: false,
+                    delay:0,
+                }
+                me.music.play(musicConfig);
+                */
+
+                //notre joueur rebondit sur le monstre
+                //player.directionY=500;
+            }
+    
+        }
+    }
+
+    /*
+    creat(object)
+    {
+        this.broke=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"broke")
+        this.broke.displayWidth=32;
+        this.broke.displayHeight=32;
+        this.broke.visible=false
+    }
+    */
+
+    /*
+    //let vaseContainer=this.add.container();
+    this.vaseObjects = this.map.getObjectLayer('vase')['objects'];
+    this.vaseObjects.forEach(monsterObject => {
+        let monster=new MonsterVase(this,monsterObject.x,monsterObject.y-26);
+        monstersContainer.add(monster);
+        this.physics.add.collider(monster, this.solides); //vase
+        //this.physics.add.collider(monster, this.player); //vase
+    });*//*
+
+    if(this.vaseObjects.isDead != true)
+    {
+        if(
+            // si le player descend
+            player.body.velocity.y > 0
+            // et si le bas du player est plus haut que le monstre
+            && player.getBounds().bottom < this.vaseObjects.getBounds().top+30
+        ){
+            let broke=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"broke")
+            ui.gagne();
+            this.vaseObjects.isDead=true; //ok le monstre est mort
+            this.vaseObjects.disableBody(true,true);//plus de collisions
+        }
+    }*/
+
+
+    //*********************************************************************//

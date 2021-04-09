@@ -1,0 +1,130 @@
+/*
+    agir(player, rayon) {
+        //let me = this,
+        //console.log("grrrrrr");
+        // si l'this.corp est dans un rayon de 'rayon' pixel autour du personnage
+        if (Math.sqrt(Math.pow(player.x - this.x, 2) + Math.pow(player.y - this.y, 2)) < this.rayon) {
+            if (player.x - this.x < -40) {    // si player est à gauche de this.corp
+                this.setVelocityX(-this.vitesse);    //    this.corp va vers la gauche
+            } else if (player.x - this.x > 40) {        // si player est à droite de this.corp
+                this.setVelocityX(this.vitesse);    //    this.corp va vers la droite
+            } else {
+                this.setVelocityX(0);    // sinon this.corp reste immobile
+            }
+        } else {
+            this.setVelocityX(0);    // sinon this.corp reste immobile
+        }
+    }
+*/
+
+
+
+/*
+
+    // Ennemy kill Player
+    if ((this.body.touching.right && (this.world.player.body.touching.right || this.world.player.body.touching.left))
+    || (this.body.touching.left && (this.world.player.body.touching.right || this.world.player.body.touching.left))
+    && this.isAlive)
+    {
+        this.world.restart();
+    }
+*/
+
+//******************************************
+
+
+//******************* ANIMATION SYMPA ***********************
+
+//this.load.spritesheet('imageKey', 'assets/image.png', { frameWidth: 206, frameHeight: 184 } );
+/*
+        this.anims.create({
+            key: 'keyActivation',
+            frames: this.anims.generateFrameNumbers('imageKey', { start: 0, end: 50 }),
+            frameRate: 30,
+            repeat: -1
+        });
+*/
+
+        /*
+        this.input.keyboard.on('keydown-A', function () 
+        {
+            this.a.play({volume:.5});
+            this.add.sprite(Math.random()*game.config.width, Math.random()*game.config.height, 'imageKey')
+            .play('keyActivation', true);
+        }, this);*/
+
+//******************************************
+
+
+//******************* DE LA PHYSIQUE D'ATTRACTION ***********************
+
+    /*
+    width: 800,
+    height: 600,
+    backgroundColor: '#000000',
+    parent: 'phaser-example',
+    physics: {
+                default: 'matter',
+                matter: {
+                    gravity: {
+                        scale: 0
+                    },
+                    plugins: {
+                        attractors: true
+                    }
+                }
+            },
+            scene: {
+                preload: preload,
+                create: create
+            }
+     };
+        
+        var game = new Phaser.Game(config);
+        */
+
+        //this.arcade.enableAttractorPlugin();
+
+        //this.arcade.world.setBounds();
+        /*
+        this.sun = this.add.image(400, 200, 'sun', null, {
+            shape: {
+                type: 'circle',
+                radius: 64
+            },
+            plugin: {
+                attractors: [
+                    function (bodyA, bodyB) {
+                        return {
+                            x: (bodyA.position.x - bodyB.position.x) * 0.000001,
+                            y: (bodyA.position.y - bodyB.position.y) * 0.000001
+                        };
+                    }
+                ]
+            }
+        });*/
+
+    //this.arcade.add.mouseSpring();
+//******************************************
+
+
+//******************* Infos & Liens ***********************
+
+    /**
+     * Ce tableau démontre comment se servir de Tiled, un petit logiciel qui permet de designer des levels et de les importer dans Phaser (entre autre).
+     *
+     * Ce qui suit est très fortement inspiré de ce tuto :
+     * https://stackabuse.com/phaser-3-and-tiled-building-a-platformer/
+     *
+     * Tuto qui propose quelques alternatives (la manière dont son découpées certaines maisons notamment) :
+     * https://medium.com/@michaelwesthadley/modular-game-worlds-in-phaser-3-tilemaps-1-958fc7e6bbd6
+     */
+
+//******************************************
+
+        /*
+        this.input.keyboard.on('keydown-A', function () 
+        {
+            this.a.play({volume:.5});
+            this.add.sprite(Math.random()*game.config.width, Math.random()*game.config.height, 'cp').play('spin', true);
+        }, this);*/
