@@ -1,9 +1,9 @@
-class ElementSolFragile extends Phaser.Physics.Arcade.Sprite 
+class ElementSolFragilePierre extends Phaser.Physics.Arcade.Sprite 
 {
 
   constructor(scene, x, y,) 
   {
-    super(scene, x, y, 'solFragile');
+    super(scene, x, y, 'solFragilePierre');
     //this.body.allowGravity=false;
 
     scene.add.existing(this);
@@ -40,26 +40,26 @@ class ElementSolFragile extends Phaser.Physics.Arcade.Sprite
     });*/
 
     this.tombeSound = scene.sound.add('chute');
-    this.seBriseSound = scene.sound.add('solEffondre');
+    this.seBriseSound = scene.sound.add('solPierreBrise');
 
   }
 
   killEffect() 
   {
-    /*let fx = *///this.world.add.sprite(this.x, this.y, 'broke');//.play('explode', true);
     this.seBriseSound.play(
-      { 
-        volume: 10,
-        //delay:1
-      });
+        { 
+            volume: 10
+        });
     this.tombeSound.play(
     { 
-      volume: 1,
-      delay:1
+         volume: 1
+        //mute: false,,
+        //rate : 1,
+        //detune: 0,
+        //seek: 0,
+        //loop: false,
+        //delay:200,
     });
-    //this.broken = true;
-    //fx.scale = 3;
-    //fx.once('animationcomplete', () => {fx.destroy()})
   }
 
 

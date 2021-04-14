@@ -17,19 +17,22 @@ class Niveau1 extends Tableau
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
 
         //les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha1-1.json'); // -> 'tableauTiled' & 2nd 'MapTiledLongueur' & 3rd 'tableauTiledCimetiereDbug
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha1-2.json'); // -> 'tableauTiled' & 2nd 'MapTiledLongueur' & 3rd 'tableauTiledCimetiereDbug
 
         // -----Decors-------------
-        this.load.image('night', 'assets/backgrounds/nuitEtoileCarre_4.png');
-        this.load.image('night1', 'assets/backgrounds/aurore2.png');//nuitEtoileCarre_5
-        this.load.image('chateauLoin', 'assets/backgrounds/chateauLoin_x896_2.png');
-        this.load.image('grilleHerbe', 'assets/backgrounds/grille_x896_2.png');
-        this.load.image('colines', 'assets/backgrounds/colinesForet_x896.png');
-        this.load.image('ombresTombes', 'assets/backgrounds/ombresTombes_x896_2.png');
+        this.load.image('night', 'assets/backgrounds/sky_plan_nuitEtoileCarre.png');//nuitEtoileCarre_4.png');
+        this.load.image('night1', 'assets/backgrounds/sky_plan_aurore.png');//aurore2.png');//nuitEtoileCarre_5
+        this.load.image('chateauLoin', 'assets/backgrounds/cinquieme_plan_chateauLoin.png');//chateauLoin_x896_2.png');
+        this.load.image('grilleHerbe', 'assets/backgrounds/second_plan_grille.png');//grille_x896_2.png');
+        this.load.image('colines', 'assets/backgrounds/quatrieme_plan_colinesForet2.png');//colinesForet_x896.png');
+        this.load.image('ombresTombes', 'assets/backgrounds/ombres_plan_surface.png');//ombresTombes_x896_2.png');
         this.load.image('checkPoint', 'assets/entities/checkPoint.png');
 
         // -----Elements interactifs-------------
         this.load.image('vase', 'assets/elements/vase2.png');
+        this.load.image('solFragile', 'assets/elements/solFragile.png');
+        this.load.image('solFragilePierre', 'assets/elements/solFragilePierre.png');
+        this.load.image('rocheQuiRoule', 'assets/elements/solFragilePierre.png');
 
         // -----Monstres-------------
         this.load.image('monster-fly', 'assets/entities/chauve-souris.png'); // original 'monster-fly'
@@ -113,6 +116,9 @@ class Niveau1 extends Tableau
         this.platforms.create(15, 293+hauteurDif, 'platformStone');
         this.platforms.create(205, 293+hauteurDif, 'platformStone');
         this.platforms.create(1420, 293+hauteurDif, 'platformStone');
+        this.platforms.create(1932, 293+hauteurDif, 'platformStone');
+        this.platforms.create(2380, 293+hauteurDif, 'platformStone');
+        this.platforms.create(2892, 293+hauteurDif, 'platformStone');
 
         this.platforms.children.iterate(function (child) {
             child.setImmovable(true); // pour ne pas bouger quand il y a collision
@@ -128,12 +134,14 @@ class Niveau1 extends Tableau
         this.platforms2 = this.physics.add.group();
 
         this.platforms2.create(390, 183+hauteurDif, 'platformStone');
+        this.platforms2.create(1671, 183+hauteurDif, 'platformStone');
+        this.platforms2.create(2567, 183+hauteurDif, 'platformStone');
 
         this.platforms2.children.iterate(function (child) {
             child.setImmovable(true);
             child.body.allowGravity=false;
             child.setCollideWorldBounds(false);
-            child.setFriction(1); //les éléments ne glissent pas dessus cette plateforme
+            child.setFriction(1);
             child.setOrigin(0,0);
             child.setDisplaySize(179,11);
         });
@@ -147,9 +155,48 @@ class Niveau1 extends Tableau
             child.setImmovable(true);
             child.body.allowGravity=false;
             child.setCollideWorldBounds(false);
-            child.setFriction(1); //les éléments ne glissent pas dessus cette plateforme
+            child.setFriction(1);
             child.setOrigin(0,0);
             child.setDisplaySize(400,18);
+        });
+
+        // plateformes pierre
+        this.platforms4 = this.physics.add.group();
+
+        this.platforms4.create(4832, 1584+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(4896, 1520+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(4960, 1456+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(5344, 1232+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(5248, 1168+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(5296, 1056+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(3906, 880+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(3906, 768+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(4050, 736+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(3934, 612+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(3996, 500+hauteurDif, 'solFragilePierre');
+
+        this.platforms4.children.iterate(function (child) {
+            child.setImmovable(true);
+            child.body.allowGravity=false;
+            child.setCollideWorldBounds(false);
+            child.setFriction(1);
+            child.setOrigin(0,0);
+            child.setDisplaySize(32,16);
+        });
+
+        // plateformes antibug
+        this.platforms5 = this.physics.add.group();
+
+        this.platforms5.create(5440, 1280+hauteurDif);
+        this.platforms5.create(5040, 896+hauteurDif);
+
+        this.platforms5.children.iterate(function (child) {
+            child.setImmovable(true);
+            child.body.allowGravity=false;
+            child.setCollideWorldBounds(false);
+            child.setFriction(1);
+            child.setOrigin(0,0);
+            child.setDisplaySize(16,64);
         });
 
 
@@ -181,7 +228,7 @@ class Niveau1 extends Tableau
         this.starsObjects.forEach(starObject => 
         {
             // Pour chaque étoile on la positionne pour que ça colle bien car les étoiles ne font pas 64x64
-            let star = this.stars.create(starObject.x, starObject.y-64, 'particles','star');
+            let star = this.stars.create(starObject.x+48, starObject.y-64, 'particles','star');
         });
 
 
@@ -219,12 +266,11 @@ class Niveau1 extends Tableau
 
          //------------------------ Les elements interactifs (objets tiled) ------------------------
 
-        //this.ElementVaseContainer = this.add.container();
+        // elements cassables
         this.vaseObjects = this.map.getObjectLayer('vase')['objects'];
         this.vaseObjects.forEach(monsterObject => 
         {
             let monster=new ElementVase(this,monsterObject.x+32,monsterObject.y-32);
-            //this.ElementVaseContainer.add(monster);
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
         });
@@ -233,11 +279,26 @@ class Niveau1 extends Tableau
         this.solFragileObjects.forEach(monsterObject => 
         {
             let monster=new ElementSolFragile(this,monsterObject.x+32,monsterObject.y-32);
-            //this.ElementVaseContainer.add(monster);
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
         });
 
+        this.solFragilePierreObjects = this.map.getObjectLayer('solFragilePierre')['objects'];
+        this.solFragilePierreObjects.forEach(monsterObject => 
+        {
+            let monster=new ElementSolFragilePierre(this,monsterObject.x+32,monsterObject.y-32);
+            this.monstersContainer.add(monster);
+            this.physics.add.collider(monster, this.solides);
+        });
+
+        // elements movibles
+        this.rocheQuiRouleObjects = this.map.getObjectLayer('rocheQuiRoule')['objects'];
+        this.rocheQuiRouleObjects.forEach(monsterObject => 
+        {
+            let monster=new ElementRocheQuiRoule(this,monsterObject.x+32,monsterObject.y-32);
+            this.monstersContainer.add(monster);
+            this.physics.add.collider(monster, this.solides);
+        });
 
         //------------------------ Escaliers ------------------------
 
@@ -671,6 +732,12 @@ class Niveau1 extends Tableau
         this.physics.add.collider(this.player, this.platforms3);
         this.physics.add.collider(this.stars, this.platforms3);
 
+        this.physics.add.collider(this.player, this.platforms4);
+        this.physics.add.collider(this.stars, this.platforms4);
+
+        this.physics.add.collider(this.player, this.platforms5);
+        this.physics.add.collider(this.stars, this.platforms5);
+
 
         //------------------------ Check points ------------------------
 
@@ -690,7 +757,7 @@ class Niveau1 extends Tableau
         {
             //ici.saveEscaliers(escaliers.escaliersObject.name);
             //this.player.setPosition(escaliersObject.x, escaliersObject.y-384);
-            this.player.setPosition(player.x, player.y-384);
+            this.player.setPosition(player.x-1024, player.y-1152);//384);
         }, null, this);
 
 
@@ -739,6 +806,7 @@ class Niveau1 extends Tableau
         //this.laveFxContainer.setDepth(z--);
         //this.lave.setDepth(z--);
         this.player.setDepth(z--);
+        this.platforms4.setDepth(z--);
         this.derriere.setDepth(z--);
 
         this.sky5.setDepth(z--);

@@ -15,7 +15,7 @@ class Tableau extends Phaser.Scene{
      * Par défaut on charge un fond et le player
      */
     preload(){
-        this.load.image('sky', 'assets/backgrounds/sky.png');
+        this.load.image('sky', 'assets/backgrounds/sky2.png');
         this.load.image('sun', 'assets/elements/sun.jpg');
         this.load.image('blood', 'assets/elements/bloodblack.png');
         this.load.image('spike', 'assets/elements/spike.png');
@@ -26,6 +26,8 @@ class Tableau extends Phaser.Scene{
         this.load.audio('crack', 'assets/Sound/crack.mp3');
         this.load.audio('brkkk', 'assets/Sound/broke_sound.mp3');
         this.load.audio('chute', 'assets/Sound/boule_neige.mp3');
+        this.load.audio('solPierreBrise', 'assets/Sound/explosion-1.mp3');
+        this.load.audio('solEffondre', 'assets/Sound/explosion-2.mp3');
         this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1.mp3');
         this.load.spritesheet('player',
             'assets/Spritesheet/player0.png',
@@ -48,7 +50,7 @@ class Tableau extends Phaser.Scene{
          * Le joueur
          * @type {Player}
          */
-        this.player=new Player(this,0+160,0+1200);//1152//3776
+        this.player=new Player(this,0+160,0+1968);//160//1200/1968
         this.player.setMaxVelocity(800,800); //évite que le player quand il tombe ne traverse des plateformes
         this.blood=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"blood")
         this.blood.displayWidth=64;
