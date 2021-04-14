@@ -16,6 +16,7 @@ class MonsterZombie extends ObjetEnnemi{
         this.setBounce(1);
         //this.setBodySize(this.body.width,this.body.height);
         this.setVelocityX(0);
+        this.walking = true;
         //this.physics.add.overlap(this.player, this.monstre, this.hitSpike, null, this);
 
         this.anims.create({
@@ -24,10 +25,9 @@ class MonsterZombie extends ObjetEnnemi{
             frameRate: 4,
             repeat: -1,
         });
-        this.anims.play('moving', true);/*
+        this.anims.play('moving', true);
 
-        
-        this.anims.create({
+        /*this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNumbers('zombie2', { start: 0, end: 3 }),
             frameRate: 10,
@@ -146,6 +146,7 @@ class MonsterZombie extends ObjetEnnemi{
                 repeat:-1
             }
         });
+
     }/*
 
     set directionX(value)
