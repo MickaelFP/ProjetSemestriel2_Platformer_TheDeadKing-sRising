@@ -119,6 +119,12 @@ class Niveau1 extends Tableau
         this.platforms.create(1932, 293+hauteurDif, 'platformStone');
         this.platforms.create(2380, 293+hauteurDif, 'platformStone');
         this.platforms.create(2892, 293+hauteurDif, 'platformStone');
+        this.platforms.create(4237, 293+hauteurDif, 'platformStone');
+        this.platforms.create(4749, 293+hauteurDif, 'platformStone');
+        this.platforms.create(5261, 293+hauteurDif, 'platformStone');
+        this.platforms.create(5645, 293+hauteurDif, 'platformStone');
+        this.platforms.create(6861, 293+hauteurDif, 'platformStone');
+        this.platforms.create(7821, 293+hauteurDif, 'platformStone');
 
         this.platforms.children.iterate(function (child) {
             child.setImmovable(true); // pour ne pas bouger quand il y a collision
@@ -136,6 +142,11 @@ class Niveau1 extends Tableau
         this.platforms2.create(390, 183+hauteurDif, 'platformStone');
         this.platforms2.create(1671, 183+hauteurDif, 'platformStone');
         this.platforms2.create(2567, 183+hauteurDif, 'platformStone');
+        this.platforms2.create(4487, 183+hauteurDif, 'platformStone');
+        this.platforms2.create(4935, 183+hauteurDif, 'platformStone');
+        this.platforms2.create(7047, 183+hauteurDif, 'platformStone');
+        this.platforms2.create(7303, 183+hauteurDif, 'platformStone');
+        this.platforms2.create(7559, 183+hauteurDif, 'platformStone');
 
         this.platforms2.children.iterate(function (child) {
             child.setImmovable(true);
