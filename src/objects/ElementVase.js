@@ -70,7 +70,7 @@ class ElementVase extends Phaser.Physics.Arcade.Sprite
 
     if (this.broken == true) 
     {
-      this.world.add.sprite(this.x, this.y, 'broke').setDepth(972);
+      this.world.add.sprite(this.x, this.y, 'broke').setDepth(986);
       this.broken = false;
     }
   }

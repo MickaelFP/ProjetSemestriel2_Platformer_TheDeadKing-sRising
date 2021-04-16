@@ -26,13 +26,14 @@ class Niveau1 extends Tableau
         this.load.image('grilleHerbe', 'assets/backgrounds/second_plan_grille.png');//grille_x896_2.png');
         this.load.image('colines', 'assets/backgrounds/quatrieme_plan_colinesForet2.png');//colinesForet_x896.png');
         this.load.image('ombresTombes', 'assets/backgrounds/ombres_plan_surface.png');//ombresTombes_x896_2.png');
-        this.load.image('checkPoint', 'assets/entities/checkPoint.png');
 
         // -----Elements interactifs-------------
         this.load.image('vase', 'assets/elements/vase2.png');
         this.load.image('solFragile', 'assets/elements/solFragile.png');
         this.load.image('solFragilePierre', 'assets/elements/solFragilePierre.png');
         this.load.image('rocheQuiRoule', 'assets/elements/solFragilePierre.png');
+
+        this.load.spritesheet('checkPoint', 'assets/Spritesheet/checkPointAnimate.png', { frameWidth: 540, frameHeight: 612 } );
 
         // -----Monstres-------------
         this.load.image('monster-fly', 'assets/entities/chauve-souris.png'); // original 'monster-fly'
@@ -49,6 +50,9 @@ class Niveau1 extends Tableau
 
         // -----Effets-------------
         this.load.image('light', 'assets/elements/light.png');
+        this.load.image('bougie','assets/elements/bougie.png');
+
+        this.load.spritesheet('bougieAnime', 'assets/Spritesheet/bougieAnimate.png', { frameWidth: 16, frameHeight: 16 } );
 
         // -----Sons-------------
         this.load.audio('brkkk', 'assets/Sound/broke_sound.mp3');
@@ -89,7 +93,7 @@ class Niveau1 extends Tableau
         let hauteurSol = 64;
         let hauteurDif = 448;
 
-        //------------------------ chargement de la tile map & configuration de la scène ------------------------
+        //------------------------------------------------ Chargement de la tile map & configuration de la scène ------------------------------------------------
 
         //notre map
         this.map = this.make.tilemap({ key: 'map' });
@@ -103,7 +107,7 @@ class Niveau1 extends Tableau
         this.cameras.main.setBounds(0, 0, largeurDuTableau, hauteurDuTableau);
         this.cameras.main.startFollow(this.player, true, 1, 1);
 
-        //------------------------ ajoute les plateformes simples ------------------------
+        //------------------------------------------------ Plateformes simples ------------------------------------------------
 
         this.solides = this.map.createLayer('solides', this.tileset, 0, 0);
         //this.lave = this.map.createLayer('lave', this.tileset, 0, 0);
@@ -211,7 +215,7 @@ class Niveau1 extends Tableau
         });
 
 
-        //------------------------ on définit les collisions, plusieurs méthodes existent: ------------------------
+        //------------------------------------------------ On définit les collisions (plusieurs méthodes existent) ------------------------------------------------
 
         // 1 La méthode que je préconise (il faut définir une propriété dans tiled pour que ça marche)
         //permet de travailler sur un seul layer dans tiled et des définir les collisions en fonction des graphiques
@@ -226,7 +230,7 @@ class Niveau1 extends Tableau
         // 3 Permet d'utiliser l'éditeur de collision de Tiled...mais ne semble pas marcher pas avec le moteur de physique ARCADE, donc oubliez cette option :(
         //this.map.setCollisionFromCollisionGroup(true,true,this.plateformesSimples);
 
-        //------------------------ les étoiles (objets) ------------------------
+        //------------------------------------------------ Les étoiles (objets) ------------------------------------------------
 
         this.stars = this.physics.add.group(
         {
@@ -243,7 +247,7 @@ class Niveau1 extends Tableau
         });
 
 
-        //------------------------ Les monstres (objets tiled) ------------------------
+        //------------------------------------------------ Les monstres (objets tiled) ------------------------------------------------
 
         //let fonction1 = this;
 
@@ -275,7 +279,7 @@ class Niveau1 extends Tableau
         });
 
 
-         //------------------------ Les elements interactifs (objets tiled) ------------------------
+         //------------------------------------------------ Les elements interactifs (objets tiled) ------------------------------------------------
 
         // elements cassables
         this.vaseObjects = this.map.getObjectLayer('vase')['objects'];
@@ -311,7 +315,7 @@ class Niveau1 extends Tableau
             this.physics.add.collider(monster, this.solides);
         });
 
-        //------------------------ Escaliers ------------------------
+        //------------------------------------------------ Escaliers ------------------------------------------------
 
         this.escaliers = this.physics.add.staticGroup();
         this.escaliersObjects = this.map.getObjectLayer('escaliers')['objects'];
@@ -324,23 +328,51 @@ class Niveau1 extends Tableau
         });
 
 
-        //------------------------ Check point ------------------------
+        //------------------------------------------------ Check point ------------------------------------------------
+
+        /*
+        this.anims.create({
+            key: 'cp',
+            frames: this.anims.generateFrameNumbers('bougieAnime', { start: 0, end: 8 }),
+            frameRate: 10,
+            repeat: -1
+        });
+        */
 
         this.checkPoints = this.physics.add.staticGroup();
         this.checkPointsObjects = this.map.getObjectLayer('checkPoints')['objects'];
         //on crée des checkpoints pour chaque objet rencontré
         this.checkPointsObjects.forEach(checkPointObject => 
         {
-            //let point=this.checkPoints.create(checkPointObject.x,checkPointObject.y+432 ,"checkPoint"/*,"particles","death-white"*/).setOrigin(16.5,16.5);
-            //point.scale = 0.03;
-            //point.setBodySize(32,32);
-            let point=this.checkPoints.create(checkPointObject.x,checkPointObject.y-16).setOrigin(0.5,0.5);
+            let point=this.checkPoints.create(checkPointObject.x,checkPointObject.y-16);
             point.blendMode=Phaser.BlendModes.COLOR_DODGE;
             point.checkPointObject=checkPointObject;
         });
 
 
-        //------------------------ Effet sur la lave (ou autre surface mortelle) ------------------------
+        //------------------------------------------------ Eléments animés ------------------------------------------------
+
+        //     bougies     //     
+        this.anims.create({
+            key: 'bg',
+            frames: this.anims.generateFrameNumbers('bougieAnime', { start: 0, end: 5 }),
+            frameRate: 20,
+            repeat: -1
+        });
+
+        this.bougies = this.physics.add.staticGroup();
+        this.bougiesObjects = this.map.getObjectLayer('bougies')['objects'];
+        //on crée des bougies pour chaque objet rencontré
+        this.bougiesObjects.forEach(bougieObject => 
+        {
+            let bgLight=this.bougies.create(bougieObject.x+32,bougieObject.y-11,'bougie').setOrigin(0.5,1).setDepth(986)
+            .setBodySize(bougieObject.width,bougieObject.height);
+            bgLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
+            bgLight.bougieObject=bougieObject;
+        });
+
+
+        //------------------------------------------------ Effet sur la lave (ou autre surface mortelle) ------------------------------------------------
 
         /*this.laveFxContainer=this.add.container();
         this.lave.forEachTile(function(tile){ //on boucle sur TOUTES les tiles de lave pour générer des particules
@@ -403,7 +435,7 @@ class Niveau1 extends Tableau
 
         })*/
 
-        //------------------------ allez on se fait un peu la même en plus simple mais avec les étoiles ------------------------
+        //------------------------------------------------ Effet sur les étoiles (ou autre collectible) ------------------------------------------------
 
         let starsFxContainer=ici.add.container();
         this.stars.children.iterate(function(etoile) 
@@ -428,7 +460,7 @@ class Niveau1 extends Tableau
         });
 
 
-        //------------------------ débug ------------------------
+        //------------------------------------------------ Débug ------------------------------------------------
         
         //pour débugger les collisions sur chaque layer
         let debug=this.add.graphics().setAlpha(this.game.config.physics.arcade.debug?0.75:0);
@@ -451,9 +483,10 @@ class Niveau1 extends Tableau
         }); */
 
 
-        //------------------------ parallax ciel (rien de nouveau) ------------------------
+        //----------------------------------------------- Parallax ciel (rien de nouveau) ------------------------------------------------
 
-        //on change de ciel, on fait une tileSprite ce qui permet d'avoir une image qui se répète
+        // On change de ciel
+        // On fait une tileSprite ce qui permet d'avoir une image qui se répète
         this.sky=this.add.tileSprite(
             0,
             0,
@@ -461,8 +494,8 @@ class Niveau1 extends Tableau
             this.sys.canvas.height,
             'night'
         );
-        this.sky.setOrigin(0,0); //3584
-        this.sky.setScrollFactor(0);//fait en sorte que le ciel ne suive pas la caméra
+        this.sky.setOrigin(0,0);
+        this.sky.setScrollFactor(0); // Fait en sorte que le ciel ne suive pas la caméra
         this.sky2=this.add.tileSprite(
             0,
             0,
@@ -519,9 +552,9 @@ class Niveau1 extends Tableau
         this.skyDevant.setScrollFactor(0);
 
 
-        //------------------------ sources lumineuses ------------------------
+        //------------------------------------------------ Sources lumineuses ------------------------------------------------
 
-        //    grandes torches    //
+        //     grandes torches     //
         /*this.pointLight1 = this.add.pointlight(50, 770, (0, 0, 0), 100, 0.05, 0.15);
         this.pointLight1.color.r = 255;
         this.pointLight1.color.g = 50;
@@ -532,7 +565,7 @@ class Niveau1 extends Tableau
         this.pointLight1B.color.g = 250;
         this.pointLight1B.color.b = 0;*/
 
-        this.pointLight2 = this.add.pointlight(1075, 770, (0, 0, 0), 100, 0.05, 0.15);
+        /*this.pointLight2 = this.add.pointlight(1075, 770, (0, 0, 0), 100, 0.05, 0.15);
         this.pointLight2.color.r = 255;
         this.pointLight2.color.g = 50;
         this.pointLight2.color.b = 0;
@@ -581,13 +614,7 @@ class Niveau1 extends Tableau
         this.pointLight10.color.r = 255;
         this.pointLight10.color.g = 200;
         this.pointLight10.color.b = 0;
-
-        /*
-        5631
-        7871
-        8191
-        8511
-        */
+ 
         // test
         let torche1 = this.add.pointlight(50, 770, 0, 200, 0.6) //game.config.width/2+60, game.config.height/2-160, 0, 200, 0.5);
         torche1.attenuation = 0.05;
@@ -649,10 +676,10 @@ class Niveau1 extends Tableau
                 from:0,
                 to:1,
             }
-        })
+        })*/
 
 
-        //------------------------ Effets particules ------------------------
+        //------------------------------------------------ Effets particules ------------------------------------------------
 
         //----- effets de feuilles -----
         this.particles1 = this.add.particles('feuille1');
@@ -721,7 +748,7 @@ class Niveau1 extends Tableau
         });
 
 
-        //------------------------ collisions ------------------------
+        //------------------------------------------------ Collisions ------------------------------------------------
 
         //les solides
         this.physics.add.collider(this.player, this.solides);
@@ -750,7 +777,7 @@ class Niveau1 extends Tableau
         this.physics.add.collider(this.stars, this.platforms5);
 
 
-        //------------------------ Check points ------------------------
+        //------------------------------------------------ Check points ------------------------------------------------
 
         //quand on touche un checkpoint
         
@@ -760,7 +787,7 @@ class Niveau1 extends Tableau
         }, null, this);
 
 
-        //------------------------ Escaliers ------------------------
+        //------------------------------------------------ Escaliers ------------------------------------------------
 
         //quand on touche un Escaliers
         
@@ -771,13 +798,45 @@ class Niveau1 extends Tableau
             this.player.setPosition(player.x-1024, player.y-1152);//384);
         }, null, this);
 
+        //------------------------------------------------ Bougies ------------------------------------------------
 
-        //--------- Z order -----------------------
+        //quand on touche une bougie
+
+        this.physics.add.overlap(this.player, this.bougies, function(player, bougie)
+        {
+            //this.add.sprite(bougieObject.x+32,bougieObject.y-32,'bougie').play('bg', true).setDepth(986);
+            ici.allumerBougie(bougie.bougieObject.name);
+            /*
+            //this.add.sprite(bougiesObject.x+32,bougiesObject.y-32,'bougie').play('bg', true);
+            let bougie1 = this.add.pointlight(player.x+32, player.y-32, 0, 200, 0.6);
+            bougie1.attenuation = 0.05;
+            bougie1.color.setTo(255, 200, 0);
+            bougie1.setDepth(986);
+            this.tweens.add(
+            {
+                targets:bougie1,
+                duration:4000,
+                yoyo: true,
+                repeat:-1,
+                delay:Math.random()*1000,
+                alpha:
+                {
+                    startDelay:Math.random()*5000,
+                    from:0,
+                    to:1,
+                }
+            })*/
+
+        }, null, this);
+
+
+        //--------------------------------- Z order -----------------------------------------------
 
         //on définit les z à la fin
         let z=1000; 
         //niveau Z qui a chaque fois est décrémenté.
-        this.checkPoints.setDepth(1000);
+        this.checkPoints.setDepth(997);
+        //this.bougies.setDepth(986);
         //this.escaliers.setDepth(1000);
         debug.setDepth(z--);
 
@@ -791,7 +850,7 @@ class Niveau1 extends Tableau
         this.blood2.setDepth(z--);
 
         /*this.pointLight1B.setDepth(z--);
-        this.pointLight1.setDepth(z--);*/
+        this.pointLight1.setDepth(z--);*//*
         this.pointLight2B.setDepth(z--);
         this.pointLight2.setDepth(z--);    
         this.pointLight3.setDepth(z--);
@@ -808,7 +867,7 @@ class Niveau1 extends Tableau
         this.pointLight13.setDepth(z--);
 
         torche1.setDepth(z--);
-        torche1B.setDepth(z--);
+        torche1B.setDepth(z--);*/
 
         this.monstersContainer.setDepth(z--);
         this.stars.setDepth(z--);
@@ -828,19 +887,30 @@ class Niveau1 extends Tableau
 
         //Save & Restore checkpoint
         this.restoreCheckPoint();
+        this.allumerBougie();
 
-    } //---------- FIN DE CREATE ----------
+    } //---------------------------------- FIN DE CREATE ----------------------------------
 
 
     // Ne pas oublier de nommer chaques checkpoints sur Tiled
     saveCheckPoint(checkPointName)
     {
+        //this.unique = false;
         if (localStorage.getItem("checkPoint") !== checkPointName)
         {
             console.log("on atteint le checkpoint", checkPointName);
             localStorage.setItem("checkPoint", checkPointName);
+
+            /*
+            if (this.unique === false)
+            {
+                this.add.sprite(checkPointObject.x,checkPointObject.y-16,'checkPoint').play('cp', true).setOrigin(0.5,0.5).setDepth(986).setBodySize(64,64);
+                //.setDisplaySize(16,16);
+                this.unique = true;
+            }
+            */
         }
-    } //---------- FIN DE SAVECHECKPOINT ----------
+    } //---------------------------------- FIN DE SAVECHECKPOINT ----------------------------------
 
 
     restoreCheckPoint()
@@ -857,7 +927,65 @@ class Niveau1 extends Tableau
                 }
             });
         }
-    } //---------- FIN DE RESTORECHECKPOINT ----------
+    } //---------------------------------- FIN DE RESTORECHECKPOINT ----------------------------------
+
+    allumerBougie(bougieName)
+    {
+        let storedBougie=localStorage.getItem("bougie")
+        if (storedBougie !== bougieName)
+        {
+            console.log("on allume la bougie", bougieName);
+            localStorage.setItem("bougie", bougieName);
+            this.unSeul = true;
+        }
+        else if (storedBougie === bougieName)
+        {
+            this.bougiesObjects.forEach(bougieObject => 
+                {
+                    
+                    if(bougieObject.name === storedBougie && this.unSeul === true)
+                    {
+                        this.add.sprite(bougieObject.x+32,bougieObject.y-20,'bougieAnime').play('bg', true).setDepth(986);
+                        let bougie2 = this.add.pointlight(bougieObject.x+33, bougieObject.y-24, 0, 200, 0.3).setDepth(986);
+                        bougie2.attenuation = 0.05;
+                        bougie2.color.setTo(255, 200, 0);
+                        this.tweens.add(
+                        {
+                            targets:bougie2,
+                            //duration:6000,
+                            //yoyo: true,
+                            //repeat:-1,
+                            delay:Math.random()*1000,
+                            alpha:
+                            {
+                                startDelay:Math.random()*5000,
+                                from:0,
+                                to:1,
+                            }
+                        })
+                        this.unSeul = false;
+                        let bougie1 = this.add.pointlight(bougieObject.x+33, bougieObject.y-24, 0, 10, 0.2).setDepth(986);
+                        bougie1.attenuation = 0.05;
+                        bougie1.color.setTo(255, 200, 0);
+                        this.tweens.add(
+                        {
+                            targets:bougie1,
+                            duration:200,//4000,
+                            yoyo: true,
+                            repeat:-1,
+                            delay:Math.random()*1000,
+                            alpha:
+                            {
+                                startDelay:Math.random()*5000,
+                                from:0,
+                                to:1,
+                            }
+                        })
+                        this.unSeul = false;
+                    }
+                });
+        }
+    } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
 
 /*
     // Ne pas oublier de nommer chaques checkpoints sur Tiled
@@ -900,7 +1028,7 @@ class Niveau1 extends Tableau
         */
         // ici on peut appliquer le même principe pour des monstres, des collectibles etc...
 
-    } //---------- FIN DE OPTIMIZEDISPLAY ----------
+    } //---------------------------------- FIN DE OPTIMIZEDISPLAY ----------------------------------
 
 
     /**
@@ -930,7 +1058,8 @@ class Niveau1 extends Tableau
         //les ombres devant
         this.skyDevant.tilePositionX=this.cameras.main.scrollX*1.4;//*0.6//0.15;
         this.skyDevant.tilePositionY=this.cameras.main.scrollY;//+0//*0.05;
-    }
+
+    } //---------------------------------- FIN DE MOVEPARALLAX ----------------------------------
 
     update()
     {
@@ -949,6 +1078,7 @@ class Niveau1 extends Tableau
             this.previousPosition=actualPosition;
             this.optimizeDisplay();
         }
-    }
+
+    }//---------------------------------- FIN DE UPDATE ----------------------------------
 }
 

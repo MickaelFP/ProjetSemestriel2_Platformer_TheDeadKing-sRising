@@ -66,6 +66,8 @@ class Tableau extends Phaser.Scene{
         this.broke.displayWidth=32;
         this.broke.displayHeight=32;
         this.broke.visible=false
+
+        this.cleanStorage();
     
     }
     update(){
@@ -393,9 +395,18 @@ class Tableau extends Phaser.Scene{
      * Pour reset cette scène proprement
      * @private
      */
-    _destroy(){
+    _destroy(bougieName){
         this.player.stop();
         this.scene.stop();
+        //localStorage.removeItem("bougie", bougieName);
+    }
+
+    /**
+     * Pour reset le localStorage
+     * @private
+     */
+    cleanStorage(bougieName){
+        localStorage.removeItem("bougie", bougieName);
     }
 
     /**
