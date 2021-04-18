@@ -39,7 +39,8 @@ class Niveau1 extends Tableau
         this.load.image('monster-fly', 'assets/entities/chauve-souris.png'); // original 'monster-fly'
         this.load.image('bossSpectre', 'assets/entities/bossSpectre_Remastered.png');
 
-        this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie2.png', { frameWidth: 32, frameHeight: 48 } );        
+        this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie2.png', { frameWidth: 32, frameHeight: 48 } );       
+        this.load.spritesheet('squelette', 'assets/Spritesheet/player0.png', { frameWidth: 32, frameHeight: 48 } ); 
 
         // -----Particules-------------
         this.load.image('feuille1', 'assets/particles/animation_feuille_1.png');
@@ -250,27 +251,35 @@ class Niveau1 extends Tableau
         //------------------------------------------------ Les monstres (objets tiled) ------------------------------------------------
 
         //let fonction1 = this;
-
         this.monstersContainer=this.add.container();
-        this.flyingMonstersObjects = this.map.getObjectLayer('flyingMonsters')['objects'];
+
         // On crée des montres volants pour chaque objet rencontré
+        this.flyingMonstersObjects = this.map.getObjectLayer('flyingMonsters')['objects'];
         this.flyingMonstersObjects.forEach(monsterObject => 
         {
             let monster=new MonsterFly(this,monsterObject.x,monsterObject.y);
             this.monstersContainer.add(monster);
         });
 
-        this.zombiesObjects = this.map.getObjectLayer('zombies')['objects'];
         // On crée des zombies pour chaque objet rencontré
+        this.zombiesObjects = this.map.getObjectLayer('zombies')['objects'];
         this.zombiesObjects.forEach(monsterObject => 
         {
             let monster=new MonsterZombie(this,monsterObject.x,monsterObject.y-30);
             this.monstersContainer.add(monster);
             //this.physics.add.collider(monster, this.solides); 
         });
+
+        // On crée des squelettes pour chaque objet rencontré
+        this.squelettesObjects = this.map.getObjectLayer('squelettes')['objects'];
+        this.squelettesObjects.forEach(monsterObject => 
+        {
+            let monster=new MonsterSkeleton(this,monsterObject.x,monsterObject.y-30);
+            this.monstersContainer.add(monster); 
+        });
         
-        this.bossSpectreObjects = this.map.getObjectLayer('bossSpectre')['objects'];
         // On crée le boss
+        this.bossSpectreObjects = this.map.getObjectLayer('bossSpectre')['objects'];
         this.bossSpectreObjects.forEach(monsterObject => 
         {
             let monster=new MonsterBossSpectre(this,monsterObject.x+7600,monsterObject.y);

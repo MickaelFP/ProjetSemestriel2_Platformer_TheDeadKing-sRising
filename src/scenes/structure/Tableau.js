@@ -30,8 +30,8 @@ class Tableau extends Phaser.Scene{
         this.load.audio('solEffondre', 'assets/Sound/explosion-2.mp3');
         this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1.mp3');
         this.load.spritesheet('player',
-            'assets/Spritesheet/player0.png',
-            { frameWidth: 32, frameHeight: 48  }
+            'assets/Spritesheet/playerRemastered.png',
+            { frameWidth: 32, frameHeight: 64  }
         );
     }
     create(){
@@ -50,7 +50,7 @@ class Tableau extends Phaser.Scene{
          * Le joueur
          * @type {Player}
          */
-        this.player=new Player(this,0+160,0+1968);//160//1200/1968
+        this.player=new Player(this,0+160,0+1952);//160//1200/1968
         this.player.setMaxVelocity(800,800); //évite que le player quand il tombe ne traverse des plateformes
         this.blood=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"blood")
         this.blood.displayWidth=64;

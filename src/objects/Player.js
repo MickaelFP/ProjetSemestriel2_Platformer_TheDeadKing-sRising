@@ -17,7 +17,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.anims.create(
         {
             key: 'left',
-            frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
+            frames: this.anims.generateFrameNumbers('player', { start: 0, end:  7}),
             frameRate: 10,
             repeat: -1
         });
@@ -25,7 +25,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.anims.create(
         {
             key: 'right',
-            frames: this.anims.generateFrameNumbers('player', { start: 4, end: 7 }),
+            frames: this.anims.generateFrameNumbers('player', { start: 8, end: 15 }),
             frameRate: 10,
             repeat: -1
         });
@@ -33,21 +33,21 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.anims.create(
         {
             key: 'turn',
-            frames: this.anims.generateFrameNumbers('player', { start: 8, end: 11 }),
-            frameRate: 5
+            frames: this.anims.generateFrameNumbers('player', { start: 16, end: 21 }),
+            frameRate: 10
         });
 
         this.anims.create(
         {
             key: 'jumpLeft',
-            frames: [ { key: 'player', frame: 1 } ],
+            frames: [ { key: 'player', frame: 3 } ],
             frameRate: 20
         });
 
         this.anims.create(
         {
             key: 'jumpRight',
-            frames: [ { key: 'player', frame: 4 } ],
+            frames: [ { key: 'player', frame: 12 } ],
             frameRate: 20
         });
 
