@@ -1,6 +1,6 @@
 
-let width=14*64; //896;
-let height=7*64; //448;
+let width=14*64; //14* -> 896;
+let height=7*64; //7*  -> 448;
 
 let config = {
     type: Phaser.AUTO,
@@ -21,7 +21,8 @@ let config = {
     scene: [
         new Ui(),
 
-        new TableauStart(""),
+        new Welcome(""),
+        new ControlsPanel(""),
         new Niveau1(""),
 
     ],

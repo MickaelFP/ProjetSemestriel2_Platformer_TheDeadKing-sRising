@@ -17,10 +17,12 @@ class Tableau extends Phaser.Scene{
     preload(){
         this.load.image('sky', 'assets/backgrounds/sky2.png');
         this.load.image('sun', 'assets/elements/sun.jpg');
+        this.load.image('ossement', 'assets/elements/os.png');
         this.load.image('blood', 'assets/elements/bloodblack.png');
         this.load.image('spike', 'assets/elements/spike.png');
         this.load.image('osExplosion', 'assets/elements/persoMort.png');
         this.load.image('broke', 'assets/elements/vaseBroke.png');
+
         this.load.audio('os', 'assets/Sound/os_sound.mp3');
         this.load.audio('splash', 'assets/Sound/splash.mp3');
         this.load.audio('crack', 'assets/Sound/crack.mp3');
@@ -29,6 +31,7 @@ class Tableau extends Phaser.Scene{
         this.load.audio('solPierreBrise', 'assets/Sound/explosion-1.mp3');
         this.load.audio('solEffondre', 'assets/Sound/explosion-2.mp3');
         this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1.mp3');
+
         this.load.spritesheet('player',
             'assets/Spritesheet/playerRemastered.png',
             { frameWidth: 32, frameHeight: 64  }
@@ -67,12 +70,34 @@ class Tableau extends Phaser.Scene{
         this.broke.displayHeight=32;
         this.broke.visible=false
 
+        this.projectil=false;
+
         this.cleanStorage();
     
     }
-    update(){
+    update(player, object, monster){
         super.update();
         this.player.move(); 
+
+        if (this.projectil)
+        {
+            let me = this;
+            this.monstre=this.physics.add.group();
+            me.projectil = new ElementProjectils(this,this.player.x,this.player.y,"ossement").setDepth(996);
+            me.projectil.rotation = Phaser.Math.Between(0,6);
+
+            /*
+            me.projectil=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"ossement").setDepth(996);
+            me.projectil.rotation = Phaser.Math.Between(0,6);
+            me.projectil.x=me.player.x;
+            me.projectil.y=me.player.y;
+            */
+            //projectil.displayWidth=32;
+            //projectil.displayHeight=32;
+            //projectil.visible=false;
+            console.log("projectil créé")
+            this.projectil=false;
+        }
     }
 
     /**

@@ -12,6 +12,7 @@ class Niveau1 extends Tableau
         // ------pour TILED-------------
         // nos images principales
         this.load.image('star', 'assets/elements/Os.png');
+        this.load.image('ossement', 'assets/elements/os.png');
         this.load.image('os', 'assets/elements/os.png');
         this.load.image('platformStone', 'assets/elements/platformStone.png');
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
@@ -58,8 +59,8 @@ class Niveau1 extends Tableau
         // -----Sons-------------
         this.load.audio('brkkk', 'assets/Sound/broke_sound.mp3');
         this.load.audio('bruitZombie', 'assets/Sound/bruitZombie.mp3');
-        this.load.audio('welcome', 'assets/Sound/Piano_Sonata_no_14.mp3');
-        this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1.mp3');
+        this.load.audio('welcome', 'assets/Sound/Piano_Sonata_no_14_SV.mp3');
+        this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
  
         // -----Atlas de texture généré avec https://free-tex-packer.com/app/ -------------
         //on y trouve notre étoiles et une tête de mort
@@ -938,6 +939,7 @@ class Niveau1 extends Tableau
         }
     } //---------------------------------- FIN DE RESTORECHECKPOINT ----------------------------------
 
+
     allumerBougie(bougieName)
     {
         let storedBougie=localStorage.getItem("bougie")
@@ -995,6 +997,7 @@ class Niveau1 extends Tableau
                 });
         }
     } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
+    
 
 /*
     // Ne pas oublier de nommer chaques checkpoints sur Tiled
