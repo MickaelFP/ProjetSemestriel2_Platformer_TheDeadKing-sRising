@@ -68,7 +68,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                     Tableau.current.player.directionY=0;
                     break;
 
-                case "A":
+                case "a":
                     Tableau.current.player.directionX=0;
                     Tableau.current.player.directionY=0;
                     //Tableau.current.projectil = false;

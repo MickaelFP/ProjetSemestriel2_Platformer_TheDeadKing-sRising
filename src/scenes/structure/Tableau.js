@@ -83,14 +83,13 @@ class Tableau extends Phaser.Scene{
         this.infCtrl.displayWidth=400;
         this.infCtrl.displayHeight=400;
         this.infCtrl.visible=false;
-    
     }
 
     /**
      *
      * @param {function} onComplete Fonction à appeler quand l'anim est finie
      */
-    update(player, monster, onComplete)
+    update(monster, player, onComplete)
     {
         super.update();
         this.player.move(); 
@@ -98,9 +97,30 @@ class Tableau extends Phaser.Scene{
         if (this.projectil)
         {
             let me = this;
-            this.monstre=this.physics.add.group();
+
             me.projectil=new ElementProjectils(this,this.player.x,this.player.y,"ossement").setDepth(996);
+
             me.projectil.rotation = Phaser.Math.Between(0,6);
+            /*me.tweens.add({
+                targets:me.projectil,
+                duration:0,
+                displayHeight:
+                {
+                    from:16,
+                    to:16,
+                },
+                displayWidth:
+                {
+                    from:16,
+                    to:16,
+                },
+                onComplete: function (ossement) 
+                {
+                    //me.projectil.visible=false;
+                    //me.projectil.disableBody(true, true);
+                    //onComplete();
+                }
+            })*/
 
             /*
             me.projectil=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"ossement").setDepth(996);

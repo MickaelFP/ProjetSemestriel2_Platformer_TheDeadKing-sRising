@@ -261,6 +261,7 @@ class Niveau1 extends Tableau
         {
             let monster=new MonsterFly(this,monsterObject.x,monsterObject.y);
             this.monstersContainer.add(monster);
+            //this.physics.add.collider(monster, this.projectil);
         });
 
         // On crée des zombies pour chaque objet rencontré
@@ -269,6 +270,7 @@ class Niveau1 extends Tableau
         {
             let monster=new MonsterZombie(this,monsterObject.x,monsterObject.y-30);
             this.monstersContainer.add(monster);
+            //this.physics.add.collider(monster, this.projectil);
             //this.physics.add.collider(monster, this.solides); 
         });
 
@@ -278,6 +280,7 @@ class Niveau1 extends Tableau
         {
             let monster=new MonsterSkeleton(this,monsterObject.x,monsterObject.y);
             this.monstersContainer.add(monster); 
+            //this.physics.add.collider(monster, this.projectil);
         });
         
         // On crée le boss
@@ -287,6 +290,7 @@ class Niveau1 extends Tableau
             let monster=new MonsterBossSpectre(this,monsterObject.x+7600,monsterObject.y);
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
+            //this.physics.add.collider(monster, this.projectil);
         });
 
 
@@ -299,6 +303,7 @@ class Niveau1 extends Tableau
             let monster=new ElementVase(this,monsterObject.x+32,monsterObject.y-32);
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
+            this.physics.add.collider(monster, this.projectil);
         });
 
         this.solFragileObjects = this.map.getObjectLayer('solFragile')['objects'];
@@ -786,6 +791,9 @@ class Niveau1 extends Tableau
 
         this.physics.add.collider(this.player, this.platforms5);
         this.physics.add.collider(this.stars, this.platforms5);
+
+        //projectils
+        //...
 
 
         //------------------------------------------------ Check points ------------------------------------------------
