@@ -12,7 +12,7 @@ class Niveau1 extends Tableau
         // ------pour TILED-------------
         // nos images principales
         this.load.image('star', 'assets/elements/Os.png');
-        this.load.image('ossement', 'assets/elements/os.png');
+        this.load.image('ossement', 'assets/elements/ossement.png');
         this.load.image('os', 'assets/elements/os.png');
         this.load.image('platformStone', 'assets/elements/platformStone.png');
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
@@ -33,6 +33,7 @@ class Niveau1 extends Tableau
         this.load.image('solFragile', 'assets/elements/solFragile.png');
         this.load.image('solFragilePierre', 'assets/elements/solFragilePierre.png');
         this.load.image('rocheQuiRoule', 'assets/elements/solFragilePierre.png');
+        this.load.image('infCtrl', 'assets/elements/infosControls2.png');
 
         this.load.spritesheet('checkPoint', 'assets/Spritesheet/checkPointAnimate.png', { frameWidth: 540, frameHeight: 612 } );
 
@@ -275,7 +276,7 @@ class Niveau1 extends Tableau
         this.squelettesObjects = this.map.getObjectLayer('squelettes')['objects'];
         this.squelettesObjects.forEach(monsterObject => 
         {
-            let monster=new MonsterSkeleton(this,monsterObject.x,monsterObject.y-30);
+            let monster=new MonsterSkeleton(this,monsterObject.x,monsterObject.y);
             this.monstersContainer.add(monster); 
         });
         
@@ -846,6 +847,7 @@ class Niveau1 extends Tableau
         let z=1000; 
         //niveau Z qui a chaque fois est décrémenté.
         this.checkPoints.setDepth(997);
+        this.infCtrl.setDepth(1000);
         //this.bougies.setDepth(986);
         //this.escaliers.setDepth(1000);
         debug.setDepth(z--);

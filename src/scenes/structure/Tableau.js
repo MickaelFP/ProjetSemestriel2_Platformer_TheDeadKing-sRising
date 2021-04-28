@@ -17,11 +17,12 @@ class Tableau extends Phaser.Scene{
     preload(){
         this.load.image('sky', 'assets/backgrounds/sky2.png');
         this.load.image('sun', 'assets/elements/sun.jpg');
-        this.load.image('ossement', 'assets/elements/os.png');
+        this.load.image('ossement', 'assets/elements/ossement.png');
         this.load.image('blood', 'assets/elements/bloodblack.png');
         this.load.image('spike', 'assets/elements/spike.png');
         this.load.image('osExplosion', 'assets/elements/persoMort.png');
         this.load.image('broke', 'assets/elements/vaseBroke.png');
+        this.load.image('infCtrl', 'assets/elements/infosControls2.png');
 
         this.load.audio('os', 'assets/Sound/os_sound.mp3');
         this.load.audio('splash', 'assets/Sound/splash.mp3');
@@ -30,7 +31,8 @@ class Tableau extends Phaser.Scene{
         this.load.audio('chute', 'assets/Sound/boule_neige.mp3');
         this.load.audio('solPierreBrise', 'assets/Sound/explosion-1.mp3');
         this.load.audio('solEffondre', 'assets/Sound/explosion-2.mp3');
-        this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1.mp3');
+        this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
+        this.load.audio('shhh', 'assets/Sound/sabre-9.mp3');
 
         this.load.spritesheet('player',
             'assets/Spritesheet/playerRemastered.png',
@@ -55,27 +57,41 @@ class Tableau extends Phaser.Scene{
          */
         this.player=new Player(this,0+160,0+1952);//160//1200/1968
         this.player.setMaxVelocity(800,800); //évite que le player quand il tombe ne traverse des plateformes
-        this.blood=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"blood")
+        this.blood=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"blood");
         this.blood.displayWidth=64;
         this.blood.displayHeight=64;
         this.blood.visible=false;
 
-        this.blood2=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"osExplosion")
+        this.blood2=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"osExplosion");
         this.blood2.displayWidth=64;
         this.blood2.displayHeight=64;
-        this.blood2.visible=false
+        this.blood2.visible=false;
 
-        this.broke=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"broke")
+        this.broke=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"broke");
         this.broke.displayWidth=32;
         this.broke.displayHeight=32;
-        this.broke.visible=false
+        this.broke.visible=false;
 
         this.projectil=false;
 
+        this.iPressed=false;
+        this.showInfos=false;
+
         this.cleanStorage();
+
+        this.infCtrl=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"infCtrl");
+        this.infCtrl.displayWidth=400;
+        this.infCtrl.displayHeight=400;
+        this.infCtrl.visible=false;
     
     }
-    update(player, object, monster){
+
+    /**
+     *
+     * @param {function} onComplete Fonction à appeler quand l'anim est finie
+     */
+    update(player, monster, onComplete)
+    {
         super.update();
         this.player.move(); 
 
@@ -83,7 +99,7 @@ class Tableau extends Phaser.Scene{
         {
             let me = this;
             this.monstre=this.physics.add.group();
-            me.projectil = new ElementProjectils(this,this.player.x,this.player.y,"ossement").setDepth(996);
+            me.projectil=new ElementProjectils(this,this.player.x,this.player.y,"ossement").setDepth(996);
             me.projectil.rotation = Phaser.Math.Between(0,6);
 
             /*
@@ -96,7 +112,36 @@ class Tableau extends Phaser.Scene{
             //projectil.displayHeight=32;
             //projectil.visible=false;
             console.log("projectil créé")
-            this.projectil=false;
+            me.projectil=false;
+        }
+
+        if (this.iPressed)
+        {
+            let me = this;
+            me.infCtrl.visible=true;
+            me.infCtrl.x=me.player.x-50;
+            me.infCtrl.y=me.player.y;
+            me.tweens.add({
+                targets:me.infCtrl,
+                duration:0,
+                displayHeight:
+                {
+                    from:400,
+                    to:400,
+                },
+                displayWidth:
+                {
+                    from:400,
+                    to:400,
+                },
+                onComplete: function () 
+                {
+                    me.infCtrl.visible=false;
+                    //onComplete();
+                }
+            })
+            console.log("infos ctrl affichées");
+
         }
     }
 
@@ -115,15 +160,18 @@ class Tableau extends Phaser.Scene{
         me.tweens.add({
             targets:me.blood,
             duration:200,
-            displayHeight:{
+            displayHeight:
+            {
                 from:40,
                 to:70,
             },
-            displayWidth:{
+            displayWidth:
+            {
                 from:40,
                 to:70,
             },
-            onComplete: function () {
+            onComplete: function () 
+            {
                 me.blood.visible=false;
                 onComplete();
             }
@@ -133,7 +181,7 @@ class Tableau extends Phaser.Scene{
     /**
      *
      * @param {Sprite} object Objet qui saigne
-     * @param {function} onComplete Fonction à appeler quand l'anim est finie
+     * @param {function} onComplete Fonction à appeler quand l'animation est finie
      */
     saignePlayer(object,onComplete)
     {
@@ -167,7 +215,7 @@ class Tableau extends Phaser.Scene{
     /**
      *
      * @param {Sprite} object Objet qui saigne
-     * @param {function} onComplete Fonction à appeler quand l'anim est finie
+     * @param {function} onComplete Fonction à appeler quand l'animation est finie
      */
     vaseBroke(object) //,onComplete)
     {
@@ -297,9 +345,11 @@ class Tableau extends Phaser.Scene{
      * @param {Player} player
      * @param {Phaser.Physics.Arcade.Sprite} monster
      */
-    hitMonster(player, monster){
+    hitMonster(player, monster)
+    {
         let me=this;
-        if(monster.isDead !== true){ //si notre monstre n'est pas déjà mort
+        if(monster.isDead !== true)
+        { //si notre monstre n'est pas déjà mort
             if(
                 // si le player descend
                 player.body.velocity.y > 0
@@ -386,14 +436,17 @@ class Tableau extends Phaser.Scene{
      * - redémarre le tableau
      */
     
-    playerDie(){
+    playerDie()
+    {
         let me=this;
-        if(!me.player.isDead) {
+        if(!me.player.isDead) 
+        {
             ui.perdre();
             me.player.isDead = true;
             me.player.visible = false;
             //ça saigne...
-            me.saignePlayer(me.player, function () {
+            me.saignePlayer(me.player, function () 
+            {
                 //à la fin de la petite anim, on relance le jeu
                 me.blood2.visible = false;
                 me.player.anims.play('turn');
@@ -420,7 +473,8 @@ class Tableau extends Phaser.Scene{
      * Pour reset cette scène proprement
      * @private
      */
-    _destroy(bougieName){
+    _destroy(bougieName)
+    {
         this.player.stop();
         this.scene.stop();
         //localStorage.removeItem("bougie", bougieName);
@@ -430,45 +484,57 @@ class Tableau extends Phaser.Scene{
      * Pour reset le localStorage
      * @private
      */
-    cleanStorage(bougieName){
+    cleanStorage(bougieName)
+    {
         localStorage.removeItem("bougie", bougieName);
     }
 
     /**
      * Quand on a gagné
      */
-    win(){
+    win()
+    {
         Tableau.suivant();
     }
 
     /**
      * Va au tableau suivant
      */
-    static suivant(){
+    static suivant()
+    {
         let ceSeraLaSuivante=false;
         let nextScene=null;
-        if(Tableau.current){
-            for(let sc of game.scene.scenes){
-                if(sc.scene.key !== "ui"){
-                    if(!nextScene){
-                        if(ceSeraLaSuivante){
+        if(Tableau.current)
+        {
+            for(let sc of game.scene.scenes)
+            {
+                if(sc.scene.key !== "ui")
+                {
+                    if(!nextScene)
+                    {
+                        if(ceSeraLaSuivante)
+                        {
                             nextScene=sc;
                         }
-                        if(sc.scene.key === Tableau.current.scene.key){
+                        if(sc.scene.key === Tableau.current.scene.key)
+                        {
                             ceSeraLaSuivante=true;
                         }
                     }
                 }
             }
         }
-        if(!nextScene){
+        if(!nextScene)
+        {
             nextScene = game.scene.scenes[0];
         }
         Tableau.goTableau(nextScene);
     }
 
-    static goTableau(tableau){
-        if(Tableau.current){
+    static goTableau(tableau)
+    {
+        if(Tableau.current)
+        {
             Tableau.current._destroy();
         }
         game.scene.start(tableau);

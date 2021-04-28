@@ -29,13 +29,14 @@ class ControlsPanel extends Phaser.Scene {
 
         //---------- on affiche les textes que l'on veut faire apparaître (boutons, titre...) ----------
 
-        let cPBText1 = this.add.text(game.config.width/2-85, game.config.height -240, "[A] = throw bones",{font: "15px visitor", fill:"#000000"}); //375,560,FFF
-        let cPBText2 = this.add.text(game.config.width/2-85, game.config.height -210, "[R]",{font: "15px visitor", fill:"#000000"});
-        let cPBText3 = this.add.text(game.config.width/2-85, game.config.height -180, "[ArrowLeft] = go left",{font: "15px visitor", fill:"#000000"});
-        let cPBText4 = this.add.text(game.config.width/2-85, game.config.height -150, "[ArrowRight] = go right",{font: "15px visitor", fill:"#000000"});
-        let cPBText5 = this.add.text(game.config.width/2-85, game.config.height -120, "[ArrowTop] = jump",{font: "15px visitor", fill:"#000000"});
+        let cPBText1 = this.add.text(game.config.width/2-85, game.config.height -255, "[A] = throw bones",{font: "15px visitor", fill:"#000000"}); //375,560,FFF
+        let cPBText2 = this.add.text(game.config.width/2-85, game.config.height -225, "[R]",{font: "15px visitor", fill:"#000000"});
+        let cPBText3 = this.add.text(game.config.width/2-85, game.config.height -195, "[I] = infos controls",{font: "15px visitor", fill:"#000000"});
+        let cPBText4 = this.add.text(game.config.width/2-85, game.config.height -165, "[ArrowLeft] = go left",{font: "15px visitor", fill:"#000000"});
+        let cPBText5 = this.add.text(game.config.width/2-85, game.config.height -135, "[ArrowRight] = go right",{font: "15px visitor", fill:"#000000"});
+        let cPBText6 = this.add.text(game.config.width/2-85, game.config.height -105, "[ArrowTop] = jump",{font: "15px visitor", fill:"#000000"});
 
-        let cPBText2_1 = this.add.text(game.config.width/2-60, game.config.height -210, "= back/menu/pause",{font: "15px visitor", fill:"#000000"});
+        let cPBText2_1 = this.add.text(game.config.width/2-60, game.config.height -225, "= back/menu/pause",{font: "15px visitor", fill:"#000000"});
 
         //tweens permet de donner un petit effet à la cible voulue (target)
         this.tweens.add(

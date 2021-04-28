@@ -34,13 +34,20 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                     console.log("attackOn");
                     break;
                 
-                case "r":
+                case "i":
+                    Tableau.current.iPressed = true;
+                    //Tableau.current.showInfos = true;
+                    console.log("ShowInfosCtrl");
+                    break;
+
+                case "r":/*
                     Tableau.current.cameras.main.fadeOut(1000, 0, 0, 0)
                     Tableau.current.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
                     {
                         Tableau.current.game.scene.start(Welcome);
                         Tableau.current.scene.start("bootGame");
                     })
+                    break;*/
             }
         });
         scene.input.keyboard.on('keyup', function(kevent){
@@ -67,6 +74,20 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                     //Tableau.current.projectil = false;
                     console.log("attackOff");
                     break;
+                
+                case "i":
+                    Tableau.current.iPressed=false;
+                    console.log("HideInfosCtrl");
+                    break;
+                
+                case "r":/*
+                    Tableau.current.cameras.main.fadeOut(1000, 0, 0, 0)
+                    Tableau.current.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
+                    {
+                        Tableau.current.game.scene.start(Welcome);
+                        Tableau.current.scene.start("bootGame");
+                    })
+                    break;*/
             }
         });
 
