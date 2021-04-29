@@ -161,7 +161,6 @@ class Tableau extends Phaser.Scene{
                 }
             })
             console.log("infos ctrl affichées");
-
         }
     }
 

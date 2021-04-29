@@ -18,7 +18,7 @@ class Niveau1 extends Tableau
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
 
         //les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha1-2.json'); // -> 'tableauTiled' & 2nd 'MapTiledLongueur' & 3rd 'tableauTiledCimetiereDbug
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha1-3.json'); // -> 'tableauTiled' & 2nd 'MapTiledLongueur' & 3rd 'tableauTiledCimetiereDbug
 
         // -----Decors-------------
         this.load.image('night', 'assets/backgrounds/sky_plan_nuitEtoileCarre.png');//nuitEtoileCarre_4.png');
@@ -221,8 +221,9 @@ class Niveau1 extends Tableau
         // monstre
         this.platforms6 = this.physics.add.group();
 
-        this.platforms6.create(4848, 1280+hauteurDif, 'solFragilePierre');
+        this.platforms6.create(3964, 1280+hauteurDif, 'solFragilePierre');
         this.platforms6.create(4160, 1280+hauteurDif, 'solFragilePierre');
+        this.platforms6.create(4848, 1280+hauteurDif, 'solFragilePierre');
 
         this.platforms6.children.iterate(function (child) {
             child.setImmovable(true);
@@ -294,7 +295,7 @@ class Niveau1 extends Tableau
         this.squelettesObjects = this.map.getObjectLayer('squelettes')['objects'];
         this.squelettesObjects.forEach(monsterObject => 
         {
-            let monster=new MonsterSkeleton(this,monsterObject.x,monsterObject.y-25);
+            let monster=new MonsterSkeleton(this,monsterObject.x,monsterObject.y);
             this.monstersContainer.add(monster); 
             this.physics.add.collider(monster, this.solides);
             this.physics.add.collider(monster, this.platforms4);
@@ -306,7 +307,7 @@ class Niveau1 extends Tableau
         this.bossSpectreObjects = this.map.getObjectLayer('bossSpectre')['objects'];
         this.bossSpectreObjects.forEach(monsterObject => 
         {
-            let monster=new MonsterBossSpectre(this,monsterObject.x+7600,monsterObject.y);
+            let monster=new MonsterBossSpectre(this,monsterObject.x,monsterObject.y);
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
             //this.physics.add.collider(monster, this.projectil);
