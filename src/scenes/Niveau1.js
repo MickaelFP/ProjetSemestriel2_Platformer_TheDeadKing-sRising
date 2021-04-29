@@ -181,17 +181,18 @@ class Niveau1 extends Tableau
         // plateformes pierre
         this.platforms4 = this.physics.add.group();
 
+        this.platforms4.create(3906, 880+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(3906, 768+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(3934, 612+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(3996, 500+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(4050, 736+hauteurDif, 'solFragilePierre');
+        //this.platforms4.create(4832, 1328+hauteurDif, 'solFragilePierre');
         this.platforms4.create(4832, 1584+hauteurDif, 'solFragilePierre');
         this.platforms4.create(4896, 1520+hauteurDif, 'solFragilePierre');
         this.platforms4.create(4960, 1456+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(5344, 1232+hauteurDif, 'solFragilePierre');
         this.platforms4.create(5248, 1168+hauteurDif, 'solFragilePierre');
         this.platforms4.create(5296, 1056+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(3906, 880+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(3906, 768+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(4050, 736+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(3934, 612+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(3996, 500+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(5344, 1232+hauteurDif, 'solFragilePierre');
 
         this.platforms4.children.iterate(function (child) {
             child.setImmovable(true);
@@ -203,12 +204,27 @@ class Niveau1 extends Tableau
         });
 
         // plateformes antibug
+        // joueur
         this.platforms5 = this.physics.add.group();
 
-        this.platforms5.create(5440, 1280+hauteurDif);
         this.platforms5.create(5040, 896+hauteurDif);
+        this.platforms5.create(5440, 1280+hauteurDif);
 
         this.platforms5.children.iterate(function (child) {
+            child.setImmovable(true);
+            child.body.allowGravity=false;
+            child.setCollideWorldBounds(false);
+            child.setFriction(1);
+            child.setOrigin(0,0);
+            child.setDisplaySize(16,64);
+        });
+        // monstre
+        this.platforms6 = this.physics.add.group();
+
+        this.platforms6.create(4848, 1280+hauteurDif, 'solFragilePierre');
+        this.platforms6.create(4160, 1280+hauteurDif, 'solFragilePierre');
+
+        this.platforms6.children.iterate(function (child) {
             child.setImmovable(true);
             child.body.allowGravity=false;
             child.setCollideWorldBounds(false);
@@ -278,8 +294,11 @@ class Niveau1 extends Tableau
         this.squelettesObjects = this.map.getObjectLayer('squelettes')['objects'];
         this.squelettesObjects.forEach(monsterObject => 
         {
-            let monster=new MonsterSkeleton(this,monsterObject.x,monsterObject.y);
+            let monster=new MonsterSkeleton(this,monsterObject.x,monsterObject.y-25);
             this.monstersContainer.add(monster); 
+            this.physics.add.collider(monster, this.solides);
+            this.physics.add.collider(monster, this.platforms4);
+            this.physics.add.collider(monster, this.platforms6);
             //this.physics.add.collider(monster, this.projectil);
         });
         
@@ -311,6 +330,7 @@ class Niveau1 extends Tableau
         {
             let monster=new ElementSolFragile(this,monsterObject.x+32,monsterObject.y-32);
             this.monstersContainer.add(monster);
+            this.physics.add.collider(monster, this.solides);
             this.physics.add.collider(monster, this.solides);
         });
 
@@ -854,6 +874,8 @@ class Niveau1 extends Tableau
         //on définit les z à la fin
         let z=1000; 
         //niveau Z qui a chaque fois est décrémenté.
+        this.platforms5.setDepth(984);
+        this.platforms6.setDepth(984);
         this.checkPoints.setDepth(997);
         this.infCtrl.setDepth(1000);
         //this.bougies.setDepth(986);
