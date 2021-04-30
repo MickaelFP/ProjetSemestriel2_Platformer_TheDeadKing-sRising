@@ -32,10 +32,10 @@ class Niveau1 extends Tableau
         this.load.image('vase', 'assets/elements/vase2.png');
         this.load.image('solFragile', 'assets/elements/solFragile.png');
         this.load.image('solFragilePierre', 'assets/elements/solFragilePierre.png');
-        this.load.image('rocheQuiRoule', 'assets/elements/solFragilePierre.png');
+        this.load.image('rocheQuiRoule', 'assets/elements/solFragilePierre1.png');
         this.load.image('infCtrl', 'assets/elements/infosControls2.png');
 
-        this.load.spritesheet('checkPoint', 'assets/Spritesheet/checkPointAnimate.png', { frameWidth: 540, frameHeight: 612 } );
+        this.load.spritesheet('checkPoint', 'assets/Spritesheet/corbeauAnimation1.png', { frameWidth: 448, frameHeight: 448 } );
 
         // -----Monstres-------------
         this.load.image('monster-fly', 'assets/entities/chauve-souris.png'); // original 'monster-fly'
@@ -367,21 +367,20 @@ class Niveau1 extends Tableau
 
         //------------------------------------------------ Check point ------------------------------------------------
 
-        /*
         this.anims.create({
             key: 'cp',
-            frames: this.anims.generateFrameNumbers('bougieAnime', { start: 0, end: 8 }),
-            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('checkPoint', { start: 0, end: 13 }),
+            frameRate: 6,
             repeat: -1
         });
-        */
 
         this.checkPoints = this.physics.add.staticGroup();
         this.checkPointsObjects = this.map.getObjectLayer('checkPoints')['objects'];
         //on crée des checkpoints pour chaque objet rencontré
         this.checkPointsObjects.forEach(checkPointObject => 
         {
-            let point=this.checkPoints.create(checkPointObject.x,checkPointObject.y-16);
+            let point=this.checkPoints.create(checkPointObject.x+248,checkPointObject.y+183,'checkPoint').play('cp', true).setDepth(986).setDisplaySize(16,16).setBodySize(64,64)
+            .setOrigin(14,12.4);
             point.blendMode=Phaser.BlendModes.COLOR_DODGE;
             point.checkPointObject=checkPointObject;
         });
@@ -892,24 +891,7 @@ class Niveau1 extends Tableau
         this.blood.setDepth(z--);
         this.blood2.setDepth(z--);
 
-        /*this.pointLight1B.setDepth(z--);
-        this.pointLight1.setDepth(z--);*//*
-        this.pointLight2B.setDepth(z--);
-        this.pointLight2.setDepth(z--);    
-        this.pointLight3.setDepth(z--);
-        this.pointLight4.setDepth(z--);
-        this.pointLight5.setDepth(z--);
-        this.pointLight6.setDepth(z--);
-        this.pointLight7.setDepth(z--);
-        this.pointLight8.setDepth(z--);
-        this.pointLight9.setDepth(z--);
-        this.pointLight10.setDepth(z--);
-        this.pointLight12.setDepth(z--);
-        //this.pointLight11.setDepth(z--);
-        this.pointLight14.setDepth(z--);
-        this.pointLight13.setDepth(z--);
-
-        torche1.setDepth(z--);
+        /*torche1.setDepth(z--);
         torche1B.setDepth(z--);*/
 
         this.monstersContainer.setDepth(z--);
