@@ -62,6 +62,8 @@ class Niveau1 extends Tableau
         this.load.audio('bruitZombie', 'assets/Sound/bruitZombie.mp3');
         this.load.audio('welcome', 'assets/Sound/Piano_Sonata_no_14_SV.mp3');
         this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
+        this.load.audio('openingGate', 'assets/Sound/Gate-barriere-metallique-ouverture_ID-2357.mp3');
+        this.load.audio('allumageBougie', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
  
         // -----Atlas de texture généré avec https://free-tex-packer.com/app/ -------------
         //on y trouve notre étoiles et une tête de mort
@@ -834,6 +836,20 @@ class Niveau1 extends Tableau
         {
             //ici.saveEscaliers(escaliers.escaliersObject.name);
             //this.player.setPosition(escaliersObject.x, escaliersObject.y-384);
+
+            this.gate = this.sound.add('openingGate');
+            var musicConfig = 
+            {
+                mute: false,
+                volume: 0.5,
+                rate : 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay:0,
+            }
+            this.gate.play(musicConfig);
+            
             this.player.setPosition(player.x-1024, player.y-1152);//384);
         }, null, this);
 
@@ -912,7 +928,7 @@ class Niveau1 extends Tableau
 
         //Save & Restore checkpoint
         this.restoreCheckPoint();
-        this.allumerBougie();
+        //this.allumerBougie();
 
     } //---------------------------------- FIN DE CREATE ----------------------------------
 
@@ -955,7 +971,7 @@ class Niveau1 extends Tableau
     } //---------------------------------- FIN DE RESTORECHECKPOINT ----------------------------------
 
 
-    allumerBougie(bougieName)
+    allumerBougie(bougieName, player)
     {
         let storedBougie=localStorage.getItem("bougie")
         if (storedBougie !== bougieName)
@@ -971,48 +987,62 @@ class Niveau1 extends Tableau
                     
                     if(bougieObject.name === storedBougie && this.unSeul === true)
                     {
-                        this.add.sprite(bougieObject.x+32,bougieObject.y-20,'bougieAnime').play('bg', true).setDepth(986);
-                        let bougie2 = this.add.pointlight(bougieObject.x+33, bougieObject.y-24, 0, 200, 0.3).setDepth(986);
-                        bougie2.attenuation = 0.05;
-                        bougie2.color.setTo(255, 200, 0);
-                        this.tweens.add(
-                        {
-                            targets:bougie2,
-                            //duration:6000,
-                            //yoyo: true,
-                            //repeat:-1,
-                            delay:Math.random()*1000,
-                            alpha:
+                            this.allumeBougie = this.sound.add('allumageBougie');
+                            var musicConfig = 
                             {
-                                startDelay:Math.random()*5000,
-                                from:0,
-                                to:1,
+                                mute: false,
+                                volume: 0.2,
+                                rate : 1,
+                                detune: 0,
+                                seek: 0,
+                                loop: false,
+                                delay:0,
                             }
-                        })
-                        this.unSeul = false;
-                        let bougie1 = this.add.pointlight(bougieObject.x+33, bougieObject.y-24, 0, 10, 0.2).setDepth(986);
-                        bougie1.attenuation = 0.05;
-                        bougie1.color.setTo(255, 200, 0);
-                        this.tweens.add(
-                        {
-                            targets:bougie1,
-                            duration:200,//4000,
-                            yoyo: true,
-                            repeat:-1,
-                            delay:Math.random()*1000,
-                            alpha:
+                            this.allumeBougie.play(musicConfig);
+    
+                            let bougieSprite = this.add.sprite(bougieObject.x+32,bougieObject.y-20,'bougieAnime').play('bg', true).setDepth(986);
+                            let bougie2 = this.add.pointlight(bougieObject.x+33, bougieObject.y-24, 0, 200, 0.3).setDepth(986);
+                            bougie2.attenuation = 0.05;
+                            bougie2.color.setTo(255, 200, 0);
+                            this.tweens.add(
                             {
-                                startDelay:Math.random()*5000,
-                                from:0,
-                                to:1,
-                            }
-                        })
+                                targets:bougie2,
+                                duration:1,
+                                //yoyo: true,
+                                //repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            this.unSeul = false;
+                            let bougie1 = this.add.pointlight(bougieObject.x+33, bougieObject.y-24, 0, 10, 0.2).setDepth(986);
+                            bougie1.attenuation = 0.05;
+                            bougie1.color.setTo(255, 200, 0);
+                            this.tweens.add(
+                            {
+                                targets:bougie1,
+                                duration:200,//4000,
+                                yoyo: true,
+                                repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+
                         this.unSeul = false;
                     }
+
                 });
         }
     } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
-    
 
 /*
     // Ne pas oublier de nommer chaques checkpoints sur Tiled

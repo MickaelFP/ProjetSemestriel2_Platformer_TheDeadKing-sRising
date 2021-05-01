@@ -40,6 +40,9 @@ class Tableau extends Phaser.Scene{
         );
     }
     create(){
+
+        //---------- Données primaires indispensable au tabbleau ----------
+
         Tableau.current=this;
         this.isMobile=this.game.device.os.android || this.game.device.os.iOS;
         this.sys.scene.scale.lockOrientation("landscape")
@@ -55,6 +58,9 @@ class Tableau extends Phaser.Scene{
          * Le joueur
          * @type {Player}
          */
+
+        //---------- fonction en booleans d'affichage d'image ----------
+
         this.player=new Player(this,0+160,0+1952);//160//1200/1968
         this.player.setMaxVelocity(800,800); //évite que le player quand il tombe ne traverse des plateformes
         this.blood=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"blood");
@@ -72,17 +78,22 @@ class Tableau extends Phaser.Scene{
         this.broke.displayHeight=32;
         this.broke.visible=false;
 
-        this.projectil=false;
-
-        this.iPressed=false;
-        this.showInfos=false;
-
-        this.cleanStorage();
-
         this.infCtrl=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"infCtrl");
         this.infCtrl.displayWidth=400;
         this.infCtrl.displayHeight=400;
         this.infCtrl.visible=false;
+
+
+        //---------- booleans simples que l'on compte utiliser ----------
+
+        this.aPressed=false;
+
+        this.iPressed=false;
+        this.showInfos=false;
+
+        this.ControlPressed=false;
+
+        //this.cleanStorage();
     }
 
     /**
@@ -94,15 +105,15 @@ class Tableau extends Phaser.Scene{
         super.update();
         this.player.move(); 
 
-        if (this.projectil)
+        if (this.aPressed)
         {
             let me = this;
 
-            me.projectil=new ElementProjectils(this,this.player.x,this.player.y,"ossement").setDepth(996);
+            me.aPressed=new ElementProjectils(this,this.player.x,this.player.y,"ossement").setDepth(996);
 
-            me.projectil.rotation = Phaser.Math.Between(0,6);
+            me.aPressed.rotation = Phaser.Math.Between(0,6);
             /*me.tweens.add({
-                targets:me.projectil,
+                targets:me.aPressed,
                 duration:0,
                 displayHeight:
                 {
@@ -116,23 +127,23 @@ class Tableau extends Phaser.Scene{
                 },
                 onComplete: function (ossement) 
                 {
-                    //me.projectil.visible=false;
-                    //me.projectil.disableBody(true, true);
+                    //me.aPressed.visible=false;
+                    //me.aPressed.disableBody(true, true);
                     //onComplete();
                 }
             })*/
 
             /*
-            me.projectil=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"ossement").setDepth(996);
-            me.projectil.rotation = Phaser.Math.Between(0,6);
-            me.projectil.x=me.player.x;
-            me.projectil.y=me.player.y;
+            me.aPressed=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"ossement").setDepth(996);
+            me.aPressed.rotation = Phaser.Math.Between(0,6);
+            me.aPressed.x=me.player.x;
+            me.aPressed.y=me.player.y;
             */
-            //projectil.displayWidth=32;
-            //projectil.displayHeight=32;
-            //projectil.visible=false;
+            //aPressed.displayWidth=32;
+            //aPressed.displayHeight=32;
+            //aPressed.visible=false;
             console.log("projectil créé")
-            me.projectil=false;
+            me.aPressed=false;
         }
 
         if (this.iPressed)
@@ -161,6 +172,13 @@ class Tableau extends Phaser.Scene{
                 }
             })
             console.log("infos ctrl affichées");
+        }
+
+        if (this.ControlPressed)
+        {
+            //this.cleanStorage();
+            localStorage.removeItem("checkPoint");
+            //localStorage.removeItem("bougie");
         }
     }
 
@@ -485,6 +503,8 @@ class Tableau extends Phaser.Scene{
                 delay:0,
             }
             this.music.play(musicConfig);
+
+            localStorage.removeItem("bougie");
         }
     }
 

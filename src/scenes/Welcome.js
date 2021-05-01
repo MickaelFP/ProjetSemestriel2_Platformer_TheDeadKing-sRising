@@ -5,17 +5,31 @@ class Welcome extends Phaser.Scene {
   
     preload ()
     {
+        // images
         this.load.image('startBG', 'assets/backgrounds/startBackground.png');
         this.load.image('startB', 'assets/elements/startBouton.png');
         this.load.image('logo', 'assets/elements/PlatformerLogoRemastered.png');
         //this.load.spritesheet('cp', 'assets/cp.png', { frameWidth: 206, frameHeight: 184 } );
+
+        // audios
         //this.load.audio('welcome1', 'assets/Sound/Dark-Hero-3.mp3');
         this.load.audio('welcome', 'assets/Sound/Piano_Sonata_no_14_SV.mp3');
+        this.load.audio('drapeau', 'assets/Sound/Drapeau_ID-1788.wav');
     }
   
     create()
     {
+        localStorage.removeItem("bougie");
+
+        //---------- booleans que l'on compte utiliser ----------
+
+        this.EnterPressed = false;
+        this.SpacePressed = false;
         
+        
+        //---------- gestion des musiques ----------
+
+        this.game.sound.stopAll();
         this.welcome = this.sound.add('welcome');
         var musicConfig = 
         {
@@ -28,6 +42,7 @@ class Welcome extends Phaser.Scene {
             delay:0,
         }
         this.welcome.play(musicConfig);
+
   
         //---------- on affiche les images à l'écran ----------
 
@@ -198,34 +213,67 @@ class Welcome extends Phaser.Scene {
 
         //---------- on initialise les touches du clavier pour lancer le jeu, activer/desactiver des options, etc ----------
 
+        /*if(Tableau.current){
+            Tableau.current._destroy();
+        }
+        this.game.scene.start(tableau);
+        this.scene.start("aventureBegining");*/
+
         this.input.keyboard.on('keydown-ENTER', function () //'keydown-SPACE', function () 
         {
-            this.cameras.main.fadeOut(1000, 0, 0, 0)
-            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
+            if (!this.EnterPressed)
             {
-                /*if(Tableau.current){
-                    Tableau.current._destroy();
+                this.music = this.sound.add('drapeau');
+                var musicConfig = 
+                {
+                    mute: false,
+                    volume: 1,
+                    rate : 1,
+                    detune: 0,
+                    seek: 0,
+                    loop: false,
+                    delay:0,
                 }
-                this.game.scene.start(tableau);
-                this.scene.start("aventureBegining");*/
-                this.game.scene.start(Niveau1);
-                this.scene.start("Cemetary");
-            })
+                this.music.play(musicConfig);
+
+                this.EnterPressed = true;
+                this.cameras.main.fadeOut(1000, 0, 0, 0)
+                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
+                {
+                    this.game.scene.start(Niveau1);
+                    this.scene.start("Cemetary");
+                })
+            }
+
         }, this);
+
 
         this.input.keyboard.on('keydown-SPACE', function () //'keydown-SPACE', function () 
         {
-            this.cameras.main.fadeOut(1000, 0, 0, 0)
-            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
+            if (!this.SpacePressed)
             {
-                /*if(Tableau.current){
-                    Tableau.current._destroy();
+                this.music = this.sound.add('drapeau');
+                var musicConfig = 
+                {
+                    mute: false,
+                    volume: 1,
+                    rate : 1,
+                    detune: 0,
+                    seek: 0,
+                    loop: false,
+                    delay:0,
                 }
-                this.game.scene.start(tableau);
-                this.scene.start("aventureBegining");*/
-                this.game.scene.start(ControlsPanel);
-                this.scene.start("panel");
-            })
+                this.music.play(musicConfig);
+    
+                this.SpacePressed = true;
+                this.cameras.main.fadeOut(1000, 0, 0, 0)
+                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
+                {
+                    this.game.scene.start(ControlsPanel);
+                    this.scene.start("panel");
+                })
+            }
+
         }, this);
     }
 }

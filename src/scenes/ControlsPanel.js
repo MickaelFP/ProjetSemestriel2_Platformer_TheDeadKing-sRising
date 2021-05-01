@@ -5,16 +5,25 @@ class ControlsPanel extends Phaser.Scene {
   
     preload ()
     {
+        // images
         this.load.image('pCBG', 'assets/backgrounds/startBackground.png');
         this.load.image('pCB', 'assets/elements/pCBouton_100pct.png');
         this.load.image('logo', 'assets/elements/PlatformerLogoRemastered.png');
         //this.load.spritesheet('cp', 'assets/cp.png', { frameWidth: 206, frameHeight: 184 } );
+
+        // audios
         //this.load.audio('welcome1', 'assets/Sound/Dark-Hero-3.mp3');
         this.load.audio('welcome', 'assets/Sound/Piano_Sonata_no_14.mp3');
+        this.load.audio('drapeau', 'assets/Sound/Drapeau_ID-1788.wav');
     }
   
     create()
     {
+        //---------- booleans que l'on compte utiliser ----------
+
+        this.rPressed = false;
+
+
         //---------- on affiche les images à l'écran ----------
 
         this.add.sprite(game.config.width/2, game.config.height/2, 'pCBG');
@@ -29,14 +38,15 @@ class ControlsPanel extends Phaser.Scene {
 
         //---------- on affiche les textes que l'on veut faire apparaître (boutons, titre...) ----------
 
-        let cPBText1 = this.add.text(game.config.width/2-85, game.config.height -255, "[A] = throw bones",{font: "15px visitor", fill:"#000000"}); //375,560,FFF
-        let cPBText2 = this.add.text(game.config.width/2-85, game.config.height -225, "[R]",{font: "15px visitor", fill:"#000000"});
-        let cPBText3 = this.add.text(game.config.width/2-85, game.config.height -195, "[I] = infos controls",{font: "15px visitor", fill:"#000000"});
-        let cPBText4 = this.add.text(game.config.width/2-85, game.config.height -165, "[ArrowLeft] = go left",{font: "15px visitor", fill:"#000000"});
-        let cPBText5 = this.add.text(game.config.width/2-85, game.config.height -135, "[ArrowRight] = go right",{font: "15px visitor", fill:"#000000"});
-        let cPBText6 = this.add.text(game.config.width/2-85, game.config.height -105, "[ArrowTop] = jump",{font: "15px visitor", fill:"#000000"});
+        let cPBText1 = this.add.text(game.config.width/2-90, game.config.height -270, "[A] = throw bones",{font: "15px visitor", fill:"#000000"}); //375,560,FFF
+        let cPBText2 = this.add.text(game.config.width/2-90, game.config.height -240, "[R]",{font: "15px visitor", fill:"#000000"});
+        let cPBText3 = this.add.text(game.config.width/2-90, game.config.height -210, "[I] = infos controls",{font: "15px visitor", fill:"#000000"});
+        let cPBText4 = this.add.text(game.config.width/2-90, game.config.height -180, "[ArrowLeft] = go left",{font: "15px visitor", fill:"#000000"});
+        let cPBText5 = this.add.text(game.config.width/2-90, game.config.height -150, "[ArrowRight] = go right",{font: "15px visitor", fill:"#000000"});
+        let cPBText6 = this.add.text(game.config.width/2-90, game.config.height -120, "[ArrowTop] = jump",{font: "15px visitor", fill:"#000000"});
+        let cPBText7 = this.add.text(game.config.width/2-90, game.config.height -90, "[Ctrl] = disable Checkpoint",{font: "15px visitor", fill:"#000000"});
 
-        let cPBText2_1 = this.add.text(game.config.width/2-60, game.config.height -225, "= back/menu/pause",{font: "15px visitor", fill:"#000000"});
+        let cPBText2_1 = this.add.text(game.config.width/2-64, game.config.height -240, "= back/menu/pause",{font: "15px visitor", fill:"#000000"});
 
         //tweens permet de donner un petit effet à la cible voulue (target)
         this.tweens.add(
@@ -53,6 +63,7 @@ class ControlsPanel extends Phaser.Scene {
                 to:1,
             }
         })
+
 
         //---------- quelques effets supplémentaires symphatiques ----------
 
@@ -170,16 +181,34 @@ class ControlsPanel extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-R', function () //'keydown-SPACE', function () 
         {
-            this.cameras.main.fadeOut(1000, 0, 0, 0)
-            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
+            if (!this.rPressed)
             {
-                /*if(Tableau.current){
-                    Tableau.current._destroy();
+                this.music = this.sound.add('drapeau');
+                var musicConfig = 
+                {
+                    mute: false,
+                    volume: 1,
+                    rate : 1,
+                    detune: 0,
+                    seek: 0,
+                    loop: false,
+                    delay:0,
                 }
-                this.game.scene.start(tableau);*/
-                this.game.scene.start(Welcome);
-                this.scene.start("bootGame");
-            })
+                this.music.play(musicConfig);
+
+                this.cameras.main.fadeOut(1000, 0, 0, 0)
+                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
+                {
+                    /*if(Tableau.current){
+                        Tableau.current._destroy();
+                    }
+                    this.game.scene.start(tableau);*/
+    
+                    this.rPressed = true;
+                    this.game.scene.start(Welcome);
+                    this.scene.start("bootGame");
+                })
+            }
         }, this);
     }
 }
