@@ -88,13 +88,6 @@ class MonsterZombie extends ObjetEnnemi{
                 me.start();
              }
         })
-        /*
-        this.blood=this.add.sprite(this,this.x,this.y,"blood");
-        this.blood.displayWidth=64;
-        this.blood.displayHeight=64;
-        this.blood.visible=false;*/
-
-        this.killSound = scene.sound.add('criZombie');
 
     }
 
@@ -128,51 +121,6 @@ class MonsterZombie extends ObjetEnnemi{
         }
     }*/
 
-
-    update()
-    {
-        if (!this.isAlive) 
-        {
-            this.killEffect();
-            //this.disableBody(true, true);
-            //this.isAlive = false;
-        }
-    }
-
-    killEffect(onComplete, preload) 
-    {
-        if(!this.isAlive)
-        {
-            let me=this;
-
-            this.killSound.play({ volume: .5 });
-    
-            this.blood=this.add.sprite(this.x,this.y,'blood');
-            me.blood.visible=true;
-            me.blood.rotation = Phaser.Math.Between(0,6);
-            me.blood.x=object.x;
-            me.blood.y=object.y;
-            me.tweens.add({
-                targets:me.blood,
-                duration:200,
-                displayHeight:
-                {
-                    from:40,
-                    to:70,
-                },
-                displayWidth:
-                {
-                    from:40,
-                    to:70,
-                },
-                onComplete: function () 
-                {
-                    me.blood.visible=false;
-                    onComplete();
-                }
-            })
-        }
-    }
 
     start(){
         this.scene.tweens.add(

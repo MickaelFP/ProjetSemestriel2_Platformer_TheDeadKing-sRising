@@ -181,7 +181,7 @@ class Tableau extends Phaser.Scene{
         if (this.ControlPressed)
         {
             //this.cleanStorage();
-            //localStorage.removeItem("checkPoint");
+            localStorage.removeItem("checkPoint");
             //localStorage.removeItem("bougie");
         }
     }
@@ -191,7 +191,7 @@ class Tableau extends Phaser.Scene{
      * @param {Sprite} object Objet qui saigne
      * @param {function} onComplete Fonction à appeler quand l'anim est finie
      */
-    /*saigne(object,onComplete)
+    saigne(object,onComplete)
     {
         let me=this;
         me.blood.visible=true;
@@ -217,7 +217,7 @@ class Tableau extends Phaser.Scene{
                 onComplete();
             }
         })
-    }*/
+    }
 
     /**
      *
@@ -264,27 +264,8 @@ class Tableau extends Phaser.Scene{
         me.broke.visible=true;
         me.broke.rotation = Phaser.Math.Between(0,6);
         me.broke.x=object.x;
-        me.broke.y=object.y;/*
-        me.tweens.add(
-            {
-            targets:me.broke,
-            duration:200,
-            displayHeight:
-            {
-                from:40,
-                to:70,
-            },
-            displayWidth:
-            {
-                from:40,
-                to:70,
-            },
-            onComplete: function () 
-            {
-                //me.broke.visible=false;
-                onComplete();
-            }
-        })*/
+        me.broke.y=object.y;
+        
     } // FIN DE VASEBROKE 
 
     ramasserEtoile (player, star)
@@ -404,16 +385,11 @@ class Tableau extends Phaser.Scene{
                 monster.disableBody(true,true);//plus de collisions
                 this.walking = false;
                 
-                // ********************* SAIGNE *********************
-                /*
-                this.saigne(monster,function(){
-                    //à la fin de la petite anim...ben il se passe rien :)
-                })
-                */
-                // ******************************************
 
-                // ********************* MUSIQUE *********************
-                /*
+                this.saigne(monster,function(){
+                    //effets déclenchés à la fin de l'animation :)
+                })
+
                 //petit son de mort du monstre
                 this.music = this.sound.add('splash');
 
@@ -428,8 +404,6 @@ class Tableau extends Phaser.Scene{
                     delay:0,
                 }
                 this.music.play(musicConfig);
-                */
-                // ******************************************
 
                 //notre joueur rebondit sur le monstre
                 player.directionY=500;
