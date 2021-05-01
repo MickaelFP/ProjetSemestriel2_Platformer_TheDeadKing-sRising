@@ -49,7 +49,6 @@ class ElementProjectils extends Phaser.Physics.Arcade.Sprite
     //fx.scale = 3;
   }
 
-
   update() 
   {
     /*

@@ -32,6 +32,7 @@ class Tableau extends Phaser.Scene{
         this.load.audio('solPierreBrise', 'assets/Sound/explosion-1.mp3');
         this.load.audio('solEffondre', 'assets/Sound/explosion-2.mp3');
         this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
+        this.load.audio('criZombie', 'assets/Sound/Zombie_ID-2111.wav');
         this.load.audio('shhh', 'assets/Sound/sabre-9.mp3');
 
         this.load.spritesheet('player',
@@ -44,9 +45,11 @@ class Tableau extends Phaser.Scene{
         //---------- Données primaires indispensable au tabbleau ----------
 
         Tableau.current=this;
+
         this.isMobile=this.game.device.os.android || this.game.device.os.iOS;
         this.sys.scene.scale.lockOrientation("landscape")
         console.log("On est sur "+this.constructor.name+" / "+this.scene.key);
+
         /**
          * Le ciel en fond
          * @type {Phaser.GameObjects.Image}
@@ -54,15 +57,16 @@ class Tableau extends Phaser.Scene{
         this.sky=this.add.image(0, 0, 'sky').setOrigin(0,0);
         this.sky.displayWidth=14*64;
         this.sky.setScrollFactor(0,0);
+
         /**
          * Le joueur
          * @type {Player}
          */
+         this.player=new Player(this,0+160,0+1952);//160//1200/1968
+         this.player.setMaxVelocity(800,800); //évite que le player quand il tombe ne traverse des plateformes
 
         //---------- fonction en booleans d'affichage d'image ----------
 
-        this.player=new Player(this,0+160,0+1952);//160//1200/1968
-        this.player.setMaxVelocity(800,800); //évite que le player quand il tombe ne traverse des plateformes
         this.blood=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"blood");
         this.blood.displayWidth=64;
         this.blood.displayHeight=64;
@@ -177,7 +181,7 @@ class Tableau extends Phaser.Scene{
         if (this.ControlPressed)
         {
             //this.cleanStorage();
-            localStorage.removeItem("checkPoint");
+            //localStorage.removeItem("checkPoint");
             //localStorage.removeItem("bougie");
         }
     }
@@ -187,7 +191,7 @@ class Tableau extends Phaser.Scene{
      * @param {Sprite} object Objet qui saigne
      * @param {function} onComplete Fonction à appeler quand l'anim est finie
      */
-    saigne(object,onComplete)
+    /*saigne(object,onComplete)
     {
         let me=this;
         me.blood.visible=true;
@@ -213,7 +217,7 @@ class Tableau extends Phaser.Scene{
                 onComplete();
             }
         })
-    }
+    }*/
 
     /**
      *
@@ -399,9 +403,17 @@ class Tableau extends Phaser.Scene{
                 monster.isDead=true; //ok le monstre est mort
                 monster.disableBody(true,true);//plus de collisions
                 this.walking = false;
+                
+                // ********************* SAIGNE *********************
+                /*
                 this.saigne(monster,function(){
                     //à la fin de la petite anim...ben il se passe rien :)
                 })
+                */
+                // ******************************************
+
+                // ********************* MUSIQUE *********************
+                /*
                 //petit son de mort du monstre
                 this.music = this.sound.add('splash');
 
@@ -416,6 +428,9 @@ class Tableau extends Phaser.Scene{
                     delay:0,
                 }
                 this.music.play(musicConfig);
+                */
+                // ******************************************
+
                 //notre joueur rebondit sur le monstre
                 player.directionY=500;
             }/*
