@@ -318,7 +318,8 @@ class Niveau1 extends Tableau
 
          //------------------------------------------------ Les elements interactifs (objets tiled) ------------------------------------------------
 
-        // elements cassables
+        // Elements cassables
+        //this.escaliers = this.physics.add.staticGroup();
         this.vaseObjects = this.map.getObjectLayer('vase')['objects'];
         this.vaseObjects.forEach(monsterObject => 
         {
@@ -326,6 +327,8 @@ class Niveau1 extends Tableau
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
             this.physics.add.collider(monster, this.projectil);
+            /*passage.blendMode=Phaser.BlendModes.COLOR_DODGE;
+            passage.escaliersObject=escaliersObject;*/
         });
 
         this.solFragileObjects = this.map.getObjectLayer('solFragile')['objects'];
@@ -345,7 +348,7 @@ class Niveau1 extends Tableau
             this.physics.add.collider(monster, this.solides);
         });
 
-        // elements movibles
+        // Elements movibles
         this.rocheQuiRouleObjects = this.map.getObjectLayer('rocheQuiRoule')['objects'];
         this.rocheQuiRouleObjects.forEach(monsterObject => 
         {
@@ -353,6 +356,19 @@ class Niveau1 extends Tableau
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
         });
+
+        /*
+        // Elements collectibles
+        this.bonus = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
+            bounceY:0
+        });
+        this.bonusObjects = this.map.getObjectLayer('bonus')['objects'];
+        this.bonusObjects.forEach(bonusObjects => {
+            //this.rammasserBonusUn()
+            let bonus = this.bonus.create(bonusObjects.x+32, bonusObjects.y+32 ,'bonus');   
+        });*/
 
         //------------------------------------------------ Escaliers ------------------------------------------------
 

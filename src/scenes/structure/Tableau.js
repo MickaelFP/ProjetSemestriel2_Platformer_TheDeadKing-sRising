@@ -24,6 +24,8 @@ class Tableau extends Phaser.Scene{
         this.load.image('broke', 'assets/elements/vaseBroke.png');
         this.load.image('infCtrl', 'assets/elements/infosControls2.png');
 
+        this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie2.png', { frameWidth: 32, frameHeight: 48 } ); 
+
         this.load.audio('os', 'assets/Sound/os_sound.mp3');
         this.load.audio('splash', 'assets/Sound/splash.mp3');
         this.load.audio('crack', 'assets/Sound/crack.mp3');
@@ -96,6 +98,9 @@ class Tableau extends Phaser.Scene{
         this.showInfos=false;
 
         this.ControlPressed=false;
+
+        this.vaseDrope=false;
+        this.oneDrope=false;
 
         //this.cleanStorage();
     }
@@ -183,6 +188,32 @@ class Tableau extends Phaser.Scene{
             //this.cleanStorage();
             localStorage.removeItem("checkPoint");
             //localStorage.removeItem("bougie");
+        }
+
+        if (this.vaseDrope)
+        {
+            /*let me = this;
+            console.log("DEBUG  DEBUG   DEBUG");
+            me.vaseDrope=new MonsterZombie(this,this.player.x+20,this.player.y+24,"zombie2").setDepth(996);
+            me.player.setVelocityX(120);*/
+            //ElementVase.current.broken = false;
+            //ElementVase.current.debugVaseDrop = true;
+            //me.vaseDrope = false;
+            
+            if (this.oneDrope)
+            {
+                let me = this;
+                console.log("DEBUG  DEBUG   DEBUG");
+                me.vaseDrope=new MonsterZombie(this,this.player.x+20,this.player.y+24,"zombie2").setDepth(996);
+                me.player.setVelocityX(120);
+                while(this.oneDrope)
+                {
+                    this.oneDrope = false;
+                    return;
+                }
+                me.vaseDrope = false;
+            }
+            //me.vaseDrope.rotation = Phaser.Math.Between(0,6);
         }
     }
 
@@ -384,7 +415,6 @@ class Tableau extends Phaser.Scene{
                 monster.isDead=true; //ok le monstre est mort
                 monster.disableBody(true,true);//plus de collisions
                 this.walking = false;
-                
 
                 this.saigne(monster,function(){
                     //effets déclenchés à la fin de l'animation :)
@@ -462,38 +492,54 @@ class Tableau extends Phaser.Scene{
      * - redémarre le tableau
      */
     
-    playerDie()
+    playerDie(player,hp)
     {
         let me=this;
         if(!me.player.isDead) 
         {
-            ui.perdre();
-            me.player.isDead = true;
-            me.player.visible = false;
-            //ça saigne...
-            me.saignePlayer(me.player, function () 
+            ui.perdre1();
+            ui.losePV();
+            if(this.hp != 0)
             {
-                //à la fin de la petite anim, on relance le jeu
-                me.blood2.visible = false;
-                me.player.anims.play('turn');
-                me.player.isDead = false;
-                me.scene.restart();
-            })
-            this.music = this.sound.add('crack');
-
-            var musicConfig = 
-            {
-                mute: false,
-                volume: 0.3,
-                rate : 1,
-                detune: 0,
-                seek: 0,
-                loop: false,
-                delay:0,
+                me.saignePlayer(me.player, function () 
+                {
+                    //à la fin de la petite anim, on relance le jeu
+                    me.blood2.visible = false;
+                    me.player.anims.play('turn');
+                    //player.directionX= -100;
+                    //me.scene.restart();
+                })
             }
-            this.music.play(musicConfig);
+            else
+            {
+                me.player.isDead = true;
+                me.player.visible = false;
+                //ça saigne...
+                me.saignePlayer(me.player, function () 
+                {
+                    //à la fin de la petite anim, on relance le jeu
+                    me.blood2.visible = false;
+                    me.player.anims.play('turn');
+                    me.player.isDead = false;
+                    me.scene.restart();
+                })
+                this.music = this.sound.add('crack');
+    
+                var musicConfig = 
+                {
+                    mute: false,
+                    volume: 0.3,
+                    rate : 1,
+                    detune: 0,
+                    seek: 0,
+                    loop: false,
+                    delay:0,
+                }
+                this.music.play(musicConfig);
+    
+                localStorage.removeItem("bougie");
+            }
 
-            localStorage.removeItem("bougie");
         }
     }
 

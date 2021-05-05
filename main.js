@@ -3,9 +3,9 @@ let width=14*64; //14* -> 896;
 let height=7*64; //7*  -> 448;
 
 let config = {
+    seed: (Date.now() * Math.random()).toString(),
     type: Phaser.AUTO,
     parent: 'phaser-example',
-
 
     physics: {
         default: 'arcade', //'arcade',
@@ -47,6 +47,7 @@ let config = {
     },
     autoRound: false
 };
+
 let game;
 function resize() {
     /*

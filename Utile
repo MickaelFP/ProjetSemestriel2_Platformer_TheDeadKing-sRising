@@ -213,3 +213,10 @@
         }*/
 
 //******************************************
+
+
+//****************** Random ***********************
+
+    this.rnd = Phaser.Math.RND;
+    this.rnd = new Phaser.Math.RandomDataGenerator((Date.now() * Math.random()).toString());
+    this.value = this.rnd.integerInRange(0, 3);

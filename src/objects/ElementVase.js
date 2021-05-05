@@ -19,10 +19,14 @@ class ElementVase extends Phaser.Physics.Arcade.Sprite
     this.world = scene;
     //this.scale = 3;
     this.isAlive = true;
-    this.broken = false;/*
-      
+    this.broken = false;
+    this.dropVase = false;
+    this.debugVaseDrop = false;
+    this.oneDrop = false; 
+
+    
   
-      this.anims.create(
+    /* this.anims.create(
       {
         key: 'moving',
         frames: this.anims.generateFrameNumbers('crawler', { start: 0, end: 5 }),
@@ -42,17 +46,61 @@ class ElementVase extends Phaser.Physics.Arcade.Sprite
 
   }
 
+
   killEffect() 
   {
-    /*let fx = *///this.world.add.sprite(this.x, this.y, 'broke');//.play('explode', true);
     this.killSound.play({ volume: .5 });
     this.broken = true;
-    //fx.scale = 3;
-    //fx.once('animationcomplete', () => {fx.destroy()})
+    //this.dropVase = true;
+    //this.drop();
+    //this.RandomDrop();
   }
 
+  /*drop()
+  {
+    if(!this.isAlive & !this.oneDrop)
+    {
+      console.log("help");
+      new MonsterZombie(this,x,y);//(this,monsterObject.x,monsterObject.y-30);
+      this.oneDrop = true;
+    }
+  }*/
 
-  update() 
+  /*RandomDrop(monster, player)
+  {
+    this.value = Math.random(0,3);
+
+    if(this.isAlive == false)// this.oneDrop == false)// & this.broken == true)
+    {
+      if(this.value = 0)
+      {
+        console.log("Attantion aux zombies");
+        let monster=new MonsterZombie(this.x,this.y);//(this,monsterObject.x,monsterObject.y-30);
+        //this.monstersContainer.add(monster); 
+        //this.physics.add.collider(monster, this.player);
+        //this.physics.add.collider(monster, this.projectil);
+        //this.physics.add.collider(monster, this.solides); 
+        //ui.gagne();
+      }
+      else if(this.value = 1)
+      {
+        console.log("Un bonus enfin!");
+        //let object=new ElementBonus(this.x,this.y);
+      }
+      else if(this.value = 2)
+      {
+        console.log("pas encore défini");
+      }
+      else
+      {
+        console.log("p.e.d");
+      }
+      this.oneDrop == true;
+    }
+  }*/
+
+
+  update(monster, player) 
   {
     /*
     this.anims.play('moving', true);
@@ -62,16 +110,26 @@ class ElementVase extends Phaser.Physics.Arcade.Sprite
     // Player kill Ennemy
     if (this.body.touching.up && this.isAlive) 
     {
-      this.world.player.setVelocityY(-10);
+      //this.world.player.setVelocityX(400);
+      Tableau.current.player.velocityX=200;
       this.killEffect();
       this.disableBody(true, true);
       this.isAlive = false;
+      Tableau.current.oneDrope = true;
     }
 
-    if (this.broken == true) 
+    if (this.broken) 
     {
+      console.log("DEBUG");
       this.world.add.sprite(this.x, this.y, 'broke').setDepth(986);
+      Tableau.current.vaseDrope = true;
       this.broken = false;
     }
+    /*if(Tableau.current.vaseDrope)
+    {
+      console.log("DEBUG  DEBUG");
+      Tableau.current.vaseDrope = false;
+      //this.debugVaseDrop = false;
+    }*/
   }
 }
