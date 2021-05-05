@@ -223,9 +223,17 @@ class Niveau1 extends Tableau
         // monstre
         this.platforms6 = this.physics.add.group();
 
+        this.platforms6.create(1516, 322+hauteurDif, 'solFragilePierre');
+        this.platforms6.create(2028, 322+hauteurDif, 'solFragilePierre');
+        this.platforms6.create(2380, 322+hauteurDif, 'solFragilePierre');
+        this.platforms6.create(2994, 322+hauteurDif, 'solFragilePierre');
         this.platforms6.create(3964, 1280+hauteurDif, 'solFragilePierre');
         this.platforms6.create(4160, 1280+hauteurDif, 'solFragilePierre');
         this.platforms6.create(4848, 1280+hauteurDif, 'solFragilePierre');
+        this.platforms6.create(4237, 322+hauteurDif, 'solFragilePierre');
+        this.platforms6.create(5349, 322+hauteurDif, 'solFragilePierre');
+        this.platforms6.create(6100, 322+hauteurDif, 'solFragilePierre');
+
 
         this.platforms6.children.iterate(function (child) {
             child.setImmovable(true);
@@ -289,6 +297,8 @@ class Niveau1 extends Tableau
         {
             let monster=new MonsterZombie(this,monsterObject.x,monsterObject.y-30);
             this.monstersContainer.add(monster);
+            this.physics.add.collider(monster, this.solides);
+            this.physics.add.collider(monster, this.platforms6);
             //this.physics.add.collider(monster, this.projectil);
             //this.physics.add.collider(monster, this.solides); 
         });

@@ -120,7 +120,7 @@ class ElementVase extends Phaser.Physics.Arcade.Sprite
 
     if (this.broken) 
     {
-      console.log("DEBUG");
+      console.log("broken");
       this.world.add.sprite(this.x, this.y, 'broke').setDepth(986);
       Tableau.current.vaseDrope = true;
       this.broken = false;

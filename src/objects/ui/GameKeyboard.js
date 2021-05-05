@@ -40,7 +40,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                     console.log("ShowInfosCtrl");
                     break;
 
-                case "Control":
+                case "c"://"Control":
                     console.log("checkPoint disable");
                     Tableau.current.ControlPressed = true;
                     break;
@@ -85,7 +85,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                     console.log("HideInfosCtrl");
                     break;
                     
-                case "Control":
+                case "c":
                     Tableau.current.ControlPressed = false;
                     break;
                 

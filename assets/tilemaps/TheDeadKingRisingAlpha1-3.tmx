@@ -835,11 +835,11 @@
  <objectgroup id="7" name="zombies">
   <object id="63" gid="11" x="448" y="832" width="64" height="64"/>
   <object id="64" gid="11" x="1728" y="832" width="64" height="64"/>
-  <object id="65" gid="11" x="2624" y="832" width="64" height="64"/>
-  <object id="66" gid="11" x="2176" y="832" width="64" height="64"/>
+  <object id="65" gid="11" x="2496" y="832" width="64" height="64"/>
+  <object id="66" gid="11" x="2752" y="832" width="64" height="64"/>
   <object id="67" gid="11" x="4544" y="832" width="64" height="64"/>
-  <object id="68" gid="11" x="4992" y="832" width="64" height="64"/>
-  <object id="69" gid="11" x="5376" y="832" width="64" height="64"/>
+  <object id="68" gid="11" x="4764" y="824" width="64" height="64"/>
+  <object id="69" gid="11" x="4992" y="832" width="64" height="64"/>
   <object id="70" gid="11" x="5824" y="832" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="20" name="bougies">

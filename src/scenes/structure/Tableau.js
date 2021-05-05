@@ -203,15 +203,31 @@ class Tableau extends Phaser.Scene{
             if (this.oneDrope)
             {
                 let me = this;
-                console.log("DEBUG  DEBUG   DEBUG");
+                console.log("oneDrope");
+
                 me.vaseDrope=new MonsterZombie(this,this.player.x+20,this.player.y+24,"zombie2").setDepth(996);
-                me.player.setVelocityX(120);
+                me.physics.add.collider(me.vaseDrope, this.solides);
+                me.physics.add.collider(me.vaseDrope, this.platforms6);
+                //me.player.setVelocityX(120);
+
                 while(this.oneDrope)
                 {
                     this.oneDrope = false;
                     return;
                 }
                 me.vaseDrope = false;
+            }
+            if(this.vaseDrope.body)
+            {
+                let me = this;
+                if(me.vaseDrope.body.velocity.x < 0)
+                {
+                    me.vaseDrope.flipX=true;
+                }
+                else
+                {
+                    me.vaseDrope.flipX=false;
+                }
             }
             //me.vaseDrope.rotation = Phaser.Math.Between(0,6);
         }
