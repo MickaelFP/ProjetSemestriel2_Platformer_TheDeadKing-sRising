@@ -35,6 +35,7 @@ class MonsterSkeleton extends ObjetEnnemi{
             if(this.body.velocity.x < 0)
             {
                 this.flipX=true;
+                
             }
             else
             {

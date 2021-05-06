@@ -9,6 +9,8 @@ class Tableau extends Phaser.Scene{
      */
     constructor(key) {
         super(key);
+
+        this.lifePoints=3;
     }
 
     /**
@@ -23,6 +25,10 @@ class Tableau extends Phaser.Scene{
         this.load.image('osExplosion', 'assets/elements/persoMort.png');
         this.load.image('broke', 'assets/elements/vaseBroke.png');
         this.load.image('infCtrl', 'assets/elements/infosControls2.png');
+        this.load.image('hp0', 'assets/ui/hp0.png');
+        this.load.image('hp1', 'assets/ui/hp1.png');
+        this.load.image('hp2', 'assets/ui/hp2.png');
+        this.load.image('hp3', 'assets/ui/hp3.png');
 
         this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie2.png', { frameWidth: 32, frameHeight: 48 } ); 
 
@@ -61,11 +67,15 @@ class Tableau extends Phaser.Scene{
         this.sky.setScrollFactor(0,0);
 
         /**
-         * Le joueur
-         * @type {Player}
-         */
-         this.player=new Player(this,0+160,0+1952);//160//1200/1968
-         this.player.setMaxVelocity(800,800); //évite que le player quand il tombe ne traverse des plateformes
+        * Le joueur
+        * @type {Player}
+        */
+        this.player=new Player(this,0+160,0+1952);//160//1200/1968
+        this.player.setMaxVelocity(800,800); //évite que le player quand il tombe ne traverse des plateformes
+
+        this.pv3=this.add.sprite(40, 100, "hp3");
+        this.pv3.setDepth(1000);
+        this.pv3.setScrollFactor(0);
 
         //---------- fonction en booleans d'affichage d'image ----------
 
@@ -101,8 +111,37 @@ class Tableau extends Phaser.Scene{
 
         this.vaseDrope=false;
         this.oneDrope=false;
+        this.walking = true;
 
         //this.cleanStorage();
+    }
+
+    InfosLifePoints()
+    {
+        if(this.lifePoints == 2)
+        {
+            console.log("hp2");
+            this.pv2=this.add.sprite(40, 100, "hp2");
+            this.pv2.setDepth(1000);
+            this.pv2.setScrollFactor(0);
+            this.pv3.destroy();
+        }
+        if(this.lifePoints == 1)
+        {
+            this.pv1=this.add.sprite(40, 100, "hp1");
+            this.pv1.setDepth(1000);
+            this.pv1.setScrollFactor(0);
+            this.pv2.destroy();
+            console.log("hp1");
+        }
+        if(this.lifePoints == 0)
+        {
+            this.pv0=this.add.sprite(40, 100, "hp0");
+            this.pv0.setDepth(1000);
+            this.pv0.setScrollFactor(0);
+            this.pv1.destroy();
+            console.log("hp0");
+        }
     }
 
     /**
@@ -113,6 +152,8 @@ class Tableau extends Phaser.Scene{
     {
         super.update();
         this.player.move(); 
+
+        // ---------------------------------------- Effets pour chaques touches configurées ----------------------------------------
 
         if (this.aPressed)
         {
@@ -151,7 +192,7 @@ class Tableau extends Phaser.Scene{
             //aPressed.displayWidth=32;
             //aPressed.displayHeight=32;
             //aPressed.visible=false;
-            console.log("projectil créé")
+            ui.perdre();
             me.aPressed=false;
         }
 
@@ -190,6 +231,8 @@ class Tableau extends Phaser.Scene{
             //localStorage.removeItem("bougie");
         }
 
+        // ---------------------------------------- Drop d'objet (ou de monstre...) ----------------------------------------
+
         if (this.vaseDrope)
         {
             /*let me = this;
@@ -200,12 +243,13 @@ class Tableau extends Phaser.Scene{
             //ElementVase.current.debugVaseDrop = true;
             //me.vaseDrope = false;
             
+            // Certains paramètres déjà définis doivent de nouveau l'être ici : déplacements, vitesse, collisions...
             if (this.oneDrope)
             {
                 let me = this;
                 console.log("oneDrope");
 
-                me.vaseDrope=new MonsterZombie(this,this.player.x+20,this.player.y+24,"zombie2").setDepth(996);
+                me.vaseDrope=new MonsterZombie(this,this.player.x+150,this.player.y+24,"zombie2").setDepth(996);
                 me.physics.add.collider(me.vaseDrope, this.solides);
                 me.physics.add.collider(me.vaseDrope, this.platforms6);
                 //me.player.setVelocityX(120);
@@ -223,10 +267,20 @@ class Tableau extends Phaser.Scene{
                 if(me.vaseDrope.body.velocity.x < 0)
                 {
                     me.vaseDrope.flipX=true;
+                    if(this.walking)
+                    {
+                        this.vaseDrope.setVelocityX(-40*(Math.random()+1.5));
+                        this.walking = false;
+                    }
                 }
                 else
                 {
                     me.vaseDrope.flipX=false;
+                    if(!this.walking)
+                    {
+                        this.vaseDrope.setVelocityX(40*(Math.random()+1.5));
+                        this.walking = true;
+                    }
                 }
             }
             //me.vaseDrope.rotation = Phaser.Math.Between(0,6);
@@ -408,12 +462,13 @@ class Tableau extends Phaser.Scene{
 
     }
 
+
     /**
      * Quand on touche un monstre
      * si on le touche par en haut on le tue, sinon c'est lui qui nous tue
      * @param {Player} player
      * @param {Phaser.Physics.Arcade.Sprite} monster
-     */
+     *//*
     hitMonster(player, monster)
     {
         let me=this;
@@ -453,22 +508,42 @@ class Tableau extends Phaser.Scene{
 
                 //notre joueur rebondit sur le monstre
                 player.directionY=500;
-            }/*
-            else if (
-                player.body.velocity.y > 0
-                &&
-                player.getBounds().bottom < monster.getBounds().top+30
-                &&
-                monster.VelocityX == 0
-            )
+            }
+            else
             {
+                //le joueur est mort
+                me.playerDie();
+            }
+        }
+    }// FIN DE HITMONSTER*/
+
+    
+    hitMonster(player, monster)
+    {
+        let me=this;
+
+        //this.blood2.setDepth(996);
+        if(monster.isDead !== true)
+        { //si notre monstre n'est pas déjà mort
+            if(
+                // si le player descend
+                player.body.velocity.y >= 0
+                // et si le bas du player est plus haut que le monstre
+                && player.getBounds().bottom < monster.getBounds().top+30
+
+            ){
                 ui.gagne();
-                monster.isDead=true;
-                monster.disableBody(true,true);
-                this.vaseBroke(monster,function(){
+                //monster.body.enable = false // Invulnérabilité temporaire
+                monster.isDead=true; //ok le monstre est mort
+                monster.disableBody(true,true);//plus de collisions
+
+                this.saigne(monster,function()
+                {
+                    //effets déclenchés à la fin de l'animation :)
                 })
 
-                this.music = this.sound.add('brkkk');
+                //petit son de mort du monstre
+                this.music = this.sound.add('splash');
 
                 var musicConfig = 
                 {
@@ -481,23 +556,89 @@ class Tableau extends Phaser.Scene{
                     delay:0,
                 }
                 this.music.play(musicConfig);
-            }*//*
-            else if (
-                player.body.velocity.y = 0
-                // si le monstre n'est pas en mouvement
-                monster.body.velocity.x != 0
-            )
-            {
-                //le joueur est mort
-                me.playerDie();
-            }*/
+
+                player.directionY=500;
+
+            } 
             else
             {
-                //le joueur est mort
-                me.playerDie();
+                me.playerDamage();
             }
         }
-    }// FIN DE HITMONSTER
+    }
+
+    playerDamage(player,hp)
+    {
+        // Le joueur est blessé
+        let me = this;
+        if(this.lifePoints>=2)
+        {
+            ui.losePV();
+            me.invincible();
+            me.lifePoints -= 1;
+            console.log('damage');
+            console.log(this.lifePoints);
+            me.InfosLifePoints();
+            console.log('postInfos');
+        }
+        // Le joueur est mort
+        else if (this.lifePoints<2) 
+        {
+            console.log('DEAD');
+            if (!me.player.isDead) 
+            {
+                this.blood2.setDepth(1000);
+                me.player.isDead = true;
+                me.player.visible = false;
+                // ça saigne...
+                me.saignePlayer(me.player, function () 
+                {
+                    // à la fin de la petite anim, on relance le jeu
+                    me.blood2.visible = false;
+                    me.player.anims.play('turn');
+                    me.player.isDead = false;
+                    me.scene.restart();
+                    console.log('saigneFini');
+                })
+                this.music = this.sound.add('crack');
+    
+                var musicConfig = 
+                {
+                    mute: false,
+                    volume: 0.3,
+                    rate : 1,
+                    detune: 0,
+                    seek: 0,
+                    loop: false,
+                    delay:0,
+                }
+                this.music.play(musicConfig);
+    
+                localStorage.removeItem("bougie");
+                console.log('removedBougie');
+                //this.song.stop();
+                //this.verif=1;
+                //this.verifTP=1;
+                me.scene.restart();
+
+            }
+            this.lifePoints=3;
+            console.log('lifePoints = 3');
+        }
+
+    }
+ 
+    // Player invulnérable mais immobile
+    invincible(){
+        this.player.body.enable = false;
+        this.time.addEvent({
+            delay: 1000,
+            callback: ()=>{
+                this.player.body.enable = true;
+            },
+            loop: false
+        })
+    }
 
 
     /**
@@ -508,6 +649,7 @@ class Tableau extends Phaser.Scene{
      * - redémarre le tableau
      */
     
+    /*
     playerDie(player,hp)
     {
         let me=this;
@@ -557,7 +699,7 @@ class Tableau extends Phaser.Scene{
             }
 
         }
-    }
+    }*/
 
     /**
      * Pour reset cette scène proprement
@@ -584,6 +726,8 @@ class Tableau extends Phaser.Scene{
      */
     win()
     {
+        console.log("Victory");
+        localStorage.removeItem("checkPoint");
         Tableau.suivant();
     }
 

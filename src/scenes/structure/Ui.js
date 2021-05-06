@@ -3,12 +3,10 @@ class Ui extends Phaser.Scene{
     {
         super({ key: 'ui', active: true });
         window.ui=this;
+        this.hp = 3;
     }
     preload(){
         this.load.image('ui/full-screen-icon', 'assets/ui/full-screen.png');
-        this.load.image('hp1', 'assets/ui/pv1.png');
-        this.load.image('hp2', 'assets/ui/pv2.png');
-        this.load.image('hp3', 'assets/ui/pv3.png');
     }
     create (){
         console.log("create Ui")
@@ -32,17 +30,6 @@ class Ui extends Phaser.Scene{
             font:'32px "visitor"',
             fill: '#fff'
         });
-
-        this.hp=3;
-        this._hpImage1 = this.add.image(this.sys.canvas.width-50,this.sys.canvas.height-50,'hp1')
-        .setDisplaySize(16,16);
-        this._hpImage2 = this.add.image(this.sys.canvas.width-50,this.sys.canvas.height-50,'hp2')
-        .setDisplaySize(16,16);
-        this._hpImage3 = this.add.image(this.sys.canvas.width-50,this.sys.canvas.height-50,'hp3')
-        .setDisplaySize(16,16);
-        this._hpImage1.visible = false;
-        this._hpImage2.visible = false;
-        this._hpImage3.visible = false;
 
         /**
          * Le champ texte avec la clé du tableau
@@ -256,6 +243,7 @@ class Ui extends Phaser.Scene{
             me.score = 0;
         }
     }
+    
 
     //------------------------------------------------ Gestion des points de vie ---------------------------------
 
@@ -263,41 +251,29 @@ class Ui extends Phaser.Scene{
 
     recupPV(points=1)
     {
-        let me=this;
-        me.hp+=points;
-        if (me.hp = 1)
+        let me = this;
+        me.hp += points;
+        if (me.hp > 3)
         {
-            me._hpImage3.visible = false;
-            me._hpImage2.visible = false;
-            me._hpImage1.visible = true;
-        }
-        else if (me.hp = 2)
-        {
-            me._hpImage3.visible = false;
-            me._hpImage1.visible = false;
-            me._hpImage2.visible = true;
-        }
-        else if(me.hp = 3)
-        {
-            me._hpImage2.visible = false;
-            me._hpImage1.visible = false;
-            me._hpImage3.visible = true;
-        }
-        else if(me.hp > 3)
-        {
-            me.hp = 3;
-        }
-        else
-        {
-            me.hp = 0;
-            me._hpImage3.visible = false;
-            me._hpImage2.visible = false;
-            me._hpImage1.visible = false;
+            this.hp = 3;
         }
         //me.score+=points;
     }
 
+    
     losePV(points=1)
+    {
+        let me = this;
+        me.hp -= points;
+        //this._pvText.setText('Points de Vie : ' + this.pv);
+        if(me.hp < 1)
+        {
+            me.hp = 3;
+            //this._pvText.setText('Points de Vie : ' + this.pv);
+        }
+    }
+
+    /*losePV(points=1)
     {
         let me=this;
         me.hp-=points;
@@ -334,6 +310,18 @@ class Ui extends Phaser.Scene{
             me._hpImage1.visible = false;
         }
     }
+
+    this.hp=3;
+    this._hpImage1 = this.add.image(this.sys.canvas.width-50,this.sys.canvas.height-50,'hp1')
+    .setDisplaySize(16,16);
+    this._hpImage2 = this.add.image(this.sys.canvas.width-50,this.sys.canvas.height-50,'hp2')
+    .setDisplaySize(16,16);
+    this._hpImage3 = this.add.image(this.sys.canvas.width-50,this.sys.canvas.height-50,'hp3')
+    .setDisplaySize(16,16);
+    this._hpImage1.visible = false;
+    this._hpImage2.visible = false;
+    this._hpImage3.visible = false;*/
+
 
     update(){
         if(Tableau.current){

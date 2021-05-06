@@ -232,7 +232,9 @@ class Niveau1 extends Tableau
         this.platforms6.create(4848, 1280+hauteurDif, 'solFragilePierre');
         this.platforms6.create(4237, 322+hauteurDif, 'solFragilePierre');
         this.platforms6.create(5349, 322+hauteurDif, 'solFragilePierre');
+        this.platforms6.create(5645, 322+hauteurDif, 'solFragilePierre');
         this.platforms6.create(6100, 322+hauteurDif, 'solFragilePierre');
+
 
 
         this.platforms6.children.iterate(function (child) {
@@ -322,6 +324,7 @@ class Niveau1 extends Tableau
             let monster=new MonsterBossSpectre(this,monsterObject.x,monsterObject.y);
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
+            this.physics.add.collider(monster, this.platforms6);
             //this.physics.add.collider(monster, this.projectil);
         });
 

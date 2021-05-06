@@ -29,10 +29,10 @@ class MonsterBossSpectre extends ObjetEnnemi{
         this.anims.play('moving', true);
         */
 
-        /*
+        
         // X
         this.originalX=x;
-        this.minX=x-896;
+        this.minX=x-550;
         this.maxX=x+300;
         
         
@@ -45,13 +45,13 @@ class MonsterBossSpectre extends ObjetEnnemi{
         this.x=this.minX;
         this.y=this.minY;
         this.alpha=0;
-        let me=this;*/
+        let me=this;
 
         //on fait apparaitre notre objet avec un petit delay, puis on lance l'animation
         //ceci a pour effet de décaler les animations pour ce même objet
-    /*    scene.tweens.add({
+        scene.tweens.add({
             targets:this,
-            duration:Math.random()*200,
+            duration:200,
             delay:Math.random()*1000,
             
             alpha:{
@@ -62,7 +62,7 @@ class MonsterBossSpectre extends ObjetEnnemi{
             onComplete: function () {
                 me.start();
              }
-        })*/
+        })
 
     }
     
@@ -84,7 +84,7 @@ class MonsterBossSpectre extends ObjetEnnemi{
     */
 
 
- /*   start(){
+    start(){
         this.scene.tweens.add(
             {
             targets: this,
@@ -103,27 +103,32 @@ class MonsterBossSpectre extends ObjetEnnemi{
             {
                 from: this.minY,
                 to:this.maxY,
-                duration: 5000*Math.random(), // 500 de base
+                duration: 5000*Math.random(), // 5000 de base
                 ease: 'Sine.easeInOut',
                 yoyo: -1,
                 repeat:-1
             }
         });
-    }*/
+    }
+   
+    update()
+    {
 
-/*    
-    update(){
-        super.update();
-        this.player.move();
-            
-        if (player.x - monster.x > 0)
+        if(this.isDead)
         {
-            monster.scale.x = 1;
-        } else {
-             monster.scale.x = -1;
+            Tableau.current.win();
         }
             
-    }*/
+        /*if (player.x - monster.x > 0)
+        {
+            monster.scale.x = 1;
+        } 
+        else 
+        {
+            monster.scale.x = -1;
+        }*/
+            
+    }
 
 
 }

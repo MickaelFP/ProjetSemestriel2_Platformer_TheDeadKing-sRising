@@ -56,10 +56,20 @@ class MonsterZombie extends ObjetEnnemi{
             if(this.body.velocity.x < 0)
             {
                 this.flipX=true;
+                if(this.walking)
+                {
+                    this.setVelocityX(-40*(Math.random()+1.5));
+                    this.walking = false;
+                }
             }
             else
             {
                 this.flipX=false;
+                if(!this.walking)
+                {
+                    this.setVelocityX(40*(Math.random()+1.5));
+                    this.walking = true;
+                }
             }
         }
 
