@@ -1,23 +1,30 @@
-class MonsterBossSpectre extends ObjetEnnemi{
+class MonsterBossSpectre extends Phaser.Physics.Arcade.Sprite
+{
     /**
      *
      * @param {Tableau} scene
      * @param x
      * @param y
      */
-    constructor(scene, x, y) {                                                              //OBLIGATOIRE
-        super(scene, x, y,"bossSpectre");                                                       //OBLIGATOIRE
-        //pas de gravité
-        this.body.allowGravity=true;
+    constructor(scene, x, y)
+    {
+        super(scene, x, y,"bossSpectre");
+        //this.body.allowGravity=true;
+
+        scene.add.existing(this);
+        scene.physics.add.existing(this);
+        scene.physics.add.collider(scene.player, this);
         
         //this.physics.add.sprite(300,this.sys.canvas.height-70,"monster-zombie");
-        this.setDisplaySize(160,180);
-        this.setCollideWorldBounds(true);
-        //this.setBounce(1);
-        this.setBodySize(this.body.width,this.body.height);
-        this.setVelocityX(0);
         //this.physics.add.collider(monster, this.solides);
         //this.physics.add.overlap(this.player, this.monstre, this.hitSpike, null, this);
+        //this.setBounce(1);
+        this.setDisplaySize(160,180);
+        this.setCollideWorldBounds(true);
+        this.setBodySize(this.body.width,this.body.height);
+        this.setVelocityX(0);
+
+        this.BarreDeVie = 10;
 
         /*
         this.anims.create({
@@ -49,50 +56,37 @@ class MonsterBossSpectre extends ObjetEnnemi{
 
         //on fait apparaitre notre objet avec un petit delay, puis on lance l'animation
         //ceci a pour effet de décaler les animations pour ce même objet
-        scene.tweens.add({
+        scene.tweens.add(
+        {
             targets:this,
             duration:200,
             delay:Math.random()*1000,
             
-            alpha:{
+            alpha:
+            {
                 startDelay:Math.random()*5000,
                 from:0,
                 to:1,
             },
-            onComplete: function () {
+            onComplete: function () 
+            {
                 me.start();
-             }
+            }
         })
 
     }
-    
-    /*
-    update(player, monster){
-        super.update();
-            
-        if (player.x < monster.x)
-        {
-            monster.flipX = false;
-            monster.setVelocityX = -100;
-
-        } else {
-            monster.flipX = true;
-            monster.setVelocityX = 100;
-        }
-            
-    }
-    */
 
 
-    start(){
+    start()
+    {
         this.scene.tweens.add(
-            {
+        {
             targets: this,
             x: 
             {
                 from: this.minX,
                 to:this.maxX,
-                duration: 10*1500, // 1500 de base
+                duration: 10*800*Math.random(), // 1500 de base
                 ease: 'Sine.easeInOut',
                 yoyo: -1,
                 repeat:-1,
@@ -103,16 +97,38 @@ class MonsterBossSpectre extends ObjetEnnemi{
             {
                 from: this.minY,
                 to:this.maxY,
-                duration: 5000*Math.random(), // 5000 de base
+                duration: 10*2500, // 5000 de base
                 ease: 'Sine.easeInOut',
                 yoyo: -1,
                 repeat:-1
             }
         });
     }
-   
-    update()
+
+
+    DamageEffect()
     {
+        
+    }
+   
+
+    update(player)
+    {
+        if (this.body.touching.up && !this.isDead) 
+        {
+          //this.world.player.setVelocityX(400);
+          //this.killEffect();
+          this.DamageEffect();
+          this.disableBody(true, true);
+          this.isAlive = false;
+          Tableau.current.oneDropePower = true;
+        }
+    
+
+        if(!this.isDead & this.BarreDeVie <= 0)
+        {
+            this.isDead = true;
+        }
 
         if(this.isDead)
         {
@@ -129,6 +145,7 @@ class MonsterBossSpectre extends ObjetEnnemi{
         }*/
             
     }
+    
 
 
 }

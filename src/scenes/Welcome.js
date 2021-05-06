@@ -24,7 +24,6 @@ class Welcome extends Phaser.Scene {
         //---------- booleans que l'on compte utiliser ----------
 
         this.EnterPressed = false;
-        this.SpacePressed = false;
         
         
         //---------- gestion des musiques ----------
@@ -269,11 +268,28 @@ class Welcome extends Phaser.Scene {
                 this.cameras.main.fadeOut(1000, 0, 0, 0)
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
                 {
+                    this.EnterPressed = true;
                     this.game.scene.start(ControlsPanel);
                     this.scene.start("panel");
                 })
             }
 
         }, this);
+
+        this.input.on('pointerdown', function(pointer){
+            this.cameras.main.fadeOut(1000, 0, 0, 0)
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) =>
+            {
+                /*if(Tableau.current){
+                    Tableau.current._destroy();
+                }
+                this.game.scene.start(tableau);
+                this.scene.start("aventureBegining");*/
+                this.EnterPressed = true;
+                this.game.scene.start(ControlsPanel);
+                this.scene.start("panel");
+            })
+
+        },this);
     }
 }

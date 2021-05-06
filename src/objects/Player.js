@@ -66,6 +66,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
     /********** Arrête le joueur **********/
     stop()
     {
+        console.log("playerStop");
         this.setVelocityX(0);
         this.setVelocityY(0);
         this.directionY=0;
@@ -77,45 +78,51 @@ class Player extends Phaser.Physics.Arcade.Sprite{
     move()
     {
 
-        switch (true)
+        if(!Tableau.current.playerMoveStop)
         {
-            case this._directionX < 0 && !this.jumping:
-                this.setVelocityX(-160);
-                this.anims.play('left', true);
-                break;
-
-            case this._directionX > 0 && !this.jumping:
-                this.setVelocityX(160);
-                this.anims.play('right', true);
-                break;
-
-            case this._directionX < 0 && this.jumping:
-                this.setVelocityX(-160);
-                this.anims.play('jumpLeft', true);
-                break;
-            
-            case this._directionX > 0 && this.jumping:
-                this.setVelocityX(160);
-                this.anims.play('jumpRight', true);
-                break;
-
-            default:
-                this.setVelocityX(0);
-                this.anims.play('turn', true);
-        }
-
-        if(this._directionY<0)
-        {
-            if(this.body.blocked.down || this.body.touching.down)
+            //console.log("Tu peux bouger")
+            switch (true)
             {
-                this.jumping = true;
-                this.setVelocityY(-500);
+                case this._directionX < 0 && !this.jumping:
+                    this.setVelocityX(-160);
+                    this.anims.play('left', true);
+                    break;
+    
+                case this._directionX > 0 && !this.jumping:
+                    this.setVelocityX(160);
+                    this.anims.play('right', true);
+                    break;
+    
+                case this._directionX < 0 && this.jumping:
+                    this.setVelocityX(-160);
+                    this.anims.play('jumpLeft', true);
+                    break;
+                
+                case this._directionX > 0 && this.jumping:
+                    this.setVelocityX(160);
+                    this.anims.play('jumpRight', true);
+                    break;
+    
+                default:
+                    this.setVelocityX(0);
+                    this.anims.play('turn', true);
             }
+    
+            if(this._directionY<0)
+            {
+                if(this.body.blocked.down || this.body.touching.down)
+                {
+                    this.jumping = true;
+                    this.setVelocityY(-500);
+                }
+            }
+            else//(this._directionY == 0 && this._directionX == 0)
+            {
+                this.jumping = false;
+            }
+
         }
-        else//(this._directionY == 0 && this._directionX == 0)
-        {
-            this.jumping = false;
-        }
+
     }
 
 }

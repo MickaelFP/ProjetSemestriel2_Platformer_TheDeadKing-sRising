@@ -210,5 +210,21 @@ class ControlsPanel extends Phaser.Scene {
                 })
             }
         }, this);
+
+        this.input.on('pointerdown', function(pointer){
+            this.cameras.main.fadeOut(500, 0, 0, 0)
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) =>
+            {
+                /*if(Tableau.current){
+                    Tableau.current._destroy();
+                }
+                this.game.scene.start(tableau);
+                this.scene.start("aventureBegining");*/
+                this.rPressed = true;
+                this.game.scene.start(Niveau1);
+                this.scene.start("Cemetary");
+            })
+
+        },this);
     }
 }

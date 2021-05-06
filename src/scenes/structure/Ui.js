@@ -32,6 +32,16 @@ class Ui extends Phaser.Scene{
         });
 
         /**
+        * Le champ texte des points de vie
+        * @type {Phaser.GameObjects.Text}
+        * @private
+        */
+        this._hpText = this.add.text(16, 16+80, '', {
+            font:'16px "visitor"',
+            fill: '#fff'
+        });
+
+        /**
          * Le champ texte avec la clé du tableau
          * @type {Phaser.GameObjects.Text}
          * @private
@@ -265,11 +275,11 @@ class Ui extends Phaser.Scene{
     {
         let me = this;
         me.hp -= points;
-        //this._pvText.setText('Points de Vie : ' + this.pv);
+        this._hpText.setText('Status : ');
         if(me.hp < 1)
         {
             me.hp = 3;
-            //this._pvText.setText('Points de Vie : ' + this.pv);
+            //this._hpText.setText('Status : ');
         }
     }
 

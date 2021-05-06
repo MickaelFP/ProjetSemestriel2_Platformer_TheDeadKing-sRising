@@ -93,19 +93,27 @@ class Niveau1 extends Tableau
         }
         this.musicAmb.play(musicConfig);
 
-        //on en aura besoin...
+        // On en aura besoin...
         let ici=this;
         let hauteurSol = 64;
         let hauteurDif = 448;
 
+        // Booleans
+        this.passageMusic = false;
+        this.passage = true
+        this.passageCamera = false;
+
+        //this.playerMoveStop = false;
+
+
         //------------------------------------------------ Chargement de la tile map & configuration de la scène ------------------------------------------------
 
-        //notre map
+        // Notre map
         this.map = this.make.tilemap({ key: 'map' });
-        //nos images qui vont avec la map
+        // Nos images qui vont avec la map
         this.tileset = this.map.addTilesetImage('tableauTiledTilesetCimetiere2', 'tiles'); // original 'tableauTiledTilset'
 
-        //on agrandit le champ de la caméra du coup
+        // On agrandit le champ de la caméra du coup
         let largeurDuTableau=this.map.widthInPixels;
         let hauteurDuTableau=this.map.heightInPixels;
         this.physics.world.setBounds(0, 0, largeurDuTableau,  hauteurDuTableau);
@@ -866,20 +874,50 @@ class Niveau1 extends Tableau
             //ici.saveEscaliers(escaliers.escaliersObject.name);
             //this.player.setPosition(escaliersObject.x, escaliersObject.y-384);
 
-            this.gate = this.sound.add('openingGate');
-            var musicConfig = 
+            this.cameras.main.fadeOut(1000, 0, 0, 0)
+            if(!this.passageCamera)
             {
-                mute: false,
-                volume: 0.5,
-                rate : 1,
-                detune: 0,
-                seek: 0,
-                loop: false,
-                delay:0,
+                Tableau.current.playerMoveStop = true;
+                player.stop();
+                Tableau.current.invincible();
+                this.player.setPosition(player.x-1024, player.y-1152);//384);
+                this.passageMusic = true;
+                console.log("passage   DEBUG");
+
+                if(this.passageMusic)
+                {
+                    console.log("passageMusic   DEBUG   DEBUG");
+                    player.anims.play('turn', true);
+                    this.gate = this.sound.add('openingGate');
+                    var musicConfig = 
+                    {
+                        mute: false,
+                        volume: 0.5,
+                        rate : 1,
+                        detune: 0,
+                        seek: 0,
+                        loop: false,
+                        delay:0,
+                    }
+                    this.gate.play(musicConfig);
+    
+                    this.passageMusic = false;
+                    this.passage = false;
+
+                    if(!this.passage)
+                    {
+                        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
+                        {
+                            console.log("cameras.main.fadeOut   DEBUG   DEBUG   DEBUG");
+                            this.cameras.main.fadeIn(1000, 0, 0, 0);
+                        })
+                        this.passage = true;
+                        //this.passageMusic = true;
+                    }
+                }
+                Tableau.current.playerMoveStop = false;
             }
-            this.gate.play(musicConfig);
-            
-            this.player.setPosition(player.x-1024, player.y-1152);//384);
+
         }, null, this);
 
         //------------------------------------------------ Bougies ------------------------------------------------
@@ -971,7 +1009,7 @@ class Niveau1 extends Tableau
             console.log("on atteint le checkpoint", checkPointName);
             localStorage.setItem("checkPoint", checkPointName);
 
-            /*
+            /******* tentative de leur permettre un unique fonctionnenent par chargement de tableau
             if (this.unique === false)
             {
                 this.add.sprite(checkPointObject.x,checkPointObject.y-16,'checkPoint').play('cp', true).setOrigin(0.5,0.5).setDepth(986).setBodySize(64,64);

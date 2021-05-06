@@ -283,4 +283,29 @@
             }
         });
     }
+
+//******************************************
+
+
+
+
+
+//****************** Invincible / Vulnérable ***********************
+
+        /*this.player.body.enable = false;
+        this.time.addEvent({
+            delay: 4000,
+            callback: ()=>{
+                this.player.body.enable = true;
+                console.log("vulnerable");
+            },
+            loop: false
+        })*/
+    }
+
+    /*vulnerable(){
+        console.log("vulnerable");
+        this.invicibleForEver = false;
+    }*/
+
 //******************************************
