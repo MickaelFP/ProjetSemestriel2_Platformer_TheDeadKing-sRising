@@ -54,8 +54,10 @@ class Niveau1 extends Tableau
         // -----Effets-------------
         this.load.image('light', 'assets/elements/light.png');
         this.load.image('bougie','assets/elements/bougie.png');
+        this.load.image('torche','assets/elements/torche.png');
 
         this.load.spritesheet('bougieAnime', 'assets/Spritesheet/bougieAnimate.png', { frameWidth: 16, frameHeight: 16 } );
+        this.load.spritesheet('torcheAnime', 'assets/Spritesheet/torcheAnimate.png', { frameWidth: 64, frameHeight: 96 } );
 
         // -----Sons-------------
         this.load.audio('brkkk', 'assets/Sound/broke_sound.mp3');
@@ -64,6 +66,7 @@ class Niveau1 extends Tableau
         this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
         this.load.audio('openingGate', 'assets/Sound/Gate-barriere-metallique-ouverture_ID-2357.mp3');
         this.load.audio('allumageBougie', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
+        this.load.audio('allumageTorche', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
  
         // -----Atlas de texture généré avec https://free-tex-packer.com/app/ -------------
         //on y trouve notre étoiles et une tête de mort
@@ -446,6 +449,24 @@ class Niveau1 extends Tableau
             bgLight.bougieObject=bougieObject;
         });
 
+        //      torches     // torcheAnime
+        this.anims.create({
+            key: 'tch',
+            frames: this.anims.generateFrameNumbers('torcheAnime', { start: 0, end: 4 }),
+            frameRate: 20,
+            repeat: -1
+        });
+
+        this.torches = this.physics.add.staticGroup();
+        this.torchesObjects = this.map.getObjectLayer('torches')['objects'];
+        this.torchesObjects.forEach(torcheObject => 
+        {
+            let tchLight=this.torches.create(torcheObject.x,torcheObject.y,'torche').setOrigin(0,0).setDepth(986)
+            .setBodySize(torcheObject.width,torcheObject.height);
+            tchLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
+            tchLight.torcheObject=torcheObject;
+        });
+        
 
         //------------------------------------------------ Effet sur la lave (ou autre surface mortelle) ------------------------------------------------
 
@@ -923,7 +944,6 @@ class Niveau1 extends Tableau
         //------------------------------------------------ Bougies ------------------------------------------------
 
         //quand on touche une bougie
-
         this.physics.add.overlap(this.player, this.bougies, function(player, bougie)
         {
             //this.add.sprite(bougieObject.x+32,bougieObject.y-32,'bougie').play('bg', true).setDepth(986);
@@ -950,6 +970,14 @@ class Niveau1 extends Tableau
             })*/
 
         }, null, this);
+
+        //quand on touche une torche
+        this.physics.add.overlap(this.player, this.torches, function(player, torche)
+        {
+            ici.allumerTorche(torche.torcheObject.name);
+
+        }, null, this);
+
 
 
         //--------------------------------- Z order -----------------------------------------------
@@ -1110,6 +1138,81 @@ class Niveau1 extends Tableau
                 });
         }
     } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
+
+
+    allumerTorche(torcheName, player)
+    {
+        let storedTorche=localStorage.getItem("torche")
+        if (storedTorche !== torcheName)
+        {
+            console.log("on allume la torche", torcheName);
+            localStorage.setItem("torche", torcheName);
+            this.unSeul2 = true;
+        }
+        else if (storedTorche === torcheName)
+        {
+            this.torchesObjects.forEach(torcheObject => 
+                {
+                    
+                    if(torcheObject.name === storedTorche && this.unSeul2 === true)
+                    {
+                            this.allumeTorche = this.sound.add('allumageTorche');
+                            var musicConfig = 
+                            {
+                                mute: false,
+                                volume: 0.2,
+                                rate : 1,
+                                detune: 0,
+                                seek: 0,
+                                loop: false,
+                                delay:0,
+                            }
+                            this.allumeTorche.play(musicConfig);
+    
+                            let torcheSprite = this.add.sprite(torcheObject.x+32,torcheObject.y-20,'torcheAnime').play('tch', true).setDepth(986);
+                            let torche2 = this.add.pointlight(torcheObject.x+33, torcheObject.y-24, 0, 200, 0.3).setDepth(986);
+                            torche2.attenuation = 0.05;
+                            torche2.color.setTo(255, 100, 0);
+                            this.tweens.add(
+                            {
+                                targets:torche2,
+                                duration:1,
+                                //yoyo: true,
+                                //repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            this.unSeul2 = false;
+                            let torche1 = this.add.pointlight(torcheObject.x+33, torcheObject.y-24, 0, 10, 0.2).setDepth(986);
+                            torche1.attenuation = 0.05;
+                            torche1.color.setTo(255, 100, 0);
+                            this.tweens.add(
+                            {
+                                targets:torche1,
+                                duration:200,//4000,
+                                yoyo: true,
+                                repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+
+                        this.unSeul2 = false;
+                    }
+
+                });
+        }
+    } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
+
 
 /*
     // Ne pas oublier de nommer chaques checkpoints sur Tiled
