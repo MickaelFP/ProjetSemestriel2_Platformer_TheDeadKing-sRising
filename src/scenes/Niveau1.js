@@ -452,8 +452,8 @@ class Niveau1 extends Tableau
         //      torches     // torcheAnime
         this.anims.create({
             key: 'tch',
-            frames: this.anims.generateFrameNumbers('torcheAnime', { start: 0, end: 4 }),
-            frameRate: 20,
+            frames: this.anims.generateFrameNumbers('torcheAnime', { start: 0, end: 5 }),
+            frameRate: 10,
             repeat: -1
         });
 
@@ -461,7 +461,7 @@ class Niveau1 extends Tableau
         this.torchesObjects = this.map.getObjectLayer('torches')['objects'];
         this.torchesObjects.forEach(torcheObject => 
         {
-            let tchLight=this.torches.create(torcheObject.x,torcheObject.y,'torche').setOrigin(0,0).setDepth(986)
+            let tchLight=this.torches.create(torcheObject.x,torcheObject.y+32,'torche').setOrigin(0,0).setDepth(986)
             .setBodySize(torcheObject.width,torcheObject.height);
             tchLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight.torcheObject=torcheObject;

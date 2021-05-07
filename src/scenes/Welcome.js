@@ -20,6 +20,7 @@ class Welcome extends Phaser.Scene {
     create()
     {
         localStorage.removeItem("bougie");
+        localStorage.removeItem("torche");
 
         //---------- booleans que l'on compte utiliser ----------
 

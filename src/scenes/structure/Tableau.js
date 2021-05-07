@@ -755,6 +755,7 @@ class Tableau extends Phaser.Scene{
     cleanStorage(bougieName)
     {
         localStorage.removeItem("bougie", bougieName);
+        localStorage.removeItem("torche", torcheName);
     }
 
     /**
