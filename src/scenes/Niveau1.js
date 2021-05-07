@@ -461,7 +461,7 @@ class Niveau1 extends Tableau
         this.torchesObjects = this.map.getObjectLayer('torches')['objects'];
         this.torchesObjects.forEach(torcheObject => 
         {
-            let tchLight=this.torches.create(torcheObject.x,torcheObject.y+32,'torche').setOrigin(0,0).setDepth(986)
+            let tchLight=this.torches.create(torcheObject.x,torcheObject.y,'torche').setOrigin(0,0).setDepth(986)
             .setBodySize(torcheObject.width,torcheObject.height);
             tchLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight.torcheObject=torcheObject;
@@ -1169,8 +1169,8 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche.play(musicConfig);
     
-                            let torcheSprite = this.add.sprite(torcheObject.x+32,torcheObject.y-20,'torcheAnime').play('tch', true).setDepth(986);
-                            let torche2 = this.add.pointlight(torcheObject.x+33, torcheObject.y-24, 0, 200, 0.3).setDepth(986);
+                            let torcheSprite = this.add.sprite(torcheObject.x,torcheObject.y,'torcheAnime').play('tch', true).setDepth(986);
+                            let torche2 = this.add.pointlight(torcheObject.x+32, torcheObject.y+38, 0, 200, 0.3).setDepth(986);
                             torche2.attenuation = 0.05;
                             torche2.color.setTo(255, 100, 0);
                             this.tweens.add(
@@ -1188,7 +1188,7 @@ class Niveau1 extends Tableau
                                 }
                             })
                             this.unSeul2 = false;
-                            let torche1 = this.add.pointlight(torcheObject.x+33, torcheObject.y-24, 0, 10, 0.2).setDepth(986);
+                            let torche1 = this.add.pointlight(torcheObject.x+32, torcheObject.y+38, 0, 10, 0.2).setDepth(986);
                             torche1.attenuation = 0.05;
                             torche1.color.setTo(255, 100, 0);
                             this.tweens.add(
