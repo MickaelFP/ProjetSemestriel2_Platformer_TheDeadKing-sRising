@@ -449,7 +449,7 @@ class Niveau1 extends Tableau
             bgLight.bougieObject=bougieObject;
         });
 
-        //      torches     // torcheAnime
+        //      torches     //
         this.anims.create({
             key: 'tch',
             frames: this.anims.generateFrameNumbers('torcheAnime', { start: 0, end: 5 }),
@@ -461,75 +461,12 @@ class Niveau1 extends Tableau
         this.torchesObjects = this.map.getObjectLayer('torches')['objects'];
         this.torchesObjects.forEach(torcheObject => 
         {
-            let tchLight=this.torches.create(torcheObject.x,torcheObject.y,'torche').setOrigin(0,0).setDepth(986)
-            .setBodySize(torcheObject.width,torcheObject.height);
+            let tchLight=this.torches.create(torcheObject.x+32,torcheObject.y-32,'torche').setOrigin(0.5,0.5).setDepth(986)
+            .setBodySize(torcheObject.width*4,torcheObject.height*4);
             tchLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight.torcheObject=torcheObject;
         });
-        
 
-        //------------------------------------------------ Effet sur la lave (ou autre surface mortelle) ------------------------------------------------
-
-        /*this.laveFxContainer=this.add.container();
-        this.lave.forEachTile(function(tile){ //on boucle sur TOUTES les tiles de lave pour générer des particules
-            if(tile.index !== -1){ //uniquement pour les tiles remplies
-
-                /*
-                //dé-commenter pour mieux comprendre ce qui se passe
-                console.log("lave tile",tile.index,tile);
-                let g=ici.add.graphics();
-                laveFxContainer.add(g);
-                g.setPosition(tile.pixelX,tile.pixelY)
-                g.lineStyle(1,0xFF0000);
-                g.strokeRect(0, 0, 64, 64);
-                */
-
-            /*    //on va créer des particules
-                let props={
-                    frame: [
-                        //'star', //pour afficher aussi des étoiles
-                        'death-white'
-                    ],
-                    frequency:200,
-                    lifespan: 2000,
-                    quantity:2,
-                    x:{min:-32,max:32},
-                    y:{min:-12,max:52},
-                    tint:[  0xC11A05,0x883333,0xBB5500,0xFF7F27 ],
-                    rotate: {min:-10,max:10},
-                    speedX: { min: -10, max: 10 },
-                    speedY: { min: -20, max: -30 },
-                    scale: {start: 0, end: 1},
-                    alpha: { start: 1, end: 0 },
-                    blendMode: Phaser.BlendModes.ADD,
-                };
-                let props2={...props}; //copie props sans props 2
-                props2.blendMode=Phaser.BlendModes.MULTIPLY; // un autre blend mode plus sombre
-
-                //ok tout est prêt...ajoute notre objet graphique
-                let laveParticles = ici.add.particles('particles');
-
-                //ajoute le premier émetteur de particules
-                laveParticles.createEmitter(props);
-                //on ne va pas ajouter le second effet émetteur mobile car il consomme trop de ressources
-                if(!ici.isMobile) {
-                    laveParticles.createEmitter(props2); // ajoute le second
-                }
-                // positionne le tout au niveau de la tile
-                laveParticles.x=tile.pixelX+32;
-                laveParticles.y=tile.pixelY+32;
-                ici.laveFxContainer.add(laveParticles);
-
-                //optimisation (les particules sont invisibles et désactivées par défaut)
-                //elles seront activées via update() et optimizeDisplay()
-                laveParticles.pause();
-                laveParticles.visible=false;
-                //on définit un rectangle pour notre tile de particules qui nous servira plus tard
-                laveParticles.rectangle=new Phaser.Geom.Rectangle(tile.pixelX,tile.pixelY,64,64);
-
-            }
-
-        })*/
 
         //------------------------------------------------ Effet sur les étoiles (ou autre collectible) ------------------------------------------------
 
@@ -1045,8 +982,8 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche.play(musicConfig);
     
-                            let torcheSprite = this.add.sprite(torcheObject.x,torcheObject.y,'torcheAnime').play('tch', true).setDepth(986);
-                            let torche2 = this.add.pointlight(torcheObject.x+32, torcheObject.y+38, 0, 200, 0.3).setDepth(986);
+                            let torcheSprite = this.add.sprite(torcheObject.x+32,torcheObject.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torche2 = this.add.pointlight(torcheObject.x+32, torcheObject.y-49, 0, 200, 0.3).setDepth(986);
                             torche2.attenuation = 0.05;
                             torche2.color.setTo(255, 100, 0);
                             this.tweens.add(
@@ -1064,9 +1001,9 @@ class Niveau1 extends Tableau
                                 }
                             })
                             this.unSeul2 = false;
-                            let torche1 = this.add.pointlight(torcheObject.x+32, torcheObject.y+38, 0, 10, 0.2).setDepth(986);
+                            let torche1 = this.add.pointlight(torcheObject.x+32, torcheObject.y-49, 0, 20, 0.2).setDepth(986);
                             torche1.attenuation = 0.05;
-                            torche1.color.setTo(255, 100, 0);
+                            torche1.color.setTo(255, 50, 0);
                             this.tweens.add(
                             {
                                 targets:torche1,
