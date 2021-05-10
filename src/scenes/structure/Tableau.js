@@ -171,39 +171,47 @@ class Tableau extends Phaser.Scene{
         {
             let me = this;
 
-            me.aPressed=new ElementProjectils(this,this.player.x,this.player.y,"ossement").setDepth(996);
-
-            me.aPressed.rotation = Phaser.Math.Between(0,6);
-            /*me.tweens.add({
-                targets:me.aPressed,
-                duration:0,
-                displayHeight:
+            me.aPressed=new ElementProjectils(this,this.player.x +30,this.player.y-30,"ossement").setDepth(996);
+            me.physics.add.collider(this.solides, this.aPressed);
+            /*me.physics.add.collider(this.plateform, this.aPressed);
+            me.physics.add.collider(this.plateform2, this.aPressed);
+            me.physics.add.collider(this.plateform3, this.aPressed);
+            me.physics.add.collider(this.plateform4, this.aPressed);
+            me.physics.add.collider(this.plateform5, this.aPressed);
+            me.physics.add.collider(this.plateform6, this.aPressed);*/
+            this.time.addEvent
+            ({
+                delay: 1000,
+                callback: ()=>
                 {
-                    from:16,
-                    to:16,
+                    console.log("DEBUG DEBUG DEBUG");
+                    this.aPressed.destroy();
+                    //this.aPressed.visible(false);
+                    //this.aPressed.disableBody(true, true);
+                    //this.setVelocity(0,0);
                 },
-                displayWidth:
-                {
-                    from:16,
-                    to:16,
-                },
-                onComplete: function (ossement) 
-                {
-                    //me.aPressed.visible=false;
-                    //me.aPressed.disableBody(true, true);
-                    //onComplete();
-                }
-            })*/
+                loop: false
+            })
+            
 
+            if(me.aPressed.body.velocityX <= 0 || me.aPressed.body.velocityY <= 0)//this.aPressed.body.blocked.down)// || this.aPressed.body.touching.down)//me.aPressed.getBounds().bottom)//.left & me.player.x < me.aPressed.x)
+            {
+                console.log("DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG ");
+                me.aPressed.setVelocity(0, 0);
+                //me.aPressed.visible(false);
+                //me.aPressed.disableBody(true, true);
+                //me.aPressed.destroy();
+            }
+            
             /*
             me.aPressed=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"ossement").setDepth(996);
             me.aPressed.rotation = Phaser.Math.Between(0,6);
             me.aPressed.x=me.player.x;
             me.aPressed.y=me.player.y;
-            */
-            //aPressed.displayWidth=32;
-            //aPressed.displayHeight=32;
-            //aPressed.visible=false;
+            aPressed.displayWidth=32;
+            aPressed.displayHeight=32;
+            aPressed.visible=false;*/
+
             ui.perdre();
             me.aPressed=false;
         }
@@ -298,7 +306,6 @@ class Tableau extends Phaser.Scene{
             //me.vaseDrope.rotation = Phaser.Math.Between(0,6);
         }
     }
-
 
     // ********************************* Gestionnaire des effets déclenchés à la mort d'un monstre *********************************
 

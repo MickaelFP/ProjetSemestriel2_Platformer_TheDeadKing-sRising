@@ -11,10 +11,11 @@ class ElementProjectils extends Phaser.Physics.Arcade.Sprite
 
     this.setImmovable(false);
     this.setDisplaySize(16, 16);
-    this.setBounceX(1);
+    //this.setBounceX(1);
+    this.setBounce(0.1);
     this.setCollideWorldBounds(false);
-    this.setGravityY(50)
-    this.setVelocity(480, -300);
+    this.setGravityY(150)
+    this.setVelocity(240, -350);
     this.setBodySize(this.body.width, this.body.height);
 
     this.world = scene;
@@ -40,6 +41,31 @@ class ElementProjectils extends Phaser.Physics.Arcade.Sprite
 
     this.killSound = scene.sound.add('crack');
 
+    /*scene.tweens.add({
+      targets:this,
+      duration:10,
+      repeat:-1,
+      rotate:,
+      displayHeight:
+      {
+          from:16,
+          to:16,
+      },
+      displayWidth:
+      {
+          from:16,
+          to:16,
+      },
+      onComplete: function (ossement) 
+      {
+          this.rotation = Phaser.Math.Between(6,0);
+          //me.aPressed.visible=false;
+          //me.aPressed.disableBody(true, true);
+          //onComplete();
+      }
+  })*/
+
+
   }
 
   killEffect() 
@@ -58,8 +84,11 @@ class ElementProjectils extends Phaser.Physics.Arcade.Sprite
     */
 
     // Le projectil entre en contact
-    if (this.body.touching/*.up*/ && this.isAlive) 
+    if (/*this.body.touching.up*/this.body.touching.down && this.isAlive) // blocked / touching 
     {
+      console.log("ARRETE DE BUGER PUTAIN");
+      this.body.destroy();
+      //this.destroy();
       this.killEffect();
       this.disableBody(true, true);
       this.isAlive = false;
@@ -71,4 +100,11 @@ class ElementProjectils extends Phaser.Physics.Arcade.Sprite
       this.broken = false;
     }*/
   }
+
+  /*supprimeProjectil(ossement, monster)
+  {
+      //this.aPressed.destroy();
+      this.aPressed.invisible();
+      this.aPressed.disableBody(true);
+  }*/
 }

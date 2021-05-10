@@ -221,7 +221,7 @@ class Welcome extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-ENTER', function () //'keydown-SPACE', function () 
         {
-            if (!this.EnterPressed)
+            if (!this.EnterPressed & !this.SpacePressed)
             {
                 this.music = this.sound.add('drapeau');
                 var musicConfig = 
@@ -250,7 +250,7 @@ class Welcome extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-SPACE', function () //'keydown-SPACE', function () 
         {
-            if (!this.SpacePressed)
+            if (!this.SpacePressed & !this.EnterPressed)
             {
                 this.music = this.sound.add('drapeau');
                 var musicConfig = 
