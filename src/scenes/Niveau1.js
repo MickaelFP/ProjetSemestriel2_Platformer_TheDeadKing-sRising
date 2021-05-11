@@ -463,9 +463,11 @@ class Niveau1 extends Tableau
         {
             let tchLight=this.torches.create(torcheObject.x+32,torcheObject.y-32,'torche').setOrigin(0.5,0.5).setDepth(986)
             .setBodySize(torcheObject.width*4,torcheObject.height*4);
+            //ici.physics.add.collider(Tableau.current.player, this.torches, null , this.checkCollision());
             tchLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight.torcheObject=torcheObject;
         });
+        //this.physics.add.collider(Tableau.current.player, this.torches, null , this.checkCollision());
 
 
         //------------------------------------------------ Effet sur les étoiles (ou autre collectible) ------------------------------------------------
@@ -788,6 +790,10 @@ class Niveau1 extends Tableau
         this.physics.add.overlap(this.player, this.torches, function(player, torche)
         {
             ici.allumerTorche(torche.torcheObject.name);
+            Tableau.current.jumpStop = true;
+            console.log("jumpStop = true");
+            //this.physics.world.removeCollider(torche.torcheObject.name);
+            //this.tchLight.disableBody(true, true);
 
         }, null, this);
 
@@ -839,6 +845,21 @@ class Niveau1 extends Tableau
         //this.allumerBougie();
 
     } //---------------------------------- FIN DE CREATE ----------------------------------
+
+    /*removeCollider()
+    {
+        this.physics.world.removeCollider(platformCollider);
+    }*/
+
+    /*checkCollision(torchesObjects, player) {
+        if (Tableau.current.player.y == this.torcheObject.y) 
+        {
+            return true;
+        }
+        //if (objet2 == player && objet1.y > objet2.y) 
+        //   return true;
+       return false;
+    }*/
 
 
     // Ne pas oublier de nommer chaques checkpoints sur Tiled

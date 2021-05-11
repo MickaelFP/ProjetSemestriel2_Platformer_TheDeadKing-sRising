@@ -120,6 +120,8 @@ class Tableau extends Phaser.Scene{
         this.invicibleForEver = false;
         this.playerMoveStop = false;
 
+        this.jumpStop = false;
+
         //this.cleanStorage();
     }
 
@@ -164,6 +166,8 @@ class Tableau extends Phaser.Scene{
     {
         super.update();
         this.player.move(); 
+
+        //this.jumpStop = false;
 
         // ----------------------------------- Effets pour chaques touches configurées -----------------------------------
 

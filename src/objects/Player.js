@@ -108,11 +108,12 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                     this.anims.play('turn', true);
             }
     
-            if(this._directionY<0)
+            if(this._directionY<0 && !Tableau.current.jumpStop)
             {
                 if(this.body.blocked.down || this.body.touching.down)
                 {
                     this.jumping = true;
+                    console.log("this.jumping = true");
                     this.setVelocityY(-500);
                 }
             }
