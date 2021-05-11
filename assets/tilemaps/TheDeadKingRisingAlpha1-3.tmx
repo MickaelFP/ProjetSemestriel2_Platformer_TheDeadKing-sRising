@@ -879,9 +879,9 @@
   <object id="12" gid="6" x="5184" y="1792" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="10" name="vase">
-  <object id="80" gid="91" x="1408" y="1984" width="64" height="64"/>
-  <object id="81" gid="91" x="1152" y="1984" width="64" height="64"/>
-  <object id="82" gid="91" x="640" y="1984" width="64" height="64"/>
+  <object id="80" gid="91" x="1216" y="1984" width="64" height="64"/>
+  <object id="81" gid="91" x="960" y="1984" width="64" height="64"/>
+  <object id="82" gid="91" x="576" y="1984" width="64" height="64"/>
   <object id="83" gid="91" x="1664" y="832" width="64" height="64"/>
   <object id="84" gid="91" x="1792" y="832" width="64" height="64"/>
   <object id="85" gid="91" x="2560" y="832" width="64" height="64"/>

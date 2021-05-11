@@ -112,6 +112,8 @@ class Tableau extends Phaser.Scene{
 
         this.ControlPressed=false;
 
+        this.ePressed=false;
+
         this.vaseDrope=false;
         this.oneDrope=false;
         this.oneDropePower=false;
@@ -167,6 +169,7 @@ class Tableau extends Phaser.Scene{
         super.update();
         this.player.move(); 
 
+        //this.contact = false ;
         //this.jumpStop = false;
 
         // ----------------------------------- Effets pour chaques touches configurées -----------------------------------
@@ -246,6 +249,11 @@ class Tableau extends Phaser.Scene{
                 }
             })
             console.log("infos ctrl affichées");
+        }
+
+        if(this.ePressed)
+        {
+            ici.heal();
         }
 
         if (this.ControlPressed)

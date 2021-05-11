@@ -40,11 +40,16 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                     console.log("ShowInfosCtrl");
                     break;
 
-                case "c"://"Control":
+                case "Control":
                     console.log("checkPoint disable");
                     Tableau.current.ControlPressed = true;
                     break;
 
+                case "e":
+                    console.log("heal");
+                    Tableau.current.ePressed = true;
+                    break;
+    
                 case "r":/*
                     Tableau.current.cameras.main.fadeOut(1000, 0, 0, 0)
                     Tableau.current.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
@@ -85,8 +90,13 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                     console.log("HideInfosCtrl");
                     break;
                     
-                case "c":
+                case "Control":
                     Tableau.current.ControlPressed = false;
+                    break;
+
+                case "e":
+                    console.log("healNoMore");
+                    Tableau.current.ePressed = false;
                     break;
                 
                 case "r":/*

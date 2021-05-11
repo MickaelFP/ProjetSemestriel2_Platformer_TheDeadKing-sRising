@@ -105,6 +105,7 @@ class Niveau1 extends Tableau
         this.passageMusic = false;
         this.passage = true
         this.passageCamera = false;
+        this.destroyObject = false;
 
         //this.playerMoveStop = false;
 
@@ -788,29 +789,18 @@ class Niveau1 extends Tableau
 
 
         //quand on touche une torche
+
         this.contact = false ;
 
         this.physics.add.overlap(this.player, this.torches, function(player, torche)
         {
             ici.allumerTorche(torche.torcheObject.name);
             this.contact = true;
+            //console.log("contact = true");
             //this.physics.world.removeCollider(torche.torcheObject.name);
             //this.tchLight.disableBody(true, true);
 
         }, null, this);
-
-        if(this.contact)
-        {
-            Tableau.current.jumpStop = true;
-            console.log("jumpStop = true");
-        }
-        else
-        {
-            Tableau.current.jumpStop = false;
-            console.log("jumpStop = false");
-        }
-
-
 
 
         //--------------------------------- Z order -----------------------------------------------
@@ -1016,6 +1006,16 @@ class Niveau1 extends Tableau
                                 delay:0,
                             }
                             this.allumeTorche.play(musicConfig);
+
+                            /*if(this.destroyObject)
+                            {
+                                torcheSprite.destroy();
+                                torche2.destroy();
+                                torche1.destroy();
+                                //this.torcheSprite.body.destroy(); // invisible();
+                                //this.torche2.body.destroy();
+                                //this.torche1.body.destroy();
+                            }*/
     
                             let torcheSprite = this.add.sprite(torcheObject.x+32,torcheObject.y-48,'torcheAnime').play('tch', true).setDepth(986);
                             let torche2 = this.add.pointlight(torcheObject.x+32, torcheObject.y-49, 0, 200, 0.3).setDepth(986);
@@ -1053,11 +1053,14 @@ class Niveau1 extends Tableau
                                     to:1,
                                 }
                             })
+                            
+
 
                         this.unSeul2 = false;
                     }
 
                 });
+                this.destroyObject = true;
         }
     } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
 
@@ -1140,6 +1143,19 @@ class Niveau1 extends Tableau
     {
         super.update();
         this.moveParallax();
+
+        if(this.contact)
+        {
+            Tableau.current.jumpStop = true;
+            this.contact = false;
+            //console.log("jumpStop = true");
+        }
+        else
+        {
+            Tableau.current.jumpStop = false;
+            //console.log("jumpStop = false");
+        }
+
 
         this.monstersContainer.each(function (child) {child.update();})
 
