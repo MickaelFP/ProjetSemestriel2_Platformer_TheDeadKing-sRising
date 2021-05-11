@@ -57,7 +57,7 @@ class Niveau1 extends Tableau
         this.load.image('torche','assets/elements/torche.png');
 
         this.load.spritesheet('bougieAnime', 'assets/Spritesheet/bougieAnimate.png', { frameWidth: 16, frameHeight: 16 } );
-        this.load.spritesheet('torcheAnime', 'assets/Spritesheet/torcheAnimate.png', { frameWidth: 64, frameHeight: 96 } );
+        this.load.spritesheet('torcheAnime', 'assets/Spritesheet/torcheAnimate4.png', { frameWidth: 64, frameHeight: 96 } );
 
         // -----Sons-------------
         this.load.audio('brkkk', 'assets/Sound/broke_sound.mp3');
@@ -452,8 +452,8 @@ class Niveau1 extends Tableau
         //      torches     //
         this.anims.create({
             key: 'tch',
-            frames: this.anims.generateFrameNumbers('torcheAnime', { start: 0, end: 5 }),
-            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('torcheAnime', { start: 0, end: 8 }),
+            frameRate: 20,
             repeat: -1
         });
 
