@@ -462,7 +462,7 @@ class Niveau1 extends Tableau
         this.torchesObjects.forEach(torcheObject => 
         {
             let tchLight=this.torches.create(torcheObject.x+32,torcheObject.y-32,'torche').setOrigin(0.5,0.5).setDepth(986)
-            .setBodySize(torcheObject.width*4,torcheObject.height*4);
+            .setBodySize(torcheObject.width*3,torcheObject.height*3);
             //ici.physics.add.collider(Tableau.current.player, this.torches, null , this.checkCollision());
             tchLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight.torcheObject=torcheObject;
@@ -786,16 +786,30 @@ class Niveau1 extends Tableau
 
         }, null, this);
 
+
         //quand on touche une torche
+        this.contact = false ;
+
         this.physics.add.overlap(this.player, this.torches, function(player, torche)
         {
             ici.allumerTorche(torche.torcheObject.name);
-            Tableau.current.jumpStop = true;
-            console.log("jumpStop = true");
+            this.contact = true;
             //this.physics.world.removeCollider(torche.torcheObject.name);
             //this.tchLight.disableBody(true, true);
 
         }, null, this);
+
+        if(this.contact)
+        {
+            Tableau.current.jumpStop = true;
+            console.log("jumpStop = true");
+        }
+        else
+        {
+            Tableau.current.jumpStop = false;
+            console.log("jumpStop = false");
+        }
+
 
 
 
