@@ -11,9 +11,9 @@ class Niveau1 extends Tableau
 
         // ------pour TILED-------------
         // nos images principales
-        this.load.image('star', 'assets/elements/collectibleOs.png.png');
+        this.load.image('star', 'assets/elements/collectibleOs.png');
         this.load.image('ossement', 'assets/elements/ossement.png');
-        this.load.image('os', 'assets/elements/collectibleOs.png.png');
+        this.load.image('os', 'assets/elements/collectibleOs.png');
         this.load.image('platformStone', 'assets/elements/platformStone.png');
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
 
@@ -462,8 +462,8 @@ class Niveau1 extends Tableau
         this.torchesObjects = this.map.getObjectLayer('torches')['objects'];
         this.torchesObjects.forEach(torcheObject => 
         {
-            let tchLight=this.torches.create(torcheObject.x+32,torcheObject.y-32,'torche').setOrigin(0.5,0.5).setDepth(986)
-            .setBodySize(torcheObject.width/**3*/,torcheObject.height/**3*/);
+            let tchLight=this.torches.create(torcheObject.x+32,torcheObject.y-32,'torche').setOrigin(0.5,/*0.5*/).setDepth(986)
+            .setBodySize(torcheObject.width*3,torcheObject.height*5);
             //ici.physics.add.collider(Tableau.current.player, this.torches, null , this.checkCollision());
             tchLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight.torcheObject=torcheObject;
@@ -1144,17 +1144,26 @@ class Niveau1 extends Tableau
         super.update();
         this.moveParallax();
 
-        if(this.contact)
+        if(Tableau.current.player.body.velocity.y != 0)
         {
-            Tableau.current.jumpStop = true;
-            this.contact = false;
-            //console.log("jumpStop = true");
+            if(this.contact)
+            {
+                Tableau.current.jumpStop = true;
+                this.contact = false;
+                console.log("jumpStop = true");
+            }
+            else
+            {
+                Tableau.current.jumpStop = false;
+                //console.log("jumpStop = false");
+            }
         }
         else
         {
             Tableau.current.jumpStop = false;
             //console.log("jumpStop = false");
         }
+
 
 
         this.monstersContainer.each(function (child) {child.update();})
