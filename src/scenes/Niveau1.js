@@ -463,7 +463,7 @@ class Niveau1 extends Tableau
         this.torchesObjects.forEach(torcheObject => 
         {
             let tchLight=this.torches.create(torcheObject.x+32,torcheObject.y-32,'torche').setOrigin(0.5,0.5).setDepth(986)
-            .setBodySize(torcheObject.width*3,torcheObject.height*3);
+            .setBodySize(torcheObject.width/**3*/,torcheObject.height/**3*/);
             //ici.physics.add.collider(Tableau.current.player, this.torches, null , this.checkCollision());
             tchLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight.torcheObject=torcheObject;
@@ -1062,7 +1062,7 @@ class Niveau1 extends Tableau
                 });
                 this.destroyObject = true;
         }
-    } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
+    } //---------------------------------- FIN DE ALLUMERTORCHE----------------------------------
 
 
 /*
