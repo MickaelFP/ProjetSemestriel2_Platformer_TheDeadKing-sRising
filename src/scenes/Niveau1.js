@@ -11,9 +11,9 @@ class Niveau1 extends Tableau
 
         // ------pour TILED-------------
         // nos images principales
-        this.load.image('star', 'assets/elements/Os.png');
+        this.load.image('star', 'assets/elements/collectibleOs.png.png');
         this.load.image('ossement', 'assets/elements/ossement.png');
-        this.load.image('os', 'assets/elements/os.png');
+        this.load.image('os', 'assets/elements/collectibleOs.png.png');
         this.load.image('platformStone', 'assets/elements/platformStone.png');
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
 
