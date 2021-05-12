@@ -237,3 +237,42 @@
 
 
     //*********************************************************************//
+
+
+
+
+    //*************** Pour detruire le projectile (pas concluant) ******************//
+
+
+                /*while(!this.destroyProjectil)
+            {
+                this.time.addEvent
+                ({
+                    delay: 500,
+                    callback: ()=>
+                    {
+                        this.destroyProjectil = true;
+                        console.log("DEBUG DEBUG DEBUG");
+                        //this.aPressed.destroy();
+                        //this.aPressed.visible(false);
+                        //this.aPressed.disableBody(true, true);
+                        //this.setVelocity(0,0);
+
+                    },
+                    loop: false
+                })
+                while(this.destroyProjectil)
+                {
+                    this.aPressed.destroy();
+                    //this.aPressed.visible(false);
+                    //this.aPressed.disableBody(true, true);
+                    this.destroyProjectil = false;
+                    console.log("DEBUG DEBUG DEBUG destroyProjectil");
+                    return;
+                }
+                return;
+
+            }*/
+
+            
+    //*********************************************************************//

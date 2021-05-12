@@ -377,3 +377,59 @@
     }*/
 
 //******************************************
+
+
+
+
+
+//****************** Ancien hitmonster ***********************
+
+    hitMonster(player, monster)
+    {
+        let me=this;
+        if(monster.isDead !== true)
+        { //si notre monstre n'est pas déjà mort
+            if(
+                // si le player descend
+                player.body.velocity.y > 0
+                // et si le bas du player est plus haut que le monstre
+                && player.getBounds().bottom < monster.getBounds().top+30
+                // si le monstre n'est pas immobile
+                //&& monster.VelocityX != 0
+            ){
+                ui.gagne();
+                monster.isDead=true; //ok le monstre est mort
+                monster.disableBody(true,true);//plus de collisions
+                this.walking = false;
+
+                this.saigne(monster,function(){
+                    //effets déclenchés à la fin de l'animation :)
+                })
+
+                //petit son de mort du monstre
+                this.music = this.sound.add('splash');
+
+                var musicConfig = 
+                {
+                    mute: false,
+                    volume: 0.3,
+                    rate : 1,
+                    detune: 0,
+                    seek: 0,
+                    loop: false,
+                    delay:0,
+                }
+                this.music.play(musicConfig);
+
+                //notre joueur rebondit sur le monstre
+                player.directionY=500;
+            }
+            else
+            {
+                //le joueur est mort
+                me.playerDie();
+            }
+        }
+    }// FIN DE HITMONSTER*/
+
+//******************************************

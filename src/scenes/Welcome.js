@@ -24,7 +24,7 @@ class Welcome extends Phaser.Scene {
 
         //---------- booleans que l'on compte utiliser ----------
 
-        this.EnterPressed = false;
+        this.touchePressed = false;
         
         
         //---------- gestion des musiques ----------
@@ -221,8 +221,9 @@ class Welcome extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-ENTER', function () //'keydown-SPACE', function () 
         {
-            if (!this.EnterPressed & !this.SpacePressed)
+            if (!this.touchePressed)
             {
+                this.touchePressed = true;
                 this.music = this.sound.add('drapeau');
                 var musicConfig = 
                 {
@@ -236,7 +237,6 @@ class Welcome extends Phaser.Scene {
                 }
                 this.music.play(musicConfig);
 
-                this.EnterPressed = true;
                 this.cameras.main.fadeOut(1000, 0, 0, 0)
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
                 {
@@ -250,8 +250,9 @@ class Welcome extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-SPACE', function () //'keydown-SPACE', function () 
         {
-            if (!this.SpacePressed & !this.EnterPressed)
+            if (!this.touchePressed) //(!this.SpacePressed & !this.EnterPressed)
             {
+                this.touchePressed = true;
                 this.music = this.sound.add('drapeau');
                 var musicConfig = 
                 {
@@ -265,11 +266,10 @@ class Welcome extends Phaser.Scene {
                 }
                 this.music.play(musicConfig);
     
-                this.SpacePressed = true;
                 this.cameras.main.fadeOut(1000, 0, 0, 0)
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
                 {
-                    this.EnterPressed = true;
+                    //this.EnterPressed = true;
                     this.game.scene.start(ControlsPanel);
                     this.scene.start("panel");
                 })
@@ -277,19 +277,23 @@ class Welcome extends Phaser.Scene {
 
         }, this);
 
-        this.input.on('pointerdown', function(pointer){
-            this.cameras.main.fadeOut(1000, 0, 0, 0)
-            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) =>
+        this.input.on('pointerdown', function(pointer)
+        {
+            if (!this.touchePressed)
             {
-                /*if(Tableau.current){
-                    Tableau.current._destroy();
-                }
-                this.game.scene.start(tableau);
-                this.scene.start("aventureBegining");*/
-                this.EnterPressed = true;
-                this.game.scene.start(ControlsPanel);
-                this.scene.start("panel");
-            })
+                this.touchePressed = true;
+                this.cameras.main.fadeOut(1000, 0, 0, 0)
+                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) =>
+                {
+                    /*if(Tableau.current){
+                        Tableau.current._destroy();
+                    }
+                    this.game.scene.start(tableau);
+                    this.scene.start("aventureBegining");*/
+                    this.game.scene.start(ControlsPanel);
+                    this.scene.start("panel");
+                })
+            }
 
         },this);
     }

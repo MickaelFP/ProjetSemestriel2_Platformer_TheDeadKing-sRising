@@ -121,12 +121,14 @@ class Tableau extends Phaser.Scene{
         this.vaseDrope=false;
         this.oneDrope=false;
         this.oneDropePower=false;
-        this.walking = true;
 
+        this.walking = true;
         this.invicibleForEver = false;
         this.playerMoveStop = false;
-
         this.jumpStop = false;
+        this.arrowUpPressed = false;
+
+        this.destructionTorcheLight = false;
 
         //this.projectilDestroyed = false;
 
@@ -176,7 +178,7 @@ class Tableau extends Phaser.Scene{
         super.update();
         this.player.move(); 
         this.shoot.update();
-        this.shoot.move();
+        //this.shoot.move();
 
         //this.contact = false ;
         //this.jumpStop = false;
@@ -189,9 +191,7 @@ class Tableau extends Phaser.Scene{
 
             me.oneShootOnly = false;
             me.shoot=new ElementProjectils(this,this.player.x +30,this.player.y-30,"ossement").setDepth(996);
-            me.shoot.setGravityY(150);
-            me.shoot.setVelocity(240, -350);
-            me.physics.add.collider(this.solides, this.aPressed);
+            me.physics.add.collider(this.solides, this.shoot);
             this.destroyProjectil();
             /*me.physics.add.collider(this.plateform, this.aPressed);
             me.physics.add.collider(this.plateform2, this.aPressed);
@@ -199,59 +199,10 @@ class Tableau extends Phaser.Scene{
             me.physics.add.collider(this.plateform4, this.aPressed);
             me.physics.add.collider(this.plateform5, this.aPressed);
             me.physics.add.collider(this.plateform6, this.aPressed);*/
-            /*while(!this.destroyProjectil)
-            {
-                this.time.addEvent
-                ({
-                    delay: 500,
-                    callback: ()=>
-                    {
-                        this.destroyProjectil = true;
-                        console.log("DEBUG DEBUG DEBUG");
-                        //this.aPressed.destroy();
-                        //this.aPressed.visible(false);
-                        //this.aPressed.disableBody(true, true);
-                        //this.setVelocity(0,0);
-
-                    },
-                    loop: false
-                })
-                while(this.destroyProjectil)
-                {
-                    this.aPressed.destroy();
-                    //this.aPressed.visible(false);
-                    //this.aPressed.disableBody(true, true);
-                    this.destroyProjectil = false;
-                    console.log("DEBUG DEBUG DEBUG destroyProjectil");
-                    return;
-                }
-                return;
-
-            }*/
-
-            /*
-            me.aPressed=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"ossement").setDepth(996);
-            me.aPressed.rotation = Phaser.Math.Between(0,6);
-            me.aPressed.x=me.player.x;
-            me.aPressed.y=me.player.y;
-            aPressed.displayWidth=32;
-            aPressed.displayHeight=32;
-            aPressed.visible=false;*/
 
             ui.perdre();
             me.aPressed=false;
         }
-
-        /*if(this.youCanDestroyIt)
-        {
-          console.log("DETRUIT TOIT PINAISE");
-          aPressed.body.destroy();
-          //this.destroy();
-          aPressed.disableBody(true, true);
-          aPressed.visible(false);
-          aPressed.isAlive = false;
-          this.youCanDestroyIt = false;
-        }*/
 
         if (this.iPressed)
         {
@@ -544,56 +495,7 @@ class Tableau extends Phaser.Scene{
      * si on le touche par en haut on le tue, sinon c'est lui qui nous tue
      * @param {Player} player
      * @param {Phaser.Physics.Arcade.Sprite} monster
-     *//*
-    hitMonster(player, monster)
-    {
-        let me=this;
-        if(monster.isDead !== true)
-        { //si notre monstre n'est pas déjà mort
-            if(
-                // si le player descend
-                player.body.velocity.y > 0
-                // et si le bas du player est plus haut que le monstre
-                && player.getBounds().bottom < monster.getBounds().top+30
-                // si le monstre n'est pas immobile
-                //&& monster.VelocityX != 0
-            ){
-                ui.gagne();
-                monster.isDead=true; //ok le monstre est mort
-                monster.disableBody(true,true);//plus de collisions
-                this.walking = false;
-
-                this.saigne(monster,function(){
-                    //effets déclenchés à la fin de l'animation :)
-                })
-
-                //petit son de mort du monstre
-                this.music = this.sound.add('splash');
-
-                var musicConfig = 
-                {
-                    mute: false,
-                    volume: 0.3,
-                    rate : 1,
-                    detune: 0,
-                    seek: 0,
-                    loop: false,
-                    delay:0,
-                }
-                this.music.play(musicConfig);
-
-                //notre joueur rebondit sur le monstre
-                player.directionY=500;
-            }
-            else
-            {
-                //le joueur est mort
-                me.playerDie();
-            }
-        }
-    }// FIN DE HITMONSTER*/
-
-    
+     */
     hitMonster(player, monster)
     {
         if(!this.invicibleForEver)
@@ -708,14 +610,16 @@ class Tableau extends Phaser.Scene{
 
     }
  
-    // Player invulnérable mais immobile
+
+    // ********************************* Rend le player invulnérable pour un évènement à durée courte *********************************
+    //
     invincible()
     {
         console.log("invincible");
         this.invicibleForEver = true;
         this.time.addEvent
         ({
-            delay: 4000,
+            delay: 1000,
             callback: ()=>
             {
                 this.invicibleForEver = false;
@@ -726,17 +630,38 @@ class Tableau extends Phaser.Scene{
     }
 
 
-    // Confirme la destruction
+    // ********************************* Rend le player invulnérable pour un évènement à durée moyenne *********************************
+    //
+    invincibleM()
+    {
+        console.log("invincibleM");
+        this.invicibleForEver = true;
+        this.time.addEvent
+        ({
+            delay: 4000,
+            callback: ()=>
+            {
+                this.invicibleForEver = false;
+                console.log("vulnerableM");
+            },
+            loop: false
+        })
+    }
+
+
+    // ********************************* Confirme la destruction du projectil après un délai prédéfini *********************************
+    //
     destroyProjectil()
     {
         //this.projectilDestroyed = true;
-        this.shoot.move();
+        //this.shoot.move();
         console.log("destroyProjectil addEvent");
         this.time.addEvent
         ({
             delay: 1500,
             callback: ()=>
             {
+                //this.shoot.stop();
                 this.youCanDestroyIt = true;
                 console.log("youCanDestroyIt = true");
             },

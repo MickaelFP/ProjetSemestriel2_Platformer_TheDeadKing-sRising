@@ -56,12 +56,16 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
     }
 
-    set directionX(value){
+
+    set directionX(value)
+    {
         this._directionX=value;
     }
-    set directionY(value){
+    set directionY(value)
+    {
         this._directionY=value;
     }
+
 
     /********** Arrête le joueur **********/
     stop()
@@ -108,19 +112,42 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                     this.anims.play('turn', true);
             }
     
-            if(this._directionY<0 && !Tableau.current.jumpStop)
+            if(!Tableau.current.jumpStop)
             {
-                if(this.body.blocked.down || this.body.touching.down)
+                if(this._directionY<0)
                 {
-                    this.jumping = true;
-                    console.log("this.jumping = true");
-                    this.setVelocityY(-500);
+                    if(this.body.blocked.down || this.body.touching.down)
+                    {
+                        this.jumping = true;
+                        console.log("this.jumping = true");
+                        this.setVelocityY(-500);
+                    }
+                    else
+                    {
+                        this.jumping = false;
+                    }
                 }
             }
-            else//(this._directionY == 0 && this._directionX == 0)
+            else  //(this._directionY == 0 && this._directionX == 0)
             {
                 this.jumping = false;
             }
+
+            if(Tableau.current.jumpStop & !Tableau.current.arrowUpPressed)
+            {
+                Tableau.current.jumpStop = false;
+                //console.log("if jumpStop = false");
+            }
+
+            /*while(Tableau.current.jumpStop & this.veloci) 
+            {
+                if(this.body.blocked.down || this.body.touching.down)
+                {
+                    Tableau.current.jumpStop = false;
+                    console.log("WHILE -> this.jumping = false");
+                }
+                return;
+            }*/
 
         }
 

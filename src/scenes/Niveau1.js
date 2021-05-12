@@ -461,7 +461,7 @@ class Niveau1 extends Tableau
         this.torchesObjects = this.map.getObjectLayer('torches')['objects'];
         this.torchesObjects.forEach(torcheObject => 
         {
-            let tchLight=this.torches.create(torcheObject.x+32,torcheObject.y-32,'torche').setOrigin(0.5,0.5).setDepth(986)
+            let tchLight=this.torches.create(torcheObject.x+32,torcheObject.y-64/*32*/,'torche').setOrigin(0.5,0).setDepth(986)
             .setBodySize(torcheObject.width*4,torcheObject.height*4);
             //ici.physics.add.collider(Tableau.current.player, this.torches, null , this.checkCollision());
             tchLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
@@ -790,8 +790,17 @@ class Niveau1 extends Tableau
         this.physics.add.overlap(this.player, this.torches, function(player, torche)
         {
             ici.allumerTorche(torche.torcheObject.name);
-            Tableau.current.jumpStop = true;
-            console.log("jumpStop = true");
+
+            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            {
+                Tableau.current.jumpStop = true;
+                //console.log("jumpStop = true");
+            }
+            else
+            {
+                Tableau.current.jumpStop = false;
+                //console.log("jumpStop = false");
+            }
             //this.physics.world.removeCollider(torche.torcheObject.name);
             //this.tchLight.disableBody(true, true);
 
@@ -982,19 +991,21 @@ class Niveau1 extends Tableau
             console.log("on allume la torche", torcheName);
             localStorage.setItem("torche", torcheName);
             this.unSeul2 = true;
+            //Tableau.current.destructionTorcheLight = false;
         }
-        else if (storedTorche === torcheName)
+        else if (storedTorche === torcheName && this.unSeul2 === true)
         {
+            console.log("la est torche allumée", torcheName);
             this.torchesObjects.forEach(torcheObject => 
                 {
                     
-                    if(torcheObject.name === storedTorche && this.unSeul2 === true)
+                    if(torcheObject.name === storedTorche)
                     {
                             this.allumeTorche = this.sound.add('allumageTorche');
                             var musicConfig = 
                             {
                                 mute: false,
-                                volume: 0.2,
+                                volume: 0.4,
                                 rate : 1,
                                 detune: 0,
                                 seek: 0,
@@ -1007,6 +1018,7 @@ class Niveau1 extends Tableau
                             let torche2 = this.add.pointlight(torcheObject.x+32, torcheObject.y-49, 0, 200, 0.3).setDepth(986);
                             torche2.attenuation = 0.05;
                             torche2.color.setTo(255, 100, 0);
+                            //torche2.destroy(); //torche2.visible = false;
                             this.tweens.add(
                             {
                                 targets:torche2,
@@ -1025,6 +1037,7 @@ class Niveau1 extends Tableau
                             let torche1 = this.add.pointlight(torcheObject.x+32, torcheObject.y-49, 0, 20, 0.2).setDepth(986);
                             torche1.attenuation = 0.05;
                             torche1.color.setTo(255, 50, 0);
+                            //torche1.destroy();
                             this.tweens.add(
                             {
                                 targets:torche1,
@@ -1039,6 +1052,13 @@ class Niveau1 extends Tableau
                                     to:1,
                                 }
                             })
+                            /*if(Tableau.current.destructionTorcheLight)
+                            {
+                                torcheSprite.destroy();
+                                torche1.destroy();
+                                torche2.destroy();
+                            }
+                            Tableau.current.destructionTorcheLight = true;*/
 
                         this.unSeul2 = false;
                     }

@@ -21,6 +21,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
 
                 case "ArrowUp":
                     Tableau.current.player.directionY=-1;
+                    Tableau.current.arrowUpPressed = true;
                     break;
 
                 case "ArrowDown":
@@ -72,6 +73,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
 
                 case "ArrowUp":
                     Tableau.current.player.directionY=0;
+                    Tableau.current.arrowUpPressed = false;
                     break;
 
                 case "ArrowDown":
