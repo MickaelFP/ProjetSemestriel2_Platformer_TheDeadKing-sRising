@@ -14,9 +14,10 @@ class ElementProjectils extends Phaser.Physics.Arcade.Sprite
     //this.setBounceX(1);
     this.setBounce(0.1);
     this.setCollideWorldBounds(false);
-    this.setGravityY(150)
+    this.setGravityY(150);
     this.setVelocity(240, -350);
     this.setBodySize(this.body.width, this.body.height);
+    this.disableBody(false, false);
 
     this.world = scene;
     //this.scale = 3;
@@ -40,6 +41,8 @@ class ElementProjectils extends Phaser.Physics.Arcade.Sprite
       });*/
 
     this.killSound = scene.sound.add('crack');
+    //Tableau.current.projectilDestroyed = false;
+    Tableau.current.youCanDestroyIt = false;
 
     /*scene.tweens.add({
       targets:this,
@@ -77,6 +80,7 @@ class ElementProjectils extends Phaser.Physics.Arcade.Sprite
 
   update() 
   {
+    //console.log("CHECK");
     /*
     this.anims.play('moving', true);
     if (this.body.velocity.x > 0){this.flipX = true;}
@@ -84,21 +88,45 @@ class ElementProjectils extends Phaser.Physics.Arcade.Sprite
     */
 
     // Le projectil entre en contact
-    if (/*this.body.touching.up*/this.body.touching.down && this.isAlive) // blocked / touching 
+    /*if(Tableau.current.youCanDestroyIt) // blocked / touching 
     {
-      console.log("ARRETE DE BUGER PUTAIN");
-      this.body.destroy();
+      let me = this;
+      console.log("DETRUIT TOIT PINAISE V1");
+      me.body.destroy();
       //this.destroy();
-      this.killEffect();
-      this.disableBody(true, true);
-      this.isAlive = false;
+      me.killEffect();
+      me.disableBody(true, true);
+      me.visible(false);
+      me.isAlive = false;
+      //Tableau.current.projectilDestroyed = false;
+    }*/
+
+    if(Tableau.current.youCanDestroyIt)
+    {
+      let me = this;
+      me.body.destroy();
+      //this.destroy();
+      me.disableBody(true, true);
+      //me.visible(false);
+      me.isAlive = false;
+      Tableau.current.youCanDestroyIt = false;
+      Tableau.current.oneShootOnly = true;
+      console.log("youCanDestroyIt = false");
+      console.log("oneShootOnly = true");
     }
+
 
     /*if (this.broken == true) 
     {
       this.world.add.sprite(this.x, this.y, 'broke').setDepth(986);
       this.broken = false;
     }*/
+  }
+
+  move()
+  {
+    this.setGravityY(150);
+    this.setVelocity(240, -350);
   }
 
   /*supprimeProjectil(ossement, monster)

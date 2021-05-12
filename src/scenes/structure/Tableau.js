@@ -79,6 +79,8 @@ class Tableau extends Phaser.Scene{
 
         ui._hpText.setText('Status : ');
 
+        this.shoot = new ElementProjectils(this,0+8600,0+4448);
+
 
         // ----------------------------------- fonction en booleans d'affichage d'image -----------------------------------
 
@@ -106,6 +108,8 @@ class Tableau extends Phaser.Scene{
         // ----------------------------------- booleans simples que l'on compte utiliser -----------------------------------
 
         this.aPressed=false;
+        this.oneShootOnly = true;
+        this.youCanDestroyIt = false;
 
         this.iPressed=false;
         this.showInfos=false;
@@ -123,6 +127,9 @@ class Tableau extends Phaser.Scene{
         this.playerMoveStop = false;
 
         this.jumpStop = false;
+
+        //this.projectilDestroyed = false;
+
 
         //this.cleanStorage();
     }
@@ -168,48 +175,60 @@ class Tableau extends Phaser.Scene{
     {
         super.update();
         this.player.move(); 
+        this.shoot.update();
+        this.shoot.move();
 
         //this.contact = false ;
         //this.jumpStop = false;
 
         // ----------------------------------- Effets pour chaques touches configurées -----------------------------------
 
-        if (this.aPressed)
+        if (this.aPressed && this.oneShootOnly)
         {
             let me = this;
 
-            me.aPressed=new ElementProjectils(this,this.player.x +30,this.player.y-30,"ossement").setDepth(996);
+            me.oneShootOnly = false;
+            me.shoot=new ElementProjectils(this,this.player.x +30,this.player.y-30,"ossement").setDepth(996);
+            me.shoot.setGravityY(150);
+            me.shoot.setVelocity(240, -350);
             me.physics.add.collider(this.solides, this.aPressed);
+            this.destroyProjectil();
             /*me.physics.add.collider(this.plateform, this.aPressed);
             me.physics.add.collider(this.plateform2, this.aPressed);
             me.physics.add.collider(this.plateform3, this.aPressed);
             me.physics.add.collider(this.plateform4, this.aPressed);
             me.physics.add.collider(this.plateform5, this.aPressed);
             me.physics.add.collider(this.plateform6, this.aPressed);*/
-            this.time.addEvent
-            ({
-                delay: 1000,
-                callback: ()=>
+            /*while(!this.destroyProjectil)
+            {
+                this.time.addEvent
+                ({
+                    delay: 500,
+                    callback: ()=>
+                    {
+                        this.destroyProjectil = true;
+                        console.log("DEBUG DEBUG DEBUG");
+                        //this.aPressed.destroy();
+                        //this.aPressed.visible(false);
+                        //this.aPressed.disableBody(true, true);
+                        //this.setVelocity(0,0);
+
+                    },
+                    loop: false
+                })
+                while(this.destroyProjectil)
                 {
-                    console.log("DEBUG DEBUG DEBUG");
                     this.aPressed.destroy();
                     //this.aPressed.visible(false);
                     //this.aPressed.disableBody(true, true);
-                    //this.setVelocity(0,0);
-                },
-                loop: false
-            })
-            
+                    this.destroyProjectil = false;
+                    console.log("DEBUG DEBUG DEBUG destroyProjectil");
+                    return;
+                }
+                return;
 
-            if(me.aPressed.body.velocityX <= 0 || me.aPressed.body.velocityY <= 0)//this.aPressed.body.blocked.down)// || this.aPressed.body.touching.down)//me.aPressed.getBounds().bottom)//.left & me.player.x < me.aPressed.x)
-            {
-                console.log("DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG ");
-                me.aPressed.setVelocity(0, 0);
-                //me.aPressed.visible(false);
-                //me.aPressed.disableBody(true, true);
-                //me.aPressed.destroy();
-            }
-            
+            }*/
+
             /*
             me.aPressed=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"ossement").setDepth(996);
             me.aPressed.rotation = Phaser.Math.Between(0,6);
@@ -222,6 +241,17 @@ class Tableau extends Phaser.Scene{
             ui.perdre();
             me.aPressed=false;
         }
+
+        /*if(this.youCanDestroyIt)
+        {
+          console.log("DETRUIT TOIT PINAISE");
+          aPressed.body.destroy();
+          //this.destroy();
+          aPressed.disableBody(true, true);
+          aPressed.visible(false);
+          aPressed.isAlive = false;
+          this.youCanDestroyIt = false;
+        }*/
 
         if (this.iPressed)
         {
@@ -690,6 +720,25 @@ class Tableau extends Phaser.Scene{
             {
                 this.invicibleForEver = false;
                 console.log("vulnerable");
+            },
+            loop: false
+        })
+    }
+
+
+    // Confirme la destruction
+    destroyProjectil()
+    {
+        //this.projectilDestroyed = true;
+        this.shoot.move();
+        console.log("destroyProjectil addEvent");
+        this.time.addEvent
+        ({
+            delay: 1500,
+            callback: ()=>
+            {
+                this.youCanDestroyIt = true;
+                console.log("youCanDestroyIt = true");
             },
             loop: false
         })

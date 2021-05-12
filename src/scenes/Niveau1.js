@@ -11,9 +11,9 @@ class Niveau1 extends Tableau
 
         // ------pour TILED-------------
         // nos images principales
-        this.load.image('star', 'assets/elements/collectibleOs.png');
+        this.load.image('star', 'assets/elements/Os.png');
         this.load.image('ossement', 'assets/elements/ossement.png');
-        this.load.image('os', 'assets/elements/collectibleOs.png');
+        this.load.image('os', 'assets/elements/os.png');
         this.load.image('platformStone', 'assets/elements/platformStone.png');
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
 
@@ -105,7 +105,6 @@ class Niveau1 extends Tableau
         this.passageMusic = false;
         this.passage = true
         this.passageCamera = false;
-        this.destroyObject = false;
 
         //this.playerMoveStop = false;
 
@@ -462,8 +461,8 @@ class Niveau1 extends Tableau
         this.torchesObjects = this.map.getObjectLayer('torches')['objects'];
         this.torchesObjects.forEach(torcheObject => 
         {
-            let tchLight=this.torches.create(torcheObject.x+32,torcheObject.y-32,'torche').setOrigin(0.5,/*0.5*/).setDepth(986)
-            .setBodySize(torcheObject.width*3,torcheObject.height*5);
+            let tchLight=this.torches.create(torcheObject.x+32,torcheObject.y-32,'torche').setOrigin(0.5,0.5).setDepth(986)
+            .setBodySize(torcheObject.width*4,torcheObject.height*4);
             //ici.physics.add.collider(Tableau.current.player, this.torches, null , this.checkCollision());
             tchLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight.torcheObject=torcheObject;
@@ -787,20 +786,17 @@ class Niveau1 extends Tableau
 
         }, null, this);
 
-
         //quand on touche une torche
-
-        this.contact = false ;
-
         this.physics.add.overlap(this.player, this.torches, function(player, torche)
         {
             ici.allumerTorche(torche.torcheObject.name);
-            this.contact = true;
-            //console.log("contact = true");
+            Tableau.current.jumpStop = true;
+            console.log("jumpStop = true");
             //this.physics.world.removeCollider(torche.torcheObject.name);
             //this.tchLight.disableBody(true, true);
 
         }, null, this);
+
 
 
         //--------------------------------- Z order -----------------------------------------------
@@ -1006,16 +1002,6 @@ class Niveau1 extends Tableau
                                 delay:0,
                             }
                             this.allumeTorche.play(musicConfig);
-
-                            /*if(this.destroyObject)
-                            {
-                                torcheSprite.destroy();
-                                torche2.destroy();
-                                torche1.destroy();
-                                //this.torcheSprite.body.destroy(); // invisible();
-                                //this.torche2.body.destroy();
-                                //this.torche1.body.destroy();
-                            }*/
     
                             let torcheSprite = this.add.sprite(torcheObject.x+32,torcheObject.y-48,'torcheAnime').play('tch', true).setDepth(986);
                             let torche2 = this.add.pointlight(torcheObject.x+32, torcheObject.y-49, 0, 200, 0.3).setDepth(986);
@@ -1053,16 +1039,13 @@ class Niveau1 extends Tableau
                                     to:1,
                                 }
                             })
-                            
-
 
                         this.unSeul2 = false;
                     }
 
                 });
-                this.destroyObject = true;
         }
-    } //---------------------------------- FIN DE ALLUMERTORCHE----------------------------------
+    } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
 
 
 /*
@@ -1143,28 +1126,6 @@ class Niveau1 extends Tableau
     {
         super.update();
         this.moveParallax();
-
-        if(Tableau.current.player.body.velocity.y != 0)
-        {
-            if(this.contact)
-            {
-                Tableau.current.jumpStop = true;
-                this.contact = false;
-                console.log("jumpStop = true");
-            }
-            else
-            {
-                Tableau.current.jumpStop = false;
-                //console.log("jumpStop = false");
-            }
-        }
-        else
-        {
-            Tableau.current.jumpStop = false;
-            //console.log("jumpStop = false");
-        }
-
-
 
         this.monstersContainer.each(function (child) {child.update();})
 
