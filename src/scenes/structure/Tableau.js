@@ -128,6 +128,9 @@ class Tableau extends Phaser.Scene{
         this.jumpStop = false;
         this.arrowUpPressed = false;
 
+        this.arrowRightPressed = false;
+        this.arrowLefttPressed = false;
+
         this.destructionTorcheLight = false;
 
         //this.projectilDestroyed = false;
@@ -192,7 +195,20 @@ class Tableau extends Phaser.Scene{
             me.oneShootOnly = false;
             me.shoot=new ElementProjectils(this,this.player.x +30,this.player.y-30,"ossement").setDepth(996);
             me.physics.add.collider(this.solides, this.shoot);
+
+            if(this.arrowRightPressed)
+            {
+                console.log("me.shoot.setVelocity +++");
+                me.shoot.setVelocity(240, -350);
+            }
+            if(this.arrowLeftPressed)
+            {
+                console.log("me.shoot.setVelocity ---");
+                me.shoot.setVelocity(-240, -350);
+            }
+
             this.destroyProjectil();
+
             /*me.physics.add.collider(this.plateform, this.aPressed);
             me.physics.add.collider(this.plateform2, this.aPressed);
             me.physics.add.collider(this.plateform3, this.aPressed);

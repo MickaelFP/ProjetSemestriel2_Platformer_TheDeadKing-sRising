@@ -13,10 +13,12 @@ class GameKeyboard extends Phaser.GameObjects.Container{
             switch (kevent.key){
                 case "ArrowRight":
                     Tableau.current.player.directionX=1;
+                    Tableau.current.arrowRightPressed = true;
                     break;
 
                 case "ArrowLeft":
                     Tableau.current.player.directionX=-1;
+                    Tableau.current.arrowLeftPressed = true;
                     break;
 
                 case "ArrowUp":
@@ -65,10 +67,12 @@ class GameKeyboard extends Phaser.GameObjects.Container{
             switch (kevent.key){
                 case "ArrowRight":
                     Tableau.current.player.directionX=0;
+                    Tableau.current.arrowRightPressed = false;
                     break;
 
                 case "ArrowLeft":
                     Tableau.current.player.directionX=0;
+                    Tableau.current.arrowLeftPressed = false;
                     break;
 
                 case "ArrowUp":

@@ -11,9 +11,9 @@ class Niveau1 extends Tableau
 
         // ------pour TILED-------------
         // nos images principales
-        this.load.image('star', 'assets/elements/Os.png');
+        this.load.image('star', 'assets/elements/ossement.png');
         this.load.image('ossement', 'assets/elements/ossement.png');
-        this.load.image('os', 'assets/elements/os.png');
+        this.load.image('os', 'assets/elements/ossement.png');
         this.load.image('platformStone', 'assets/elements/platformStone.png');
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
 
@@ -30,9 +30,9 @@ class Niveau1 extends Tableau
 
         // -----Elements interactifs-------------
         this.load.image('vase', 'assets/elements/vase2.png');
-        this.load.image('solFragile', 'assets/elements/solFragile.png');
-        this.load.image('solFragilePierre', 'assets/elements/solFragilePierre.png');
-        this.load.image('rocheQuiRoule', 'assets/elements/solFragilePierre1.png');
+        this.load.image('solFragile', 'assets/elements/sol-terre.png');//solFragile.png');
+        this.load.image('solFragilePierre', 'assets/elements/roche_devant.png');//solFragilePierre.png');
+        this.load.image('rocheQuiRoule', 'assets/elements/roche_devant2.jpg');//solFragilePierre1.png');
         this.load.image('infCtrl', 'assets/elements/infosControls2.png');
 
         this.load.spritesheet('checkPoint', 'assets/Spritesheet/corbeauAnimation1.png', { frameWidth: 448, frameHeight: 448 } );
@@ -698,6 +698,16 @@ class Niveau1 extends Tableau
         this.physics.add.overlap(this.player, this.checkPoints, function(player, checkPoint)
         {
             ici.saveCheckPoint(checkPoint.checkPointObject.name);
+            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            {
+                Tableau.current.jumpStop = true;
+                //console.log("jumpStop = true");
+            }
+            else
+            {
+                Tableau.current.jumpStop = false;
+                //console.log("jumpStop = false");
+            }
         }, null, this);
 
 
@@ -763,6 +773,17 @@ class Niveau1 extends Tableau
         {
             //this.add.sprite(bougieObject.x+32,bougieObject.y-32,'bougie').play('bg', true).setDepth(986);
             ici.allumerBougie(bougie.bougieObject.name);
+
+            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            {
+                Tableau.current.jumpStop = true;
+                //console.log("jumpStop = true");
+            }
+            else
+            {
+                Tableau.current.jumpStop = false;
+                //console.log("jumpStop = false");
+            }
             /*
             //this.add.sprite(bougiesObject.x+32,bougiesObject.y-32,'bougie').play('bg', true);
             let bougie1 = this.add.pointlight(player.x+32, player.y-32, 0, 200, 0.6);

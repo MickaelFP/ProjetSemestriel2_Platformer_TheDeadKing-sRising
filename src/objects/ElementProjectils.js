@@ -14,7 +14,7 @@ class ElementProjectils extends Phaser.Physics.Arcade.Sprite
     this.setBounce(0.2);
     this.setCollideWorldBounds(false);
     this.setGravityY(150);
-    this.setVelocity(240, -350);
+    this.setVelocity(0, -350);
     this.setBodySize(this.body.width, this.body.height);
 
     this.world = scene;
