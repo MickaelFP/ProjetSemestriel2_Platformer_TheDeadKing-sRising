@@ -312,9 +312,20 @@ class Niveau1 extends Tableau
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
             this.physics.add.collider(monster, this.platforms6);
+            //this.physics.add.collider(monster, Tableau.current.shoot);
+            //this.physics.add.collider(monster, this.shoot);
             //this.physics.add.collider(monster, this.projectil);
             //this.physics.add.collider(monster, this.solides); 
+
+            this.physics.add.overlap(this.zombiesObjects, this.shoot, function(zombiesObjects, shoot)
+            {
+                Tableau.current.destroyProjectil();
+                console.log("Debug Debug Debug Debug Debug Debug Debug")
+
+            }, null, this);
+    
         });
+        
 
         // On crée des squelettes pour chaque objet rencontré
         this.squelettesObjects = this.map.getObjectLayer('squelettes')['objects'];
@@ -826,6 +837,7 @@ class Niveau1 extends Tableau
             //this.tchLight.disableBody(true, true);
 
         }, null, this);
+        
 
 
 

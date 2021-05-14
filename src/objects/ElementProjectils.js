@@ -77,12 +77,13 @@ class ElementProjectils extends Phaser.Physics.Arcade.Sprite
     {
       let me = this;
       me.body.destroy();
-      me.disableBody(true, true);
+      me.visible = false;
+      //me.disableBody(true, true);
       me.isAlive = false;
       Tableau.current.youCanDestroyIt = false;
       Tableau.current.oneShootOnly = true;
-      console.log("youCanDestroyIt = false");
-      console.log("oneShootOnly = true");
+      //console.log("youCanDestroyIt = false");
+      //console.log("oneShootOnly = true");
     }
 
     // ********** /

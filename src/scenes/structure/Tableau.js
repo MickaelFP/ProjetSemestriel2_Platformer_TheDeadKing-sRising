@@ -133,6 +133,8 @@ class Tableau extends Phaser.Scene{
 
         this.destructionTorcheLight = false;
 
+        this.antiBug = true;
+
         //this.projectilDestroyed = false;
 
 
@@ -199,15 +201,15 @@ class Tableau extends Phaser.Scene{
             if(this.arrowRightPressed)
             {
                 console.log("me.shoot.setVelocity +++");
-                me.shoot.setVelocity(240, -350);
+                me.shoot.setVelocity(240, -200);//(240, -350);
             }
             if(this.arrowLeftPressed)
             {
                 console.log("me.shoot.setVelocity ---");
-                me.shoot.setVelocity(-240, -350);
+                me.shoot.setVelocity(-240, -200);//(-240, -350);
             }
 
-            this.destroyProjectil();
+            this.destroyProjectil2();
 
             /*me.physics.add.collider(this.plateform, this.aPressed);
             me.physics.add.collider(this.plateform2, this.aPressed);
@@ -281,6 +283,7 @@ class Tableau extends Phaser.Scene{
                 me.vaseDrope=new MonsterZombie(this,this.player.x+150,this.player.y+24,"zombie2").setDepth(996);
                 me.physics.add.collider(me.vaseDrope, this.solides);
                 me.physics.add.collider(me.vaseDrope, this.platforms6);
+                //me.physics.add.collider(me.vaseDrope, this.shoot);
                 //me.player.setVelocityX(120);
 
                 while(this.oneDrope)
@@ -296,24 +299,37 @@ class Tableau extends Phaser.Scene{
                 if(me.vaseDrope.body.velocity.x < 0)
                 {
                     me.vaseDrope.flipX=true;
-                    if(this.walking)
+                    /*if(this.walking)
                     {
                         this.vaseDrope.setVelocityX(-40*(Math.random()+1.5));
                         this.walking = false;
-                    }
+                    }*/
                 }
                 else
                 {
                     me.vaseDrope.flipX=false;
-                    if(!this.walking)
+                    /*if(!this.walking)
                     {
                         this.vaseDrope.setVelocityX(40*(Math.random()+1.5));
                         this.walking = true;
-                    }
+                    }*/
                 }
             }
             //me.vaseDrope.rotation = Phaser.Math.Between(0,6);
         }
+        
+        if(this.vaseDrope.body)
+        {
+            this.physics.add.overlap(this.vaseDrope, this.shoot, function(vaseDrope, shoot)
+            {
+                if(this.vaseDrope.body)
+                {
+                    this.destroyProjectil();
+                    //console.log("Debug Debug Debug Debug Debug Debug Debug");
+                }
+            }, null, this);
+        }
+
     }
 
     // ********************************* Gestionnaire des effets déclenchés à la mort d'un monstre *********************************
@@ -668,6 +684,24 @@ class Tableau extends Phaser.Scene{
     // ********************************* Confirme la destruction du projectil après un délai prédéfini *********************************
     //
     destroyProjectil()
+    {
+        //this.projectilDestroyed = true;
+        //this.shoot.move();
+        //console.log("destroyProjectil addEvent");
+        this.time.addEvent
+        ({
+            delay: 0,//1500,
+            callback: ()=>
+            {
+                //this.shoot.stop();
+                this.youCanDestroyIt = true;
+                //console.log("youCanDestroyIt = true");
+            },
+            loop: false
+        })
+    }
+
+    destroyProjectil2()
     {
         //this.projectilDestroyed = true;
         //this.shoot.move();
