@@ -21,23 +21,6 @@ class ElementSolFragilePierre extends Phaser.Physics.Arcade.Sprite
     //this.scale = 3;
     this.isAlive = true;
     this.broken = false;
-      
-  
-    /* this.anims.create(
-    {
-        key: 'moving',
-        frames: this.anims.generateFrameNumbers('crawler', { start: 0, end: 5 }),
-        frameRate: 10,
-        repeat: -1
-    });
-  
-    scene.anims.create(
-    {
-        key: 'explode',
-        frames: scene.anims.generateFrameNumbers('expl', { start: 0, end: 9 }),
-        frameRate: 20,
-        repeat: 0
-    });*/
 
     this.tombeSound = scene.sound.add('chute');
     this.seBriseSound = scene.sound.add('solPierreBrise');

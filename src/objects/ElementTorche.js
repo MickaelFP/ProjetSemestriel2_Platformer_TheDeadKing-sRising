@@ -1,3 +1,5 @@
+/*<script src="src/objects/ElementTorche.js"></script>
+
 class ElementTorche extends Phaser.Physics.Arcade.Sprite 
 {
 
@@ -22,30 +24,14 @@ class ElementTorche extends Phaser.Physics.Arcade.Sprite
     this.isAlive = true;
     this.broken = false;
       
-  
-    /* this.anims.create(
-    {
-        key: 'moving',
-        frames: this.anims.generateFrameNumbers('crawler', { start: 0, end: 5 }),
-        frameRate: 10,
-        repeat: -1
-    });
-  
-    scene.anims.create(
-    {
-        key: 'explode',
-        frames: scene.anims.generateFrameNumbers('expl', { start: 0, end: 9 }),
-        frameRate: 20,
-        repeat: 0
-    });*/
 
-    this.seBriseSound = scene.sound.add('solPierreBrise');
+    //this.allumer = scene.sound.add('allumerTorche');
 
   }
 
-  killEffect() 
+  /*killEffect() 
   {
-    this.seBriseSound.play(
+    this.allumer.play(
     { 
             volume: 10
     });
@@ -67,18 +53,22 @@ class ElementTorche extends Phaser.Physics.Arcade.Sprite
     else{this.flipX = false;}
     */
     // Player kill Ennemy
-    if (this.body.touching.up && this.isAlive) 
+
+
+    /*if (this.body.touching.up && this.isAlive) 
     {
       this.world.player.setVelocityY(-10);
       this.killEffect();
       this.disableBody(true, true);
       this.isAlive = false;
-    }
+    }*/
+
+
     /*
     if (this.broken == true) 
     {
       this.world.add.sprite(this.x, this.y, 'broke').setDepth(972);
       this.broken = false;
-    }*/
+    }
   }
-}
+}*/

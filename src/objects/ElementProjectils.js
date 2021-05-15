@@ -30,7 +30,7 @@ class ElementProjectils extends Phaser.Physics.Arcade.Sprite
   this._directionY=0;
 
   }
-
+  
 
   set directionX(value)
   {

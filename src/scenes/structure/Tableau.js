@@ -132,6 +132,8 @@ class Tableau extends Phaser.Scene{
         this.arrowLefttPressed = false;
 
         this.destructionTorcheLight = false;
+        //this.torcheContact = false;
+        //this.oneTorche = false;
 
         this.antiBug = true;
 

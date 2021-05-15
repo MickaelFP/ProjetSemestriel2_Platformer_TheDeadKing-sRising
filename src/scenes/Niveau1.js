@@ -18,7 +18,7 @@ class Niveau1 extends Tableau
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
 
         //les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha1-3.json'); // -> 'tableauTiled' & 2nd 'MapTiledLongueur' & 3rd 'tableauTiledCimetiereDbug
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha1-4.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
 
         // -----Decors-------------
         this.load.image('night', 'assets/backgrounds/sky_plan_nuitEtoileCarre.png');//nuitEtoileCarre_4.png');
@@ -439,7 +439,7 @@ class Niveau1 extends Tableau
         });
 
 
-        //------------------------------------------------ Eléments animés ------------------------------------------------
+        //------------------------------------------------ Bougies ------------------------------------------------
 
         //     bougies     //     
         this.anims.create({
@@ -449,16 +449,50 @@ class Niveau1 extends Tableau
             repeat: -1
         });
 
-        this.bougies = this.physics.add.staticGroup();
-        this.bougiesObjects = this.map.getObjectLayer('bougies')['objects'];
-        //on crée des bougies pour chaque objet rencontré
-        this.bougiesObjects.forEach(bougieObject => 
+        this.bougies0 = this.physics.add.staticGroup();
+        this.bougies0Objects = this.map.getObjectLayer('bougies')['objects'];
+        this.bougies0Objects.forEach(bougieObject => 
         {
-            let bgLight=this.bougies.create(bougieObject.x+32,bougieObject.y-11,'bougie').setOrigin(0.5,1).setDepth(986)
+            let bgLight=this.bougies0.create(bougieObject.x+32,bougieObject.y-11,'bougie').setOrigin(0.5,1).setDepth(986)
             .setBodySize(bougieObject.width,bougieObject.height);
             bgLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
             bgLight.bougieObject=bougieObject;
         });
+
+        //     bougies 1     //     
+        this.bougies1 = this.physics.add.staticGroup();
+        this.bougies1Objects = this.map.getObjectLayer('bougies1')['objects'];
+        this.bougies1Objects.forEach(bougie1Object => 
+        {
+            let bgLight1=this.bougies1.create(bougie1Object.x+32,bougie1Object.y-11,'bougie').setOrigin(0.5,1).setDepth(986)
+            .setBodySize(bougie1Object.width,bougie1Object.height);
+            bgLight1.blendMode=Phaser.BlendModes.COLOR_DODGE;
+            bgLight1.bougie1Object=bougie1Object;
+        });
+        //     bougies 2     //     
+        this.bougies2 = this.physics.add.staticGroup();
+        this.bougies2Objects = this.map.getObjectLayer('bougies2')['objects'];
+        this.bougies2Objects.forEach(bougie2Object => 
+        {
+            let bgLight2=this.bougies2.create(bougie2Object.x+32,bougie2Object.y-11,'bougie').setOrigin(0.5,1).setDepth(986)
+            .setBodySize(bougie2Object.width,bougie2Object.height);
+            bgLight2.blendMode=Phaser.BlendModes.COLOR_DODGE;
+            bgLight2.bougie2Object=bougie2Object;
+        });
+        
+        //     bougies 3     //     
+        this.bougies3 = this.physics.add.staticGroup();
+        this.bougies3Objects = this.map.getObjectLayer('bougies3')['objects'];
+        this.bougies3Objects.forEach(bougie3Object => 
+        {
+            let bgLight3=this.bougies3.create(bougie3Object.x+32,bougie3Object.y-11,'bougie').setOrigin(0.5,1).setDepth(986)
+            .setBodySize(bougie3Object.width,bougie3Object.height);
+            bgLight3.blendMode=Phaser.BlendModes.COLOR_DODGE;
+            bgLight3.bougie3Object=bougie3Object;
+        });
+        
+
+        //------------------------------------------------ Torches ------------------------------------------------
 
         //      torches     //
         this.anims.create({
@@ -468,17 +502,103 @@ class Niveau1 extends Tableau
             repeat: -1
         });
 
-        this.torches = this.physics.add.staticGroup();
-        this.torchesObjects = this.map.getObjectLayer('torches')['objects'];
-        this.torchesObjects.forEach(torcheObject => 
+        this.torches0 = this.physics.add.staticGroup();
+        this.torches0Objects = this.map.getObjectLayer('torches')['objects'];
+        this.torches0Objects.forEach(torcheObject => 
         {
-            let tchLight=this.torches.create(torcheObject.x+32,torcheObject.y-64/*32*/,'torche').setOrigin(0.5,0).setDepth(986)
+            let tchLight = this.torches0.create(torcheObject.x+32,torcheObject.y-64,'torche').setOrigin(0.5,0).setDepth(986)
             .setBodySize(torcheObject.width*4,torcheObject.height*4);
-            //ici.physics.add.collider(Tableau.current.player, this.torches, null , this.checkCollision());
             tchLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight.torcheObject=torcheObject;
         });
-        //this.physics.add.collider(Tableau.current.player, this.torches, null , this.checkCollision());
+
+        //      torches 1     //
+        this.torches1 = this.physics.add.staticGroup();
+        this.torches1Objects = this.map.getObjectLayer('torches1')['objects'];
+        this.torches1Objects.forEach(torche1Object => 
+        {
+            let tchLight1 = this.torches1.create(torche1Object.x+32,torche1Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            .setBodySize(torche1Object.width*4,torche1Object.height*4);
+            tchLight1.blendMode=Phaser.BlendModes.COLOR_DODGE;
+            tchLight1.torche1Object=torche1Object;
+        });
+
+        //      torches 2     //
+        this.torches2 = this.physics.add.staticGroup();
+        this.torches2Objects = this.map.getObjectLayer('torches2')['objects'];
+        this.torches2Objects.forEach(torche2Object => 
+        {
+            let tchLight2 = this.torches2.create(torche2Object.x+32,torche2Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            .setBodySize(torche2Object.width*4,torche2Object.height*4);
+            tchLight2.blendMode=Phaser.BlendModes.COLOR_DODGE;
+            tchLight2.torche2Object=torche2Object;
+        });
+
+        //      torches 3     //
+        this.torches3 = this.physics.add.staticGroup();
+        this.torches3Objects = this.map.getObjectLayer('torches3')['objects'];
+        this.torches3Objects.forEach(torche3Object => 
+        {
+            let tchLight3 = this.torches3.create(torche3Object.x+32,torche3Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            .setBodySize(torche3Object.width*4,torche3Object.height*4);
+            tchLight3.blendMode=Phaser.BlendModes.COLOR_DODGE;
+            tchLight3.torche3Object=torche3Object;
+        });
+
+        //      torches 4     //
+        this.torches4 = this.physics.add.staticGroup();
+        this.torches4Objects = this.map.getObjectLayer('torches4')['objects'];
+        this.torches4Objects.forEach(torche4Object => 
+        {
+            let tchLight4 = this.torches4.create(torche4Object.x+32,torche4Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            .setBodySize(torche4Object.width*4,torche4Object.height*4);
+            tchLight4.blendMode=Phaser.BlendModes.COLOR_DODGE;
+            tchLight4.torche4Object=torche4Object;
+        });
+
+        //      torches 5     //
+        this.torches5 = this.physics.add.staticGroup();
+        this.torches5Objects = this.map.getObjectLayer('torches5')['objects'];
+        this.torches5Objects.forEach(torche5Object => 
+        {
+            let tchLight5 = this.torches5.create(torche5Object.x+32,torche5Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            .setBodySize(torche5Object.width*4,torche5Object.height*4);
+            tchLight5.blendMode=Phaser.BlendModes.COLOR_DODGE;
+            tchLight5.torche5Object=torche5Object;
+        });
+
+        //      torches 6     //
+        this.torches6 = this.physics.add.staticGroup();
+        this.torches6Objects = this.map.getObjectLayer('torches6')['objects'];
+        this.torches6Objects.forEach(torche6Object => 
+        {
+            let tchLight6 = this.torches6.create(torche6Object.x+32,torche6Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            .setBodySize(torche6Object.width*4,torche6Object.height*4);
+            tchLight6.blendMode=Phaser.BlendModes.COLOR_DODGE;
+            tchLight6.torche6Object=torche6Object;
+        });
+
+        //      torches 7     //
+        this.torches7 = this.physics.add.staticGroup();
+        this.torches7Objects = this.map.getObjectLayer('torches7')['objects'];
+        this.torches7Objects.forEach(torche7Object => 
+        {
+            let tchLight7 = this.torches7.create(torche7Object.x+32,torche7Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            .setBodySize(torche7Object.width*4,torche7Object.height*4);
+            tchLight7.blendMode=Phaser.BlendModes.COLOR_DODGE;
+            tchLight7.torche7Object=torche7Object;
+        });
+
+        //      torches 8     //
+        this.torches8 = this.physics.add.staticGroup();
+        this.torches8Objects = this.map.getObjectLayer('torches8')['objects'];
+        this.torches8Objects.forEach(torche8Object => 
+        {
+            let tchLight8=this.torches8.create(torche8Object.x+32,torche8Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            .setBodySize(torche8Object.width*4,torche8Object.height*4);
+            tchLight8.blendMode=Phaser.BlendModes.COLOR_DODGE;
+            tchLight8.torche8Object=torche8Object;
+        });
 
 
         //------------------------------------------------ Effet sur les étoiles (ou autre collectible) ------------------------------------------------
@@ -780,10 +900,70 @@ class Niveau1 extends Tableau
         //------------------------------------------------ Bougies ------------------------------------------------
 
         //quand on touche une bougie
-        this.physics.add.overlap(this.player, this.bougies, function(player, bougie)
+        this.physics.add.overlap(this.player, this.bougies0, function(player, bougie)
         {
-            //this.add.sprite(bougieObject.x+32,bougieObject.y-32,'bougie').play('bg', true).setDepth(986);
             ici.allumerBougie(bougie.bougieObject.name);
+
+            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            {
+                Tableau.current.jumpStop = true;
+            }
+            else
+            {
+                Tableau.current.jumpStop = false;
+            }
+
+        }, null, this);
+
+        this.physics.add.overlap(this.player, this.bougies1, function(player, bougie1)
+        {
+            ici.allumerBougie1(bougie1.bougie1Object.name);
+
+            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            {
+                Tableau.current.jumpStop = true;
+            }
+            else
+            {
+                Tableau.current.jumpStop = false;
+            }
+
+        }, null, this);
+
+        this.physics.add.overlap(this.player, this.bougies2, function(player, bougie2)
+        {
+            ici.allumerBougie2(bougie2.bougie2Object.name);
+
+            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            {
+                Tableau.current.jumpStop = true;
+            }
+            else
+            {
+                Tableau.current.jumpStop = false;
+            }
+
+        }, null, this);
+
+        this.physics.add.overlap(this.player, this.bougies3, function(player, bougie3)
+        {
+            ici.allumerBougie3(bougie3.bougie3Object.name);
+
+            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            {
+                Tableau.current.jumpStop = true;
+            }
+            else
+            {
+                Tableau.current.jumpStop = false;
+            }
+
+        }, null, this);
+
+        //quand on touche une torche
+        this.physics.add.overlap(this.player, this.torches0, function(player, torche)
+        {
+            ici.allumerTorche(torche.torcheObject.name);
 
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
@@ -795,33 +975,147 @@ class Niveau1 extends Tableau
                 Tableau.current.jumpStop = false;
                 //console.log("jumpStop = false");
             }
-            /*
-            //this.add.sprite(bougiesObject.x+32,bougiesObject.y-32,'bougie').play('bg', true);
-            let bougie1 = this.add.pointlight(player.x+32, player.y-32, 0, 200, 0.6);
-            bougie1.attenuation = 0.05;
-            bougie1.color.setTo(255, 200, 0);
-            bougie1.setDepth(986);
-            this.tweens.add(
-            {
-                targets:bougie1,
-                duration:4000,
-                yoyo: true,
-                repeat:-1,
-                delay:Math.random()*1000,
-                alpha:
-                {
-                    startDelay:Math.random()*5000,
-                    from:0,
-                    to:1,
-                }
-            })*/
+            //this.physics.world.removeCollider(torche.torcheObject.name);
+            //this.tchLight.disableBody(true, true);
 
         }, null, this);
-
-        //quand on touche une torche
-        this.physics.add.overlap(this.player, this.torches, function(player, torche)
+        
+        this.physics.add.overlap(this.player, this.torches1, function(player, torche1)
         {
-            ici.allumerTorche(torche.torcheObject.name);
+            ici.allumerTorche1(torche1.torche1Object.name);
+
+            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            {
+                Tableau.current.jumpStop = true;
+                //console.log("jumpStop = true");
+            }
+            else
+            {
+                Tableau.current.jumpStop = false;
+                //console.log("jumpStop = false");
+            }
+            //this.physics.world.removeCollider(torche.torcheObject.name);
+            //this.tchLight.disableBody(true, true);
+
+        }, null, this);
+        
+        this.physics.add.overlap(this.player, this.torches2, function(player, torche2)
+        {
+            ici.allumerTorche2(torche2.torche2Object.name);
+
+            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            {
+                Tableau.current.jumpStop = true;
+                //console.log("jumpStop = true");
+            }
+            else
+            {
+                Tableau.current.jumpStop = false;
+                //console.log("jumpStop = false");
+            }
+            //this.physics.world.removeCollider(torche.torcheObject.name);
+            //this.tchLight.disableBody(true, true);
+
+        }, null, this);
+        
+        this.physics.add.overlap(this.player, this.torches3, function(player, torche3)
+        {
+            ici.allumerTorche3(torche3.torche3Object.name);
+
+            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            {
+                Tableau.current.jumpStop = true;
+                //console.log("jumpStop = true");
+            }
+            else
+            {
+                Tableau.current.jumpStop = false;
+                //console.log("jumpStop = false");
+            }
+            //this.physics.world.removeCollider(torche.torcheObject.name);
+            //this.tchLight.disableBody(true, true);
+
+        }, null, this);
+        
+        this.physics.add.overlap(this.player, this.torches4, function(player, torche4)
+        {
+            ici.allumerTorche4(torche4.torche4Object.name);
+
+            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            {
+                Tableau.current.jumpStop = true;
+                //console.log("jumpStop = true");
+            }
+            else
+            {
+                Tableau.current.jumpStop = false;
+                //console.log("jumpStop = false");
+            }
+            //this.physics.world.removeCollider(torche.torcheObject.name);
+            //this.tchLight.disableBody(true, true);
+
+        }, null, this);
+        
+        this.physics.add.overlap(this.player, this.torches5, function(player, torche5)
+        {
+            ici.allumerTorche5(torche5.torche5Object.name);
+
+            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            {
+                Tableau.current.jumpStop = true;
+                //console.log("jumpStop = true");
+            }
+            else
+            {
+                Tableau.current.jumpStop = false;
+                //console.log("jumpStop = false");
+            }
+            //this.physics.world.removeCollider(torche.torcheObject.name);
+            //this.tchLight.disableBody(true, true);
+
+        }, null, this);
+        
+        this.physics.add.overlap(this.player, this.torches6, function(player, torche6)
+        {
+            ici.allumerTorche6(torche6.torche6Object.name);
+
+            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            {
+                Tableau.current.jumpStop = true;
+                //console.log("jumpStop = true");
+            }
+            else
+            {
+                Tableau.current.jumpStop = false;
+                //console.log("jumpStop = false");
+            }
+            //this.physics.world.removeCollider(torche.torcheObject.name);
+            //this.tchLight.disableBody(true, true);
+
+        }, null, this);
+        
+        this.physics.add.overlap(this.player, this.torches7, function(player, torche7)
+        {
+            ici.allumerTorche7(torche7.torche7Object.name);
+
+            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            {
+                Tableau.current.jumpStop = true;
+                //console.log("jumpStop = true");
+            }
+            else
+            {
+                Tableau.current.jumpStop = false;
+                //console.log("jumpStop = false");
+            }
+            //this.physics.world.removeCollider(torche.torcheObject.name);
+            //this.tchLight.disableBody(true, true);
+
+        }, null, this);
+        
+        this.physics.add.overlap(this.player, this.torches8, function(player, torche8)
+        {
+            ici.allumerTorche8(torche8.torche8Object.name);
 
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
@@ -944,19 +1238,19 @@ class Niveau1 extends Tableau
 
     allumerBougie(bougieName, player)
     {
-        let storedBougie=localStorage.getItem("bougie")
+        let storedBougie = localStorage.getItem("bougie")
         if (storedBougie !== bougieName)
         {
             console.log("on allume la bougie", bougieName);
             localStorage.setItem("bougie", bougieName);
-            this.unSeul = true;
+            this.unSeul0 = true;
         }
         else if (storedBougie === bougieName)
         {
-            this.bougiesObjects.forEach(bougieObject => 
+            this.bougies0Objects.forEach(bougieObject => 
                 {
                     
-                    if(bougieObject.name === storedBougie && this.unSeul === true)
+                    if(bougieObject.name === storedBougie && this.unSeul0 === true)
                     {
                             this.allumeBougie = this.sound.add('allumageBougie');
                             var musicConfig = 
@@ -989,7 +1283,7 @@ class Niveau1 extends Tableau
                                     to:1,
                                 }
                             })
-                            this.unSeul = false;
+                            this.unSeul0 = false;
                             let bougie1 = this.add.pointlight(bougieObject.x+33, bougieObject.y-24, 0, 10, 0.2).setDepth(986);
                             bougie1.attenuation = 0.05;
                             bougie1.color.setTo(255, 200, 0);
@@ -1015,6 +1309,225 @@ class Niveau1 extends Tableau
         }
     } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
 
+    allumerBougie1(bougie1Name, player)
+    {
+        let storedBougie1 = localStorage.getItem("bougie1")
+        if (storedBougie1 !== bougie1Name)
+        {
+            console.log("on allume la bougie", bougie1Name);
+            localStorage.setItem("bougie1", bougie1Name);
+            this.unSeul1 = true;
+        }
+        else if (storedBougie1 === bougie1Name)
+        {
+            this.bougies1Objects.forEach(bougie1Object => 
+                {
+                    
+                    if(bougie1Object.name === storedBougie1 && this.unSeul1 === true)
+                    {
+                            this.allumeBougie1 = this.sound.add('allumageBougie');
+                            var musicConfig = 
+                            {
+                                mute: false,
+                                volume: 0.2,
+                                rate : 1,
+                                detune: 0,
+                                seek: 0,
+                                loop: false,
+                                delay:0,
+                            }
+                            this.allumeBougie1.play(musicConfig);
+    
+                            let bougieSprite1 = this.add.sprite(bougie1Object.x+32,bougie1Object.y-20,'bougieAnime').play('bg', true).setDepth(986);
+                            let bougie21 = this.add.pointlight(bougie1Object.x+33, bougie1Object.y-24, 0, 200, 0.3).setDepth(986);
+                            bougie21.attenuation = 0.05;
+                            bougie21.color.setTo(255, 200, 0);
+                            this.tweens.add(
+                            {
+                                targets:bougie21,
+                                duration:1,
+                                //yoyo: true,
+                                //repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            this.unSeul1 = false;
+                            let bougie11 = this.add.pointlight(bougie1Object.x+33, bougie1Object.y-24, 0, 10, 0.2).setDepth(986);
+                            bougie11.attenuation = 0.05;
+                            bougie11.color.setTo(255, 200, 0);
+                            this.tweens.add(
+                            {
+                                targets:bougie11,
+                                duration:200,//4000,
+                                yoyo: true,
+                                repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+
+                        this.unSeul1 = false;
+                    }
+
+                });
+        }
+    } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
+
+    allumerBougie2(bougie2Name, player)
+    {
+        let storedBougie2 = localStorage.getItem("bougie2")
+        if (storedBougie2 !== bougie2Name)
+        {
+            console.log("on allume la bougie", bougie2Name);
+            localStorage.setItem("bougie2", bougie2Name);
+            this.unSeul2 = true;
+        }
+        else if (storedBougie2 === bougie2Name)
+        {
+            this.bougies2Objects.forEach(bougie2Object => 
+                {
+                    
+                    if(bougie2Object.name === storedBougie2 && this.unSeul2 === true)
+                    {
+                            this.allumeBougie2 = this.sound.add('allumageBougie');
+                            var musicConfig = 
+                            {
+                                mute: false,
+                                volume: 0.2,
+                                rate : 1,
+                                detune: 0,
+                                seek: 0,
+                                loop: false,
+                                delay:0,
+                            }
+                            this.allumeBougie2.play(musicConfig);
+    
+                            let bougieSprite2 = this.add.sprite(bougie2Object.x+32,bougie2Object.y-20,'bougieAnime').play('bg', true).setDepth(986);
+                            let bougie22 = this.add.pointlight(bougie2Object.x+33, bougie2Object.y-24, 0, 200, 0.3).setDepth(986);
+                            bougie22.attenuation = 0.05;
+                            bougie22.color.setTo(255, 200, 0);
+                            this.tweens.add(
+                            {
+                                targets:bougie22,
+                                duration:1,
+                                //yoyo: true,
+                                //repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            this.unSeul2 = false;
+                            let bougie12 = this.add.pointlight(bougie2Object.x+33, bougie2Object.y-24, 0, 10, 0.2).setDepth(986);
+                            bougie12.attenuation = 0.05;
+                            bougie12.color.setTo(255, 200, 0);
+                            this.tweens.add(
+                            {
+                                targets:bougie12,
+                                duration:200,//4000,
+                                yoyo: true,
+                                repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+
+                        this.unSeul2 = false;
+                    }
+
+                });
+        }
+    } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
+
+    allumerBougie3(bougie3Name, player)
+    {
+        let storedBougie3 = localStorage.getItem("bougie3")
+        if (storedBougie3 !== bougie3Name)
+        {
+            console.log("on allume la bougie", bougie3Name);
+            localStorage.setItem("bougie3", bougie3Name);
+            this.unSeul3 = true;
+        }
+        else if (storedBougie3 === bougie3Name)
+        {
+            this.bougies3Objects.forEach(bougie3Object => 
+                {
+                    
+                    if(bougie3Object.name === storedBougie3 && this.unSeul3 === true)
+                    {
+                            this.allumeBougie3 = this.sound.add('allumageBougie');
+                            var musicConfig = 
+                            {
+                                mute: false,
+                                volume: 0.2,
+                                rate : 1,
+                                detune: 0,
+                                seek: 0,
+                                loop: false,
+                                delay:0,
+                            }
+                            this.allumeBougie3.play(musicConfig);
+    
+                            let bougieSprite3 = this.add.sprite(bougie3Object.x+32,bougie3Object.y-20,'bougieAnime').play('bg', true).setDepth(986);
+                            let bougie23 = this.add.pointlight(bougie3Object.x+33, bougie3Object.y-24, 0, 200, 0.3).setDepth(986);
+                            bougie23.attenuation = 0.05;
+                            bougie23.color.setTo(255, 200, 0);
+                            this.tweens.add(
+                            {
+                                targets:bougie23,
+                                duration:1,
+                                //yoyo: true,
+                                //repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            this.unSeul3 = false;
+                            let bougie13 = this.add.pointlight(bougie3Object.x+33, bougie3Object.y-24, 0, 10, 0.2).setDepth(986);
+                            bougie13.attenuation = 0.05;
+                            bougie13.color.setTo(255, 200, 0);
+                            this.tweens.add(
+                            {
+                                targets:bougie13,
+                                duration:200,//4000,
+                                yoyo: true,
+                                repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+
+                        this.unSeul3 = false;
+                    }
+
+                });
+        }
+    } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
+
 
     allumerTorche(torcheName, player)
     {
@@ -1023,14 +1536,14 @@ class Niveau1 extends Tableau
         {
             console.log("on allume la torche", torcheName);
             localStorage.setItem("torche", torcheName);
-            this.unSeul2 = true;
-            //Tableau.current.destructionTorcheLight = false;
+            this.unSeul = true;
+
         }
-        else if (storedTorche === torcheName && this.unSeul2 === true)
+        else if (storedTorche === torcheName && this.unSeul === true)
         {
-            console.log("la est torche allumée", torcheName);
-            this.torchesObjects.forEach(torcheObject => 
-                {
+            console.log("torche allumée", torcheName);
+            this.torches0Objects.forEach(torcheObject => 
+            {
                     
                     if(torcheObject.name === storedTorche)
                     {
@@ -1051,7 +1564,6 @@ class Niveau1 extends Tableau
                             let torche2 = this.add.pointlight(torcheObject.x+32, torcheObject.y-49, 0, 200, 0.3).setDepth(986);
                             torche2.attenuation = 0.05;
                             torche2.color.setTo(255, 100, 0);
-                            //torche2.destroy(); //torche2.visible = false;
                             this.tweens.add(
                             {
                                 targets:torche2,
@@ -1066,14 +1578,90 @@ class Niveau1 extends Tableau
                                     to:1,
                                 }
                             })
-                            this.unSeul2 = false;
+                            this.unSeul = false;
                             let torche1 = this.add.pointlight(torcheObject.x+32, torcheObject.y-49, 0, 20, 0.2).setDepth(986);
                             torche1.attenuation = 0.05;
                             torche1.color.setTo(255, 50, 0);
-                            //torche1.destroy();
                             this.tweens.add(
                             {
                                 targets:torche1,
+                                duration:200,//4000,
+                                yoyo: true,
+                                repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+
+                        this.unSeul = false;
+                    }
+
+                });
+        }
+    } //---------------------------------- FIN DE ALLUMERTORCHE ----------------------------------
+
+    allumerTorche1(torche1Name, player)
+    {
+        let storedTorche1 = localStorage.getItem("torche1")
+        if (storedTorche1 !== torche1Name)
+        {
+            console.log("on allume la torche", torche1Name);
+            localStorage.setItem("torche1", torche1Name);
+            this.unSeul21 = true;
+            //Tableau.current.destructionTorcheLight = false;
+        }
+        else if (storedTorche1 === torche1Name && this.unSeul21 === true)
+        {
+            console.log("torche allumée", torche1Name);
+            this.torches1Objects.forEach(torche1Object => 
+                {
+                    
+                    if(torche1Object.name === storedTorche1)
+                    {
+                            this.allumeTorche1 = this.sound.add('allumageTorche');
+                            var musicConfig = 
+                            {
+                                mute: false,
+                                volume: 0.4,
+                                rate : 1,
+                                detune: 0,
+                                seek: 0,
+                                loop: false,
+                                delay:0,
+                            }
+                            this.allumeTorche1.play(musicConfig);
+    
+                            let torcheSprite1 = this.add.sprite(torche1Object.x+32,torche1Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torche21 = this.add.pointlight(torche1Object.x+32, torche1Object.y-49, 0, 200, 0.3).setDepth(986);
+                            torche21.attenuation = 0.05;
+                            torche21.color.setTo(255, 100, 0);
+                            //torche2.destroy(); //torche2.visible = false;
+                            this.tweens.add(
+                            {
+                                targets:torche21,
+                                duration:1,
+                                //yoyo: true,
+                                //repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            this.unSeul21 = false;
+                            let torche11 = this.add.pointlight(torche1Object.x+32, torche1Object.y-49, 0, 20, 0.2).setDepth(986);
+                            torche11.attenuation = 0.05;
+                            torche11.color.setTo(255, 50, 0);
+                            //torche1.destroy();
+                            this.tweens.add(
+                            {
+                                targets:torche11,
                                 duration:200,//4000,
                                 yoyo: true,
                                 repeat:-1,
@@ -1093,12 +1681,600 @@ class Niveau1 extends Tableau
                             }
                             Tableau.current.destructionTorcheLight = true;*/
 
-                        this.unSeul2 = false;
+                        this.unSeul21 = false;
                     }
 
                 });
         }
-    } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
+    } //---------------------------------- FIN DE ALLUMERTORCHE1 ----------------------------------
+
+    allumerTorche2(torche2Name, player)
+    {
+        let storedTorche2 = localStorage.getItem("torche2")
+        if (storedTorche2 !== torche2Name)
+        {
+            console.log("on allume la torche", torche2Name);
+            localStorage.setItem("torche2", torche2Name);
+            this.unSeul22 = true;
+            //Tableau.current.destructionTorcheLight = false;
+        }
+        else if (storedTorche2 === torche2Name && this.unSeul22 === true)
+        {
+            console.log("torche allumée", torche2Name);
+            this.torches2Objects.forEach(torche2Object => 
+                {
+                    
+                    if(torche2Object.name === storedTorche2)
+                    {
+                            this.allumeTorche2 = this.sound.add('allumageTorche');
+                            var musicConfig = 
+                            {
+                                mute: false,
+                                volume: 0.4,
+                                rate : 1,
+                                detune: 0,
+                                seek: 0,
+                                loop: false,
+                                delay:0,
+                            }
+                            this.allumeTorche2.play(musicConfig);
+    
+                            let torcheSprite2 = this.add.sprite(torche2Object.x+32,torche2Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torche22 = this.add.pointlight(torche2Object.x+32, torche2Object.y-49, 0, 200, 0.3).setDepth(986);
+                            torche22.attenuation = 0.05;
+                            torche22.color.setTo(255, 100, 0);
+                            //torche2.destroy(); //torche2.visible = false;
+                            this.tweens.add(
+                            {
+                                targets:torche22,
+                                duration:1,
+                                //yoyo: true,
+                                //repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            this.unSeul22 = false;
+                            let torche12 = this.add.pointlight(torche2Object.x+32, torche2Object.y-49, 0, 20, 0.2).setDepth(986);
+                            torche12.attenuation = 0.05;
+                            torche12.color.setTo(255, 50, 0);
+                            //torche1.destroy();
+                            this.tweens.add(
+                            {
+                                targets:torche12,
+                                duration:200,//4000,
+                                yoyo: true,
+                                repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            /*if(Tableau.current.destructionTorcheLight)
+                            {
+                                torcheSprite.destroy();
+                                torche1.destroy();
+                                torche2.destroy();
+                            }
+                            Tableau.current.destructionTorcheLight = true;*/
+
+                        this.unSeul22 = false;
+                    }
+
+                });
+        }
+    } //---------------------------------- FIN DE ALLUMERTORCHE2 ----------------------------------
+
+    allumerTorche3(torche3Name, player)
+    {
+        let storedTorche3 = localStorage.getItem("torche3")
+        if (storedTorche3 !== torche3Name)
+        {
+            console.log("on allume la torche", torche3Name);
+            localStorage.setItem("torche3", torche3Name);
+            this.unSeul23 = true;
+            //Tableau.current.destructionTorcheLight = false;
+        }
+        else if (storedTorche3 === torche3Name && this.unSeul23 === true)
+        {
+            console.log("torche allumée", torche3Name);
+            this.torches3Objects.forEach(torche3Object => 
+                {
+                    
+                    if(torche3Object.name === storedTorche3)
+                    {
+                            this.allumeTorche3 = this.sound.add('allumageTorche');
+                            var musicConfig = 
+                            {
+                                mute: false,
+                                volume: 0.4,
+                                rate : 1,
+                                detune: 0,
+                                seek: 0,
+                                loop: false,
+                                delay:0,
+                            }
+                            this.allumeTorche3.play(musicConfig);
+    
+                            let torcheSprite3 = this.add.sprite(torche3Object.x+32,torche3Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torche23 = this.add.pointlight(torche3Object.x+32, torche3Object.y-49, 0, 200, 0.3).setDepth(986);
+                            torche23.attenuation = 0.05;
+                            torche23.color.setTo(255, 100, 0);
+                            //torche2.destroy(); //torche2.visible = false;
+                            this.tweens.add(
+                            {
+                                targets:torche23,
+                                duration:1,
+                                //yoyo: true,
+                                //repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            this.unSeul23 = false;
+                            let torche13 = this.add.pointlight(torche3Object.x+32, torche3Object.y-49, 0, 20, 0.2).setDepth(986);
+                            torche13.attenuation = 0.05;
+                            torche13.color.setTo(255, 50, 0);
+                            //torche1.destroy();
+                            this.tweens.add(
+                            {
+                                targets:torche13,
+                                duration:200,//4000,
+                                yoyo: true,
+                                repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            /*if(Tableau.current.destructionTorcheLight)
+                            {
+                                torcheSprite.destroy();
+                                torche1.destroy();
+                                torche2.destroy();
+                            }
+                            Tableau.current.destructionTorcheLight = true;*/
+
+                        this.unSeul23 = false;
+                    }
+
+                });
+        }
+    } //---------------------------------- FIN DE ALLUMERTORCHE3 ----------------------------------
+
+    allumerTorche4(torche4Name, player)
+    {
+        let storedTorche4=localStorage.getItem("torche4")
+        if (storedTorche4 !== torche4Name)
+        {
+            console.log("on allume la torche", torche4Name);
+            localStorage.setItem("torche4", torche4Name);
+            this.unSeul24 = true;
+            //Tableau.current.destructionTorcheLight = false;
+        }
+        else if (storedTorche4 === torche4Name && this.unSeul24 === true)
+        {
+            console.log("torche allumée", torche4Name);
+            this.torches4Objects.forEach(torche4Object => 
+                {
+                    
+                    if(torche4Object.name === storedTorche4)
+                    {
+                            this.allumeTorche4 = this.sound.add('allumageTorche');
+                            var musicConfig = 
+                            {
+                                mute: false,
+                                volume: 0.4,
+                                rate : 1,
+                                detune: 0,
+                                seek: 0,
+                                loop: false,
+                                delay:0,
+                            }
+                            this.allumeTorche4.play(musicConfig);
+    
+                            let torcheSprite4 = this.add.sprite(torche4Object.x+32,torche4Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torche24 = this.add.pointlight(torche4Object.x+32, torche4Object.y-49, 0, 200, 0.3).setDepth(986);
+                            torche24.attenuation = 0.05;
+                            torche24.color.setTo(255, 100, 0);
+                            //torche2.destroy(); //torche2.visible = false;
+                            this.tweens.add(
+                            {
+                                targets:torche24,
+                                duration:1,
+                                //yoyo: true,
+                                //repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            this.unSeul24 = false;
+                            let torche14 = this.add.pointlight(torche4Object.x+32, torche4Object.y-49, 0, 20, 0.2).setDepth(986);
+                            torche14.attenuation = 0.05;
+                            torche14.color.setTo(255, 50, 0);
+                            //torche1.destroy();
+                            this.tweens.add(
+                            {
+                                targets:torche14,
+                                duration:200,//4000,
+                                yoyo: true,
+                                repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            /*if(Tableau.current.destructionTorcheLight)
+                            {
+                                torcheSprite.destroy();
+                                torche1.destroy();
+                                torche2.destroy();
+                            }
+                            Tableau.current.destructionTorcheLight = true;*/
+
+                        this.unSeul24 = false;
+                    }
+
+                });
+        }
+    } //---------------------------------- FIN DE ALLUMERTORCHE4 ----------------------------------
+
+    allumerTorche5(torche5Name, player)
+    {
+        let storedTorche5=localStorage.getItem("torche5")
+        if (storedTorche5 !== torche5Name)
+        {
+            console.log("on allume la torche", torche5Name);
+            localStorage.setItem("torche5", torche5Name);
+            this.unSeul25 = true;
+            //Tableau.current.destructionTorcheLight = false;
+        }
+        else if (storedTorche5 === torche5Name && this.unSeul25 === true)
+        {
+            console.log("torche allumée", torche5Name);
+            this.torches5Objects.forEach(torche5Object => 
+                {
+                    
+                    if(torche5Object.name === storedTorche5)
+                    {
+                            this.allumeTorche5 = this.sound.add('allumageTorche');
+                            var musicConfig = 
+                            {
+                                mute: false,
+                                volume: 0.4,
+                                rate : 1,
+                                detune: 0,
+                                seek: 0,
+                                loop: false,
+                                delay:0,
+                            }
+                            this.allumeTorche5.play(musicConfig);
+    
+                            let torcheSprite5 = this.add.sprite(torche5Object.x+32,torche5Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torche25 = this.add.pointlight(torche5Object.x+32, torche5Object.y-49, 0, 200, 0.3).setDepth(986);
+                            torche25.attenuation = 0.05;
+                            torche25.color.setTo(255, 100, 0);
+                            //torche2.destroy(); //torche2.visible = false;
+                            this.tweens.add(
+                            {
+                                targets:torche25,
+                                duration:1,
+                                //yoyo: true,
+                                //repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            this.unSeul25 = false;
+                            let torche15 = this.add.pointlight(torche5Object.x+32, torche5Object.y-49, 0, 20, 0.2).setDepth(986);
+                            torche15.attenuation = 0.05;
+                            torche15.color.setTo(255, 50, 0);
+                            //torche1.destroy();
+                            this.tweens.add(
+                            {
+                                targets:torche15,
+                                duration:200,//4000,
+                                yoyo: true,
+                                repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            /*if(Tableau.current.destructionTorcheLight)
+                            {
+                                torcheSprite.destroy();
+                                torche1.destroy();
+                                torche2.destroy();
+                            }
+                            Tableau.current.destructionTorcheLight = true;*/
+
+                        this.unSeul25 = false;
+                    }
+
+                });
+        }
+    } //---------------------------------- FIN DE ALLUMERTORCHE5 ----------------------------------
+
+    allumerTorche6(torche6Name, player)
+    {
+        let storedTorche6 = localStorage.getItem("torche6")
+        if (storedTorche6 !== torche6Name)
+        {
+            console.log("on allume la torche", torche6Name);
+            localStorage.setItem("torche6", torche6Name);
+            this.unSeul26 = true;
+            //Tableau.current.destructionTorcheLight = false;
+        }
+        else if (storedTorche6 === torche6Name && this.unSeul26 === true)
+        {
+            console.log("torche allumée", torche6Name);
+            this.torches6Objects.forEach(torche6Object => 
+                {
+                    
+                    if(torche6Object.name === storedTorche6)
+                    {
+                            this.allumeTorche6 = this.sound.add('allumageTorche');
+                            var musicConfig = 
+                            {
+                                mute: false,
+                                volume: 0.4,
+                                rate : 1,
+                                detune: 0,
+                                seek: 0,
+                                loop: false,
+                                delay:0,
+                            }
+                            this.allumeTorche6.play(musicConfig);
+    
+                            let torcheSprite6 = this.add.sprite(torche6Object.x+32,torche6Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torche26 = this.add.pointlight(torche6Object.x+32, torche6Object.y-49, 0, 200, 0.3).setDepth(986);
+                            torche26.attenuation = 0.05;
+                            torche26.color.setTo(255, 100, 0);
+                            //torche2.destroy(); //torche2.visible = false;
+                            this.tweens.add(
+                            {
+                                targets:torche26,
+                                duration:1,
+                                //yoyo: true,
+                                //repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            this.unSeul26 = false;
+                            let torche16 = this.add.pointlight(torche6Object.x+32, torche6Object.y-49, 0, 20, 0.2).setDepth(986);
+                            torche16.attenuation = 0.05;
+                            torche16.color.setTo(255, 50, 0);
+                            //torche1.destroy();
+                            this.tweens.add(
+                            {
+                                targets:torche16,
+                                duration:200,//4000,
+                                yoyo: true,
+                                repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            /*if(Tableau.current.destructionTorcheLight)
+                            {
+                                torcheSprite.destroy();
+                                torche1.destroy();
+                                torche2.destroy();
+                            }
+                            Tableau.current.destructionTorcheLight = true;*/
+
+                        this.unSeul26 = false;
+                    }
+
+                });
+        }
+    } //---------------------------------- FIN DE ALLUMERTORCHE6 ----------------------------------
+
+    allumerTorche7(torche7Name, player)
+    {
+        let storedTorche7 = localStorage.getItem("torche7")
+        if (storedTorche7 !== torche7Name)
+        {
+            console.log("on allume la torche", torche7Name);
+            localStorage.setItem("torche7", torche7Name);
+            this.unSeul27 = true;
+            //Tableau.current.destructionTorcheLight = false;
+        }
+        else if (storedTorche7 === torche7Name && this.unSeul27 === true)
+        {
+            console.log("torche allumée", torche7Name);
+            this.torches7Objects.forEach(torche7Object => 
+                {
+                    
+                    if(torche7Object.name === storedTorche7)
+                    {
+                            this.allumeTorche7 = this.sound.add('allumageTorche');
+                            var musicConfig = 
+                            {
+                                mute: false,
+                                volume: 0.4,
+                                rate : 1,
+                                detune: 0,
+                                seek: 0,
+                                loop: false,
+                                delay:0,
+                            }
+                            this.allumeTorche7.play(musicConfig);
+    
+                            let torcheSprite7 = this.add.sprite(torche7Object.x+32,torche7Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torche27 = this.add.pointlight(torche7Object.x+32, torche7Object.y-49, 0, 200, 0.3).setDepth(986);
+                            torche27.attenuation = 0.05;
+                            torche27.color.setTo(255, 100, 0);
+                            //torche2.destroy(); //torche2.visible = false;
+                            this.tweens.add(
+                            {
+                                targets:torche27,
+                                duration:1,
+                                //yoyo: true,
+                                //repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            this.unSeul27 = false;
+                            let torche17 = this.add.pointlight(torche7Object.x+32, torche7Object.y-49, 0, 20, 0.2).setDepth(986);
+                            torche17.attenuation = 0.05;
+                            torche17.color.setTo(255, 50, 0);
+                            //torche1.destroy();
+                            this.tweens.add(
+                            {
+                                targets:torche17,
+                                duration:200,//4000,
+                                yoyo: true,
+                                repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            /*if(Tableau.current.destructionTorcheLight)
+                            {
+                                torcheSprite.destroy();
+                                torche1.destroy();
+                                torche2.destroy();
+                            }
+                            Tableau.current.destructionTorcheLight = true;*/
+
+                        this.unSeul27 = false;
+                    }
+
+                });
+        }
+    } //---------------------------------- FIN DE ALLUMERTORCHE7 ----------------------------------
+
+    allumerTorche8(torche8Name, player)
+    {
+        let storedTorche8 = localStorage.getItem("torche8")
+        if (storedTorche8 !== torche8Name)
+        {
+            console.log("on allume la torche", torche8Name);
+            localStorage.setItem("torche8", torche8Name);
+            this.unSeul28 = true;
+            //Tableau.current.destructionTorcheLight = false;
+        }
+        else if (storedTorche8 === torche8Name && this.unSeul28 === true)
+        {
+            console.log("torche allumée", torche8Name);
+            this.torches8Objects.forEach(torche8Object => 
+                {
+                    
+                    if(torche8Object.name === storedTorche8)
+                    {
+                            this.allumeTorche8 = this.sound.add('allumageTorche');
+                            var musicConfig = 
+                            {
+                                mute: false,
+                                volume: 0.4,
+                                rate : 1,
+                                detune: 0,
+                                seek: 0,
+                                loop: false,
+                                delay:0,
+                            }
+                            this.allumeTorche8.play(musicConfig);
+    
+                            let torcheSprite8 = this.add.sprite(torche8Object.x+32,torche8Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torche28 = this.add.pointlight(torche8Object.x+32, torche8Object.y-49, 0, 200, 0.3).setDepth(986);
+                            torche28.attenuation = 0.05;
+                            torche28.color.setTo(255, 100, 0);
+                            //torche2.destroy(); //torche2.visible = false;
+                            this.tweens.add(
+                            {
+                                targets:torche28,
+                                duration:1,
+                                //yoyo: true,
+                                //repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            this.unSeul28 = false;
+                            let torche18 = this.add.pointlight(torche8Object.x+32, torche8Object.y-49, 0, 20, 0.2).setDepth(986);
+                            torche18.attenuation = 0.05;
+                            torche18.color.setTo(255, 50, 0);
+                            //torche1.destroy();
+                            this.tweens.add(
+                            {
+                                targets:torche18,
+                                duration:200,//4000,
+                                yoyo: true,
+                                repeat:-1,
+                                delay:Math.random()*1000,
+                                alpha:
+                                {
+                                    startDelay:Math.random()*5000,
+                                    from:0,
+                                    to:1,
+                                }
+                            })
+                            /*if(Tableau.current.destructionTorcheLight)
+                            {
+                                torcheSprite.destroy();
+                                torche1.destroy();
+                                torche2.destroy();
+                            }
+                            Tableau.current.destructionTorcheLight = true;*/
+
+                        this.unSeul28 = false;
+                    }
+
+                });
+        }
+    } //---------------------------------- FIN DE ALLUMERTORCHE8 ----------------------------------
 
 
 /*
