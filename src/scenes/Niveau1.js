@@ -1241,7 +1241,7 @@ class Niveau1 extends Tableau
         let storedBougie = localStorage.getItem("bougie")
         if (storedBougie !== bougieName)
         {
-            console.log("on allume la bougie", bougieName);
+            //console.log("on allume la bougie", bougieName);
             localStorage.setItem("bougie", bougieName);
             this.unSeul0 = true;
         }
@@ -1314,7 +1314,7 @@ class Niveau1 extends Tableau
         let storedBougie1 = localStorage.getItem("bougie1")
         if (storedBougie1 !== bougie1Name)
         {
-            console.log("on allume la bougie", bougie1Name);
+            //console.log("on allume la bougie", bougie1Name);
             localStorage.setItem("bougie1", bougie1Name);
             this.unSeul1 = true;
         }
@@ -1387,7 +1387,7 @@ class Niveau1 extends Tableau
         let storedBougie2 = localStorage.getItem("bougie2")
         if (storedBougie2 !== bougie2Name)
         {
-            console.log("on allume la bougie", bougie2Name);
+            //console.log("on allume la bougie", bougie2Name);
             localStorage.setItem("bougie2", bougie2Name);
             this.unSeul2 = true;
         }
@@ -1460,7 +1460,7 @@ class Niveau1 extends Tableau
         let storedBougie3 = localStorage.getItem("bougie3")
         if (storedBougie3 !== bougie3Name)
         {
-            console.log("on allume la bougie", bougie3Name);
+            //console.log("on allume la bougie", bougie3Name);
             localStorage.setItem("bougie3", bougie3Name);
             this.unSeul3 = true;
         }
@@ -1534,14 +1534,14 @@ class Niveau1 extends Tableau
         let storedTorche=localStorage.getItem("torche")
         if (storedTorche !== torcheName)
         {
-            console.log("on allume la torche", torcheName);
+            //console.log("on allume la torche", torcheName);
             localStorage.setItem("torche", torcheName);
             this.unSeul = true;
 
         }
         else if (storedTorche === torcheName && this.unSeul === true)
         {
-            console.log("torche allumée", torcheName);
+            //console.log("torche allumée", torcheName);
             this.torches0Objects.forEach(torcheObject => 
             {
                     
@@ -1609,14 +1609,14 @@ class Niveau1 extends Tableau
         let storedTorche1 = localStorage.getItem("torche1")
         if (storedTorche1 !== torche1Name)
         {
-            console.log("on allume la torche", torche1Name);
+            //console.log("on allume la torche", torche1Name);
             localStorage.setItem("torche1", torche1Name);
             this.unSeul21 = true;
             //Tableau.current.destructionTorcheLight = false;
         }
         else if (storedTorche1 === torche1Name && this.unSeul21 === true)
         {
-            console.log("torche allumée", torche1Name);
+            //console.log("torche allumée", torche1Name);
             this.torches1Objects.forEach(torche1Object => 
                 {
                     
@@ -1777,14 +1777,14 @@ class Niveau1 extends Tableau
         let storedTorche3 = localStorage.getItem("torche3")
         if (storedTorche3 !== torche3Name)
         {
-            console.log("on allume la torche", torche3Name);
+            //console.log("on allume la torche", torche3Name);
             localStorage.setItem("torche3", torche3Name);
             this.unSeul23 = true;
             //Tableau.current.destructionTorcheLight = false;
         }
         else if (storedTorche3 === torche3Name && this.unSeul23 === true)
         {
-            console.log("torche allumée", torche3Name);
+            //console.log("torche allumée", torche3Name);
             this.torches3Objects.forEach(torche3Object => 
                 {
                     
@@ -1945,14 +1945,14 @@ class Niveau1 extends Tableau
         let storedTorche5=localStorage.getItem("torche5")
         if (storedTorche5 !== torche5Name)
         {
-            console.log("on allume la torche", torche5Name);
+            //console.log("on allume la torche", torche5Name);
             localStorage.setItem("torche5", torche5Name);
             this.unSeul25 = true;
             //Tableau.current.destructionTorcheLight = false;
         }
         else if (storedTorche5 === torche5Name && this.unSeul25 === true)
         {
-            console.log("torche allumée", torche5Name);
+            //console.log("torche allumée", torche5Name);
             this.torches5Objects.forEach(torche5Object => 
                 {
                     
@@ -2029,14 +2029,14 @@ class Niveau1 extends Tableau
         let storedTorche6 = localStorage.getItem("torche6")
         if (storedTorche6 !== torche6Name)
         {
-            console.log("on allume la torche", torche6Name);
+            //console.log("on allume la torche", torche6Name);
             localStorage.setItem("torche6", torche6Name);
             this.unSeul26 = true;
             //Tableau.current.destructionTorcheLight = false;
         }
         else if (storedTorche6 === torche6Name && this.unSeul26 === true)
         {
-            console.log("torche allumée", torche6Name);
+            //console.log("torche allumée", torche6Name);
             this.torches6Objects.forEach(torche6Object => 
                 {
                     
@@ -2113,14 +2113,14 @@ class Niveau1 extends Tableau
         let storedTorche7 = localStorage.getItem("torche7")
         if (storedTorche7 !== torche7Name)
         {
-            console.log("on allume la torche", torche7Name);
+            //console.log("on allume la torche", torche7Name);
             localStorage.setItem("torche7", torche7Name);
             this.unSeul27 = true;
             //Tableau.current.destructionTorcheLight = false;
         }
         else if (storedTorche7 === torche7Name && this.unSeul27 === true)
         {
-            console.log("torche allumée", torche7Name);
+            //console.log("torche allumée", torche7Name);
             this.torches7Objects.forEach(torche7Object => 
                 {
                     
@@ -2197,14 +2197,14 @@ class Niveau1 extends Tableau
         let storedTorche8 = localStorage.getItem("torche8")
         if (storedTorche8 !== torche8Name)
         {
-            console.log("on allume la torche", torche8Name);
+            //console.log("on allume la torche", torche8Name);
             localStorage.setItem("torche8", torche8Name);
             this.unSeul28 = true;
             //Tableau.current.destructionTorcheLight = false;
         }
         else if (storedTorche8 === torche8Name && this.unSeul28 === true)
         {
-            console.log("torche allumée", torche8Name);
+            //console.log("torche allumée", torche8Name);
             this.torches8Objects.forEach(torche8Object => 
                 {
                     

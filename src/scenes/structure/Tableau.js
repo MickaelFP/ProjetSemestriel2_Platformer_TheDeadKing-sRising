@@ -190,6 +190,11 @@ class Tableau extends Phaser.Scene{
         //this.contact = false ;
         //this.jumpStop = false;
 
+        /*this.physics.add.overlap(this.player, this.solides, function(player, solides)
+        {
+            this.jumping = false;
+        }, null, this);*/
+
         // ----------------------------------- Effets pour chaques touches configurées -----------------------------------
 
         if (this.aPressed && this.oneShootOnly)
