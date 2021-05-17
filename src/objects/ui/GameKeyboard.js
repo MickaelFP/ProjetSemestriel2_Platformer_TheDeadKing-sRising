@@ -66,13 +66,15 @@ class GameKeyboard extends Phaser.GameObjects.Container{
         scene.input.keyboard.on('keyup', function(kevent){
             switch (kevent.key){
                 case "ArrowRight":
-                    Tableau.current.player.directionX=0;
+                    Tableau.current.player.directionX=1;
                     Tableau.current.arrowRightPressed = false;
+                    Tableau.current.JumpRetomber();
                     break;
 
                 case "ArrowLeft":
-                    Tableau.current.player.directionX=0;
+                    Tableau.current.player.directionX=-1;
                     Tableau.current.arrowLeftPressed = false;
+                    Tableau.current.JumpRetomber();
                     break;
 
                 case "ArrowUp":
@@ -81,19 +83,18 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                     break;
 
                 case "ArrowDown":
+                    Tableau.current.player.directionX=0;
                     Tableau.current.player.directionY=0;
                     break;
 
                 case "a":
                     Tableau.current.player.directionX=0;
                     Tableau.current.player.directionY=0;
-                    //Tableau.current.aPressed = false;
-                    console.log("attackOff");
+                    //console.log("attackOff");
                     break;
                 
                 case "i":
                     Tableau.current.iPressed=false;
-                    console.log("HideInfosCtrl");
                     break;
                     
                 case "Control":

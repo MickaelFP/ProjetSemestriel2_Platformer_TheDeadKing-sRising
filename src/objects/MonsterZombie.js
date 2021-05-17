@@ -18,7 +18,7 @@ class MonsterZombie extends ObjetEnnemi{
         this.setVelocityX(-40*(Math.random()+1.5));
 
         this.walking = true;
-        this.isAlive = true;
+        Tableau.current.zombieAlive = true;
         //this.physics.add.overlap(this.player, this.monstre, this.hitSpike, null, this);
 
         /*this.anims.create({
@@ -99,31 +99,35 @@ class MonsterZombie extends ObjetEnnemi{
             }
         }*/
 
-        if(this.isAlive)
+        if(Tableau.current.zombieAlive)
         {
-            if(this.scene.player.x > this.x - 400 && this.scene.player.x < this.x)
+            if(this.scene.player.x > this.x - 400 && this.scene.player.x < this.x && this.scene.player.y <= this.y)
             {
                 console.log("GRRRRR GAUCHE");
                 this.setVelocityX(-40*(Math.random()+1.5));
                 //this.flipX = true;
             }
-            else if(this.scene.player.x < this.x + 400 && this.scene.player.x > this.x)
+            else if(this.scene.player.x < this.x + 400 && this.scene.player.x > this.x && this.scene.player.y <= this.y)
             {
                 console.log("GRRRRR DROITE");
                 this.setVelocityX(40*(Math.random()+1.5));
                 //this.flipX = false;
             }
+            else
+            {
+                this.setVelocityX(0);
+            }
 
         }
         if(this.body.velocity.x < 0)
         {
-            console.log("GRRRRR GAUCHE");
+            //console.log("anims.play left");
             this.anims.play('left', true);
             //this.flipX = true;
         }
         else if (this.body.velocity.x > 0)
         {
-            console.log("GRRRRR DROITE");
+            //console.log("anims.play right");
             this.anims.play('right', true);
             //this.flipX = false;
         }
@@ -136,10 +140,14 @@ class MonsterZombie extends ObjetEnnemi{
 
     die()
     {
-        if(this.body.touching.up && this.isAlive)
+        if(this.body.touching.up && Tableau.current.zombieAlive)
         {   
             console.log("Un zombie mort, ça donne quoi ?")
-            this.isAlive = false;
+            Tableau.current.zombieAlive = false;
+        }
+        else
+        {
+            Tableau.current.zombieAlive = true;
         }
     }
 

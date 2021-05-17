@@ -80,6 +80,7 @@ class Tableau extends Phaser.Scene{
         ui._hpText.setText('Status : ');
 
         this.shoot = new ElementProjectils(this,0+8600,0+4448);
+        this.zombieDrope = new MonsterZombie(this,0+8600,0+4448).setVelocity(0,0);
 
 
         // ----------------------------------- fonction en booleans d'affichage d'image -----------------------------------
@@ -135,6 +136,9 @@ class Tableau extends Phaser.Scene{
         //this.torcheContact = false;
         //this.oneTorche = false;
 
+        this.zombieAlive = true;
+        this.stopTomber = false;
+
         this.antiBug = true;
 
         //this.projectilDestroyed = false;
@@ -184,6 +188,7 @@ class Tableau extends Phaser.Scene{
         super.update();
         this.player.move(); 
         this.shoot.update();
+        this.zombieDrope.update();
         //this.shoot.move();
 
         //this.contact = false ;
@@ -193,6 +198,14 @@ class Tableau extends Phaser.Scene{
         {
             this.jumping = false;
         }, null, this);*/
+
+
+        if(this.stopTomber && this.player.body.blocked.down)
+        {
+            this.player.directionX=0;
+            this.stopTomber = false;
+        }
+
 
         // ----------------------------------- Effets pour chaques touches configurées -----------------------------------
 
@@ -541,13 +554,8 @@ class Tableau extends Phaser.Scene{
             //this.blood2.setDepth(996);
             if(monster.isDead !== true)
             { //si notre monstre n'est pas déjà mort
-                if(
-                    // si le player descend
-                    player.body.velocity.y >= 0
-                    // et si le bas du player est plus haut que le monstre
-                    && player.getBounds().bottom < monster.getBounds().top+30
-    
-                ){
+                if(player.body.velocity.y >= 0 && player.getBounds().bottom < monster.getBounds().top+30)
+                {
                     ui.gagne();
                     //monster.body.enable = false // Invulnérabilité temporaire
                     monster.isDead=true; //ok le monstre est mort
@@ -650,12 +658,14 @@ class Tableau extends Phaser.Scene{
     {
         console.log("invincible");
         this.invicibleForEver = true;
+        this.zombieAlive = false;
         this.time.addEvent
         ({
             delay: 1000,
             callback: ()=>
             {
                 this.invicibleForEver = false;
+                this.zombieAlive = true;
                 console.log("vulnerable");
             },
             loop: false
@@ -669,16 +679,34 @@ class Tableau extends Phaser.Scene{
     {
         console.log("invincibleM");
         this.invicibleForEver = true;
+        this.zombieAlive = false;
         this.time.addEvent
         ({
             delay: 4000,
             callback: ()=>
             {
                 this.invicibleForEver = false;
+                this.zombieAlive = true;
                 console.log("vulnerableM");
             },
             loop: false
         })
+    }
+
+
+    JumpRetomber()
+    {
+        console.log("JumpRetomber");
+        if(!Tableau.current.player.body.blocked.down)// || Tableau.player.body.touching.down)
+        {
+            console.log("Tableau.current.player.directionX=X;");
+            this.stopTomber = true;
+        }
+        else
+        {
+            Tableau.current.player.directionX=0;
+            console.log("Tableau.current.player.directionX=0;");
+        }
     }
 
 
