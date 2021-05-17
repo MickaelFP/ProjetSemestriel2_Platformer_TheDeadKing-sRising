@@ -27,6 +27,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                     break;
 
                 case "ArrowDown":
+                    Tableau.current.player.directionX=0;
                     Tableau.current.player.directionY=1;
                     break;
 
@@ -40,7 +41,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                 case "i":
                     Tableau.current.iPressed = true;
                     //Tableau.current.showInfos = true;
-                    console.log("ShowInfosCtrl");
+                    //console.log("ShowInfosCtrl");
                     break;
 
                 case "Control":
@@ -83,7 +84,6 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                     break;
 
                 case "ArrowDown":
-                    Tableau.current.player.directionX=0;
                     Tableau.current.player.directionY=0;
                     break;
 

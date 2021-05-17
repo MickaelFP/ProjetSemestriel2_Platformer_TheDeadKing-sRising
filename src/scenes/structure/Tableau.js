@@ -73,6 +73,12 @@ class Tableau extends Phaser.Scene{
         this.player=new Player(this,0+160,0+1952);//160//1200/1968
         this.player.setMaxVelocity(800,800); //évite que le player quand il tombe ne traverse des plateformes
 
+        this.auraInvincible = this.add.pointlight(this.player.x, this.player.y, 0, 2000, 0.02);
+        this.auraInvincible.setDepth(999);
+        this.auraInvincible.attenuation = 0.1;
+        this.auraInvincible.color.setTo(354, 10, 10);
+        this.auraInvincible.visible=false;
+
         this.pv3=this.add.sprite(90, 100, "hp3");
         this.pv3.setDepth(1000);
         this.pv3.setScrollFactor(0);
@@ -138,8 +144,10 @@ class Tableau extends Phaser.Scene{
 
         this.zombieAlive = true;
         this.stopTomber = false;
+        this.startAuraInv = false;
 
         this.antiBug = true;
+        
 
         //this.projectilDestroyed = false;
 
@@ -189,16 +197,33 @@ class Tableau extends Phaser.Scene{
         this.player.move(); 
         this.shoot.update();
         this.zombieDrope.update();
-        //this.shoot.move();
 
+        //this.shoot.move();
         //this.contact = false ;
         //this.jumpStop = false;
+
+        // ----------------------------------- Effets pour chaques touches configurées -----------------------------------
+
+        this.throwBones();
+        this.showInfoCtrl();
+        this.playerHealing();
+        this.vaseDropping();
 
         /*this.physics.add.overlap(this.player, this.solides, function(player, solides)
         {
             this.jumping = false;
         }, null, this);*/
 
+        if(this.startAuraInv)
+        {
+            this.auraInvincible.setPosition(this.player.x, this.player.y);
+            this.auraInvincible.visible=true;
+        }
+        else
+        {
+            this.auraInvincible.setPosition(this.player.x, this.player.y);
+            this.auraInvincible.visible=false;
+        }
 
         if(this.stopTomber && this.player.body.blocked.down)
         {
@@ -206,81 +231,25 @@ class Tableau extends Phaser.Scene{
             this.stopTomber = false;
         }
 
-
-        // ----------------------------------- Effets pour chaques touches configurées -----------------------------------
-
-        if (this.aPressed && this.oneShootOnly)
-        {
-            let me = this;
-
-            me.oneShootOnly = false;
-            me.shoot=new ElementProjectils(this,this.player.x +30,this.player.y-30,"ossement").setDepth(996);
-            me.physics.add.collider(this.solides, this.shoot);
-
-            if(this.arrowRightPressed)
-            {
-                console.log("me.shoot.setVelocity +++");
-                me.shoot.setVelocity(240, -200);//(240, -350);
-            }
-            if(this.arrowLeftPressed)
-            {
-                console.log("me.shoot.setVelocity ---");
-                me.shoot.setVelocity(-240, -200);//(-240, -350);
-            }
-
-            this.destroyProjectil2();
-
-            /*me.physics.add.collider(this.plateform, this.aPressed);
-            me.physics.add.collider(this.plateform2, this.aPressed);
-            me.physics.add.collider(this.plateform3, this.aPressed);
-            me.physics.add.collider(this.plateform4, this.aPressed);
-            me.physics.add.collider(this.plateform5, this.aPressed);
-            me.physics.add.collider(this.plateform6, this.aPressed);*/
-
-            ui.perdre();
-            me.aPressed=false;
-        }
-
-        if (this.iPressed)
-        {
-            let me = this;
-            me.infCtrl.visible=true;
-            me.infCtrl.x=me.player.x-50;
-            me.infCtrl.y=me.player.y;
-            me.tweens.add({
-                targets:me.infCtrl,
-                duration:0,
-                displayHeight:
-                {
-                    from:400,
-                    to:400,
-                },
-                displayWidth:
-                {
-                    from:400,
-                    to:400,
-                },
-                onComplete: function () 
-                {
-                    me.infCtrl.visible=false;
-                    //onComplete();
-                }
-            })
-            console.log("infos ctrl affichées");
-        }
-
-        if(this.ePressed)
-        {
-            ici.heal();
-        }
-
-        if (this.ControlPressed)
-        {
-            localStorage.removeItem("checkPoint");
-        }
-
         // ----------------------------------- Drop d'objet (ou de monstre...) -----------------------------------
+        
+        if(this.vaseDrope.body)
+        {
+            this.physics.add.overlap(this.vaseDrope, this.shoot, function(vaseDrope, shoot)
+            {
+                if(this.vaseDrope.body)
+                {
+                    this.destroyProjectil();
+                    //console.log("Debug Debug Debug Debug Debug Debug Debug");
+                }
+            }, null, this);
+        }
 
+    } // FIN DE UPDATE
+
+
+    vaseDropping()
+    {
         if (this.vaseDrope)
         {
             /*let me = this;
@@ -334,20 +303,89 @@ class Tableau extends Phaser.Scene{
             }
             //me.vaseDrope.rotation = Phaser.Math.Between(0,6);
         }
-        
-        if(this.vaseDrope.body)
+    }
+
+
+    playerHealing()
+    {
+        if(this.ePressed)
         {
-            this.physics.add.overlap(this.vaseDrope, this.shoot, function(vaseDrope, shoot)
-            {
-                if(this.vaseDrope.body)
-                {
-                    this.destroyProjectil();
-                    //console.log("Debug Debug Debug Debug Debug Debug Debug");
-                }
-            }, null, this);
+            this.heal();
         }
 
+        if (this.ControlPressed)
+        {
+            localStorage.removeItem("checkPoint");
+        }
     }
+
+
+    showInfoCtrl()
+    {
+        if (this.iPressed)
+        {
+            let me = this;
+            me.infCtrl.visible=true;
+            me.infCtrl.x=me.player.x-50;
+            me.infCtrl.y=me.player.y;
+            me.tweens.add({
+                targets:me.infCtrl,
+                duration:0,
+                displayHeight:
+                {
+                    from:400,
+                    to:400,
+                },
+                displayWidth:
+                {
+                    from:400,
+                    to:400,
+                },
+                onComplete: function () 
+                {
+                    me.infCtrl.visible=false;
+                    //onComplete();
+                }
+            })
+            //console.log("infos ctrl affichées");
+        }
+    } // FIN DE SHOWINFOCTRL
+
+
+    throwBones()
+    {
+        if (this.aPressed && this.oneShootOnly)
+        {
+            let me = this;
+
+            me.oneShootOnly = false;
+            me.shoot=new ElementProjectils(this,this.player.x +30,this.player.y-30,"ossement").setDepth(996);
+            me.physics.add.collider(this.solides, this.shoot);
+
+            if(this.arrowRightPressed)
+            {
+                console.log("me.shoot.setVelocity +++");
+                me.shoot.setVelocity(240, -200);//(240, -350);
+            }
+            if(this.arrowLeftPressed)
+            {
+                console.log("me.shoot.setVelocity ---");
+                me.shoot.setVelocity(-240, -200);//(-240, -350);
+            }
+
+            this.destroyProjectil2();
+
+            /*me.physics.add.collider(this.plateform, this.aPressed);
+            me.physics.add.collider(this.plateform2, this.aPressed);
+            me.physics.add.collider(this.plateform3, this.aPressed);
+            me.physics.add.collider(this.plateform4, this.aPressed);
+            me.physics.add.collider(this.plateform5, this.aPressed);
+            me.physics.add.collider(this.plateform6, this.aPressed);*/
+
+            ui.perdre();
+            me.aPressed=false;
+        }
+    } // FIN DE THROWBONES
 
     // ********************************* Gestionnaire des effets déclenchés à la mort d'un monstre *********************************
 
@@ -382,11 +420,11 @@ class Tableau extends Phaser.Scene{
                 onComplete();
             }
         })
-    }
+    } // FIN DE SAIGNE
 
 
     // ********************************* Gestionnaire des effets déclenchés à la mort du joueur *********************************
-
+    //
     /**
      *
      * @param {Sprite} object Objet qui saigne
@@ -423,7 +461,7 @@ class Tableau extends Phaser.Scene{
 
 
     // ********************************* Gestionnaire des effets déclenchés à la destruction d'un vase *********************************
-
+    //
     /**
      *
      * @param {Sprite} object Objet qui saigne
@@ -441,7 +479,7 @@ class Tableau extends Phaser.Scene{
 
 
     // ********************************* Gestionnaire de collectibilité des ossements (score) *********************************
-
+    //
     ramasserEtoile (player, star)
     {
         star.disableBody(true, true);
@@ -475,11 +513,11 @@ class Tableau extends Phaser.Scene{
             this.win();
         }
         */
-    }
+    } // FIN DE RAMASSERETOILE
 
 
     // ********************************* Tentative de déplacement d'un monstre en fonction des coordonées du joueur *********************************
-
+    //
     /**
      * Quand on dépasse un monstre
      * il se tourne vers nous
@@ -524,6 +562,7 @@ class Tableau extends Phaser.Scene{
         }
     }*/
 
+
     /**
      * Aïeee ça fait mal
      * @param player
@@ -536,7 +575,7 @@ class Tableau extends Phaser.Scene{
         player.anims.play('turn');
         this.scene.restart();
 
-    }
+    } // FIN DE HITSPIKE
 
 
     /**
@@ -590,8 +629,8 @@ class Tableau extends Phaser.Scene{
                 }
             }
         }
+    } // FIN DE HITMONSTER
 
-    }
 
     playerDamage(player,hp)
     {
@@ -600,6 +639,7 @@ class Tableau extends Phaser.Scene{
         if(this.lifePoints>=2)
         {
             ui.losePV();
+            this.shakeCameras();
             me.invincible();
             me.lifePoints -= 1;
             console.log('damage');
@@ -648,15 +688,43 @@ class Tableau extends Phaser.Scene{
             this.lifePoints=3;
             console.log('lifePoints = 3');
         }
+    } // FIN DE PLAYERDAMAGE
 
+
+    shakeCameras()
+    {
+        console.log('shakeCameras');
+        this.cameras.main.shake(500, 0.005);
     }
- 
+    shakeCameras()
+    {
+        console.log('shakeCameras');
+        this.cameras.main.shake(500, 0.005);
 
-    // ********************************* Rend le player invulnérable pour un évènement à durée courte *********************************
+    } // FIN DES SHAKECAMERAS
+    
+    startingInvAura()
+    {
+        this.startAuraInv = true;
+        this.time.addEvent
+        ({
+            delay: 500,
+            callback: ()=>
+            {
+                this.startAuraInv = false;
+            },
+            loop: false
+        })
+    }
+
+    // ********************************* Rend le player invulnérable *********************************
     //
+    // pour un évènement à durée courte
     invincible()
     {
         console.log("invincible");
+
+        this.startingInvAura()
         this.invicibleForEver = true;
         this.zombieAlive = false;
         this.time.addEvent
@@ -664,20 +732,18 @@ class Tableau extends Phaser.Scene{
             delay: 1000,
             callback: ()=>
             {
+                this.startAuraInv = false;
                 this.invicibleForEver = false;
                 this.zombieAlive = true;
-                console.log("vulnerable");
+                //console.log("vulnerable");
             },
             loop: false
         })
     }
-
-
-    // ********************************* Rend le player invulnérable pour un évènement à durée moyenne *********************************
-    //
+    // pour un évènement à durée moyenne
     invincibleM()
     {
-        console.log("invincibleM");
+        //console.log("invincibleM");
         this.invicibleForEver = true;
         this.zombieAlive = false;
         this.time.addEvent
@@ -687,31 +753,33 @@ class Tableau extends Phaser.Scene{
             {
                 this.invicibleForEver = false;
                 this.zombieAlive = true;
-                console.log("vulnerableM");
+                //console.log("vulnerableM");
             },
             loop: false
         })
     }
+    // *********************************
 
 
     JumpRetomber()
     {
-        console.log("JumpRetomber");
+        //console.log("JumpRetomber");
         if(!Tableau.current.player.body.blocked.down)// || Tableau.player.body.touching.down)
         {
-            console.log("Tableau.current.player.directionX=X;");
+            //console.log("Tableau.current.player.directionX=X;");
             this.stopTomber = true;
         }
         else
         {
             Tableau.current.player.directionX=0;
-            console.log("Tableau.current.player.directionX=0;");
+            //console.log("Tableau.current.player.directionX=0;");
         }
-    }
+    } // FIN DE JUMPRETOMBER
 
 
     // ********************************* Confirme la destruction du projectil après un délai prédéfini *********************************
     //
+    // Instantanément
     destroyProjectil()
     {
         //this.projectilDestroyed = true;
@@ -729,12 +797,12 @@ class Tableau extends Phaser.Scene{
             loop: false
         })
     }
-
+    // Après un lapse de temps
     destroyProjectil2()
     {
         //this.projectilDestroyed = true;
         //this.shoot.move();
-        console.log("destroyProjectil addEvent");
+        //console.log("destroyProjectil addEvent");
         this.time.addEvent
         ({
             delay: 1500,
@@ -742,11 +810,12 @@ class Tableau extends Phaser.Scene{
             {
                 //this.shoot.stop();
                 this.youCanDestroyIt = true;
-                console.log("youCanDestroyIt = true");
+                //console.log("youCanDestroyIt = true");
             },
             loop: false
         })
     }
+    // *********************************
 
 
     /**
@@ -755,9 +824,7 @@ class Tableau extends Phaser.Scene{
      * - fait apparaitre du sang
      * - ressuscite le player
      * - redémarre le tableau
-     */
-    
-    /*
+     */  /*
     playerDie(player,hp)
     {
         let me=this;

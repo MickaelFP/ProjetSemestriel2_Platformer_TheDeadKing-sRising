@@ -859,11 +859,11 @@ class Niveau1 extends Tableau
                 Tableau.current.invincible();
                 this.player.setPosition(player.x-1024, player.y-1152);//384);
                 this.passageMusic = true;
-                console.log("passage   DEBUG");
+                //console.log("passage   DEBUG");
 
                 if(this.passageMusic)
                 {
-                    console.log("passageMusic   DEBUG   DEBUG");
+                    //console.log("passageMusic   DEBUG   DEBUG");
                     player.anims.play('turn', true);
                     this.gate = this.sound.add('openingGate');
                     var musicConfig = 
@@ -885,7 +885,7 @@ class Niveau1 extends Tableau
                     {
                         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
                         {
-                            console.log("cameras.main.fadeOut   DEBUG   DEBUG   DEBUG");
+                            //console.log("cameras.main.fadeOut   DEBUG   DEBUG   DEBUG");
                             this.cameras.main.fadeIn(1000, 0, 0, 0);
                         })
                         this.passage = true;
