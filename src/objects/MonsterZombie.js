@@ -16,31 +16,41 @@ class MonsterZombie extends ObjetEnnemi{
         this.setBounceX(1);
         //this.setBodySize(this.body.width,this.body.height);
         this.setVelocityX(-40*(Math.random()+1.5));
+
         this.walking = true;
+        this.isAlive = true;
         //this.physics.add.overlap(this.player, this.monstre, this.hitSpike, null, this);
 
-        this.anims.create({
+        /*this.anims.create({
             key: 'moving',
             frames: this.anims.generateFrameNumbers('zombie2', { start: 7, end: 10 }),
             frameRate: 4,
             repeat: -1,
         });
-        this.anims.play('moving', true);
+        this.anims.play('moving', true);*/
 
-        /*this.anims.create({
+        this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNumbers('zombie2', { start: 0, end: 3 }),
-            frameRate: 10,
+            frameRate: 5,
             repeat: -1
         });
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('zombie2', { start: 7, end: 11 }),
-            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('zombie2', { start: 7, end: 10 }),
+            frameRate: 5,
             repeat: -1
         });
+
         this.anims.create({
+            key: 'immobile',
+            frames: this.anims.generateFrameNumbers('zombie2', { start: 4, end: 6 }),
+            frameRate: 5,
+            repeat: -1
+        });
+
+        /*this.anims.create({
             key: 'turn',
             //frames: this.anims.generateFrameNumbers('zombie2', { start: 12, end: 15 }),
             frames: [ { key: 'zombie2', frame: 5 } ],
@@ -51,7 +61,9 @@ class MonsterZombie extends ObjetEnnemi{
 
     update(player)
     {
-        if(this.body)
+        this.die();
+
+        /*if(this.body)
         {
             if(this.body.velocity.x < 0)
             {
@@ -71,7 +83,7 @@ class MonsterZombie extends ObjetEnnemi{
                     this.walking = true;
                 }
             }
-        }
+        }*/
 
         /*if(this.body)
         {
@@ -86,6 +98,49 @@ class MonsterZombie extends ObjetEnnemi{
                 this.flipX=true;
             }
         }*/
+
+        if(this.isAlive)
+        {
+            if(this.scene.player.x > this.x - 400 && this.scene.player.x < this.x)
+            {
+                console.log("GRRRRR GAUCHE");
+                this.setVelocityX(-40*(Math.random()+1.5));
+                //this.flipX = true;
+            }
+            else if(this.scene.player.x < this.x + 400 && this.scene.player.x > this.x)
+            {
+                console.log("GRRRRR DROITE");
+                this.setVelocityX(40*(Math.random()+1.5));
+                //this.flipX = false;
+            }
+
+        }
+        if(this.body.velocity.x < 0)
+        {
+            console.log("GRRRRR GAUCHE");
+            this.anims.play('left', true);
+            //this.flipX = true;
+        }
+        else if (this.body.velocity.x > 0)
+        {
+            console.log("GRRRRR DROITE");
+            this.anims.play('right', true);
+            //this.flipX = false;
+        }
+        else
+        {
+            this.anims.play('immobile', true);
+        }
+    }
+
+
+    die()
+    {
+        if(this.body.touching.up && this.isAlive)
+        {   
+            console.log("Un zombie mort, ça donne quoi ?")
+            this.isAlive = false;
+        }
     }
 
     

@@ -139,9 +139,8 @@ class Tableau extends Phaser.Scene{
 
         //this.projectilDestroyed = false;
 
-
-        //this.cleanStorage();
     }
+
 
     // ********************************* Gestionnaire de l'affichage des points de vies *********************************
 
@@ -264,9 +263,7 @@ class Tableau extends Phaser.Scene{
 
         if (this.ControlPressed)
         {
-            //this.cleanStorage();
             localStorage.removeItem("checkPoint");
-            //localStorage.removeItem("bougie");
         }
 
         // ----------------------------------- Drop d'objet (ou de monstre...) -----------------------------------
@@ -635,11 +632,8 @@ class Tableau extends Phaser.Scene{
                 }
                 this.music.play(musicConfig);
     
-                localStorage.removeItem("bougie");
-                console.log('removedBougie');
+                this.cleanStorage();
                 //this.song.stop();
-                //this.verif=1;
-                //this.verifTP=1;
                 me.scene.restart();
 
             }
@@ -791,21 +785,33 @@ class Tableau extends Phaser.Scene{
      * Pour reset cette scène proprement
      * @private
      */
-    _destroy(bougieName)
+    _destroy()
     {
+        console.log("destroy");
         this.player.stop();
         this.scene.stop();
-        //localStorage.removeItem("bougie", bougieName);
     }
 
     /**
      * Pour reset le localStorage
      * @private
      */
-    cleanStorage(bougieName)
+    cleanStorage()
     {
-        localStorage.removeItem("bougie", bougieName);
-        localStorage.removeItem("torche", torcheName);
+        console.log("cleanStorage");
+        localStorage.removeItem("bougie"); // ,bougieName);
+        localStorage.removeItem("bougie1"); // ,bougie1Name);
+        localStorage.removeItem("bougie2");
+        localStorage.removeItem("bougie3");
+        localStorage.removeItem("torche");
+        localStorage.removeItem("torche1");
+        localStorage.removeItem("torche2");
+        localStorage.removeItem("torche3");
+        localStorage.removeItem("torche4");
+        localStorage.removeItem("torche5");
+        localStorage.removeItem("torche6");
+        localStorage.removeItem("torche7");
+        localStorage.removeItem("torche8");
     }
 
     /**

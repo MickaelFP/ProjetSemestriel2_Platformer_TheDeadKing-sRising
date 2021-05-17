@@ -303,8 +303,8 @@ class Welcome extends Phaser.Scene {
                     }
                     this.game.scene.start(tableau);
                     this.scene.start("aventureBegining");*/
-                    this.game.scene.start(ControlsPanel);
-                    this.scene.start("panel");
+                    this.game.scene.start(Niveau1);
+                    this.scene.start("Cemetary");
                 })
             }
 
