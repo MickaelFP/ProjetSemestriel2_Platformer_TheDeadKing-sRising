@@ -114,7 +114,7 @@ class Tableau extends Phaser.Scene{
 
         // ----------------------------------- booleans simples que l'on compte utiliser -----------------------------------
 
-        this.aPressed=false;
+        this.aPressed = false;
         this.oneShootOnly = true;
         this.youCanDestroyIt = false;
 
@@ -123,7 +123,11 @@ class Tableau extends Phaser.Scene{
 
         this.ControlPressed=false;
 
-        this.ePressed=false;
+        this.ePressed = false;
+        this.dPressed = false;
+        this.arrowRightPressed = false;
+        this.arrowLefttPressed = false;
+        this.arrowUpPressed = false;
 
         this.vaseDrope=false;
         this.oneDrope=false;
@@ -133,10 +137,6 @@ class Tableau extends Phaser.Scene{
         this.invicibleForEver = false;
         this.playerMoveStop = false;
         this.jumpStop = false;
-        this.arrowUpPressed = false;
-
-        this.arrowRightPressed = false;
-        this.arrowLefttPressed = false;
 
         this.destructionTorcheLight = false;
         //this.torcheContact = false;
@@ -148,7 +148,6 @@ class Tableau extends Phaser.Scene{
 
         this.antiBug = true;
         
-
         //this.projectilDestroyed = false;
 
     }
@@ -207,6 +206,10 @@ class Tableau extends Phaser.Scene{
         this.throwBones();
         this.showInfoCtrl();
         this.playerHealing();
+        this.dash();
+
+        // ------------------------------
+
         this.vaseDropping();
 
         /*this.physics.add.overlap(this.player, this.solides, function(player, solides)
@@ -302,6 +305,77 @@ class Tableau extends Phaser.Scene{
                 }
             }
             //me.vaseDrope.rotation = Phaser.Math.Between(0,6);
+        }
+    }
+
+
+    dash(player)
+    {
+        // if(this.arrowRightPressed){}
+        // if(this.arrowLeftPressed){}
+        //
+        //
+        //
+        //
+        //
+        if(this.dPressed)
+        {
+            if(this.arrowRightPressed && !this.arrowUpPressed)
+            {
+                this.player.setVelocityX(800);
+                this.time.addEvent
+                ({
+                    delay: 100,
+                    callback: ()=>
+                    {
+                        this.player.setVelocityX(160);
+                    },
+                    loop: false
+                })
+            }
+            if(this.arrowLeftPressed && !this.arrowUpPressed)
+            {
+                this.player.setVelocityX(-800);
+                this.time.addEvent
+                ({
+                    delay: 100,
+                    callback: ()=>
+                    {
+                        this.player.setVelocityX(-160);
+                    },
+                    loop: false
+                })
+            }
+            if(this.arrowRightPressed && this.arrowUpPressed)
+            {
+                this.player.setVelocityX(800);
+                this.player.setVelocityY(-300);
+                this.time.addEvent
+                ({
+                    delay: 100,
+                    callback: ()=>
+                    {
+                        this.player.setVelocityX(160);
+                        this.player.setVelocityY(0);
+                    },
+                    loop: false
+                })
+            }
+            if(this.arrowLeftPressed && this.arrowUpPressed)
+            {
+                this.player.setVelocityX(-800);
+                this.player.setVelocityY(-300);
+                this.time.addEvent
+                ({
+                    delay: 100,
+                    callback: ()=>
+                    {
+                        this.player.setVelocityX(-160);
+                        this.player.setVelocityY(0);
+                    },
+                    loop: false
+                })
+            }
         }
     }
 

@@ -35,7 +35,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                     Tableau.current.player.directionX=0;
                     Tableau.current.player.directionY=0;
                     Tableau.current.aPressed = true;
-                    console.log("attackOn");
+                    //console.log("attackOn");
                     break;
                 
                 case "i":
@@ -45,13 +45,18 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                     break;
 
                 case "Control":
-                    console.log("checkPoint disable");
+                    //console.log("checkPoint disable");
                     Tableau.current.ControlPressed = true;
                     break;
 
                 case "e":
                     console.log("heal");
                     Tableau.current.ePressed = true;
+                    break;
+
+                case "d":
+                    console.log("Tableau.current.dPressed = true");
+                    Tableau.current.dPressed = true;
                     break;
     
                 case "r":/*
@@ -104,6 +109,11 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                 case "e":
                     console.log("healNoMore");
                     Tableau.current.ePressed = false;
+                    break;
+
+                case "d":
+                    console.log("Tableau.current.dPressed = false");
+                    Tableau.current.dPressed = false;
                     break;
                 
                 case "r":/*
