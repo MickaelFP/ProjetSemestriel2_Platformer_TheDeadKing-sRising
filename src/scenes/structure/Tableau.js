@@ -79,6 +79,8 @@ class Tableau extends Phaser.Scene{
         this.auraInvincible.color.setTo(354, 10, 10);
         this.auraInvincible.visible=false;
 
+        //this.boxRenderPlayer = new ObjetBoxRenderPlayer(this,this.player.x, this.player.y);
+
         this.pv3=this.add.sprite(90, 100, "hp3");
         this.pv3.setDepth(1000);
         this.pv3.setScrollFactor(0);
@@ -124,7 +126,10 @@ class Tableau extends Phaser.Scene{
         this.ControlPressed=false;
 
         this.ePressed = false;
+
         this.dPressed = false;
+        this.timerDash = true;
+
         this.arrowRightPressed = false;
         this.arrowLefttPressed = false;
         this.arrowUpPressed = false;
@@ -196,6 +201,7 @@ class Tableau extends Phaser.Scene{
         this.player.move(); 
         this.shoot.update();
         this.zombieDrope.update();
+        this.boxRenderPlayer.update();
 
         //this.shoot.move();
         //this.contact = false ;
@@ -311,23 +317,23 @@ class Tableau extends Phaser.Scene{
 
     dash(player)
     {
-        // if(this.arrowRightPressed){}
-        // if(this.arrowLeftPressed){}
-        //
-        //
-        //
-        //
-        //
-        if(this.dPressed)
+        //this.boxRenderPlayerX = -(this.boxRenderPlayer.x - this.solides.body.x);
+        //this.boxRenderPlayerY = -(this.boxRenderPlayer.y - this.solides.body.y);
+
+        if(this.dPressed && this.timerDash)
         {
             if(this.arrowRightPressed && !this.arrowUpPressed)
             {
+                console.log("dashing");
+                this.invincible();
+                this.player.setPosition(this.player.x+3, this.player.y);
                 this.player.setVelocityX(800);
                 this.time.addEvent
                 ({
-                    delay: 100,
+                    delay: 200,
                     callback: ()=>
                     {
+                        this.timerDash = false;
                         this.player.setVelocityX(160);
                     },
                     loop: false
@@ -335,46 +341,65 @@ class Tableau extends Phaser.Scene{
             }
             if(this.arrowLeftPressed && !this.arrowUpPressed)
             {
+                console.log("dashing");
+                this.timerDash = false;
+                this.invincible();
+                this.player.setPosition(this.player.x-3, this.player.y);
                 this.player.setVelocityX(-800);
                 this.time.addEvent
                 ({
-                    delay: 100,
+                    delay: 200,
                     callback: ()=>
                     {
                         this.player.setVelocityX(-160);
+                        this.timerDash = true;
                     },
                     loop: false
                 })
             }
             if(this.arrowRightPressed && this.arrowUpPressed)
             {
+                console.log("dashing");
+                this.timerDash = false;
+                this.invincible();
+                this.player.setPosition(this.player.x+3, this.player.y-1);
                 this.player.setVelocityX(800);
-                this.player.setVelocityY(-300);
+                this.player.setVelocityY(-500);
                 this.time.addEvent
                 ({
-                    delay: 100,
+                    delay: 200,
                     callback: ()=>
                     {
                         this.player.setVelocityX(160);
                         this.player.setVelocityY(0);
+                        this.timerDash = true;
                     },
                     loop: false
                 })
             }
             if(this.arrowLeftPressed && this.arrowUpPressed)
             {
+                console.log("dashing");
+                this.timerDash = false;
+                this.invincible();
+                this.player.setPosition(this.player.x-3, this.player.y-1);
                 this.player.setVelocityX(-800);
-                this.player.setVelocityY(-300);
+                this.player.setVelocityY(-500);
                 this.time.addEvent
                 ({
-                    delay: 100,
+                    delay: 200,
                     callback: ()=>
                     {
                         this.player.setVelocityX(-160);
                         this.player.setVelocityY(0);
+                        this.timerDash = true;
                     },
                     loop: false
                 })
+            }
+            else
+            {
+                this.timerDash = true;
             }
         }
     }
@@ -768,11 +793,13 @@ class Tableau extends Phaser.Scene{
     shakeCameras()
     {
         console.log('shakeCameras');
+        this.startingInvAura();
         this.cameras.main.shake(500, 0.005);
     }
     shakeCameras()
     {
         console.log('shakeCameras');
+        this.startingInvAura();
         this.cameras.main.shake(500, 0.005);
 
     } // FIN DES SHAKECAMERAS
@@ -798,7 +825,6 @@ class Tableau extends Phaser.Scene{
     {
         console.log("invincible");
 
-        this.startingInvAura()
         this.invicibleForEver = true;
         this.zombieAlive = false;
         this.time.addEvent

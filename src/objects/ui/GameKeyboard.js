@@ -114,6 +114,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                 case "d":
                     console.log("Tableau.current.dPressed = false");
                     Tableau.current.dPressed = false;
+                    Tableau.current.timerDash = true;
                     break;
                 
                 case "r":/*

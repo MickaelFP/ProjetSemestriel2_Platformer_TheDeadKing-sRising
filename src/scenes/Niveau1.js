@@ -18,7 +18,7 @@ class Niveau1 extends Tableau
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
 
         //les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha1-4.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha1-5.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
 
         // -----Decors-------------
         this.load.image('night', 'assets/backgrounds/sky_plan_nuitEtoileCarre.png');//nuitEtoileCarre_4.png');
@@ -391,6 +391,23 @@ class Niveau1 extends Tableau
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
         });
+
+        // Boxes text
+        this.firstTexteBoxe = new ElementBoxeTexte(this,0+480,0+1952).setDepth(996);//160//1200/1968
+        this.physics.add.overlap(this.player, this.firstTexteBoxe, function(player, firstTexteBoxe)
+        {
+            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            {
+                Tableau.current.jumpStop = true;
+                //console.log("jumpStop = true");
+            }
+            else
+            {
+
+                
+            }
+        }, null, this);
+
 
         /*
         // Elements collectibles
