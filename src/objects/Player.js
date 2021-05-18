@@ -70,7 +70,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
     /********** Arrête le joueur **********/
     stop()
     {
-        console.log("playerStop");
+        //console.log("playerStop");
         this.setVelocityX(0);
         this.setVelocityY(0);
         this.directionY=0;
@@ -119,7 +119,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                     if(this.body.blocked.down || this.body.touching.down)
                     {
                         this.jumping = true;
-                        console.log("this.jumping = true");
+                        //console.log("this.jumping = true");
                         this.setVelocityY(-500);
                     }
                 }

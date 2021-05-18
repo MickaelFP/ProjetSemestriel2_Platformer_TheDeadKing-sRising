@@ -133,11 +133,11 @@ class Niveau1 extends Tableau
         // plateformes columbariums
         this.platforms = this.physics.add.group();
 
-        this.platforms.create(15, 293+hauteurDif, 'platformStone');
-        this.platforms.create(205, 293+hauteurDif, 'platformStone');
-        this.platforms.create(1420, 293+hauteurDif, 'platformStone');
-        this.platforms.create(1932, 293+hauteurDif, 'platformStone');
-        this.platforms.create(2380, 293+hauteurDif, 'platformStone');
+        this.platforms.create(15, 286+hauteurDif, 'platformStone');
+        this.platforms.create(205, 286+hauteurDif, 'platformStone');
+        this.platforms.create(1420, 286+hauteurDif, 'platformStone');
+        this.platforms.create(1932, 286+hauteurDif, 'platformStone');
+        this.platforms.create(2380, 286+hauteurDif, 'platformStone');
         this.platforms.create(2892, 293+hauteurDif, 'platformStone');
         this.platforms.create(4237, 293+hauteurDif, 'platformStone');
         this.platforms.create(4749, 293+hauteurDif, 'platformStone');
@@ -152,21 +152,21 @@ class Niveau1 extends Tableau
             child.setCollideWorldBounds(false);
             child.setFriction(1); // pour que les éléments ne glissent sur cette plateforme
             child.setOrigin(0,0); // pour positionner plus facilement, repère en haut à gauche (descendant, vers la droite)
-            child.setDisplaySize(103,7);
+            child.setDisplaySize(103,14);
             //child.refreshBody();
         });
 
         // plateformes mausolés
         this.platforms2 = this.physics.add.group();
 
-        this.platforms2.create(390, 183+hauteurDif, 'platformStone');
-        this.platforms2.create(1671, 183+hauteurDif, 'platformStone');
-        this.platforms2.create(2567, 183+hauteurDif, 'platformStone');
-        this.platforms2.create(4487, 183+hauteurDif, 'platformStone');
-        this.platforms2.create(4935, 183+hauteurDif, 'platformStone');
-        this.platforms2.create(7047, 183+hauteurDif, 'platformStone');
-        this.platforms2.create(7303, 183+hauteurDif, 'platformStone');
-        this.platforms2.create(7559, 183+hauteurDif, 'platformStone');
+        this.platforms2.create(391, 170+hauteurDif, 'platformStone');
+        this.platforms2.create(1672, 170+hauteurDif, 'platformStone');
+        this.platforms2.create(2568, 170+hauteurDif, 'platformStone');
+        this.platforms2.create(4488, 170+hauteurDif, 'platformStone');
+        this.platforms2.create(4936, 170+hauteurDif, 'platformStone');
+        this.platforms2.create(7048, 170+hauteurDif, 'platformStone');
+        this.platforms2.create(7304, 170+hauteurDif, 'platformStone');
+        this.platforms2.create(7560, 170+hauteurDif, 'platformStone');
 
         this.platforms2.children.iterate(function (child) {
             child.setImmovable(true);
@@ -174,7 +174,7 @@ class Niveau1 extends Tableau
             child.setCollideWorldBounds(false);
             child.setFriction(1);
             child.setOrigin(0,0);
-            child.setDisplaySize(179,11);
+            child.setDisplaySize(179,24);
         });
 
         // plateformes crypte royale
@@ -351,7 +351,7 @@ class Niveau1 extends Tableau
         });
 
 
-         //------------------------------------------------ Les elements interactifs (objets tiled) ------------------------------------------------
+        //------------------------------------------------ Les elements interactifs (objets tiled) ------------------------------------------------
 
         // Elements cassables
         //this.escaliers = this.physics.add.staticGroup();
@@ -392,8 +392,9 @@ class Niveau1 extends Tableau
             this.physics.add.collider(monster, this.solides);
         });
 
-        // Boxes text
-        this.firstTexteBoxe = new ElementBoxeTexte(this,0+480,0+1952).setDepth(996);//160//1200/1968
+        // ------------------------------------------------ Boxes text ------------------------------------------------
+
+        /*this.firstTexteBoxe = new ElementBoxeTexte(this,0+480,0+1952).setDepth(996);//160//1200/1968
         this.physics.add.overlap(this.player, this.firstTexteBoxe, function(player, firstTexteBoxe)
         {
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
@@ -406,7 +407,7 @@ class Niveau1 extends Tableau
 
                 
             }
-        }, null, this);
+        }, null, this);*/
 
 
         /*

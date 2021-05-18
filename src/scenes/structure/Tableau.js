@@ -201,7 +201,7 @@ class Tableau extends Phaser.Scene{
         this.player.move(); 
         this.shoot.update();
         this.zombieDrope.update();
-        this.boxRenderPlayer.update();
+        //this.boxRenderPlayer.update();
 
         //this.shoot.move();
         //this.contact = false ;
@@ -463,12 +463,12 @@ class Tableau extends Phaser.Scene{
 
             if(this.arrowRightPressed)
             {
-                console.log("me.shoot.setVelocity +++");
+                //console.log("me.shoot.setVelocity +++");
                 me.shoot.setVelocity(240, -200);//(240, -350);
             }
             if(this.arrowLeftPressed)
             {
-                console.log("me.shoot.setVelocity ---");
+                //console.log("me.shoot.setVelocity ---");
                 me.shoot.setVelocity(-240, -200);//(-240, -350);
             }
 
