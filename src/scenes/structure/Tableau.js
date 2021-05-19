@@ -343,16 +343,8 @@ class Tableau extends Phaser.Scene{
     {
         //this.monsterOfVase.update();
         if (this.vaseDrope)
-        {
-            /*let me = this;
-            console.log("DEBUG  DEBUG   DEBUG");
-            me.vaseDrope=new MonsterZombie(this,this.player.x+20,this.player.y+24,"zombie2").setDepth(996);
-            me.player.setVelocityX(120);*/
-            //ElementVase.current.broken = false;
-            //ElementVase.current.debugVaseDrop = true;
-            //me.vaseDrope = false;
-            
-            // Certains paramètres déjà définis doivent de nouveau l'être ici : déplacements, vitesse, collisions...
+        {      
+            // Certains paramètres déjà définis doivent de nouveau l'être ici : collisions...
             if (this.oneDrope)
             {
                 let me = this;
@@ -371,8 +363,23 @@ class Tableau extends Phaser.Scene{
                         {
                             this.monsterOfVase.isDead = true;
                             this.monsterOfVase.disableBody(true,true);
-                            console.log("monsterOfVase is dead !!!");
-                            console.log("vaseDropping().time.addEvent END");
+                            //console.log("monsterOfVase is dead !!!");
+
+                            this.saigne(me.monsterOfVase,function(){})
+                            this.music = this.sound.add('splash');
+            
+                            var musicConfig = 
+                            {
+                                mute: false,
+                                volume: 0.3,
+                                rate : 1,
+                                detune: 0,
+                                seek: 0,
+                                loop: false,
+                                delay:0,
+                            }
+                            this.music.play(musicConfig);
+
                         },
                         loop: false
                     })
@@ -386,18 +393,6 @@ class Tableau extends Phaser.Scene{
                 }
                 me.vaseDrope = false;
             }
-            /*if(this.vaseDrope.body)
-            {
-                let me = this;
-                if(me.vaseDrope.body.velocity.x < 0)
-                {
-                    me.vaseDrope.flipX=false;
-                }
-                else
-                {
-                    me.vaseDrope.flipX=true;
-                }
-            }*/
         }
     }
 
