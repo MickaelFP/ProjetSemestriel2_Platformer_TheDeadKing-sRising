@@ -24,11 +24,14 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                 case "ArrowUp":
                     Tableau.current.player.directionY=-1;
                     Tableau.current.arrowUpPressed = true;
+                    Tableau.current.jumpStop = false;
                     break;
 
                 case "ArrowDown":
+                    Tableau.current.arrowDownPressed = true;
                     Tableau.current.player.directionX=0;
                     Tableau.current.player.directionY=1;
+                    Tableau.current.tJAfterPressArrowDown();
                     break;
 
                 case "a":
@@ -55,7 +58,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                     break;
 
                 case "d":
-                    console.log("Tableau.current.dPressed = true");
+                    //console.log("Tableau.current.dPressed = true");
                     Tableau.current.dPressed = true;
                     break;
     
@@ -90,6 +93,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
 
                 case "ArrowDown":
                     Tableau.current.player.directionY=0;
+                    Tableau.current.arrowDownPressed = false;
                     break;
 
                 case "a":
@@ -112,7 +116,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                     break;
 
                 case "d":
-                    console.log("Tableau.current.dPressed = false");
+                    //console.log("Tableau.current.dPressed = false");
                     Tableau.current.dPressed = false;
                     Tableau.current.timerDash = true;
                     break;

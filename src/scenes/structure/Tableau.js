@@ -88,7 +88,7 @@ class Tableau extends Phaser.Scene{
         ui._hpText.setText('Status : ');
 
         this.shoot = new ElementProjectils(this,0+8600,0+4448);
-        this.zombieDrope = new MonsterZombie(this,0+8600,0+4448).setVelocity(0,0);
+        this.monsterOfVase = new MonsterZombie(this,0+8600,0+4448).setVelocity(0,0);
 
 
         // ----------------------------------- fonction en booleans d'affichage d'image -----------------------------------
@@ -119,6 +119,7 @@ class Tableau extends Phaser.Scene{
         this.aPressed = false;
         this.oneShootOnly = true;
         this.youCanDestroyIt = false;
+        //this.projectilDestroyed = false;
 
         this.iPressed=false;
         this.showInfos=false;
@@ -128,34 +129,40 @@ class Tableau extends Phaser.Scene{
         this.ePressed = false;
 
         this.dPressed = false;
+        this.dashEffect = true;
         this.timerDash = true;
 
         this.arrowRightPressed = false;
         this.arrowLefttPressed = false;
+        this.playerMoveStop = false;
+        //this.contactSolides = false;
+
         this.arrowUpPressed = false;
+        this.jumpStop = false;
+        this.timingJump = true;
+        this.stopTomber = false;
+        
+        this.arrowDownPressed = false;
+        this.tJArrowDownPressed = false;
 
         this.vaseDrope=false;
         this.oneDrope=false;
         this.oneDropePower=false;
 
-        this.walking = true;
         this.invicibleForEver = false;
-        this.playerMoveStop = false;
-        this.jumpStop = false;
+        this.startAuraInv = false;
 
         this.destructionTorcheLight = false;
         //this.torcheContact = false;
         //this.oneTorche = false;
 
-        this.zombieAlive = true;
-        this.stopTomber = false;
-        this.startAuraInv = false;
+        //this.zombieAlive = true;
+        this.walking = true;
 
         this.antiBug = true;
-        
-        //this.projectilDestroyed = false;
 
     }
+
 
 
     // ********************************* Gestionnaire de l'affichage des points de vies *********************************
@@ -198,9 +205,9 @@ class Tableau extends Phaser.Scene{
     update(monster, player, onComplete)
     {
         super.update();
-        this.player.move(); 
+        this.player.update(); 
         this.shoot.update();
-        this.zombieDrope.update();
+        this.monsterOfVase.update();
         //this.boxRenderPlayer.update();
 
         //this.shoot.move();
@@ -242,23 +249,56 @@ class Tableau extends Phaser.Scene{
 
         // ----------------------------------- Drop d'objet (ou de monstre...) -----------------------------------
         
-        if(this.vaseDrope.body)
-        {
-            this.physics.add.overlap(this.vaseDrope, this.shoot, function(vaseDrope, shoot)
+        //if(this.monsterOfVase.body)
+        //{
+            this.physics.add.overlap(this.monsterOfVase, this.shoot, function(monsterOfVase, shoot)
             {
-                if(this.vaseDrope.body)
-                {
+                //if(this.monsterOfVase.body)
+                //{
                     this.destroyProjectil();
                     //console.log("Debug Debug Debug Debug Debug Debug Debug");
-                }
+                //}
             }, null, this);
-        }
+        //}
 
     } // FIN DE UPDATE
 
 
+    timingJumping()
+    {
+        //console.log("Tableau.current -> timingJump = false");
+        this.time.addEvent
+        ({
+            delay: 1000,
+            callback: ()=>
+            {
+                this.timingJump = true;
+                console.log("Tableau.current -> timingJump = true");
+            },
+            loop: false
+        })
+    } // FIN DE timingJumping()
+
+    tJAfterPressArrowDown()
+    {
+        this.jumpStop = true;
+        this.tJArrowDownPressed = true;
+        this.time.addEvent
+        ({
+            delay: 1000,
+            callback: ()=>
+            {
+                this.tJArrowDownPressed = false;
+                this.jumpStop = false;
+                console.log("Tableau.current -> tJAfterPressArrowDown = true");
+            },
+            loop: false
+        })
+    } // FIN DE tJAfterPressArrowDown()
+
     vaseDropping()
     {
+        //this.monsterOfVase.update();
         if (this.vaseDrope)
         {
             /*let me = this;
@@ -275,11 +315,26 @@ class Tableau extends Phaser.Scene{
                 let me = this;
                 console.log("oneDrope");
 
-                me.vaseDrope=new MonsterZombie(this,this.player.x+150,this.player.y+24,"zombie2").setDepth(996);
-                me.physics.add.collider(me.vaseDrope, this.solides);
-                me.physics.add.collider(me.vaseDrope, this.platforms6);
-                //me.physics.add.collider(me.vaseDrope, this.shoot);
-                //me.player.setVelocityX(120);
+                me.monsterOfVase=new MonsterZombie(this,this.player.x+150,this.player.y+24,"zombie2").setDepth(996);
+                me.physics.add.collider(me.monsterOfVase, this.solides);
+                me.physics.add.collider(me.monsterOfVase, this.platforms6);
+
+                if(!me.monsterOfVase.isDead)
+                {                
+                    this.time.addEvent
+                    ({
+                        delay: 5000,
+                        callback: ()=>
+                        {
+                            this.monsterOfVase.isDead = true;
+                            this.monsterOfVase.disableBody(true,true);
+                            console.log("monsterOfVase is dead !!!");
+                            console.log("vaseDropping().time.addEvent END");
+                        },
+                        loop: false
+                    })
+                }
+
 
                 while(this.oneDrope)
                 {
@@ -288,29 +343,18 @@ class Tableau extends Phaser.Scene{
                 }
                 me.vaseDrope = false;
             }
-            if(this.vaseDrope.body)
+            /*if(this.vaseDrope.body)
             {
                 let me = this;
                 if(me.vaseDrope.body.velocity.x < 0)
                 {
-                    me.vaseDrope.flipX=true;
-                    /*if(this.walking)
-                    {
-                        this.vaseDrope.setVelocityX(-40*(Math.random()+1.5));
-                        this.walking = false;
-                    }*/
+                    me.vaseDrope.flipX=false;
                 }
                 else
                 {
-                    me.vaseDrope.flipX=false;
-                    /*if(!this.walking)
-                    {
-                        this.vaseDrope.setVelocityX(40*(Math.random()+1.5));
-                        this.walking = true;
-                    }*/
+                    me.vaseDrope.flipX=true;
                 }
-            }
-            //me.vaseDrope.rotation = Phaser.Math.Between(0,6);
+            }*/
         }
     }
 
@@ -320,88 +364,92 @@ class Tableau extends Phaser.Scene{
         //this.boxRenderPlayerX = -(this.boxRenderPlayer.x - this.solides.body.x);
         //this.boxRenderPlayerY = -(this.boxRenderPlayer.y - this.solides.body.y);
 
-        if(this.dPressed && this.timerDash)
+        if(this.dashEffect)
         {
-            if(this.arrowRightPressed && !this.arrowUpPressed)
+            if(this.dPressed && this.timerDash)
             {
-                console.log("dashing");
-                this.invincible();
-                this.player.setPosition(this.player.x+3, this.player.y);
-                this.player.setVelocityX(800);
-                this.time.addEvent
-                ({
-                    delay: 200,
-                    callback: ()=>
-                    {
-                        this.timerDash = false;
-                        this.player.setVelocityX(160);
-                    },
-                    loop: false
-                })
-            }
-            if(this.arrowLeftPressed && !this.arrowUpPressed)
-            {
-                console.log("dashing");
-                this.timerDash = false;
-                this.invincible();
-                this.player.setPosition(this.player.x-3, this.player.y);
-                this.player.setVelocityX(-800);
-                this.time.addEvent
-                ({
-                    delay: 200,
-                    callback: ()=>
-                    {
-                        this.player.setVelocityX(-160);
-                        this.timerDash = true;
-                    },
-                    loop: false
-                })
-            }
-            if(this.arrowRightPressed && this.arrowUpPressed)
-            {
-                console.log("dashing");
-                this.timerDash = false;
-                this.invincible();
-                this.player.setPosition(this.player.x+3, this.player.y-1);
-                this.player.setVelocityX(800);
-                this.player.setVelocityY(-500);
-                this.time.addEvent
-                ({
-                    delay: 200,
-                    callback: ()=>
-                    {
-                        this.player.setVelocityX(160);
-                        this.player.setVelocityY(0);
-                        this.timerDash = true;
-                    },
-                    loop: false
-                })
-            }
-            if(this.arrowLeftPressed && this.arrowUpPressed)
-            {
-                console.log("dashing");
-                this.timerDash = false;
-                this.invincible();
-                this.player.setPosition(this.player.x-3, this.player.y-1);
-                this.player.setVelocityX(-800);
-                this.player.setVelocityY(-500);
-                this.time.addEvent
-                ({
-                    delay: 200,
-                    callback: ()=>
-                    {
-                        this.player.setVelocityX(-160);
-                        this.player.setVelocityY(0);
-                        this.timerDash = true;
-                    },
-                    loop: false
-                })
-            }
-            else
-            {
-                this.timerDash = true;
+                if(this.arrowRightPressed && !this.arrowUpPressed)
+                {
+                    console.log("dashing");
+                    this.invincible();
+                    //this.player.setPosition(this.player.x+3, this.player.y);
+                    this.player.setVelocityX(800);
+                    this.time.addEvent
+                    ({
+                        delay: 200,
+                        callback: ()=>
+                        {
+                            this.timerDash = false;
+                            this.player.setVelocityX(160);
+                        },
+                        loop: false
+                    })
+                }
+                if(this.arrowLeftPressed && !this.arrowUpPressed)
+                {
+                    console.log("dashing");
+                    this.timerDash = false;
+                    this.invincible();
+                    //this.player.setPosition(this.player.x-3, this.player.y);
+                    this.player.setVelocityX(-800);
+                    this.time.addEvent
+                    ({
+                        delay: 200,
+                        callback: ()=>
+                        {
+                            this.player.setVelocityX(-160);
+                            this.timerDash = true;
+                        },
+                        loop: false
+                    })
+                }
+                if(this.arrowRightPressed && this.arrowUpPressed)
+                {
+                    console.log("dashing");
+                    this.timerDash = false;
+                    this.invincible();
+                    this.player.setPosition(this.player.x+3, this.player.y-1);
+                    this.player.setVelocityX(800);
+                    this.player.setVelocityY(-500);
+                    this.time.addEvent
+                    ({
+                        delay: 200,
+                        callback: ()=>
+                        {
+                            this.player.setVelocityX(160);
+                            this.player.setVelocityY(0);
+                            this.timerDash = true;
+                        },
+                        loop: false
+                    })
+                }
+                if(this.arrowLeftPressed && this.arrowUpPressed)
+                {
+                    console.log("dashing");
+                    this.timerDash = false;
+                    this.invincible();
+                    this.player.setPosition(this.player.x-3, this.player.y-1);
+                    this.player.setVelocityX(-800);
+                    this.player.setVelocityY(-500);
+                    this.time.addEvent
+                    ({
+                        delay: 200,
+                        callback: ()=>
+                        {
+                            this.player.setVelocityX(-160);
+                            this.player.setVelocityY(0);
+                            this.timerDash = true;
+                        },
+                        loop: false
+                    })
+                }
+                else
+                {
+                    this.timerDash = true;
+                }
             }
         }
+ 
     }
 
 
@@ -796,9 +844,9 @@ class Tableau extends Phaser.Scene{
         this.startingInvAura();
         this.cameras.main.shake(500, 0.005);
     }
-    shakeCameras()
+    shakeCamerasM()
     {
-        console.log('shakeCameras');
+        console.log('shakeCamerasM');
         this.startingInvAura();
         this.cameras.main.shake(500, 0.005);
 
@@ -863,16 +911,14 @@ class Tableau extends Phaser.Scene{
 
     JumpRetomber()
     {
-        //console.log("JumpRetomber");
-        if(!Tableau.current.player.body.blocked.down)// || Tableau.player.body.touching.down)
+        if(!this.player.body.blocked.down)// || Tableau.player.body.touching.down)
         {
-            //console.log("Tableau.current.player.directionX=X;");
+            console.log("jumping = true");
             this.stopTomber = true;
         }
         else
         {
-            Tableau.current.player.directionX=0;
-            //console.log("Tableau.current.player.directionX=0;");
+            this.player.directionX=0;
         }
     } // FIN DE JUMPRETOMBER
 
@@ -900,17 +946,12 @@ class Tableau extends Phaser.Scene{
     // Après un lapse de temps
     destroyProjectil2()
     {
-        //this.projectilDestroyed = true;
-        //this.shoot.move();
-        //console.log("destroyProjectil addEvent");
         this.time.addEvent
         ({
             delay: 1500,
             callback: ()=>
             {
-                //this.shoot.stop();
                 this.youCanDestroyIt = true;
-                //console.log("youCanDestroyIt = true");
             },
             loop: false
         })

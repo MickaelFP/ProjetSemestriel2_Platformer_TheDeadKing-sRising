@@ -18,7 +18,7 @@ class MonsterZombie extends ObjetEnnemi{
         this.setVelocityX(-40*(Math.random()+1.5));
 
         this.walking = true;
-        Tableau.current.zombieAlive = true;
+        //Tableau.current.zombieAlive = true;
         //this.physics.add.overlap(this.player, this.monstre, this.hitSpike, null, this);
 
         /*this.anims.create({
@@ -46,7 +46,7 @@ class MonsterZombie extends ObjetEnnemi{
         this.anims.create({
             key: 'immobile',
             frames: this.anims.generateFrameNumbers('zombie2', { start: 4, end: 6 }),
-            frameRate: 5,
+            frameRate: 2,
             repeat: -1
         });
 
@@ -59,66 +59,17 @@ class MonsterZombie extends ObjetEnnemi{
 
     }
 
-    update(player)
+    update()
     {
-        this.die();
+        //this.die();
+        this.move();
+        this.animation();
 
-        /*if(this.body)
-        {
-            if(this.body.velocity.x < 0)
-            {
-                this.flipX=true;
-                if(this.walking)
-                {
-                    this.setVelocityX(-40*(Math.random()+1.5));
-                    this.walking = false;
-                }
-            }
-            else
-            {
-                this.flipX=false;
-                if(!this.walking)
-                {
-                    this.setVelocityX(40*(Math.random()+1.5));
-                    this.walking = true;
-                }
-            }
-        }*/
+    }
 
-        /*if(this.body)
-        {
-            if(this.body.touching.left)
-            {
-                console.log("touching LEFT LEFT");
-                this.flipX=false;
-            }
-            else if(this.body.touching.right)
-            {
-                console.log("touching RIGHT RIGHT");
-                this.flipX=true;
-            }
-        }*/
 
-        if(Tableau.current.zombieAlive)
-        {
-            if(this.scene.player.x > this.x - 400 && this.scene.player.x < this.x && this.scene.player.y <= this.y)
-            {
-                console.log("GRRRRR GAUCHE");
-                this.setVelocityX(-40*(Math.random()+1.5));
-                //this.flipX = true;
-            }
-            else if(this.scene.player.x < this.x + 400 && this.scene.player.x > this.x && this.scene.player.y <= this.y)
-            {
-                console.log("GRRRRR DROITE");
-                this.setVelocityX(40*(Math.random()+1.5));
-                //this.flipX = false;
-            }
-            else
-            {
-                this.setVelocityX(0);
-            }
-
-        }
+    animation()
+    {
         if(this.body.velocity.x < 0)
         {
             //console.log("anims.play left");
@@ -138,18 +89,41 @@ class MonsterZombie extends ObjetEnnemi{
     }
 
 
-    die()
+    move(player)
     {
-        if(this.body.touching.up && Tableau.current.zombieAlive)
+        if(!this.isDead)
+        {
+            if(this.scene.player.x > this.x - 200 && this.scene.player.x < this.x - 10 && this.scene.player.y <= this.y)
+            {
+                //console.log("GRRRRR GAUCHE");
+                this.setVelocityX(-40*(Math.random()+1.5));
+                //this.flipX = true;
+            }
+            else if(this.scene.player.x < this.x + 200 && this.scene.player.x > this.x + 10 && this.scene.player.y <= this.y)
+            {
+                //console.log("GRRRRR DROITE");
+                this.setVelocityX(40*(Math.random()+1.5));
+                //this.flipX = false;
+            }
+            else
+            {
+                this.setVelocityX(0);
+            }
+        }
+    }
+
+
+    /*die()
+    {
+        if(this.isDead)
         {   
-            console.log("Un zombie mort, ça donne quoi ?")
-            Tableau.current.zombieAlive = false;
+            Tableau.current.zombieAlive = true;
         }
         else
         {
             Tableau.current.zombieAlive = true;
         }
-    }
+    }*/
 
     
     /**
@@ -162,5 +136,47 @@ class MonsterZombie extends ObjetEnnemi{
         this.directionY=0;
         this.directionX=0;
     }
+
+    /********** TEST MOVE MONSTER ********** /
+     * 
+     * 
+        if(this.body)
+        {
+            if(this.body.velocity.x < 0)
+            {
+                this.flipX=true;
+                if(this.walking)
+                {
+                    this.setVelocityX(-40*(Math.random()+1.5));
+                    this.walking = false;
+                }
+            }
+            else
+            {
+                this.flipX=false;
+                if(!this.walking)
+                {
+                    this.setVelocityX(40*(Math.random()+1.5));
+                    this.walking = true;
+                }
+            }
+        }
+
+        if(this.body)
+        {
+            if(this.body.touching.left)
+            {
+                console.log("touching LEFT LEFT");
+                this.flipX=false;
+            }
+            else if(this.body.touching.right)
+            {
+                console.log("touching RIGHT RIGHT");
+                this.flipX=true;
+            }
+        }
+     * 
+     * 
+     * **********/
 
 }

@@ -29,7 +29,7 @@ class Niveau1 extends Tableau
         this.load.image('ombresTombes', 'assets/backgrounds/ombres_plan_surface.png');//ombresTombes_x896_2.png');
 
         // -----Elements interactifs-------------
-        this.load.image('vase', 'assets/elements/vase2.png');
+        this.load.image('vase', 'assets/elements/vase.png');
         this.load.image('solFragile', 'assets/elements/sol-terre.png');//solFragile.png');
         this.load.image('solFragilePierre', 'assets/elements/roche_devant.png');//solFragilePierre.png');
         this.load.image('rocheQuiRoule', 'assets/elements/roche_devant2.jpg');//solFragilePierre1.png');
@@ -138,13 +138,13 @@ class Niveau1 extends Tableau
         this.platforms.create(1420, 286+hauteurDif, 'platformStone');
         this.platforms.create(1932, 286+hauteurDif, 'platformStone');
         this.platforms.create(2380, 286+hauteurDif, 'platformStone');
-        this.platforms.create(2892, 293+hauteurDif, 'platformStone');
-        this.platforms.create(4237, 293+hauteurDif, 'platformStone');
-        this.platforms.create(4749, 293+hauteurDif, 'platformStone');
-        this.platforms.create(5261, 293+hauteurDif, 'platformStone');
-        this.platforms.create(5645, 293+hauteurDif, 'platformStone');
-        this.platforms.create(6861, 293+hauteurDif, 'platformStone');
-        this.platforms.create(7821, 293+hauteurDif, 'platformStone');
+        this.platforms.create(2892, 286+hauteurDif, 'platformStone');
+        this.platforms.create(4237, 286+hauteurDif, 'platformStone');
+        this.platforms.create(4749, 286+hauteurDif, 'platformStone');
+        this.platforms.create(5261, 286+hauteurDif, 'platformStone');
+        this.platforms.create(5645, 286+hauteurDif, 'platformStone');
+        this.platforms.create(6861, 286+hauteurDif, 'platformStone');
+        this.platforms.create(7821, 286+hauteurDif, 'platformStone');
 
         this.platforms.children.iterate(function (child) {
             child.setImmovable(true); // pour ne pas bouger quand il y a collision
@@ -199,10 +199,11 @@ class Niveau1 extends Tableau
         this.platforms4.create(3934, 612+hauteurDif, 'solFragilePierre');
         this.platforms4.create(3996, 500+hauteurDif, 'solFragilePierre');
         this.platforms4.create(4050, 736+hauteurDif, 'solFragilePierre');
-        //this.platforms4.create(4832, 1328+hauteurDif, 'solFragilePierre');
+
         this.platforms4.create(4832, 1584+hauteurDif, 'solFragilePierre');
         this.platforms4.create(4896, 1520+hauteurDif, 'solFragilePierre');
         this.platforms4.create(4960, 1456+hauteurDif, 'solFragilePierre');
+
         this.platforms4.create(5248, 1168+hauteurDif, 'solFragilePierre');
         this.platforms4.create(5296, 1056+hauteurDif, 'solFragilePierre');
         this.platforms4.create(5344, 1232+hauteurDif, 'solFragilePierre');
@@ -312,10 +313,7 @@ class Niveau1 extends Tableau
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
             this.physics.add.collider(monster, this.platforms6);
-            //this.physics.add.collider(monster, Tableau.current.shoot);
-            //this.physics.add.collider(monster, this.shoot);
-            //this.physics.add.collider(monster, this.projectil);
-            //this.physics.add.collider(monster, this.solides); 
+            //this.physics.add.collider(monster, Tableau.current.shoot); //this.projectil //this.solides
 
             this.physics.add.overlap(this.zombiesObjects, this.shoot, function(zombiesObjects, shoot)
             {
@@ -525,7 +523,7 @@ class Niveau1 extends Tableau
         this.torches0Objects.forEach(torcheObject => 
         {
             let tchLight = this.torches0.create(torcheObject.x+32,torcheObject.y-64,'torche').setOrigin(0.5,0).setDepth(986)
-            .setBodySize(torcheObject.width*4,torcheObject.height*4);
+            .setBodySize(torcheObject.width*4,torcheObject.height*4).setDisplaySize(48,64);
             tchLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight.torcheObject=torcheObject;
         });
@@ -536,7 +534,7 @@ class Niveau1 extends Tableau
         this.torches1Objects.forEach(torche1Object => 
         {
             let tchLight1 = this.torches1.create(torche1Object.x+32,torche1Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
-            .setBodySize(torche1Object.width*4,torche1Object.height*4);
+            .setBodySize(torche1Object.width*4,torche1Object.height*4).setDisplaySize(48,64);
             tchLight1.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight1.torche1Object=torche1Object;
         });
@@ -547,7 +545,7 @@ class Niveau1 extends Tableau
         this.torches2Objects.forEach(torche2Object => 
         {
             let tchLight2 = this.torches2.create(torche2Object.x+32,torche2Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
-            .setBodySize(torche2Object.width*4,torche2Object.height*4);
+            .setBodySize(torche2Object.width*4,torche2Object.height*4).setDisplaySize(48,64);
             tchLight2.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight2.torche2Object=torche2Object;
         });
@@ -558,7 +556,7 @@ class Niveau1 extends Tableau
         this.torches3Objects.forEach(torche3Object => 
         {
             let tchLight3 = this.torches3.create(torche3Object.x+32,torche3Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
-            .setBodySize(torche3Object.width*4,torche3Object.height*4);
+            .setBodySize(torche3Object.width*4,torche3Object.height*4).setDisplaySize(48,64);
             tchLight3.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight3.torche3Object=torche3Object;
         });
@@ -569,7 +567,7 @@ class Niveau1 extends Tableau
         this.torches4Objects.forEach(torche4Object => 
         {
             let tchLight4 = this.torches4.create(torche4Object.x+32,torche4Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
-            .setBodySize(torche4Object.width*4,torche4Object.height*4);
+            .setBodySize(torche4Object.width*4,torche4Object.height*4).setDisplaySize(48,64);
             tchLight4.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight4.torche4Object=torche4Object;
         });
@@ -580,7 +578,7 @@ class Niveau1 extends Tableau
         this.torches5Objects.forEach(torche5Object => 
         {
             let tchLight5 = this.torches5.create(torche5Object.x+32,torche5Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
-            .setBodySize(torche5Object.width*4,torche5Object.height*4);
+            .setBodySize(torche5Object.width*4,torche5Object.height*4).setDisplaySize(48,64);
             tchLight5.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight5.torche5Object=torche5Object;
         });
@@ -591,7 +589,7 @@ class Niveau1 extends Tableau
         this.torches6Objects.forEach(torche6Object => 
         {
             let tchLight6 = this.torches6.create(torche6Object.x+32,torche6Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
-            .setBodySize(torche6Object.width*4,torche6Object.height*4);
+            .setBodySize(torche6Object.width*4,torche6Object.height*4).setDisplaySize(48,64);
             tchLight6.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight6.torche6Object=torche6Object;
         });
@@ -602,7 +600,7 @@ class Niveau1 extends Tableau
         this.torches7Objects.forEach(torche7Object => 
         {
             let tchLight7 = this.torches7.create(torche7Object.x+32,torche7Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
-            .setBodySize(torche7Object.width*4,torche7Object.height*4);
+            .setBodySize(torche7Object.width*4,torche7Object.height*4).setDisplaySize(48,64);
             tchLight7.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight7.torche7Object=torche7Object;
         });
@@ -613,7 +611,7 @@ class Niveau1 extends Tableau
         this.torches8Objects.forEach(torche8Object => 
         {
             let tchLight8=this.torches8.create(torche8Object.x+32,torche8Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
-            .setBodySize(torche8Object.width*4,torche8Object.height*4);
+            .setBodySize(torche8Object.width*4,torche8Object.height*4).setDisplaySize(48,64);
             tchLight8.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight8.torche8Object=torche8Object;
         });
@@ -773,7 +771,7 @@ class Niveau1 extends Tableau
             scale: { start: 0.6, end: 0.6 },
             blendMode: 'NORMAL', 
         });
-
+        
         this.particles3 = this.add.particles('feuille3');
         this.emitter = this.particles3.createEmitter(
         {
@@ -814,7 +812,7 @@ class Niveau1 extends Tableau
         this.physics.add.collider(this.player, this.solides);
         this.physics.add.collider(this.stars, this.solides);
 
-        //joueur et étoiles
+        //joueur et étoiles(collectibles)
         this.physics.add.overlap(this.player, this.stars, this.ramasserEtoile, null, this);
 
         //quand on touche la lave (ou autre surface mortelle), on meurt
@@ -839,11 +837,9 @@ class Niveau1 extends Tableau
         //projectils
         //...
 
-
         //------------------------------------------------ Check points ------------------------------------------------
 
         //quand on touche un checkpoint
-        
         this.physics.add.overlap(this.player, this.checkPoints, function(player, checkPoint)
         {
             ici.saveCheckPoint(checkPoint.checkPointObject.name);
@@ -859,11 +855,9 @@ class Niveau1 extends Tableau
             }
         }, null, this);
 
-
         //------------------------------------------------ Escaliers ------------------------------------------------
 
-        //quand on touche un Escaliers
-        
+        //quand on touche un escalier
         this.physics.add.overlap(this.player, this.escaliers, function(player, escaliers)
         {
             //ici.saveEscaliers(escaliers.escaliersObject.name);
@@ -875,7 +869,7 @@ class Niveau1 extends Tableau
                 Tableau.current.playerMoveStop = true;
                 player.stop();
                 Tableau.current.invincible();
-                this.player.setPosition(player.x-1024, player.y-1152);//384);
+                this.player.setPosition(player.x-994, player.y-1152);//384);
                 this.passageMusic = true;
                 //console.log("passage   DEBUG");
 
@@ -922,58 +916,59 @@ class Niveau1 extends Tableau
         {
             ici.allumerBougie(bougie.bougieObject.name);
 
-            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            if(this.player.body.velocity.y == 0)// & !this.timingStopJump)
             {
-                Tableau.current.jumpStop = true;
+                Tableau.current.jumpStop = false;
+                //console.log("Niveau1.945-> jumpStop = false");
+
             }
             else
             {
-                Tableau.current.jumpStop = false;
+                Tableau.current.jumpStop = true;
+                //console.log("Niveau1.951 -> jumpStop = true");
+
             }
 
         }, null, this);
-
         this.physics.add.overlap(this.player, this.bougies1, function(player, bougie1)
         {
             ici.allumerBougie1(bougie1.bougie1Object.name);
 
-            if(!this.player.body.blocked.down || !this.player.body.touching.down)
-            {
-                Tableau.current.jumpStop = true;
-            }
-            else
+            if(Tableau.current.player.body.velocity.y == 0)
             {
                 Tableau.current.jumpStop = false;
             }
+            else
+            {
+                Tableau.current.jumpStop = true;
+            }
 
         }, null, this);
-
         this.physics.add.overlap(this.player, this.bougies2, function(player, bougie2)
         {
             ici.allumerBougie2(bougie2.bougie2Object.name);
 
-            if(!this.player.body.blocked.down || !this.player.body.touching.down)
-            {
-                Tableau.current.jumpStop = true;
-            }
-            else
+            if(Tableau.current.player.body.velocity.y == 0)
             {
                 Tableau.current.jumpStop = false;
             }
+            else
+            {
+                Tableau.current.jumpStop = true;
+            }
 
         }, null, this);
-
         this.physics.add.overlap(this.player, this.bougies3, function(player, bougie3)
         {
             ici.allumerBougie3(bougie3.bougie3Object.name);
 
-            if(!this.player.body.blocked.down || !this.player.body.touching.down)
+            if(Tableau.current.player.body.velocity.y == 0)
             {
-                Tableau.current.jumpStop = true;
+                Tableau.current.jumpStop = false;
             }
             else
             {
-                Tableau.current.jumpStop = false;
+                Tableau.current.jumpStop = true;
             }
 
         }, null, this);
@@ -993,11 +988,8 @@ class Niveau1 extends Tableau
                 Tableau.current.jumpStop = false;
                 //console.log("jumpStop = false");
             }
-            //this.physics.world.removeCollider(torche.torcheObject.name);
-            //this.tchLight.disableBody(true, true);
 
         }, null, this);
-        
         this.physics.add.overlap(this.player, this.torches1, function(player, torche1)
         {
             ici.allumerTorche1(torche1.torche1Object.name);
@@ -1005,18 +997,13 @@ class Niveau1 extends Tableau
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
                 Tableau.current.jumpStop = true;
-                //console.log("jumpStop = true");
             }
             else
             {
                 Tableau.current.jumpStop = false;
-                //console.log("jumpStop = false");
             }
-            //this.physics.world.removeCollider(torche.torcheObject.name);
-            //this.tchLight.disableBody(true, true);
 
         }, null, this);
-        
         this.physics.add.overlap(this.player, this.torches2, function(player, torche2)
         {
             ici.allumerTorche2(torche2.torche2Object.name);
@@ -1024,18 +1011,13 @@ class Niveau1 extends Tableau
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
                 Tableau.current.jumpStop = true;
-                //console.log("jumpStop = true");
             }
             else
             {
                 Tableau.current.jumpStop = false;
-                //console.log("jumpStop = false");
             }
-            //this.physics.world.removeCollider(torche.torcheObject.name);
-            //this.tchLight.disableBody(true, true);
 
         }, null, this);
-        
         this.physics.add.overlap(this.player, this.torches3, function(player, torche3)
         {
             ici.allumerTorche3(torche3.torche3Object.name);
@@ -1043,18 +1025,13 @@ class Niveau1 extends Tableau
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
                 Tableau.current.jumpStop = true;
-                //console.log("jumpStop = true");
             }
             else
             {
                 Tableau.current.jumpStop = false;
-                //console.log("jumpStop = false");
             }
-            //this.physics.world.removeCollider(torche.torcheObject.name);
-            //this.tchLight.disableBody(true, true);
 
         }, null, this);
-        
         this.physics.add.overlap(this.player, this.torches4, function(player, torche4)
         {
             ici.allumerTorche4(torche4.torche4Object.name);
@@ -1062,18 +1039,13 @@ class Niveau1 extends Tableau
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
                 Tableau.current.jumpStop = true;
-                //console.log("jumpStop = true");
             }
             else
             {
                 Tableau.current.jumpStop = false;
-                //console.log("jumpStop = false");
             }
-            //this.physics.world.removeCollider(torche.torcheObject.name);
-            //this.tchLight.disableBody(true, true);
 
         }, null, this);
-        
         this.physics.add.overlap(this.player, this.torches5, function(player, torche5)
         {
             ici.allumerTorche5(torche5.torche5Object.name);
@@ -1081,18 +1053,13 @@ class Niveau1 extends Tableau
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
                 Tableau.current.jumpStop = true;
-                //console.log("jumpStop = true");
             }
             else
             {
                 Tableau.current.jumpStop = false;
-                //console.log("jumpStop = false");
             }
-            //this.physics.world.removeCollider(torche.torcheObject.name);
-            //this.tchLight.disableBody(true, true);
 
         }, null, this);
-        
         this.physics.add.overlap(this.player, this.torches6, function(player, torche6)
         {
             ici.allumerTorche6(torche6.torche6Object.name);
@@ -1100,18 +1067,13 @@ class Niveau1 extends Tableau
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
                 Tableau.current.jumpStop = true;
-                //console.log("jumpStop = true");
             }
             else
             {
                 Tableau.current.jumpStop = false;
-                //console.log("jumpStop = false");
             }
-            //this.physics.world.removeCollider(torche.torcheObject.name);
-            //this.tchLight.disableBody(true, true);
 
         }, null, this);
-        
         this.physics.add.overlap(this.player, this.torches7, function(player, torche7)
         {
             ici.allumerTorche7(torche7.torche7Object.name);
@@ -1119,18 +1081,13 @@ class Niveau1 extends Tableau
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
                 Tableau.current.jumpStop = true;
-                //console.log("jumpStop = true");
             }
             else
             {
                 Tableau.current.jumpStop = false;
-                //console.log("jumpStop = false");
             }
-            //this.physics.world.removeCollider(torche.torcheObject.name);
-            //this.tchLight.disableBody(true, true);
 
         }, null, this);
-        
         this.physics.add.overlap(this.player, this.torches8, function(player, torche8)
         {
             ici.allumerTorche8(torche8.torche8Object.name);
@@ -1138,32 +1095,22 @@ class Niveau1 extends Tableau
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
                 Tableau.current.jumpStop = true;
-                //console.log("jumpStop = true");
             }
             else
             {
                 Tableau.current.jumpStop = false;
-                //console.log("jumpStop = false");
             }
-            //this.physics.world.removeCollider(torche.torcheObject.name);
-            //this.tchLight.disableBody(true, true);
 
         }, null, this);
-        
-
-
 
         //--------------------------------- Z order -----------------------------------------------
 
-        //on définit les z à la fin
+        //on définit les z à la fin. z-- = on décrémente par rapport à z ou à la valeur précédente qui décrémente de z.
         let z=1000; 
-        //niveau Z qui a chaque fois est décrémenté.
         this.platforms5.setDepth(984);
         this.platforms6.setDepth(984);
         this.checkPoints.setDepth(997);
         this.infCtrl.setDepth(1000);
-        //this.bougies.setDepth(986);
-        //this.escaliers.setDepth(1000);
         debug.setDepth(z--);
 
         this.skyDevant.setDepth(z--);
@@ -1175,15 +1122,14 @@ class Niveau1 extends Tableau
         this.blood.setDepth(z--);
         this.blood2.setDepth(z--);
 
-        /*torche1.setDepth(z--);
-        torche1B.setDepth(z--);*/
-
         this.monstersContainer.setDepth(z--);
         this.stars.setDepth(z--);
         starsFxContainer.setDepth(z--);
         this.solides.setDepth(z--);
+
         //this.laveFxContainer.setDepth(z--);
         //this.lave.setDepth(z--);
+
         this.player.setDepth(z--);
         this.platforms4.setDepth(z--);
         this.derriere.setDepth(z--);
@@ -1196,43 +1142,20 @@ class Niveau1 extends Tableau
 
         //Save & Restore checkpoint
         this.restoreCheckPoint();
-        //this.allumerBougie();
+        //this.allumerBougie() // allumerTorche()
 
     } //---------------------------------- FIN DE CREATE ----------------------------------
-
-    /*removeCollider()
-    {
-        this.physics.world.removeCollider(platformCollider);
-    }*/
-
-    /*checkCollision(torchesObjects, player) {
-        if (Tableau.current.player.y == this.torcheObject.y) 
-        {
-            return true;
-        }
-        //if (objet2 == player && objet1.y > objet2.y) 
-        //   return true;
-       return false;
-    }*/
 
 
     // Ne pas oublier de nommer chaques checkpoints sur Tiled
     saveCheckPoint(checkPointName)
     {
         //this.unique = false;
-        if (localStorage.getItem("checkPoint") !== checkPointName)
+        if (localStorage.getItem("checkPoint") !== checkPointName) // this.unique == false
         {
             console.log("on atteint le checkpoint", checkPointName);
             localStorage.setItem("checkPoint", checkPointName);
-
-            /******* tentative de leur permettre un unique fonctionnenent par chargement de tableau
-            if (this.unique === false)
-            {
-                this.add.sprite(checkPointObject.x,checkPointObject.y-16,'checkPoint').play('cp', true).setOrigin(0.5,0.5).setDepth(986).setBodySize(64,64);
-                //.setDisplaySize(16,16);
-                this.unique = true;
-            }
-            */
+           //this.unique = true;
         }
     } //---------------------------------- FIN DE SAVECHECKPOINT ----------------------------------
 
@@ -1254,6 +1177,7 @@ class Niveau1 extends Tableau
     } //---------------------------------- FIN DE RESTORECHECKPOINT ----------------------------------
 
 
+    // BOUGIES
     allumerBougie(bougieName, player)
     {
         let storedBougie = localStorage.getItem("bougie")
@@ -1332,7 +1256,6 @@ class Niveau1 extends Tableau
         let storedBougie1 = localStorage.getItem("bougie1")
         if (storedBougie1 !== bougie1Name)
         {
-            //console.log("on allume la bougie", bougie1Name);
             localStorage.setItem("bougie1", bougie1Name);
             this.unSeul1 = true;
         }
@@ -1364,8 +1287,6 @@ class Niveau1 extends Tableau
                             {
                                 targets:bougie21,
                                 duration:1,
-                                //yoyo: true,
-                                //repeat:-1,
                                 delay:Math.random()*1000,
                                 alpha:
                                 {
@@ -1381,7 +1302,7 @@ class Niveau1 extends Tableau
                             this.tweens.add(
                             {
                                 targets:bougie11,
-                                duration:200,//4000,
+                                duration:200,
                                 yoyo: true,
                                 repeat:-1,
                                 delay:Math.random()*1000,
@@ -1405,7 +1326,6 @@ class Niveau1 extends Tableau
         let storedBougie2 = localStorage.getItem("bougie2")
         if (storedBougie2 !== bougie2Name)
         {
-            //console.log("on allume la bougie", bougie2Name);
             localStorage.setItem("bougie2", bougie2Name);
             this.unSeul2 = true;
         }
@@ -1437,8 +1357,6 @@ class Niveau1 extends Tableau
                             {
                                 targets:bougie22,
                                 duration:1,
-                                //yoyo: true,
-                                //repeat:-1,
                                 delay:Math.random()*1000,
                                 alpha:
                                 {
@@ -1454,7 +1372,7 @@ class Niveau1 extends Tableau
                             this.tweens.add(
                             {
                                 targets:bougie12,
-                                duration:200,//4000,
+                                duration:200,
                                 yoyo: true,
                                 repeat:-1,
                                 delay:Math.random()*1000,
@@ -1478,7 +1396,6 @@ class Niveau1 extends Tableau
         let storedBougie3 = localStorage.getItem("bougie3")
         if (storedBougie3 !== bougie3Name)
         {
-            //console.log("on allume la bougie", bougie3Name);
             localStorage.setItem("bougie3", bougie3Name);
             this.unSeul3 = true;
         }
@@ -1510,8 +1427,6 @@ class Niveau1 extends Tableau
                             {
                                 targets:bougie23,
                                 duration:1,
-                                //yoyo: true,
-                                //repeat:-1,
                                 delay:Math.random()*1000,
                                 alpha:
                                 {
@@ -1527,7 +1442,7 @@ class Niveau1 extends Tableau
                             this.tweens.add(
                             {
                                 targets:bougie13,
-                                duration:200,//4000,
+                                duration:200,
                                 yoyo: true,
                                 repeat:-1,
                                 delay:Math.random()*1000,
@@ -1547,6 +1462,7 @@ class Niveau1 extends Tableau
     } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
 
 
+    // TORCHES
     allumerTorche(torcheName, player)
     {
         let storedTorche=localStorage.getItem("torche")
@@ -1578,7 +1494,7 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche.play(musicConfig);
     
-                            let torcheSprite = this.add.sprite(torcheObject.x+32,torcheObject.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torcheSprite = this.add.sprite(torcheObject.x+32,torcheObject.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
                             let torche2 = this.add.pointlight(torcheObject.x+32, torcheObject.y-49, 0, 200, 0.3).setDepth(986);
                             torche2.attenuation = 0.05;
                             torche2.color.setTo(255, 100, 0);
@@ -1627,14 +1543,12 @@ class Niveau1 extends Tableau
         let storedTorche1 = localStorage.getItem("torche1")
         if (storedTorche1 !== torche1Name)
         {
-            //console.log("on allume la torche", torche1Name);
             localStorage.setItem("torche1", torche1Name);
             this.unSeul21 = true;
             //Tableau.current.destructionTorcheLight = false;
         }
         else if (storedTorche1 === torche1Name && this.unSeul21 === true)
         {
-            //console.log("torche allumée", torche1Name);
             this.torches1Objects.forEach(torche1Object => 
                 {
                     
@@ -1653,7 +1567,7 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche1.play(musicConfig);
     
-                            let torcheSprite1 = this.add.sprite(torche1Object.x+32,torche1Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torcheSprite1 = this.add.sprite(torche1Object.x+32,torche1Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
                             let torche21 = this.add.pointlight(torche1Object.x+32, torche1Object.y-49, 0, 200, 0.3).setDepth(986);
                             torche21.attenuation = 0.05;
                             torche21.color.setTo(255, 100, 0);
@@ -1662,8 +1576,6 @@ class Niveau1 extends Tableau
                             {
                                 targets:torche21,
                                 duration:1,
-                                //yoyo: true,
-                                //repeat:-1,
                                 delay:Math.random()*1000,
                                 alpha:
                                 {
@@ -1680,7 +1592,7 @@ class Niveau1 extends Tableau
                             this.tweens.add(
                             {
                                 targets:torche11,
-                                duration:200,//4000,
+                                duration:200,
                                 yoyo: true,
                                 repeat:-1,
                                 delay:Math.random()*1000,
@@ -1711,14 +1623,11 @@ class Niveau1 extends Tableau
         let storedTorche2 = localStorage.getItem("torche2")
         if (storedTorche2 !== torche2Name)
         {
-            console.log("on allume la torche", torche2Name);
             localStorage.setItem("torche2", torche2Name);
             this.unSeul22 = true;
-            //Tableau.current.destructionTorcheLight = false;
         }
         else if (storedTorche2 === torche2Name && this.unSeul22 === true)
         {
-            console.log("torche allumée", torche2Name);
             this.torches2Objects.forEach(torche2Object => 
                 {
                     
@@ -1737,17 +1646,14 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche2.play(musicConfig);
     
-                            let torcheSprite2 = this.add.sprite(torche2Object.x+32,torche2Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torcheSprite2 = this.add.sprite(torche2Object.x+32,torche2Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
                             let torche22 = this.add.pointlight(torche2Object.x+32, torche2Object.y-49, 0, 200, 0.3).setDepth(986);
                             torche22.attenuation = 0.05;
                             torche22.color.setTo(255, 100, 0);
-                            //torche2.destroy(); //torche2.visible = false;
                             this.tweens.add(
                             {
                                 targets:torche22,
                                 duration:1,
-                                //yoyo: true,
-                                //repeat:-1,
                                 delay:Math.random()*1000,
                                 alpha:
                                 {
@@ -1760,11 +1666,10 @@ class Niveau1 extends Tableau
                             let torche12 = this.add.pointlight(torche2Object.x+32, torche2Object.y-49, 0, 20, 0.2).setDepth(986);
                             torche12.attenuation = 0.05;
                             torche12.color.setTo(255, 50, 0);
-                            //torche1.destroy();
                             this.tweens.add(
                             {
                                 targets:torche12,
-                                duration:200,//4000,
+                                duration:200,
                                 yoyo: true,
                                 repeat:-1,
                                 delay:Math.random()*1000,
@@ -1775,13 +1680,6 @@ class Niveau1 extends Tableau
                                     to:1,
                                 }
                             })
-                            /*if(Tableau.current.destructionTorcheLight)
-                            {
-                                torcheSprite.destroy();
-                                torche1.destroy();
-                                torche2.destroy();
-                            }
-                            Tableau.current.destructionTorcheLight = true;*/
 
                         this.unSeul22 = false;
                     }
@@ -1795,14 +1693,11 @@ class Niveau1 extends Tableau
         let storedTorche3 = localStorage.getItem("torche3")
         if (storedTorche3 !== torche3Name)
         {
-            //console.log("on allume la torche", torche3Name);
             localStorage.setItem("torche3", torche3Name);
             this.unSeul23 = true;
-            //Tableau.current.destructionTorcheLight = false;
         }
         else if (storedTorche3 === torche3Name && this.unSeul23 === true)
         {
-            //console.log("torche allumée", torche3Name);
             this.torches3Objects.forEach(torche3Object => 
                 {
                     
@@ -1821,17 +1716,14 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche3.play(musicConfig);
     
-                            let torcheSprite3 = this.add.sprite(torche3Object.x+32,torche3Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torcheSprite3 = this.add.sprite(torche3Object.x+32,torche3Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
                             let torche23 = this.add.pointlight(torche3Object.x+32, torche3Object.y-49, 0, 200, 0.3).setDepth(986);
                             torche23.attenuation = 0.05;
                             torche23.color.setTo(255, 100, 0);
-                            //torche2.destroy(); //torche2.visible = false;
                             this.tweens.add(
                             {
                                 targets:torche23,
                                 duration:1,
-                                //yoyo: true,
-                                //repeat:-1,
                                 delay:Math.random()*1000,
                                 alpha:
                                 {
@@ -1844,11 +1736,10 @@ class Niveau1 extends Tableau
                             let torche13 = this.add.pointlight(torche3Object.x+32, torche3Object.y-49, 0, 20, 0.2).setDepth(986);
                             torche13.attenuation = 0.05;
                             torche13.color.setTo(255, 50, 0);
-                            //torche1.destroy();
                             this.tweens.add(
                             {
                                 targets:torche13,
-                                duration:200,//4000,
+                                duration:200,
                                 yoyo: true,
                                 repeat:-1,
                                 delay:Math.random()*1000,
@@ -1859,13 +1750,6 @@ class Niveau1 extends Tableau
                                     to:1,
                                 }
                             })
-                            /*if(Tableau.current.destructionTorcheLight)
-                            {
-                                torcheSprite.destroy();
-                                torche1.destroy();
-                                torche2.destroy();
-                            }
-                            Tableau.current.destructionTorcheLight = true;*/
 
                         this.unSeul23 = false;
                     }
@@ -1882,7 +1766,6 @@ class Niveau1 extends Tableau
             console.log("on allume la torche", torche4Name);
             localStorage.setItem("torche4", torche4Name);
             this.unSeul24 = true;
-            //Tableau.current.destructionTorcheLight = false;
         }
         else if (storedTorche4 === torche4Name && this.unSeul24 === true)
         {
@@ -1905,17 +1788,14 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche4.play(musicConfig);
     
-                            let torcheSprite4 = this.add.sprite(torche4Object.x+32,torche4Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torcheSprite4 = this.add.sprite(torche4Object.x+32,torche4Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
                             let torche24 = this.add.pointlight(torche4Object.x+32, torche4Object.y-49, 0, 200, 0.3).setDepth(986);
                             torche24.attenuation = 0.05;
                             torche24.color.setTo(255, 100, 0);
-                            //torche2.destroy(); //torche2.visible = false;
                             this.tweens.add(
                             {
                                 targets:torche24,
                                 duration:1,
-                                //yoyo: true,
-                                //repeat:-1,
                                 delay:Math.random()*1000,
                                 alpha:
                                 {
@@ -1928,11 +1808,10 @@ class Niveau1 extends Tableau
                             let torche14 = this.add.pointlight(torche4Object.x+32, torche4Object.y-49, 0, 20, 0.2).setDepth(986);
                             torche14.attenuation = 0.05;
                             torche14.color.setTo(255, 50, 0);
-                            //torche1.destroy();
                             this.tweens.add(
                             {
                                 targets:torche14,
-                                duration:200,//4000,
+                                duration:200,
                                 yoyo: true,
                                 repeat:-1,
                                 delay:Math.random()*1000,
@@ -1943,13 +1822,6 @@ class Niveau1 extends Tableau
                                     to:1,
                                 }
                             })
-                            /*if(Tableau.current.destructionTorcheLight)
-                            {
-                                torcheSprite.destroy();
-                                torche1.destroy();
-                                torche2.destroy();
-                            }
-                            Tableau.current.destructionTorcheLight = true;*/
 
                         this.unSeul24 = false;
                     }
@@ -1963,14 +1835,11 @@ class Niveau1 extends Tableau
         let storedTorche5=localStorage.getItem("torche5")
         if (storedTorche5 !== torche5Name)
         {
-            //console.log("on allume la torche", torche5Name);
             localStorage.setItem("torche5", torche5Name);
             this.unSeul25 = true;
-            //Tableau.current.destructionTorcheLight = false;
         }
         else if (storedTorche5 === torche5Name && this.unSeul25 === true)
         {
-            //console.log("torche allumée", torche5Name);
             this.torches5Objects.forEach(torche5Object => 
                 {
                     
@@ -1989,17 +1858,14 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche5.play(musicConfig);
     
-                            let torcheSprite5 = this.add.sprite(torche5Object.x+32,torche5Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torcheSprite5 = this.add.sprite(torche5Object.x+32,torche5Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
                             let torche25 = this.add.pointlight(torche5Object.x+32, torche5Object.y-49, 0, 200, 0.3).setDepth(986);
                             torche25.attenuation = 0.05;
                             torche25.color.setTo(255, 100, 0);
-                            //torche2.destroy(); //torche2.visible = false;
                             this.tweens.add(
                             {
                                 targets:torche25,
                                 duration:1,
-                                //yoyo: true,
-                                //repeat:-1,
                                 delay:Math.random()*1000,
                                 alpha:
                                 {
@@ -2012,11 +1878,10 @@ class Niveau1 extends Tableau
                             let torche15 = this.add.pointlight(torche5Object.x+32, torche5Object.y-49, 0, 20, 0.2).setDepth(986);
                             torche15.attenuation = 0.05;
                             torche15.color.setTo(255, 50, 0);
-                            //torche1.destroy();
                             this.tweens.add(
                             {
                                 targets:torche15,
-                                duration:200,//4000,
+                                duration:200,
                                 yoyo: true,
                                 repeat:-1,
                                 delay:Math.random()*1000,
@@ -2027,13 +1892,6 @@ class Niveau1 extends Tableau
                                     to:1,
                                 }
                             })
-                            /*if(Tableau.current.destructionTorcheLight)
-                            {
-                                torcheSprite.destroy();
-                                torche1.destroy();
-                                torche2.destroy();
-                            }
-                            Tableau.current.destructionTorcheLight = true;*/
 
                         this.unSeul25 = false;
                     }
@@ -2046,15 +1904,12 @@ class Niveau1 extends Tableau
     {
         let storedTorche6 = localStorage.getItem("torche6")
         if (storedTorche6 !== torche6Name)
-        {
-            //console.log("on allume la torche", torche6Name);
+        {;
             localStorage.setItem("torche6", torche6Name);
             this.unSeul26 = true;
-            //Tableau.current.destructionTorcheLight = false;
         }
         else if (storedTorche6 === torche6Name && this.unSeul26 === true)
         {
-            //console.log("torche allumée", torche6Name);
             this.torches6Objects.forEach(torche6Object => 
                 {
                     
@@ -2073,17 +1928,14 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche6.play(musicConfig);
     
-                            let torcheSprite6 = this.add.sprite(torche6Object.x+32,torche6Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torcheSprite6 = this.add.sprite(torche6Object.x+32,torche6Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
                             let torche26 = this.add.pointlight(torche6Object.x+32, torche6Object.y-49, 0, 200, 0.3).setDepth(986);
                             torche26.attenuation = 0.05;
                             torche26.color.setTo(255, 100, 0);
-                            //torche2.destroy(); //torche2.visible = false;
                             this.tweens.add(
                             {
                                 targets:torche26,
                                 duration:1,
-                                //yoyo: true,
-                                //repeat:-1,
                                 delay:Math.random()*1000,
                                 alpha:
                                 {
@@ -2096,11 +1948,10 @@ class Niveau1 extends Tableau
                             let torche16 = this.add.pointlight(torche6Object.x+32, torche6Object.y-49, 0, 20, 0.2).setDepth(986);
                             torche16.attenuation = 0.05;
                             torche16.color.setTo(255, 50, 0);
-                            //torche1.destroy();
                             this.tweens.add(
                             {
                                 targets:torche16,
-                                duration:200,//4000,
+                                duration:200,
                                 yoyo: true,
                                 repeat:-1,
                                 delay:Math.random()*1000,
@@ -2111,13 +1962,6 @@ class Niveau1 extends Tableau
                                     to:1,
                                 }
                             })
-                            /*if(Tableau.current.destructionTorcheLight)
-                            {
-                                torcheSprite.destroy();
-                                torche1.destroy();
-                                torche2.destroy();
-                            }
-                            Tableau.current.destructionTorcheLight = true;*/
 
                         this.unSeul26 = false;
                     }
@@ -2131,14 +1975,11 @@ class Niveau1 extends Tableau
         let storedTorche7 = localStorage.getItem("torche7")
         if (storedTorche7 !== torche7Name)
         {
-            //console.log("on allume la torche", torche7Name);
             localStorage.setItem("torche7", torche7Name);
             this.unSeul27 = true;
-            //Tableau.current.destructionTorcheLight = false;
         }
         else if (storedTorche7 === torche7Name && this.unSeul27 === true)
         {
-            //console.log("torche allumée", torche7Name);
             this.torches7Objects.forEach(torche7Object => 
                 {
                     
@@ -2157,17 +1998,14 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche7.play(musicConfig);
     
-                            let torcheSprite7 = this.add.sprite(torche7Object.x+32,torche7Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torcheSprite7 = this.add.sprite(torche7Object.x+32,torche7Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
                             let torche27 = this.add.pointlight(torche7Object.x+32, torche7Object.y-49, 0, 200, 0.3).setDepth(986);
                             torche27.attenuation = 0.05;
                             torche27.color.setTo(255, 100, 0);
-                            //torche2.destroy(); //torche2.visible = false;
                             this.tweens.add(
                             {
                                 targets:torche27,
                                 duration:1,
-                                //yoyo: true,
-                                //repeat:-1,
                                 delay:Math.random()*1000,
                                 alpha:
                                 {
@@ -2180,11 +2018,10 @@ class Niveau1 extends Tableau
                             let torche17 = this.add.pointlight(torche7Object.x+32, torche7Object.y-49, 0, 20, 0.2).setDepth(986);
                             torche17.attenuation = 0.05;
                             torche17.color.setTo(255, 50, 0);
-                            //torche1.destroy();
                             this.tweens.add(
                             {
                                 targets:torche17,
-                                duration:200,//4000,
+                                duration:200,
                                 yoyo: true,
                                 repeat:-1,
                                 delay:Math.random()*1000,
@@ -2195,13 +2032,6 @@ class Niveau1 extends Tableau
                                     to:1,
                                 }
                             })
-                            /*if(Tableau.current.destructionTorcheLight)
-                            {
-                                torcheSprite.destroy();
-                                torche1.destroy();
-                                torche2.destroy();
-                            }
-                            Tableau.current.destructionTorcheLight = true;*/
 
                         this.unSeul27 = false;
                     }
@@ -2215,14 +2045,11 @@ class Niveau1 extends Tableau
         let storedTorche8 = localStorage.getItem("torche8")
         if (storedTorche8 !== torche8Name)
         {
-            //console.log("on allume la torche", torche8Name);
             localStorage.setItem("torche8", torche8Name);
             this.unSeul28 = true;
-            //Tableau.current.destructionTorcheLight = false;
         }
         else if (storedTorche8 === torche8Name && this.unSeul28 === true)
         {
-            //console.log("torche allumée", torche8Name);
             this.torches8Objects.forEach(torche8Object => 
                 {
                     
@@ -2241,17 +2068,14 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche8.play(musicConfig);
     
-                            let torcheSprite8 = this.add.sprite(torche8Object.x+32,torche8Object.y-48,'torcheAnime').play('tch', true).setDepth(986);
+                            let torcheSprite8 = this.add.sprite(torche8Object.x+32,torche8Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
                             let torche28 = this.add.pointlight(torche8Object.x+32, torche8Object.y-49, 0, 200, 0.3).setDepth(986);
                             torche28.attenuation = 0.05;
                             torche28.color.setTo(255, 100, 0);
-                            //torche2.destroy(); //torche2.visible = false;
                             this.tweens.add(
                             {
                                 targets:torche28,
                                 duration:1,
-                                //yoyo: true,
-                                //repeat:-1,
                                 delay:Math.random()*1000,
                                 alpha:
                                 {
@@ -2264,11 +2088,10 @@ class Niveau1 extends Tableau
                             let torche18 = this.add.pointlight(torche8Object.x+32, torche8Object.y-49, 0, 20, 0.2).setDepth(986);
                             torche18.attenuation = 0.05;
                             torche18.color.setTo(255, 50, 0);
-                            //torche1.destroy();
                             this.tweens.add(
                             {
                                 targets:torche18,
-                                duration:200,//4000,
+                                duration:200,
                                 yoyo: true,
                                 repeat:-1,
                                 delay:Math.random()*1000,
@@ -2279,13 +2102,6 @@ class Niveau1 extends Tableau
                                     to:1,
                                 }
                             })
-                            /*if(Tableau.current.destructionTorcheLight)
-                            {
-                                torcheSprite.destroy();
-                                torche1.destroy();
-                                torche2.destroy();
-                            }
-                            Tableau.current.destructionTorcheLight = true;*/
 
                         this.unSeul28 = false;
                     }

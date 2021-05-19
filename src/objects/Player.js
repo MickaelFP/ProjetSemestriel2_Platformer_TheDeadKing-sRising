@@ -67,6 +67,13 @@ class Player extends Phaser.Physics.Arcade.Sprite{
     }
 
 
+    update()
+    {
+        this.move();
+        this.jump();
+
+    }
+
     /********** Arrête le joueur **********/
     stop()
     {
@@ -111,42 +118,58 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                     this.setVelocityX(0);
                     this.anims.play('turn', true);
             }
-    
-            if(!Tableau.current.jumpStop)
-            {
-                if(this._directionY<0)
-                {
-                    if(this.body.blocked.down || this.body.touching.down)
-                    {
-                        this.jumping = true;
-                        //console.log("this.jumping = true");
-                        this.setVelocityY(-500);
-                    }
-                }
-                else
-                {
-                    this.jumping = false;
-                }
-            }
-
-            if(Tableau.current.jumpStop & !Tableau.current.arrowUpPressed)
-            {
-                Tableau.current.jumpStop = false;
-                //console.log("if jumpStop = false");
-            }
-
-            /*while(Tableau.current.jumpStop & this.veloci) 
-            {
-                if(this.body.blocked.down || this.body.touching.down)
-                {
-                    Tableau.current.jumpStop = false;
-                    console.log("WHILE -> this.jumping = false");
-                }
-                return;
-            }*/
-
         }
 
-    }
+        if(this.body.velocity.y != 0)
+        {
+            this.jumping = true;
+        }
+        else
+        {
+            this.jumping = false;
+        }
 
-}
+    } // FIN DE MOVE
+
+    jump()
+    {
+        if(!Tableau.current.playerMoveStop && !Tableau.current.tJArrowDownPressed)
+        {
+            if(Tableau.current.arrowUpPressed)
+            {
+                if(!Tableau.current.jumpStop)
+                {
+                    if(this._directionY<0)
+                    {
+                        if(this.body.blocked.down || this.body.touching.down)
+                        {
+    
+                            if(Tableau.current.timingJump == true)
+                            {
+                                console.log("scene.player -> jumping = true");
+                                this.setVelocityY(-500);
+                                Tableau.current.timingJump = false;
+                                Tableau.current.timingJumping();
+                            }
+                        }
+                    }
+                }
+                /*else
+                {
+                    this.jumping = false;
+                }*/
+            }
+            else if(!Tableau.current.arrowUpPressed & this.body.velocity.y == 0)
+            {
+                Tableau.current.jumpStop = true;
+                //this.jumping = false;
+            }
+        }
+        /*else
+        {
+            this.jumping = false;
+        }*/
+
+    }  // FIN DE JUMP
+    
+} // Fin de " class Player "
