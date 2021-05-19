@@ -27,7 +27,34 @@ class MonsterSkeleton extends ObjetEnnemi{
         this.anims.play('moving', true);       
 
     }
-    update(player)
+    update()
+    {
+        this.move();
+        this.animation();
+
+    }
+
+    move(player)
+    {
+        if(this.scene.player.x > this.x - 400 && this.scene.player.x < this.x - 10 && this.scene.player.y <= this.y && this.scene.player.y >= this.y-200)
+        {
+            //console.log("GRRRRR GAUCHE");
+            this.setVelocityX(-40*(Math.random()+1.5));
+            //this.flipX = true;
+        }
+        else if(this.scene.player.x < this.x + 400 && this.scene.player.x > this.x + 10 && this.scene.player.y <= this.y && this.scene.player.y >= this.y-200)
+        {
+            //console.log("GRRRRR DROITE");
+            this.setVelocityX(40*(Math.random()+1.5));
+            //this.flipX = false;
+        }
+        /*else
+        {
+            this.setVelocityX(0);
+        }*/
+    }
+
+    animation()
     {
         if(this.body)
         {
@@ -43,7 +70,6 @@ class MonsterSkeleton extends ObjetEnnemi{
             }
         }
     }
-
     
     /**
     * arrête le monstre

@@ -113,6 +113,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                 case "e":
                     console.log("healNoMore");
                     Tableau.current.ePressed = false;
+                    Tableau.current.oneHeal = false;
                     break;
 
                 case "d":

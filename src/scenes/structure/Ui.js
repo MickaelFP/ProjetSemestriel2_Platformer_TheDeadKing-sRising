@@ -155,7 +155,7 @@ class Ui extends Phaser.Scene{
         }
     }
     // Moyen
-    gagne1(points=30)
+    gagne1(points=20)
     {
         let me=this;
         me.score+=points;
@@ -166,7 +166,6 @@ class Ui extends Phaser.Scene{
         else if (me.score < 0)
         {
             me.score = 0;
-            me.score+=points;
             me._scoreText.setText('Ossements: ' + me.score);
         }
         else
@@ -186,7 +185,6 @@ class Ui extends Phaser.Scene{
         else if (me.score < 0)
         {
             me.score = 0;
-            me.score+=points;
             me._scoreText.setText('Ossements: ' + me.score);
         }
         else
@@ -197,7 +195,7 @@ class Ui extends Phaser.Scene{
 
     /********** QUAND ON PERD DES POINTS **********/
     // Jeter des os
-    perdre(points=1)
+    perdre(points=2)
     {
         let me=this;
         me.score-=points;
@@ -235,7 +233,7 @@ class Ui extends Phaser.Scene{
         }
     }
     // Mourrir
-    perdre2(points=50)
+    perdre2(points=500)
     {
         let me=this;
         me.score-=points;
@@ -256,10 +254,10 @@ class Ui extends Phaser.Scene{
     
 
     //------------------------------------------------ Gestion des points de vie ---------------------------------
+    //
+    /********** QUAND ON RECUPERE DES POINTS DE VIE **********/
 
-    /********** QUAND ON RECUPERE DES POINTS **********/
-
-    recupPV(points=1)
+    gagnePV(points=1)
     {
         let me = this;
         me.hp += points;
@@ -267,10 +265,9 @@ class Ui extends Phaser.Scene{
         {
             this.hp = 3;
         }
-        //me.score+=points;
     }
-
-    
+    //
+    /********** QUAND ON PERD DES POINTS DE VIE **********/
     losePV(points=1)
     {
         let me = this;
@@ -282,56 +279,8 @@ class Ui extends Phaser.Scene{
             //this._hpText.setText('Status : ');
         }
     }
-
-    /*losePV(points=1)
-    {
-        let me=this;
-        me.hp-=points;
-        if (me.hp = 1)
-        {
-            me._hpImage3.visible = false;
-            me._hpImage2.visible = false;
-            me._hpImage1.visible = true;
-        }
-        else if (me.hp = 2)
-        {
-            me._hpImage3.visible = false;
-            me._hpImage1.visible = false;
-            me._hpImage2.visible = true;
-        }
-        else if(me.hp = 3)
-        {
-            me._hpImage2.visible = false;
-            me._hpImage1.visible = false;
-            me._hpImage3.visible = true;
-        }
-        else if(me.hp > 3)
-        {
-            me.hp = 3;
-            me._hpImage2.visible = false;
-            me._hpImage1.visible = false;
-            me._hpImage3.visible = true;
-        }
-        else
-        {
-            me.hp = 0;
-            me._hpImage3.visible = false;
-            me._hpImage2.visible = false;
-            me._hpImage1.visible = false;
-        }
-    }
-
-    this.hp=3;
-    this._hpImage1 = this.add.image(this.sys.canvas.width-50,this.sys.canvas.height-50,'hp1')
-    .setDisplaySize(16,16);
-    this._hpImage2 = this.add.image(this.sys.canvas.width-50,this.sys.canvas.height-50,'hp2')
-    .setDisplaySize(16,16);
-    this._hpImage3 = this.add.image(this.sys.canvas.width-50,this.sys.canvas.height-50,'hp3')
-    .setDisplaySize(16,16);
-    this._hpImage1.visible = false;
-    this._hpImage2.visible = false;
-    this._hpImage3.visible = false;*/
-
+    //
+    //---------------------------------
 
     update(){
         if(Tableau.current){

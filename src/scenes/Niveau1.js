@@ -18,7 +18,7 @@ class Niveau1 extends Tableau
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
 
         //les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha1-5.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha1-6.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
 
         // -----Decors-------------
         this.load.image('night', 'assets/backgrounds/sky_plan_nuitEtoileCarre.png');//nuitEtoileCarre_4.png');
@@ -195,10 +195,10 @@ class Niveau1 extends Tableau
         this.platforms4 = this.physics.add.group();
 
         this.platforms4.create(3906, 880+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(3906, 768+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(3938, 768+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(4050, 736+hauteurDif, 'solFragilePierre');
         this.platforms4.create(3934, 612+hauteurDif, 'solFragilePierre');
         this.platforms4.create(3996, 500+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(4050, 736+hauteurDif, 'solFragilePierre');
 
         this.platforms4.create(4832, 1584+hauteurDif, 'solFragilePierre');
         this.platforms4.create(4896, 1520+hauteurDif, 'solFragilePierre');
@@ -235,17 +235,17 @@ class Niveau1 extends Tableau
         // monstre
         this.platforms6 = this.physics.add.group();
 
-        this.platforms6.create(1516, 322+hauteurDif, 'solFragilePierre');
+        /*this.platforms6.create(1516, 322+hauteurDif, 'solFragilePierre');
         this.platforms6.create(2028, 322+hauteurDif, 'solFragilePierre');
         this.platforms6.create(2380, 322+hauteurDif, 'solFragilePierre');
-        this.platforms6.create(2994, 322+hauteurDif, 'solFragilePierre');
+        this.platforms6.create(2994, 322+hauteurDif, 'solFragilePierre');*/
         this.platforms6.create(3964, 1280+hauteurDif, 'solFragilePierre');
         this.platforms6.create(4160, 1280+hauteurDif, 'solFragilePierre');
         this.platforms6.create(4848, 1280+hauteurDif, 'solFragilePierre');
-        this.platforms6.create(4237, 322+hauteurDif, 'solFragilePierre');
+        /*this.platforms6.create(4237, 322+hauteurDif, 'solFragilePierre');
         this.platforms6.create(5349, 322+hauteurDif, 'solFragilePierre');
         this.platforms6.create(5645, 322+hauteurDif, 'solFragilePierre');
-        this.platforms6.create(6100, 322+hauteurDif, 'solFragilePierre');
+        this.platforms6.create(6100, 322+hauteurDif, 'solFragilePierre');*/
 
 
 
@@ -312,7 +312,6 @@ class Niveau1 extends Tableau
             let monster=new MonsterZombie(this,monsterObject.x,monsterObject.y-30);
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
-            this.physics.add.collider(monster, this.platforms6);
             //this.physics.add.collider(monster, Tableau.current.shoot); //this.projectil //this.solides
 
             this.physics.add.overlap(this.zombiesObjects, this.shoot, function(zombiesObjects, shoot)
@@ -448,7 +447,7 @@ class Niveau1 extends Tableau
         //on crée des checkpoints pour chaque objet rencontré
         this.checkPointsObjects.forEach(checkPointObject => 
         {
-            let point=this.checkPoints.create(checkPointObject.x+248,checkPointObject.y+183,'checkPoint').play('cp', true).setDepth(986).setDisplaySize(16,16).setBodySize(64,64)
+            let point=this.checkPoints.create(checkPointObject.x+248,checkPointObject.y+183,'checkPoint').play('cp', true).setDepth(987).setDisplaySize(16,16).setBodySize(64,64)
             .setOrigin(14,12.4);
             point.blendMode=Phaser.BlendModes.COLOR_DODGE;
             point.checkPointObject=checkPointObject;
@@ -469,7 +468,7 @@ class Niveau1 extends Tableau
         this.bougies0Objects = this.map.getObjectLayer('bougies')['objects'];
         this.bougies0Objects.forEach(bougieObject => 
         {
-            let bgLight=this.bougies0.create(bougieObject.x+32,bougieObject.y-11,'bougie').setOrigin(0.5,1).setDepth(986)
+            let bgLight=this.bougies0.create(bougieObject.x+32,bougieObject.y-11,'bougie').setOrigin(0.5,1).setDepth(987)
             .setBodySize(bougieObject.width,bougieObject.height);
             bgLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
             bgLight.bougieObject=bougieObject;
@@ -480,7 +479,7 @@ class Niveau1 extends Tableau
         this.bougies1Objects = this.map.getObjectLayer('bougies1')['objects'];
         this.bougies1Objects.forEach(bougie1Object => 
         {
-            let bgLight1=this.bougies1.create(bougie1Object.x+32,bougie1Object.y-11,'bougie').setOrigin(0.5,1).setDepth(986)
+            let bgLight1=this.bougies1.create(bougie1Object.x+32,bougie1Object.y-11,'bougie').setOrigin(0.5,1).setDepth(987)
             .setBodySize(bougie1Object.width,bougie1Object.height);
             bgLight1.blendMode=Phaser.BlendModes.COLOR_DODGE;
             bgLight1.bougie1Object=bougie1Object;
@@ -490,7 +489,7 @@ class Niveau1 extends Tableau
         this.bougies2Objects = this.map.getObjectLayer('bougies2')['objects'];
         this.bougies2Objects.forEach(bougie2Object => 
         {
-            let bgLight2=this.bougies2.create(bougie2Object.x+32,bougie2Object.y-11,'bougie').setOrigin(0.5,1).setDepth(986)
+            let bgLight2=this.bougies2.create(bougie2Object.x+32,bougie2Object.y-11,'bougie').setOrigin(0.5,1).setDepth(987)
             .setBodySize(bougie2Object.width,bougie2Object.height);
             bgLight2.blendMode=Phaser.BlendModes.COLOR_DODGE;
             bgLight2.bougie2Object=bougie2Object;
@@ -501,7 +500,7 @@ class Niveau1 extends Tableau
         this.bougies3Objects = this.map.getObjectLayer('bougies3')['objects'];
         this.bougies3Objects.forEach(bougie3Object => 
         {
-            let bgLight3=this.bougies3.create(bougie3Object.x+32,bougie3Object.y-11,'bougie').setOrigin(0.5,1).setDepth(986)
+            let bgLight3=this.bougies3.create(bougie3Object.x+32,bougie3Object.y-11,'bougie').setOrigin(0.5,1).setDepth(987)
             .setBodySize(bougie3Object.width,bougie3Object.height);
             bgLight3.blendMode=Phaser.BlendModes.COLOR_DODGE;
             bgLight3.bougie3Object=bougie3Object;
@@ -522,7 +521,7 @@ class Niveau1 extends Tableau
         this.torches0Objects = this.map.getObjectLayer('torches')['objects'];
         this.torches0Objects.forEach(torcheObject => 
         {
-            let tchLight = this.torches0.create(torcheObject.x+32,torcheObject.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            let tchLight = this.torches0.create(torcheObject.x+32,torcheObject.y-64,'torche').setOrigin(0.5,0).setDepth(987)
             .setBodySize(torcheObject.width*4,torcheObject.height*4).setDisplaySize(48,64);
             tchLight.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight.torcheObject=torcheObject;
@@ -533,7 +532,7 @@ class Niveau1 extends Tableau
         this.torches1Objects = this.map.getObjectLayer('torches1')['objects'];
         this.torches1Objects.forEach(torche1Object => 
         {
-            let tchLight1 = this.torches1.create(torche1Object.x+32,torche1Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            let tchLight1 = this.torches1.create(torche1Object.x+32,torche1Object.y-64,'torche').setOrigin(0.5,0).setDepth(987)
             .setBodySize(torche1Object.width*4,torche1Object.height*4).setDisplaySize(48,64);
             tchLight1.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight1.torche1Object=torche1Object;
@@ -544,7 +543,7 @@ class Niveau1 extends Tableau
         this.torches2Objects = this.map.getObjectLayer('torches2')['objects'];
         this.torches2Objects.forEach(torche2Object => 
         {
-            let tchLight2 = this.torches2.create(torche2Object.x+32,torche2Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            let tchLight2 = this.torches2.create(torche2Object.x+32,torche2Object.y-64,'torche').setOrigin(0.5,0).setDepth(987)
             .setBodySize(torche2Object.width*4,torche2Object.height*4).setDisplaySize(48,64);
             tchLight2.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight2.torche2Object=torche2Object;
@@ -555,7 +554,7 @@ class Niveau1 extends Tableau
         this.torches3Objects = this.map.getObjectLayer('torches3')['objects'];
         this.torches3Objects.forEach(torche3Object => 
         {
-            let tchLight3 = this.torches3.create(torche3Object.x+32,torche3Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            let tchLight3 = this.torches3.create(torche3Object.x+32,torche3Object.y-64,'torche').setOrigin(0.5,0).setDepth(987)
             .setBodySize(torche3Object.width*4,torche3Object.height*4).setDisplaySize(48,64);
             tchLight3.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight3.torche3Object=torche3Object;
@@ -566,7 +565,7 @@ class Niveau1 extends Tableau
         this.torches4Objects = this.map.getObjectLayer('torches4')['objects'];
         this.torches4Objects.forEach(torche4Object => 
         {
-            let tchLight4 = this.torches4.create(torche4Object.x+32,torche4Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            let tchLight4 = this.torches4.create(torche4Object.x+32,torche4Object.y-64,'torche').setOrigin(0.5,0).setDepth(987)
             .setBodySize(torche4Object.width*4,torche4Object.height*4).setDisplaySize(48,64);
             tchLight4.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight4.torche4Object=torche4Object;
@@ -577,7 +576,7 @@ class Niveau1 extends Tableau
         this.torches5Objects = this.map.getObjectLayer('torches5')['objects'];
         this.torches5Objects.forEach(torche5Object => 
         {
-            let tchLight5 = this.torches5.create(torche5Object.x+32,torche5Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            let tchLight5 = this.torches5.create(torche5Object.x+32,torche5Object.y-64,'torche').setOrigin(0.5,0).setDepth(987)
             .setBodySize(torche5Object.width*4,torche5Object.height*4).setDisplaySize(48,64);
             tchLight5.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight5.torche5Object=torche5Object;
@@ -588,7 +587,7 @@ class Niveau1 extends Tableau
         this.torches6Objects = this.map.getObjectLayer('torches6')['objects'];
         this.torches6Objects.forEach(torche6Object => 
         {
-            let tchLight6 = this.torches6.create(torche6Object.x+32,torche6Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            let tchLight6 = this.torches6.create(torche6Object.x+32,torche6Object.y-64,'torche').setOrigin(0.5,0).setDepth(987)
             .setBodySize(torche6Object.width*4,torche6Object.height*4).setDisplaySize(48,64);
             tchLight6.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight6.torche6Object=torche6Object;
@@ -599,7 +598,7 @@ class Niveau1 extends Tableau
         this.torches7Objects = this.map.getObjectLayer('torches7')['objects'];
         this.torches7Objects.forEach(torche7Object => 
         {
-            let tchLight7 = this.torches7.create(torche7Object.x+32,torche7Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            let tchLight7 = this.torches7.create(torche7Object.x+32,torche7Object.y-64,'torche').setOrigin(0.5,0).setDepth(987)
             .setBodySize(torche7Object.width*4,torche7Object.height*4).setDisplaySize(48,64);
             tchLight7.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight7.torche7Object=torche7Object;
@@ -610,7 +609,7 @@ class Niveau1 extends Tableau
         this.torches8Objects = this.map.getObjectLayer('torches8')['objects'];
         this.torches8Objects.forEach(torche8Object => 
         {
-            let tchLight8=this.torches8.create(torche8Object.x+32,torche8Object.y-64,'torche').setOrigin(0.5,0).setDepth(986)
+            let tchLight8=this.torches8.create(torche8Object.x+32,torche8Object.y-64,'torche').setOrigin(0.5,0).setDepth(987)
             .setBodySize(torche8Object.width*4,torche8Object.height*4).setDisplaySize(48,64);
             tchLight8.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight8.torche8Object=torche8Object;
@@ -771,7 +770,7 @@ class Niveau1 extends Tableau
             scale: { start: 0.6, end: 0.6 },
             blendMode: 'NORMAL', 
         });
-        
+
         this.particles3 = this.add.particles('feuille3');
         this.emitter = this.particles3.createEmitter(
         {
@@ -792,7 +791,7 @@ class Niveau1 extends Tableau
         this.particles4 = this.add.particles('fog');
         this.emitter = this.particles4.createEmitter(
         {
-            x: -200, y: 846,
+            x: -200, y: 812,
             speed: 10,
             moveToX: {min:100,max:10000},
             moveToY: {min:846,max:846},
@@ -1108,14 +1107,13 @@ class Niveau1 extends Tableau
         //on définit les z à la fin. z-- = on décrémente par rapport à z ou à la valeur précédente qui décrémente de z.
         let z=1000; 
         this.platforms5.setDepth(984);
-        this.platforms6.setDepth(984);
+        //this.platforms6.setDepth(984);
         this.checkPoints.setDepth(997);
         this.infCtrl.setDepth(1000);
         debug.setDepth(z--);
 
         this.skyDevant.setDepth(z--);
 
-        this.particles4.setDepth(z--);
         this.particles1.setDepth(z--);
         this.particles2.setDepth(z--);
         this.particles3.setDepth(z--);
@@ -1135,6 +1133,7 @@ class Niveau1 extends Tableau
         this.derriere.setDepth(z--);
 
         this.sky5.setDepth(z--);
+        this.particles4.setDepth(z--);
         this.sky4.setDepth(z--);
         this.sky3.setDepth(z--);
         this.sky2.setDepth(z--);
@@ -1207,8 +1206,8 @@ class Niveau1 extends Tableau
                             }
                             this.allumeBougie.play(musicConfig);
     
-                            let bougieSprite = this.add.sprite(bougieObject.x+32,bougieObject.y-20,'bougieAnime').play('bg', true).setDepth(986);
-                            let bougie2 = this.add.pointlight(bougieObject.x+33, bougieObject.y-24, 0, 200, 0.3).setDepth(986);
+                            let bougieSprite = this.add.sprite(bougieObject.x+32,bougieObject.y-20,'bougieAnime').play('bg', true).setDepth(987);
+                            let bougie2 = this.add.pointlight(bougieObject.x+33, bougieObject.y-24, 0, 200, 0.3).setDepth(987);
                             bougie2.attenuation = 0.05;
                             bougie2.color.setTo(255, 200, 0);
                             this.tweens.add(
@@ -1226,7 +1225,7 @@ class Niveau1 extends Tableau
                                 }
                             })
                             this.unSeul0 = false;
-                            let bougie1 = this.add.pointlight(bougieObject.x+33, bougieObject.y-24, 0, 10, 0.2).setDepth(986);
+                            let bougie1 = this.add.pointlight(bougieObject.x+33, bougieObject.y-24, 0, 10, 0.2).setDepth(987);
                             bougie1.attenuation = 0.05;
                             bougie1.color.setTo(255, 200, 0);
                             this.tweens.add(
@@ -1279,8 +1278,8 @@ class Niveau1 extends Tableau
                             }
                             this.allumeBougie1.play(musicConfig);
     
-                            let bougieSprite1 = this.add.sprite(bougie1Object.x+32,bougie1Object.y-20,'bougieAnime').play('bg', true).setDepth(986);
-                            let bougie21 = this.add.pointlight(bougie1Object.x+33, bougie1Object.y-24, 0, 200, 0.3).setDepth(986);
+                            let bougieSprite1 = this.add.sprite(bougie1Object.x+32,bougie1Object.y-20,'bougieAnime').play('bg', true).setDepth(987);
+                            let bougie21 = this.add.pointlight(bougie1Object.x+33, bougie1Object.y-24, 0, 200, 0.3).setDepth(987);
                             bougie21.attenuation = 0.05;
                             bougie21.color.setTo(255, 200, 0);
                             this.tweens.add(
@@ -1296,7 +1295,7 @@ class Niveau1 extends Tableau
                                 }
                             })
                             this.unSeul1 = false;
-                            let bougie11 = this.add.pointlight(bougie1Object.x+33, bougie1Object.y-24, 0, 10, 0.2).setDepth(986);
+                            let bougie11 = this.add.pointlight(bougie1Object.x+33, bougie1Object.y-24, 0, 10, 0.2).setDepth(987);
                             bougie11.attenuation = 0.05;
                             bougie11.color.setTo(255, 200, 0);
                             this.tweens.add(
@@ -1349,8 +1348,8 @@ class Niveau1 extends Tableau
                             }
                             this.allumeBougie2.play(musicConfig);
     
-                            let bougieSprite2 = this.add.sprite(bougie2Object.x+32,bougie2Object.y-20,'bougieAnime').play('bg', true).setDepth(986);
-                            let bougie22 = this.add.pointlight(bougie2Object.x+33, bougie2Object.y-24, 0, 200, 0.3).setDepth(986);
+                            let bougieSprite2 = this.add.sprite(bougie2Object.x+32,bougie2Object.y-20,'bougieAnime').play('bg', true).setDepth(987);
+                            let bougie22 = this.add.pointlight(bougie2Object.x+33, bougie2Object.y-24, 0, 200, 0.3).setDepth(987);
                             bougie22.attenuation = 0.05;
                             bougie22.color.setTo(255, 200, 0);
                             this.tweens.add(
@@ -1366,7 +1365,7 @@ class Niveau1 extends Tableau
                                 }
                             })
                             this.unSeul2 = false;
-                            let bougie12 = this.add.pointlight(bougie2Object.x+33, bougie2Object.y-24, 0, 10, 0.2).setDepth(986);
+                            let bougie12 = this.add.pointlight(bougie2Object.x+33, bougie2Object.y-24, 0, 10, 0.2).setDepth(987);
                             bougie12.attenuation = 0.05;
                             bougie12.color.setTo(255, 200, 0);
                             this.tweens.add(
@@ -1419,8 +1418,8 @@ class Niveau1 extends Tableau
                             }
                             this.allumeBougie3.play(musicConfig);
     
-                            let bougieSprite3 = this.add.sprite(bougie3Object.x+32,bougie3Object.y-20,'bougieAnime').play('bg', true).setDepth(986);
-                            let bougie23 = this.add.pointlight(bougie3Object.x+33, bougie3Object.y-24, 0, 200, 0.3).setDepth(986);
+                            let bougieSprite3 = this.add.sprite(bougie3Object.x+32,bougie3Object.y-20,'bougieAnime').play('bg', true).setDepth(987);
+                            let bougie23 = this.add.pointlight(bougie3Object.x+33, bougie3Object.y-24, 0, 200, 0.3).setDepth(987);
                             bougie23.attenuation = 0.05;
                             bougie23.color.setTo(255, 200, 0);
                             this.tweens.add(
@@ -1436,7 +1435,7 @@ class Niveau1 extends Tableau
                                 }
                             })
                             this.unSeul3 = false;
-                            let bougie13 = this.add.pointlight(bougie3Object.x+33, bougie3Object.y-24, 0, 10, 0.2).setDepth(986);
+                            let bougie13 = this.add.pointlight(bougie3Object.x+33, bougie3Object.y-24, 0, 10, 0.2).setDepth(987);
                             bougie13.attenuation = 0.05;
                             bougie13.color.setTo(255, 200, 0);
                             this.tweens.add(
@@ -1494,8 +1493,8 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche.play(musicConfig);
     
-                            let torcheSprite = this.add.sprite(torcheObject.x+32,torcheObject.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
-                            let torche2 = this.add.pointlight(torcheObject.x+32, torcheObject.y-49, 0, 200, 0.3).setDepth(986);
+                            let torcheSprite = this.add.sprite(torcheObject.x+32,torcheObject.y-48,'torcheAnime').play('tch', true).setDepth(987).setDisplaySize(48,96);
+                            let torche2 = this.add.pointlight(torcheObject.x+32, torcheObject.y-49, 0, 200, 0.3).setDepth(987);
                             torche2.attenuation = 0.05;
                             torche2.color.setTo(255, 100, 0);
                             this.tweens.add(
@@ -1513,7 +1512,7 @@ class Niveau1 extends Tableau
                                 }
                             })
                             this.unSeul = false;
-                            let torche1 = this.add.pointlight(torcheObject.x+32, torcheObject.y-49, 0, 20, 0.2).setDepth(986);
+                            let torche1 = this.add.pointlight(torcheObject.x+32, torcheObject.y-49, 0, 20, 0.2).setDepth(987);
                             torche1.attenuation = 0.05;
                             torche1.color.setTo(255, 50, 0);
                             this.tweens.add(
@@ -1567,8 +1566,8 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche1.play(musicConfig);
     
-                            let torcheSprite1 = this.add.sprite(torche1Object.x+32,torche1Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
-                            let torche21 = this.add.pointlight(torche1Object.x+32, torche1Object.y-49, 0, 200, 0.3).setDepth(986);
+                            let torcheSprite1 = this.add.sprite(torche1Object.x+32,torche1Object.y-48,'torcheAnime').play('tch', true).setDepth(987).setDisplaySize(48,96);
+                            let torche21 = this.add.pointlight(torche1Object.x+32, torche1Object.y-49, 0, 200, 0.3).setDepth(987);
                             torche21.attenuation = 0.05;
                             torche21.color.setTo(255, 100, 0);
                             //torche2.destroy(); //torche2.visible = false;
@@ -1585,7 +1584,7 @@ class Niveau1 extends Tableau
                                 }
                             })
                             this.unSeul21 = false;
-                            let torche11 = this.add.pointlight(torche1Object.x+32, torche1Object.y-49, 0, 20, 0.2).setDepth(986);
+                            let torche11 = this.add.pointlight(torche1Object.x+32, torche1Object.y-49, 0, 20, 0.2).setDepth(987);
                             torche11.attenuation = 0.05;
                             torche11.color.setTo(255, 50, 0);
                             //torche1.destroy();
@@ -1646,8 +1645,8 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche2.play(musicConfig);
     
-                            let torcheSprite2 = this.add.sprite(torche2Object.x+32,torche2Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
-                            let torche22 = this.add.pointlight(torche2Object.x+32, torche2Object.y-49, 0, 200, 0.3).setDepth(986);
+                            let torcheSprite2 = this.add.sprite(torche2Object.x+32,torche2Object.y-48,'torcheAnime').play('tch', true).setDepth(987).setDisplaySize(48,96);
+                            let torche22 = this.add.pointlight(torche2Object.x+32, torche2Object.y-49, 0, 200, 0.3).setDepth(987);
                             torche22.attenuation = 0.05;
                             torche22.color.setTo(255, 100, 0);
                             this.tweens.add(
@@ -1663,7 +1662,7 @@ class Niveau1 extends Tableau
                                 }
                             })
                             this.unSeul22 = false;
-                            let torche12 = this.add.pointlight(torche2Object.x+32, torche2Object.y-49, 0, 20, 0.2).setDepth(986);
+                            let torche12 = this.add.pointlight(torche2Object.x+32, torche2Object.y-49, 0, 20, 0.2).setDepth(987);
                             torche12.attenuation = 0.05;
                             torche12.color.setTo(255, 50, 0);
                             this.tweens.add(
@@ -1716,8 +1715,8 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche3.play(musicConfig);
     
-                            let torcheSprite3 = this.add.sprite(torche3Object.x+32,torche3Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
-                            let torche23 = this.add.pointlight(torche3Object.x+32, torche3Object.y-49, 0, 200, 0.3).setDepth(986);
+                            let torcheSprite3 = this.add.sprite(torche3Object.x+32,torche3Object.y-48,'torcheAnime').play('tch', true).setDepth(987).setDisplaySize(48,96);
+                            let torche23 = this.add.pointlight(torche3Object.x+32, torche3Object.y-49, 0, 200, 0.3).setDepth(987);
                             torche23.attenuation = 0.05;
                             torche23.color.setTo(255, 100, 0);
                             this.tweens.add(
@@ -1733,7 +1732,7 @@ class Niveau1 extends Tableau
                                 }
                             })
                             this.unSeul23 = false;
-                            let torche13 = this.add.pointlight(torche3Object.x+32, torche3Object.y-49, 0, 20, 0.2).setDepth(986);
+                            let torche13 = this.add.pointlight(torche3Object.x+32, torche3Object.y-49, 0, 20, 0.2).setDepth(987);
                             torche13.attenuation = 0.05;
                             torche13.color.setTo(255, 50, 0);
                             this.tweens.add(
@@ -1788,8 +1787,8 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche4.play(musicConfig);
     
-                            let torcheSprite4 = this.add.sprite(torche4Object.x+32,torche4Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
-                            let torche24 = this.add.pointlight(torche4Object.x+32, torche4Object.y-49, 0, 200, 0.3).setDepth(986);
+                            let torcheSprite4 = this.add.sprite(torche4Object.x+32,torche4Object.y-48,'torcheAnime').play('tch', true).setDepth(987).setDisplaySize(48,96);
+                            let torche24 = this.add.pointlight(torche4Object.x+32, torche4Object.y-49, 0, 200, 0.3).setDepth(987);
                             torche24.attenuation = 0.05;
                             torche24.color.setTo(255, 100, 0);
                             this.tweens.add(
@@ -1805,7 +1804,7 @@ class Niveau1 extends Tableau
                                 }
                             })
                             this.unSeul24 = false;
-                            let torche14 = this.add.pointlight(torche4Object.x+32, torche4Object.y-49, 0, 20, 0.2).setDepth(986);
+                            let torche14 = this.add.pointlight(torche4Object.x+32, torche4Object.y-49, 0, 20, 0.2).setDepth(987);
                             torche14.attenuation = 0.05;
                             torche14.color.setTo(255, 50, 0);
                             this.tweens.add(
@@ -1858,8 +1857,8 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche5.play(musicConfig);
     
-                            let torcheSprite5 = this.add.sprite(torche5Object.x+32,torche5Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
-                            let torche25 = this.add.pointlight(torche5Object.x+32, torche5Object.y-49, 0, 200, 0.3).setDepth(986);
+                            let torcheSprite5 = this.add.sprite(torche5Object.x+32,torche5Object.y-48,'torcheAnime').play('tch', true).setDepth(987).setDisplaySize(48,96);
+                            let torche25 = this.add.pointlight(torche5Object.x+32, torche5Object.y-49, 0, 200, 0.3).setDepth(987);
                             torche25.attenuation = 0.05;
                             torche25.color.setTo(255, 100, 0);
                             this.tweens.add(
@@ -1875,7 +1874,7 @@ class Niveau1 extends Tableau
                                 }
                             })
                             this.unSeul25 = false;
-                            let torche15 = this.add.pointlight(torche5Object.x+32, torche5Object.y-49, 0, 20, 0.2).setDepth(986);
+                            let torche15 = this.add.pointlight(torche5Object.x+32, torche5Object.y-49, 0, 20, 0.2).setDepth(987);
                             torche15.attenuation = 0.05;
                             torche15.color.setTo(255, 50, 0);
                             this.tweens.add(
@@ -1928,8 +1927,8 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche6.play(musicConfig);
     
-                            let torcheSprite6 = this.add.sprite(torche6Object.x+32,torche6Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
-                            let torche26 = this.add.pointlight(torche6Object.x+32, torche6Object.y-49, 0, 200, 0.3).setDepth(986);
+                            let torcheSprite6 = this.add.sprite(torche6Object.x+32,torche6Object.y-48,'torcheAnime').play('tch', true).setDepth(987).setDisplaySize(48,96);
+                            let torche26 = this.add.pointlight(torche6Object.x+32, torche6Object.y-49, 0, 200, 0.3).setDepth(987);
                             torche26.attenuation = 0.05;
                             torche26.color.setTo(255, 100, 0);
                             this.tweens.add(
@@ -1945,7 +1944,7 @@ class Niveau1 extends Tableau
                                 }
                             })
                             this.unSeul26 = false;
-                            let torche16 = this.add.pointlight(torche6Object.x+32, torche6Object.y-49, 0, 20, 0.2).setDepth(986);
+                            let torche16 = this.add.pointlight(torche6Object.x+32, torche6Object.y-49, 0, 20, 0.2).setDepth(987);
                             torche16.attenuation = 0.05;
                             torche16.color.setTo(255, 50, 0);
                             this.tweens.add(
@@ -1998,8 +1997,8 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche7.play(musicConfig);
     
-                            let torcheSprite7 = this.add.sprite(torche7Object.x+32,torche7Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
-                            let torche27 = this.add.pointlight(torche7Object.x+32, torche7Object.y-49, 0, 200, 0.3).setDepth(986);
+                            let torcheSprite7 = this.add.sprite(torche7Object.x+32,torche7Object.y-48,'torcheAnime').play('tch', true).setDepth(987).setDisplaySize(48,96);
+                            let torche27 = this.add.pointlight(torche7Object.x+32, torche7Object.y-49, 0, 200, 0.3).setDepth(987);
                             torche27.attenuation = 0.05;
                             torche27.color.setTo(255, 100, 0);
                             this.tweens.add(
@@ -2015,7 +2014,7 @@ class Niveau1 extends Tableau
                                 }
                             })
                             this.unSeul27 = false;
-                            let torche17 = this.add.pointlight(torche7Object.x+32, torche7Object.y-49, 0, 20, 0.2).setDepth(986);
+                            let torche17 = this.add.pointlight(torche7Object.x+32, torche7Object.y-49, 0, 20, 0.2).setDepth(987);
                             torche17.attenuation = 0.05;
                             torche17.color.setTo(255, 50, 0);
                             this.tweens.add(
@@ -2068,8 +2067,8 @@ class Niveau1 extends Tableau
                             }
                             this.allumeTorche8.play(musicConfig);
     
-                            let torcheSprite8 = this.add.sprite(torche8Object.x+32,torche8Object.y-48,'torcheAnime').play('tch', true).setDepth(986).setDisplaySize(48,96);
-                            let torche28 = this.add.pointlight(torche8Object.x+32, torche8Object.y-49, 0, 200, 0.3).setDepth(986);
+                            let torcheSprite8 = this.add.sprite(torche8Object.x+32,torche8Object.y-48,'torcheAnime').play('tch', true).setDepth(987).setDisplaySize(48,96);
+                            let torche28 = this.add.pointlight(torche8Object.x+32, torche8Object.y-49, 0, 200, 0.3).setDepth(987);
                             torche28.attenuation = 0.05;
                             torche28.color.setTo(255, 100, 0);
                             this.tweens.add(
@@ -2085,7 +2084,7 @@ class Niveau1 extends Tableau
                                 }
                             })
                             this.unSeul28 = false;
-                            let torche18 = this.add.pointlight(torche8Object.x+32, torche8Object.y-49, 0, 20, 0.2).setDepth(986);
+                            let torche18 = this.add.pointlight(torche8Object.x+32, torche8Object.y-49, 0, 20, 0.2).setDepth(987);
                             torche18.attenuation = 0.05;
                             torche18.color.setTo(255, 50, 0);
                             this.tweens.add(
@@ -2180,7 +2179,7 @@ class Niveau1 extends Tableau
         this.sky5.tilePositionY=this.cameras.main.scrollY+22;//+0//*0.05;
 
         //les ombres devant
-        this.skyDevant.tilePositionX=this.cameras.main.scrollX*1.4;//*0.6//0.15;
+        this.skyDevant.tilePositionX=this.cameras.main.scrollX*10;//*0.6//0.15;
         this.skyDevant.tilePositionY=this.cameras.main.scrollY;//+0//*0.05;
 
     } //---------------------------------- FIN DE MOVEPARALLAX ----------------------------------

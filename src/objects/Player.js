@@ -146,7 +146,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
     
                             if(Tableau.current.timingJump == true)
                             {
-                                console.log("scene.player -> jumping = true");
+                                //console.log("scene.player -> jumping = true");
                                 this.setVelocityY(-500);
                                 Tableau.current.timingJump = false;
                                 Tableau.current.timingJumping();
@@ -159,11 +159,11 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                     this.jumping = false;
                 }*/
             }
-            else if(!Tableau.current.arrowUpPressed & this.body.velocity.y == 0)
+            /*else if(!Tableau.current.arrowUpPressed & this.body.velocity.y == 0)
             {
                 Tableau.current.jumpStop = true;
                 //this.jumping = false;
-            }
+            }*/
         }
         /*else
         {

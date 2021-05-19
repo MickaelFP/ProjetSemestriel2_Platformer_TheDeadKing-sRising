@@ -73,11 +73,17 @@ class Tableau extends Phaser.Scene{
         this.player=new Player(this,0+160,0+1952);//160//1200/1968
         this.player.setMaxVelocity(800,800); //évite que le player quand il tombe ne traverse des plateformes
 
-        this.auraInvincible = this.add.pointlight(this.player.x, this.player.y, 0, 2000, 0.02);
-        this.auraInvincible.setDepth(999);
-        this.auraInvincible.attenuation = 0.1;
-        this.auraInvincible.color.setTo(354, 10, 10);
-        this.auraInvincible.visible=false;
+        this.auraDamage = this.add.pointlight(this.player.x, this.player.y, 0, 2000, 0.02);
+        this.auraDamage.setDepth(999);
+        this.auraDamage.attenuation = 0.1;
+        this.auraDamage.color.setTo(354, 10, 10);
+        this.auraDamage.visible=false;
+
+        this.auraHeal = this.add.pointlight(this.player.x, this.player.y, 0, 2000, 0.02);
+        this.auraHeal.setDepth(999);
+        this.auraHeal.attenuation = 0.1;
+        this.auraHeal.color.setTo(0, 255, 0);
+        this.auraHeal.visible=false;
 
         //this.boxRenderPlayer = new ObjetBoxRenderPlayer(this,this.player.x, this.player.y);
 
@@ -127,6 +133,8 @@ class Tableau extends Phaser.Scene{
         this.ControlPressed=false;
 
         this.ePressed = false;
+        this.oneHeal = false;
+        this.startAuraHeal = false;
 
         this.dPressed = false;
         this.dashEffect = true;
@@ -150,7 +158,7 @@ class Tableau extends Phaser.Scene{
         this.oneDropePower=false;
 
         this.invicibleForEver = false;
-        this.startAuraInv = false;
+        this.startAuraDmg = false;
 
         this.destructionTorcheLight = false;
         //this.torcheContact = false;
@@ -171,11 +179,11 @@ class Tableau extends Phaser.Scene{
     {
         if(this.lifePoints == 2)
         {
-            console.log("hp2");
             this.pv2=this.add.sprite(90, 100, "hp2");
             this.pv2.setDepth(1000);
             this.pv2.setScrollFactor(0);
             this.pv3.destroy();
+            //console.log("InfosLifePoints() -> hp2");
         }
         if(this.lifePoints == 1)
         {
@@ -183,7 +191,7 @@ class Tableau extends Phaser.Scene{
             this.pv1.setDepth(1000);
             this.pv1.setScrollFactor(0);
             this.pv2.destroy();
-            console.log("hp1");
+            //console.log("InfosLifePoints() -> hp1");
         }
         if(this.lifePoints == 0)
         {
@@ -191,10 +199,28 @@ class Tableau extends Phaser.Scene{
             this.pv0.setDepth(1000);
             this.pv0.setScrollFactor(0);
             this.pv1.destroy();
-            console.log("hp0");
+            //console.log("InfosLifePoints() -> hp0");
         }
     }
-
+    InfosLifePoints2()
+    {
+        if(this.lifePoints == 3)
+        {
+            this.pv3=this.add.sprite(90, 100, "hp3");
+            this.pv3.setDepth(1000);
+            this.pv3.setScrollFactor(0);
+            this.pv2.destroy();
+            //console.log("InfosLifePoints2() -> hp3");
+        }
+        if(this.lifePoints == 2)
+        {
+            this.pv2=this.add.sprite(90, 100, "hp2");
+            this.pv2.setDepth(1000);
+            this.pv2.setScrollFactor(0);
+            this.pv1.destroy();
+            //console.log("InfosLifePoints2() -> hp2");
+        }
+    }
 
     // ********************************* Exécutable de fonction et de variables à chaques frames *********************************
 
@@ -220,26 +246,17 @@ class Tableau extends Phaser.Scene{
         this.showInfoCtrl();
         this.playerHealing();
         this.dash();
+        this.clearCheckPoints(); 
 
         // ------------------------------
 
         this.vaseDropping();
+        this.auraEffect();
 
         /*this.physics.add.overlap(this.player, this.solides, function(player, solides)
         {
             this.jumping = false;
         }, null, this);*/
-
-        if(this.startAuraInv)
-        {
-            this.auraInvincible.setPosition(this.player.x, this.player.y);
-            this.auraInvincible.visible=true;
-        }
-        else
-        {
-            this.auraInvincible.setPosition(this.player.x, this.player.y);
-            this.auraInvincible.visible=false;
-        }
 
         if(this.stopTomber && this.player.body.blocked.down)
         {
@@ -264,6 +281,32 @@ class Tableau extends Phaser.Scene{
     } // FIN DE UPDATE
 
 
+    auraEffect()
+    {
+        if(this.startAuraDmg)
+        {
+            this.auraDamage.setPosition(this.player.x, this.player.y);
+            this.auraDamage.visible=true;
+        }
+        else if(!this.startAuraDmg)
+        {
+            this.auraDamage.setPosition(this.player.x, this.player.y);
+            this.auraDamage.visible=false;
+        }
+
+        if(this.startAuraHeal)
+        {
+            this.auraHeal.setPosition(this.player.x, this.player.y);
+            this.auraHeal.visible=true;
+        }
+        else if(!this.startAuraHeal)
+        {
+            this.auraHeal.setPosition(this.player.x, this.player.y);
+            this.auraHeal.visible=false;
+        }
+    }
+
+
     timingJumping()
     {
         //console.log("Tableau.current -> timingJump = false");
@@ -273,7 +316,7 @@ class Tableau extends Phaser.Scene{
             callback: ()=>
             {
                 this.timingJump = true;
-                console.log("Tableau.current -> timingJump = true");
+                //console.log("Tableau.current -> timingJump = true");
             },
             loop: false
         })
@@ -290,7 +333,7 @@ class Tableau extends Phaser.Scene{
             {
                 this.tJArrowDownPressed = false;
                 this.jumpStop = false;
-                console.log("Tableau.current -> tJAfterPressArrowDown = true");
+                //console.log("Tableau.current -> tJAfterPressArrowDown = true");
             },
             loop: false
         })
@@ -453,13 +496,8 @@ class Tableau extends Phaser.Scene{
     }
 
 
-    playerHealing()
+    clearCheckPoints()
     {
-        if(this.ePressed)
-        {
-            this.heal();
-        }
-
         if (this.ControlPressed)
         {
             localStorage.removeItem("checkPoint");
@@ -742,9 +780,10 @@ class Tableau extends Phaser.Scene{
             { //si notre monstre n'est pas déjà mort
                 if(player.body.velocity.y >= 0 && player.getBounds().bottom < monster.getBounds().top+30)
                 {
-                    ui.gagne();
+                    ui.gagne1();
                     //monster.body.enable = false // Invulnérabilité temporaire
                     monster.isDead=true; //ok le monstre est mort
+                    //console.log("hitMonster() -> monster.isDead=true")
                     monster.disableBody(true,true);//plus de collisions
     
                     this.saigne(monster,function()
@@ -785,21 +824,23 @@ class Tableau extends Phaser.Scene{
         let me = this;
         if(this.lifePoints>=2)
         {
+            ui.perdre1();
             ui.losePV();
             this.shakeCameras();
             me.invincible();
             me.lifePoints -= 1;
-            console.log('damage');
+            //console.log('playerDamage(player,hp) -> damage');
             console.log(this.lifePoints);
             me.InfosLifePoints();
-            console.log('postInfos');
+            //console.log('playerDamage(player,hp) -> postInfos');
         }
         // Le joueur est mort
         else if (this.lifePoints<2) 
         {
-            console.log('DEAD');
+            //console.log('playerDamage(player,hp) -> DEAD');
             if (!me.player.isDead) 
             {
+                ui.perdre2();
                 this.blood2.setDepth(1000);
                 me.player.isDead = true;
                 me.player.visible = false;
@@ -811,7 +852,7 @@ class Tableau extends Phaser.Scene{
                     me.player.anims.play('turn');
                     me.player.isDead = false;
                     me.scene.restart();
-                    console.log('saigneFini');
+                    //console.log('playerDamage(player,hp) -> saigneFini');
                 })
                 this.music = this.sound.add('crack');
     
@@ -833,38 +874,80 @@ class Tableau extends Phaser.Scene{
 
             }
             this.lifePoints=3;
-            console.log('lifePoints = 3');
+            //console.log('playerDamage(player,hp) -> lifePoints = 3');
         }
     } // FIN DE PLAYERDAMAGE
 
 
+    playerHealing()
+    {
+        let me = this;
+        if(this.ePressed)
+        {
+            if(this.lifePoints<=2 && this.oneHeal == false && ui.score >= 20)
+            {
+                ui.perdre1();
+                ui.gagnePV();
+                this.shakeCamerasMini();
+                me.lifePoints += 1;
+                //console.log('playerHealing() -> heal');
+                //console.log(this.lifePoints);
+                me.InfosLifePoints2();
+                this.oneHeal = true;
+            }
+        }
+
+    } // FIN DE PLAYERHEALING
+
+
+    shakeCamerasMini()
+    {
+        //console.log('shakeCamerasMini() -> shakeCameras');
+        this.startingHealAura();
+        this.cameras.main.shake(1000, 0.001);
+    }
     shakeCameras()
     {
-        console.log('shakeCameras');
-        this.startingInvAura();
+        //console.log('shakeCameras() -> shakeCameras');
+        this.startingDmgAura();
         this.cameras.main.shake(500, 0.005);
     }
     shakeCamerasM()
     {
-        console.log('shakeCamerasM');
-        this.startingInvAura();
+        //console.log('shakeCamerasM() -> shakeCamerasM');
+        this.startingDmgAura();
         this.cameras.main.shake(500, 0.005);
 
     } // FIN DES SHAKECAMERAS
     
-    startingInvAura()
+
+    startingDmgAura()
     {
-        this.startAuraInv = true;
+        this.startAuraDmg = true;
         this.time.addEvent
         ({
             delay: 500,
             callback: ()=>
             {
-                this.startAuraInv = false;
+                this.startAuraDmg = false;
             },
             loop: false
         })
     }
+    startingHealAura()
+    {
+        this.startAuraHeal= true;
+        this.time.addEvent
+        ({
+            delay: 500,
+            callback: ()=>
+            {
+                this.startAuraHeal = false;
+            },
+            loop: false
+        })
+    }
+
 
     // ********************************* Rend le player invulnérable *********************************
     //
@@ -880,7 +963,7 @@ class Tableau extends Phaser.Scene{
             delay: 1000,
             callback: ()=>
             {
-                this.startAuraInv = false;
+                this.startAuraDmg = false;
                 this.invicibleForEver = false;
                 this.zombieAlive = true;
                 //console.log("vulnerable");
@@ -913,7 +996,7 @@ class Tableau extends Phaser.Scene{
     {
         if(!this.player.body.blocked.down)// || Tableau.player.body.touching.down)
         {
-            console.log("jumping = true");
+            //console.log("jumping = true");
             this.stopTomber = true;
         }
         else
