@@ -17,22 +17,22 @@ class Niveau1 extends Tableau
         this.load.image('platformStone', 'assets/elements/platformStone.png');
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
 
-        //les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map1', 'assets/tilemaps/TheDeadKingRisingAlpha2.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
+        // les données du tableau qu'on a créé dans TILED
+        this.load.tilemapTiledJSON('map1', 'assets/tilemaps/TheDeadKingRisingAlpha4.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
 
         // -----Decors-------------
-        this.load.image('night', 'assets/backgrounds/sky_plan_nuitEtoileCarre.png');//nuitEtoileCarre_4.png');
-        this.load.image('night1', 'assets/backgrounds/sky_plan_aurore.png');//aurore2.png');//nuitEtoileCarre_5
-        this.load.image('chateauLoin', 'assets/backgrounds/cinquieme_plan_chateauLoin.png');//chateauLoin_x896_2.png');
-        this.load.image('grilleHerbe', 'assets/backgrounds/second_plan_grille.png');//grille_x896_2.png');
-        this.load.image('colines', 'assets/backgrounds/quatrieme_plan_colinesForet2.png');//colinesForet_x896.png');
-        this.load.image('ombresTombes', 'assets/backgrounds/ombres_plan_surface.png');//ombresTombes_x896_2.png');
+        this.load.image('night', 'assets/backgrounds/nuit_etoile_turquoise.png'); // sky_plan_nuitEtoileCarre.png');
+        // this.load.image('night1', 'assets/backgrounds/sky_plan_aurore.png');//aurore2.png'); // nuitEtoileCarre_5
+        this.load.image('chateauLoin', 'assets/backgrounds/cinquieme_plan_chateauLoin.png'); // chateauLoin_x896_2.png');
+        this.load.image('grilleHerbe', 'assets/backgrounds/second_plan_grille.png'); // grille_x896_2.png');
+        this.load.image('colines', 'assets/backgrounds/quatrieme_plan_colinesForet2.png'); // colinesForet_x896.png');
+        this.load.image('ombresTombes', 'assets/backgrounds/ombres_plan_surface_l.png'); // ombres_plan_surface.png');
 
         // -----Elements interactifs-------------
         this.load.image('vase', 'assets/elements/vase.png');
-        this.load.image('solFragile', 'assets/elements/sol-terre.png');//solFragile.png');
-        this.load.image('solFragilePierre', 'assets/elements/roche_devant.png');//solFragilePierre.png');
-        this.load.image('rocheQuiRoule', 'assets/elements/roche_devant2.jpg');//solFragilePierre1.png');
+        this.load.image('solFragile', 'assets/elements/sol_fragile.png'); // solFragile.png / sol-terre
+        this.load.image('solFragilePierre', 'assets/elements/roche_devant.png'); // solFragilePierre.png');
+        this.load.image('rocheQuiRoule', 'assets/elements/roche_devant2.jpg'); // solFragilePierre1.png');
         this.load.image('infCtrl', 'assets/elements/infosControls2.png');
 
         this.load.spritesheet('checkPoint', 'assets/Spritesheet/corbeauAnimation1.png', { frameWidth: 448, frameHeight: 448 } );
@@ -49,7 +49,7 @@ class Niveau1 extends Tableau
         this.load.image('feuille2', 'assets/particles/animation_feuille_2.png');
         this.load.image('feuille3', 'assets/particles/animation_feuille_3.png');
         this.load.image('fog', 'assets/particles/animation_fog_1.png');
-        //this.load.image('vent', 'assets/Animation_vent_1.png');
+        // this.load.image('vent', 'assets/Animation_vent_1.png');
 
         // -----Effets-------------
         this.load.image('light', 'assets/elements/light.png');
@@ -677,7 +677,8 @@ class Niveau1 extends Tableau
         );
         this.sky.setOrigin(0,0);
         this.sky.setScrollFactor(0); // Fait en sorte que le ciel ne suive pas la caméra
-        this.sky2=this.add.tileSprite(
+
+        /*this.sky2=this.add.tileSprite(
             0,
             0,
             this.sys.canvas.width,
@@ -686,7 +687,7 @@ class Niveau1 extends Tableau
         );
         this.sky2.setOrigin(0,0);
         this.sky2.setScrollFactor(0);
-        this.sky2.blendMode=Phaser.BlendModes.ADD;
+        this.sky2.blendMode=Phaser.BlendModes.ADD;*/
 
         this.sky3=this.add.tileSprite
         (
@@ -1136,7 +1137,7 @@ class Niveau1 extends Tableau
         this.particles4.setDepth(z--);
         this.sky4.setDepth(z--);
         this.sky3.setDepth(z--);
-        this.sky2.setDepth(z--);
+        //this.sky2.setDepth(z--);
         this.sky.setDepth(z--);
 
         //Save & Restore checkpoint
@@ -2163,8 +2164,8 @@ class Niveau1 extends Tableau
         this.sky.tilePositionX=this.cameras.main.scrollX*0.01;
         this.sky.tilePositionY=this.cameras.main.scrollY*0.6;
 
-        this.sky2.tilePositionX=this.cameras.main.scrollX*0.03+100;
-        this.sky2.tilePositionY=this.cameras.main.scrollY*0.7+100;
+        //this.sky2.tilePositionX=this.cameras.main.scrollX*0.03+100;
+        //this.sky2.tilePositionY=this.cameras.main.scrollY*0.7+100;
 
         ///le chateau sur la coline
         this.sky3.tilePositionX=this.cameras.main.scrollX*0.05;//*0.6//*0.3+500;
