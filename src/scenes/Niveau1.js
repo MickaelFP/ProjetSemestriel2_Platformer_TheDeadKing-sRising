@@ -18,7 +18,7 @@ class Niveau1 extends Tableau
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
 
         //les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha1-6.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha1-7.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
 
         // -----Decors-------------
         this.load.image('night', 'assets/backgrounds/sky_plan_nuitEtoileCarre.png');//nuitEtoileCarre_4.png');

@@ -146,7 +146,6 @@ class Ui extends Phaser.Scene{
         else if (me.score < 0)
         {
             me.score = 0;
-            me.score+=points;
             me._scoreText.setText('Ossements: ' + me.score);
         }
         else

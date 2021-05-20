@@ -18,6 +18,7 @@ class MonsterZombie extends ObjetEnnemi{
         this.setVelocityX(0);
 
         this.walking = true;
+        Tableau.current.monsterOfVaseIsDead = false;
         //Tableau.current.zombieAlive = true;
         //this.physics.add.overlap(this.player, this.monstre, this.hitSpike, null, this);
 
@@ -113,17 +114,7 @@ class MonsterZombie extends ObjetEnnemi{
     }
 
 
-    /*die()
-    {
-        if(this.isDead)
-        {   
-            Tableau.current.zombieAlive = true;
-        }
-        else
-        {
-            Tableau.current.zombieAlive = true;
-        }
-    }*/
+    //die(){}
 
     
     /**

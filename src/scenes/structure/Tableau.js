@@ -156,6 +156,7 @@ class Tableau extends Phaser.Scene{
         this.vaseDrope=false;
         this.oneDrope=false;
         this.oneDropePower=false;
+        this.monsterOfVaseIsDead = false;
 
         this.invicibleForEver = false;
         this.startAuraDmg = false;
@@ -354,31 +355,36 @@ class Tableau extends Phaser.Scene{
                 me.physics.add.collider(me.monsterOfVase, this.solides);
                 me.physics.add.collider(me.monsterOfVase, this.platforms6);
 
-                if(!me.monsterOfVase.isDead)
+                if(!me.monsterOfVaseIsDead)
                 {                
+                    console.log("FIRST DEBUG");
                     this.time.addEvent
                     ({
                         delay: 5000,
                         callback: ()=>
                         {
-                            this.monsterOfVase.isDead = true;
-                            this.monsterOfVase.disableBody(true,true);
-                            //console.log("monsterOfVase is dead !!!");
-
-                            this.saigne(me.monsterOfVase,function(){})
-                            this.music = this.sound.add('splash');
-            
-                            var musicConfig = 
+                            console.log("SECOND DEBUG");
+                            if(!me.monsterOfVaseIsDead)
                             {
-                                mute: false,
-                                volume: 0.3,
-                                rate : 1,
-                                detune: 0,
-                                seek: 0,
-                                loop: false,
-                                delay:0,
+                                this.monsterOfVase.disableBody(true,true);
+                                console.log("THIRD DEBUG");
+    
+                                this.saigne(me.monsterOfVase,function(){})
+                                this.music = this.sound.add('splash');
+                
+                                var musicConfig = 
+                                {
+                                    mute: false,
+                                    volume: 0.3,
+                                    rate : 1,
+                                    detune: 0,
+                                    seek: 0,
+                                    loop: false,
+                                    delay:0,
+                                }
+                                this.music.play(musicConfig);
+                                this.monsterOfVaseIsDead = true;
                             }
-                            this.music.play(musicConfig);
 
                         },
                         loop: false
@@ -775,6 +781,7 @@ class Tableau extends Phaser.Scene{
             { //si notre monstre n'est pas déjà mort
                 if(player.body.velocity.y >= 0 && player.getBounds().bottom < monster.getBounds().top+30)
                 {
+                    this.monsterOfVaseIsDead = true;
                     ui.gagne1();
                     //monster.body.enable = false // Invulnérabilité temporaire
                     monster.isDead=true; //ok le monstre est mort
