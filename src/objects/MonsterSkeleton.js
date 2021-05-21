@@ -15,7 +15,7 @@ class MonsterSkeleton extends ObjetEnnemi{
         //this.setBounce(1);
         this.setBounceX(1);
         //this.setBodySize(this.body.width,this.body.height);
-        this.setVelocityX(-80*(Math.random()+1.5));  // 80*(Math.random()+1.5) // -200
+        this.setVelocityX(-40*(Math.random()+1.5));  // 80*(Math.random()+1.5) // -200
         this.walking = true;
 
         this.anims.create({
@@ -39,13 +39,13 @@ class MonsterSkeleton extends ObjetEnnemi{
         if(this.scene.player.x > this.x - 400 && this.scene.player.x < this.x - 10 && this.scene.player.y <= this.y && this.scene.player.y >= this.y-200)
         {
             //console.log("GRRRRR GAUCHE");
-            this.setVelocityX(-40*(Math.random()+1.5));
+            this.setVelocityX(-80*(Math.random()+1.5));
             //this.flipX = true;
         }
         else if(this.scene.player.x < this.x + 400 && this.scene.player.x > this.x + 10 && this.scene.player.y <= this.y && this.scene.player.y >= this.y-200)
         {
             //console.log("GRRRRR DROITE");
-            this.setVelocityX(40*(Math.random()+1.5));
+            this.setVelocityX(80*(Math.random()+1.5));
             //this.flipX = false;
         }
         /*else

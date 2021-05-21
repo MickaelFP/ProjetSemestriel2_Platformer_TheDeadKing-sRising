@@ -259,6 +259,11 @@ class Tableau extends Phaser.Scene{
             this.jumping = false;
         }, null, this);*/
 
+        if(this.scene.player.x > 3328 && this.scene.player.x < 3520 && this.scene.player.y < 832)
+        {
+            this.cacheTop = add.sprite();
+        }
+
         if(this.stopTomber && this.player.body.blocked.down)
         {
             this.player.directionX=0;
@@ -890,7 +895,7 @@ class Tableau extends Phaser.Scene{
             {
                 ui.perdre1();
                 ui.gagnePV();
-                this.shakeCamerasMini();
+                //this.shakeCamerasMini();
                 me.lifePoints += 1;
                 //console.log('playerHealing() -> heal');
                 //console.log(this.lifePoints);

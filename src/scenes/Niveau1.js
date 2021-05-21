@@ -18,7 +18,7 @@ class Niveau1 extends Tableau
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
 
         // les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map1', 'assets/tilemaps/TheDeadKingRisingAlpha4.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha5.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
 
         // -----Decors-------------
         this.load.image('night', 'assets/backgrounds/nuit_etoile_turquoise.png'); // sky_plan_nuitEtoileCarre.png');
@@ -26,7 +26,7 @@ class Niveau1 extends Tableau
         this.load.image('chateauLoin', 'assets/backgrounds/cinquieme_plan_chateauLoin.png'); // chateauLoin_x896_2.png');
         this.load.image('grilleHerbe', 'assets/backgrounds/second_plan_grille.png'); // grille_x896_2.png');
         this.load.image('colines', 'assets/backgrounds/quatrieme_plan_colinesForet2.png'); // colinesForet_x896.png');
-        this.load.image('ombresTombes', 'assets/backgrounds/ombres_plan_surface_l.png'); // ombres_plan_surface.png');
+        this.load.image('ombresTombes', 'assets/backgrounds/ombres_plan_surface_l_flou.png'); // ombres_plan_surface/l/.png
 
         // -----Elements interactifs-------------
         this.load.image('vase', 'assets/elements/vase.png');
@@ -112,7 +112,7 @@ class Niveau1 extends Tableau
         //------------------------------------------------ Chargement de la tile map & configuration de la scène ------------------------------------------------
 
         // Notre map
-        this.map = this.make.tilemap({ key: 'map1' });
+        this.map = this.make.tilemap({ key: 'map' });
         // Nos images qui vont avec la map
         this.tileset = this.map.addTilesetImage('tableauTiledTilesetCimetiere2', 'tiles'); // original 'tableauTiledTilset'
 
