@@ -38,6 +38,11 @@ class Welcome extends Phaser.Scene {
         //---------- booleans que l'on compte utiliser ----------
 
         this.touchePressed = false;
+
+        /*if(Tableau.current && Tableau.current.player); // Tableau.current.playerIsCreated)
+        {
+            Tableau.current.playerIsCreated = false;
+        }*/
         
         
         //---------- gestion des musiques ----------

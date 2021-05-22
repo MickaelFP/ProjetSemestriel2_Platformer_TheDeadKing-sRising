@@ -12,6 +12,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.setBodySize(this.body.width-6,this.body.height-3);
         this.setOffset(3, 3);
         this.jumping = false;
+        console.log("player Is Created");
 
         /********** On définit les animations du joueur **********/
         this.anims.create(
@@ -73,6 +74,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.jump();
 
     }
+
 
     /********** Arrête le joueur **********/
     stop()

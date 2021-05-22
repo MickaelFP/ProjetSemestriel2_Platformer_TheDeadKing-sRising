@@ -29,6 +29,8 @@ class Tableau extends Phaser.Scene{
         this.load.image('hp1', 'assets/ui/hp1.png');
         this.load.image('hp2', 'assets/ui/hp2.png');
         this.load.image('hp3', 'assets/ui/hp3.png');
+        this.load.image('cacheTop', 'assets/backgrounds/cache_haut.png');
+        this.load.image('cacheBot', 'assets/backgrounds/cache_bas.png');
 
         this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie2.png', { frameWidth: 32, frameHeight: 48 } ); 
 
@@ -91,7 +93,7 @@ class Tableau extends Phaser.Scene{
         this.pv3.setDepth(1000);
         this.pv3.setScrollFactor(0);
 
-        ui._hpText.setText('Status : ');
+        ui._hpText.setText('Body : ');
 
         this.shoot = new ElementProjectils(this,0+8600,0+4448);
         this.monsterOfVase = new MonsterZombie(this,0+8600,0+4448).setVelocity(0,0);
@@ -119,6 +121,11 @@ class Tableau extends Phaser.Scene{
         this.infCtrl.displayHeight=400;
         this.infCtrl.visible=false;
 
+        this.cacheTop = this.add.sprite(0,0, "cacheTop").setDepth(1000);
+        this.cacheTop.visible=false;
+        this.cacheBot = this.add.sprite(0,0, "cacheBot").setDepth(1000);
+        this.cacheBot.visible=false;
+
 
         // ----------------------------------- booleans simples que l'on compte utiliser -----------------------------------
 
@@ -137,8 +144,10 @@ class Tableau extends Phaser.Scene{
         this.startAuraHeal = false;
 
         this.dPressed = false;
-        this.dashEffect = true;
-        this.timerDash = true;
+        this.timingDash = false;
+        this.oneTiming = true;
+        this.oneDash = false;
+        this.accelerationSpeed1 = false;
 
         this.arrowRightPressed = false;
         this.arrowLefttPressed = false;
@@ -259,9 +268,21 @@ class Tableau extends Phaser.Scene{
             this.jumping = false;
         }, null, this);*/
 
-        if(this.scene.player.x > 3328 && this.scene.player.x < 3520 && this.scene.player.y < 832)
+        /************************************************************************************** */
+
+        
+
+        /************************************************************************************** */
+
+        if(/*this.player.x > 3328 && this.player.x < 3520 && */this.player.y < 832)
         {
-            this.cacheTop = add.sprite();
+            this.cacheTop.visible = false;
+            this.cacheBot.visible = false;
+        }
+        else
+        {
+            this.cacheTop.visible = false;
+            this.cacheBot.visible = false;
         }
 
         if(this.stopTomber && this.player.body.blocked.down)
@@ -410,54 +431,16 @@ class Tableau extends Phaser.Scene{
 
     dash(player)
     {
-        //this.boxRenderPlayerX = -(this.boxRenderPlayer.x - this.solides.body.x);
-        //this.boxRenderPlayerY = -(this.boxRenderPlayer.y - this.solides.body.y);
-
-        if(this.dashEffect)
+        if(this.dPressed && !this.oneDash)
         {
-            if(this.dPressed && this.timerDash)
+            this.playerMoveStop = true
+            if(this.player.body.velocity.x > 0)
             {
-                if(this.arrowRightPressed && !this.arrowUpPressed)
+                if(this.player.body.velocity.y > 0)
                 {
-                    console.log("dashing");
+                    this.oneDash = true;
+                    console.log("x > 0 et y > 0");
                     this.invincible();
-                    //this.player.setPosition(this.player.x+3, this.player.y);
-                    this.player.setVelocityX(800);
-                    this.time.addEvent
-                    ({
-                        delay: 200,
-                        callback: ()=>
-                        {
-                            this.timerDash = false;
-                            this.player.setVelocityX(160);
-                        },
-                        loop: false
-                    })
-                }
-                if(this.arrowLeftPressed && !this.arrowUpPressed)
-                {
-                    console.log("dashing");
-                    this.timerDash = false;
-                    this.invincible();
-                    //this.player.setPosition(this.player.x-3, this.player.y);
-                    this.player.setVelocityX(-800);
-                    this.time.addEvent
-                    ({
-                        delay: 200,
-                        callback: ()=>
-                        {
-                            this.player.setVelocityX(-160);
-                            this.timerDash = true;
-                        },
-                        loop: false
-                    })
-                }
-                if(this.arrowRightPressed && this.arrowUpPressed)
-                {
-                    console.log("dashing");
-                    this.timerDash = false;
-                    this.invincible();
-                    this.player.setPosition(this.player.x+3, this.player.y-1);
                     this.player.setVelocityX(800);
                     this.player.setVelocityY(-500);
                     this.time.addEvent
@@ -465,40 +448,167 @@ class Tableau extends Phaser.Scene{
                         delay: 200,
                         callback: ()=>
                         {
+                            console.log("biensure que non");
                             this.player.setVelocityX(160);
                             this.player.setVelocityY(0);
-                            this.timerDash = true;
+                            this.playerMoveStop = false;
                         },
                         loop: false
                     })
                 }
-                if(this.arrowLeftPressed && this.arrowUpPressed)
+                else if(this.player.body.velocity.y < 0)
                 {
-                    console.log("dashing");
-                    this.timerDash = false;
+                    this.oneDash = true;
+                    console.log("x > 0 et y < 0");
                     this.invincible();
-                    this.player.setPosition(this.player.x-3, this.player.y-1);
-                    this.player.setVelocityX(-800);
+                    this.player.setVelocityX(800);
                     this.player.setVelocityY(-500);
                     this.time.addEvent
                     ({
                         delay: 200,
                         callback: ()=>
                         {
-                            this.player.setVelocityX(-160);
+                            console.log("biensure que non");
+                            this.player.setVelocityX(160);
                             this.player.setVelocityY(0);
-                            this.timerDash = true;
+                            this.playerMoveStop = false;
                         },
                         loop: false
                     })
                 }
                 else
                 {
-                    this.timerDash = true;
+                    this.oneDash = true;
+                    console.log("x > 0 et y = 0");
+                    this.invincible();
+                    this.player.setVelocityX(800);
+                    this.time.addEvent
+                    ({
+                        delay: 200,
+                        callback: ()=>
+                        {
+                            console.log("biensure que non");
+                            this.player.setVelocityX(160);
+                            this.playerMoveStop = false;
+                        },
+                        loop: false
+                    })
                 }
             }
+            else if (this.player.body.velocity.x < 0)
+            {
+                if(this.player.body.velocity.y > 0)
+                {
+                    this.oneDash = true;
+                    console.log("x < 0 et y > 0");
+                    this.invincible();
+                    this.player.setVelocityX(-800);
+                    this.player.setVelocityY(-500);
+                    this.time.addEvent
+                    ({
+                        delay: 200,
+                        callback: ()=>
+                        {
+                            console.log("biensure que non");
+                            this.player.setVelocityX(-160);
+                            this.playerMoveStop = false;
+                        },
+                        loop: false
+                    })
+                }
+                else if(this.player.body.velocity.y < 0)
+                {
+                    this.oneDash = true;
+                    console.log("x < 0 et y < 0");
+                    this.invincible();
+                    this.player.setVelocityX(-800);
+                    this.player.setVelocityY(-500);
+                    this.time.addEvent
+                    ({
+                        delay: 200,
+                        callback: ()=>
+                        {
+                            console.log("biensure que non");
+                            this.player.setVelocityX(-160);
+                            this.player.setVelocityY(0);
+                            this.playerMoveStop = false;
+                        },
+                        loop: false
+                    })
+                }
+                else
+                {
+                    this.oneDash = true;
+                    console.log("x < 0 et y = 0");
+                    this.invincible();
+                    this.player.setVelocityX(-800);
+                    this.time.addEvent
+                    ({
+                        delay: 200,
+                        callback: ()=>
+                        {
+                            console.log("biensure que non");
+                            this.player.setVelocityX(-160);
+                            this.playerMoveStop = false;
+                        },
+                        loop: false
+                    })
+                }
+            }
+            else
+            {
+                this.oneDash = true;
+                console.log("x = 0");
+                this.invincible();
+                this.player.setVelocityY(-1000);
+                this.time.addEvent
+                ({
+                    delay: 200,
+                    callback: ()=>
+                    {
+                        console.log("biensure que non");
+                        this.player.setVelocityY(0);
+                        this.playerMoveStop = false;
+                    },
+                    loop: false
+                })
+            }
         }
- 
+
+        if(this.timingDash && this.oneTiming)
+        {
+            this.oneTiming = false;
+            this.time.addEvent
+            ({
+                delay: 2000,
+                callback: ()=>
+                {
+                    console.log("C bon tu peux");
+                    this.timingDash = false;
+                    this.oneDash = false;
+                    this.oneTiming = true;
+                },
+                loop: false
+            })
+        }
+    }
+
+
+    acceleration1()
+    {
+        this.player.setVelocityX(800);
+        this.time.addEvent
+        ({
+            delay: 1000,
+            callback: ()=>
+            {
+                this.player.setVelocityX(160);
+                this.timerDash = true;
+                this.oneDash = false;
+                this.dPressed = false;
+            },
+            loop: false
+        })
     }
 
 
@@ -891,14 +1001,13 @@ class Tableau extends Phaser.Scene{
         let me = this;
         if(this.ePressed)
         {
-            if(this.lifePoints<=2 && this.oneHeal == false && ui.score >= 20)
+            if(this.lifePoints <=2 && this.oneHeal == false && ui.score >= 20)
             {
                 ui.perdre1();
                 ui.gagnePV();
-                //this.shakeCamerasMini();
+                this.startingHealAura();
                 me.lifePoints += 1;
-                //console.log('playerHealing() -> heal');
-                //console.log(this.lifePoints);
+                console.log(this.lifePoints);
                 me.InfosLifePoints2();
                 this.oneHeal = true;
             }

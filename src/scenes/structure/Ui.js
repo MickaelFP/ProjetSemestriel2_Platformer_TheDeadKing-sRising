@@ -109,9 +109,9 @@ class Ui extends Phaser.Scene{
         },100)
 
         //let pad=new GamePad(this,0,0);
-        let pad=new GamePadButtons(this,0,0);
-        pad.x=this.sys.canvas.width-pad.size-32;
-        pad.y=this.sys.canvas.height-pad.size-32;
+        this.pad=new GamePadButtons(this,0,0);
+        this.pad.x = this.sys.canvas.width - this.pad.size-32;
+        this.pad.y = this.sys.canvas.height - this.pad.size-32;
 
         let btFs=this.add.image(0,0,'ui/full-screen-icon');
         btFs.setInteractive();
@@ -137,16 +137,16 @@ class Ui extends Phaser.Scene{
     // Simple
     gagne(points=10)
     {
-        let me=this;
-        me.score+=points;
+        let me = this;
+        me.score += points;
         if (me.score > 0)
         {
-            me._scoreText.setText('Ossements: ' + me.score);
+            me._scoreText.setText('Bones: ' + me.score);
         }
         else if (me.score < 0)
         {
             me.score = 0;
-            me._scoreText.setText('Ossements: ' + me.score);
+            me._scoreText.setText('Bones: ' + me.score);
         }
         else
         {
@@ -156,16 +156,16 @@ class Ui extends Phaser.Scene{
     // Moyen
     gagne1(points=20)
     {
-        let me=this;
-        me.score+=points;
+        let me = this;
+        me.score += points;
         if (me.score > 0)
         {
-            me._scoreText.setText('Ossements: ' + me.score);
+            me._scoreText.setText('Bones: ' + me.score);
         }
         else if (me.score < 0)
         {
             me.score = 0;
-            me._scoreText.setText('Ossements: ' + me.score);
+            me._scoreText.setText('Bones: ' + me.score);
         }
         else
         {
@@ -175,16 +175,16 @@ class Ui extends Phaser.Scene{
     // Elevé
     gagne2(points=100)
     {
-        let me=this;
-        me.score+=points;
+        let me = this;
+        me.score += points;
         if (me.score > 0)
         {
-            me._scoreText.setText('Ossements: ' + me.score);
+            me._scoreText.setText('Bones: ' + me.score);
         }
         else if (me.score < 0)
         {
             me.score = 0;
-            me._scoreText.setText('Ossements: ' + me.score);
+            me._scoreText.setText('Bones: ' + me.score);
         }
         else
         {
@@ -196,16 +196,16 @@ class Ui extends Phaser.Scene{
     // Jeter des os
     perdre(points=2)
     {
-        let me=this;
-        me.score-=points;
+        let me = this;
+        me.score -= points;
         if (me.score > 0)
         {
-            me._scoreText.setText('Ossements: ' + me.score);
+            me._scoreText.setText('Bones: ' + me.score);
         }
         else if (me.score < 0)
         {
             me.score = 0;
-            me._scoreText.setText('Ossements: ' + me.score);
+            me._scoreText.setText('Bones: ' + me.score);
         }
         else
         {
@@ -215,35 +215,31 @@ class Ui extends Phaser.Scene{
     // Se faire blesser
     perdre1(points=20)
     {
-        let me=this;
-        me.score-=points;
-        if (me.score > 0)
-        {
-            me._scoreText.setText('Ossements: ' + me.score);
-        }
-        else if (me.score < 0)
+        let me = this;
+        me.score -= points;
+        if (me.score < 0)
         {
             me.score = 0;
-            me._scoreText.setText('Ossements: ' + me.score);
+            me._scoreText.setText('Bones: ' + me.score);
         }
-        else
+        else if (me.score >= 0)
         {
-            me.score = 0;
+            me._scoreText.setText('Bones: ' + me.score);
         }
     }
     // Mourrir
     perdre2(points=500)
     {
-        let me=this;
+        let me = this;
         me.score-=points;
         if (me.score > 0)
         {
-            me._scoreText.setText('Ossements: ' + me.score);
+            me._scoreText.setText('Bones: ' + me.score);
         }
         else if (me.score < 0)
         {
             me.score = 0;
-            me._scoreText.setText('Ossements: ' + me.score);
+            me._scoreText.setText('Bones: ' + me.score);
         }
         else
         {
@@ -260,7 +256,8 @@ class Ui extends Phaser.Scene{
     {
         let me = this;
         me.hp += points;
-        if (me.hp > 3)
+        //this._hpText.setText('Body : ');
+        if (me.hp >= 3)
         {
             this.hp = 3;
         }
@@ -271,11 +268,11 @@ class Ui extends Phaser.Scene{
     {
         let me = this;
         me.hp -= points;
-        this._hpText.setText('Status : ');
+        this._hpText.setText('Body : ');
         if(me.hp < 1)
         {
             me.hp = 3;
-            //this._hpText.setText('Status : ');
+            //this._hpText.setText('Body : ');
         }
     }
     //
@@ -286,5 +283,15 @@ class Ui extends Phaser.Scene{
             this._tableauText.setText(Tableau.current.scene.key);
             this._tableauTextClass.setText(Tableau.current.constructor.name);
         }
+
+        if(Tableau.current && Tableau.current.player)
+        {
+            this.pad.visible = true;
+        }
+        else
+        {
+            this.pad.visible = false;
+        }
+
     }
 }
