@@ -194,8 +194,8 @@ class Tableau extends Phaser.Scene{
         this.player.update(); 
         this.shoot.update();
         this.monsterOfVase.update();
-        //this.boxRenderPlayer.update();
 
+        //this.boxRenderPlayer.update();
         //this.shoot.move();
         //this.contact = false ;
         //this.jumpStop = false;
@@ -208,37 +208,18 @@ class Tableau extends Phaser.Scene{
         this.dash();
         this.clearCheckPoints(); 
 
-        // ------------------------------
+        // ----------------------------------- Effets déclenchés -----------------------------------
 
         this.vaseDropping();
         this.auraEffect();
+        this.cacheCache();
+        /* this.storyBox(); */
 
-        /*this.physics.add.overlap(this.player, this.solides, function(player, solides)
-        {
-            this.jumping = false;
-        }, null, this);*/
+        /* ************************************************************************************* */
 
-        /************************************************************************************** */
 
-        if(/*this.player.x > 3328 && this.player.x < 3520 && */this.player.body.position.y < 832)
-        {
-            //console.log("Debug Debug Debug Debug Debug Debug Debug");
-            //this.cacheTop.visible = true;
-            //this.cacheBot.visible = false;
 
-            this.cacheBot.visible = true;
-            this.cacheTop.visible = false;
-        }
-        else
-        {
-            //this.cacheTop.visible = false;
-            //this.cacheBot.visible = true;
-
-            this.cacheTop.visible = true;
-            this.cacheBot.visible = false;
-        }
-
-        /************************************************************************************** */
+        /* ************************************************************************************* */
 
         if(this.stopTomber && this.player.body.blocked.down)
         {
@@ -248,19 +229,97 @@ class Tableau extends Phaser.Scene{
 
         // ----------------------------------- Drop d'objet (ou de monstre...) -----------------------------------
         
-        //if(this.monsterOfVase.body)
-        //{
-            this.physics.add.overlap(this.monsterOfVase, this.shoot, function(monsterOfVase, shoot)
-            {
-                //if(this.monsterOfVase.body)
-                //{
-                    this.destroyProjectil();
-                    //console.log("Debug Debug Debug Debug Debug Debug Debug");
-                //}
-            }, null, this);
-        //}
+        this.physics.add.overlap(this.monsterOfVase, this.shoot, function(monsterOfVase, shoot)
+        {
+            this.destroyProjectil();
+
+        }, null, this);
 
     } // FIN DE UPDATE
+
+
+    /*storyBox() // Comme j'ai déjà surchargé mes assets Tiled, cette fois on essaye la méthode de position ( même si j'en raffole pas -_- ).
+    {
+        // ----------------------------------- Box Tuto -----------------------------------
+        //connu : 512 x, 1984 y /déduction : 576 x, 2048 y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+
+        }
+        // 896 x, 1984 y / 960 x, 2048 y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+        // 1280 x, 1984 y / 1344 x, 2048 y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+
+        // ----------------------------------- Box Apprentissage des Objectifs -----------------------------------
+        // Partie 1
+        // x, y / x, y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+        // x, y / x, y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+
+        // Partie 2
+        // x, y / x, y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+
+        // Partie 3
+        // x, y / x, y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+         // x, y / x, y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+        // x, y / x, y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+
+        // Partie 4
+        // x, y / x, y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+
+        // Partie Secrète
+
+    } // FIN DE STORYBOX */
+
+
+    cacheCache()
+    {
+        if(this.player.body.position.y < 832)
+        {
+            this.cacheBot.visible = true;
+            this.cacheTop.visible = false;
+        }
+        else
+        {
+            this.cacheTop.visible = true;
+            this.cacheBot.visible = false;
+        }
+
+    } // FIN DE CACHECACHE
 
     
     // ********************************* Gestionnaire de l'affichage des points de vies *********************************

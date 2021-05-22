@@ -287,10 +287,12 @@ class Ui extends Phaser.Scene{
         if(Tableau.current && Tableau.current.player)
         {
             this.pad.visible = true;
+            this._scoreText.visible = true;
         }
         else
         {
             this.pad.visible = false;
+            this._scoreText.visible = false;
         }
 
     }
