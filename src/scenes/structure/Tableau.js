@@ -29,8 +29,8 @@ class Tableau extends Phaser.Scene{
         this.load.image('hp1', 'assets/ui/hp1.png');
         this.load.image('hp2', 'assets/ui/hp2.png');
         this.load.image('hp3', 'assets/ui/hp3.png');
-        this.load.image('cacheTop', 'assets/backgrounds/cache_haut.png');
-        this.load.image('cacheBot', 'assets/backgrounds/cache_bas.png');
+        this.load.image('cacheTop', 'assets/backgrounds/cache_haut_ok.png');
+        this.load.image('cacheBot', 'assets/backgrounds/cache_bas_ok.png');
 
         this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie2.png', { frameWidth: 32, frameHeight: 48 } ); 
 
@@ -121,9 +121,9 @@ class Tableau extends Phaser.Scene{
         this.infCtrl.displayHeight=400;
         this.infCtrl.visible=false;
 
-        this.cacheTop = this.add.sprite(0,0, "cacheTop").setDepth(1000);
+        this.cacheTop = this.add.sprite(0,0, "cacheTop").setDepth(1000).setOrigin(0,0);
         this.cacheTop.visible=false;
-        this.cacheBot = this.add.sprite(0,0, "cacheBot").setDepth(1000);
+        this.cacheBot = this.add.sprite(0,0, "cacheBot").setDepth(1000).setOrigin(0,0);
         this.cacheBot.visible=false;
 
 
@@ -182,7 +182,87 @@ class Tableau extends Phaser.Scene{
     }
 
 
+    // ********************************* Exécutable de fonction et de variables à chaques frames *********************************
 
+    /**
+     *
+     * @param {function} onComplete Fonction à appeler quand l'anim est finie
+     */
+    update(monster, player, onComplete)
+    {
+        super.update();
+        this.player.update(); 
+        this.shoot.update();
+        this.monsterOfVase.update();
+        //this.boxRenderPlayer.update();
+
+        //this.shoot.move();
+        //this.contact = false ;
+        //this.jumpStop = false;
+
+        // ----------------------------------- Effets pour chaques touches configurées -----------------------------------
+
+        this.throwBones();
+        this.showInfoCtrl();
+        this.playerHealing();
+        this.dash();
+        this.clearCheckPoints(); 
+
+        // ------------------------------
+
+        this.vaseDropping();
+        this.auraEffect();
+
+        /*this.physics.add.overlap(this.player, this.solides, function(player, solides)
+        {
+            this.jumping = false;
+        }, null, this);*/
+
+        /************************************************************************************** */
+
+        if(/*this.player.x > 3328 && this.player.x < 3520 && */this.player.body.position.y < 832)
+        {
+            //console.log("Debug Debug Debug Debug Debug Debug Debug");
+            //this.cacheTop.visible = true;
+            //this.cacheBot.visible = false;
+
+            this.cacheBot.visible = true;
+            this.cacheTop.visible = false;
+        }
+        else
+        {
+            //this.cacheTop.visible = false;
+            //this.cacheBot.visible = true;
+
+            this.cacheTop.visible = true;
+            this.cacheBot.visible = false;
+        }
+
+        /************************************************************************************** */
+
+        if(this.stopTomber && this.player.body.blocked.down)
+        {
+            this.player.directionX=0;
+            this.stopTomber = false;
+        }
+
+        // ----------------------------------- Drop d'objet (ou de monstre...) -----------------------------------
+        
+        //if(this.monsterOfVase.body)
+        //{
+            this.physics.add.overlap(this.monsterOfVase, this.shoot, function(monsterOfVase, shoot)
+            {
+                //if(this.monsterOfVase.body)
+                //{
+                    this.destroyProjectil();
+                    //console.log("Debug Debug Debug Debug Debug Debug Debug");
+                //}
+            }, null, this);
+        //}
+
+    } // FIN DE UPDATE
+
+    
     // ********************************* Gestionnaire de l'affichage des points de vies *********************************
 
     InfosLifePoints()
@@ -231,81 +311,6 @@ class Tableau extends Phaser.Scene{
             //console.log("InfosLifePoints2() -> hp2");
         }
     }
-
-    // ********************************* Exécutable de fonction et de variables à chaques frames *********************************
-
-    /**
-     *
-     * @param {function} onComplete Fonction à appeler quand l'anim est finie
-     */
-    update(monster, player, onComplete)
-    {
-        super.update();
-        this.player.update(); 
-        this.shoot.update();
-        this.monsterOfVase.update();
-        //this.boxRenderPlayer.update();
-
-        //this.shoot.move();
-        //this.contact = false ;
-        //this.jumpStop = false;
-
-        // ----------------------------------- Effets pour chaques touches configurées -----------------------------------
-
-        this.throwBones();
-        this.showInfoCtrl();
-        this.playerHealing();
-        this.dash();
-        this.clearCheckPoints(); 
-
-        // ------------------------------
-
-        this.vaseDropping();
-        this.auraEffect();
-
-        /*this.physics.add.overlap(this.player, this.solides, function(player, solides)
-        {
-            this.jumping = false;
-        }, null, this);*/
-
-        /************************************************************************************** */
-
-        
-
-        /************************************************************************************** */
-
-        if(/*this.player.x > 3328 && this.player.x < 3520 && */this.player.y < 832)
-        {
-            this.cacheTop.visible = false;
-            this.cacheBot.visible = false;
-        }
-        else
-        {
-            this.cacheTop.visible = false;
-            this.cacheBot.visible = false;
-        }
-
-        if(this.stopTomber && this.player.body.blocked.down)
-        {
-            this.player.directionX=0;
-            this.stopTomber = false;
-        }
-
-        // ----------------------------------- Drop d'objet (ou de monstre...) -----------------------------------
-        
-        //if(this.monsterOfVase.body)
-        //{
-            this.physics.add.overlap(this.monsterOfVase, this.shoot, function(monsterOfVase, shoot)
-            {
-                //if(this.monsterOfVase.body)
-                //{
-                    this.destroyProjectil();
-                    //console.log("Debug Debug Debug Debug Debug Debug Debug");
-                //}
-            }, null, this);
-        //}
-
-    } // FIN DE UPDATE
 
 
     auraEffect()
