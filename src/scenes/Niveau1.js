@@ -16,10 +16,10 @@ class Niveau1 extends Tableau
         this.load.image('os', 'assets/elements/ossement.png');
         this.load.image('platformStone', 'assets/elements/platformStone.png');
         this.load.image('plate', 'assets/elements/petitePlateformePierre.png');
-        this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
+        this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere3.png');
 
         // les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha8.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha9_3.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
 
         // -----Decors-------------
         this.load.image('night', 'assets/backgrounds/nuit_etoile_turquoise.png'); // sky_plan_nuitEtoileCarre.png');
@@ -115,7 +115,7 @@ class Niveau1 extends Tableau
         // Notre map
         this.map = this.make.tilemap({ key: 'map' });
         // Nos images qui vont avec la map
-        this.tileset = this.map.addTilesetImage('tableauTiledTilesetCimetiere2', 'tiles'); // original 'tableauTiledTilset'
+        this.tileset = this.map.addTilesetImage('tableauTiledTilesetCimetiere3', 'tiles'); // original 'tableauTiledTilset'
 
         // On agrandit le champ de la caméra du coup
         let largeurDuTableau=this.map.widthInPixels;
@@ -129,7 +129,6 @@ class Niveau1 extends Tableau
         this.solides = this.map.createLayer('solides', this.tileset, 0, 0);
         //this.lave = this.map.createLayer('lave', this.tileset, 0, 0);
         this.derriere = this.map.createLayer('derriere', this.tileset, 0, 0);
-        //this.devant = this.map.createLayer('devant', this.tileset, 0, 0);
         
         // plateformes columbariums
         this.platforms = this.physics.add.group();
