@@ -15,24 +15,25 @@ class Niveau1 extends Tableau
         this.load.image('ossement', 'assets/elements/ossement.png');
         this.load.image('os', 'assets/elements/ossement.png');
         this.load.image('platformStone', 'assets/elements/platformStone.png');
+        this.load.image('plate', 'assets/elements/petitePlateformePierre.png');
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere2.png');
 
         // les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha6.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha8.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
 
         // -----Decors-------------
         this.load.image('night', 'assets/backgrounds/nuit_etoile_turquoise.png'); // sky_plan_nuitEtoileCarre.png');
         // this.load.image('night1', 'assets/backgrounds/sky_plan_aurore.png');//aurore2.png'); // nuitEtoileCarre_5
         this.load.image('chateauLoin', 'assets/backgrounds/cinquieme_plan_chateauLoin.png'); // chateauLoin_x896_2.png');
-        this.load.image('grilleHerbe', 'assets/backgrounds/second_plan_grille.png'); // grille_x896_2.png');
-        this.load.image('colines', 'assets/backgrounds/quatrieme_plan_colinesForet2.png'); // colinesForet_x896.png');
+        this.load.image('grilleHerbe', 'assets/backgrounds/second_plan_grille_remastered.png'); // grille_x896_2.png');
+        this.load.image('colines', 'assets/backgrounds/colinesForet_Remastered.png'); // quatrieme_plan_colinesForet2.png');
         this.load.image('ombresTombes', 'assets/backgrounds/ombres_plan_surface_l_flou.png'); // ombres_plan_surface/l/.png
 
         // -----Elements interactifs-------------
         this.load.image('vase', 'assets/elements/vase.png');
         this.load.image('solFragile', 'assets/elements/sol_fragile.png'); // solFragile.png / sol-terre
         this.load.image('solFragilePierre', 'assets/elements/roche_devant.png'); // solFragilePierre.png');
-        this.load.image('rocheQuiRoule', 'assets/elements/roche_devant2.jpg'); // solFragilePierre1.png');
+        this.load.image('rocheQuiRoule', 'assets/elements/roche_devant3.jpg'); // solFragilePierre1.png');
         this.load.image('infCtrl', 'assets/elements/infos_controls3.png');
 
         this.load.spritesheet('checkPoint', 'assets/Spritesheet/corbeauAnimation1.png', { frameWidth: 448, frameHeight: 448 } );
@@ -194,19 +195,19 @@ class Niveau1 extends Tableau
         // plateformes pierre
         this.platforms4 = this.physics.add.group();
 
-        this.platforms4.create(3906, 880+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(3938, 768+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(4050, 736+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(3934, 612+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(3996, 500+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(3906, 880+hauteurDif, 'plate');
+        this.platforms4.create(3938, 768+hauteurDif, 'plate');
+        this.platforms4.create(4050, 736+hauteurDif, 'plate');
+        this.platforms4.create(3934, 612+hauteurDif, 'plate');
+        this.platforms4.create(3996, 500+hauteurDif, 'plate');
 
-        this.platforms4.create(4832, 1584+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(4896, 1520+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(4960, 1456+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(4832, 1584+hauteurDif, 'plate');
+        this.platforms4.create(4896, 1520+hauteurDif, 'plate');
+        this.platforms4.create(4960, 1456+hauteurDif, 'plate');
 
-        this.platforms4.create(5248, 1168+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(5296, 1056+hauteurDif, 'solFragilePierre');
-        this.platforms4.create(5344, 1232+hauteurDif, 'solFragilePierre');
+        this.platforms4.create(5248, 1168+hauteurDif, 'plate');
+        this.platforms4.create(5296, 1056+hauteurDif, 'plate');
+        this.platforms4.create(5344, 1232+hauteurDif, 'plate');
 
         this.platforms4.children.iterate(function (child) {
             child.setImmovable(true);
