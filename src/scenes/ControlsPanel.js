@@ -7,7 +7,7 @@ class ControlsPanel extends Phaser.Scene {
     {
         // images
         this.load.image('pCBG', 'assets/backgrounds/startBackground.png');
-        this.load.image('pCB', 'assets/elements/pCBouton_100pct.png');
+        this.load.image('pCB', 'assets/elements/pCBouton_100pct4.png');
         this.load.image('logo', 'assets/elements/PlatformerLogoRemastered.png');
         //this.load.spritesheet('cp', 'assets/cp.png', { frameWidth: 206, frameHeight: 184 } );
 
@@ -38,15 +38,15 @@ class ControlsPanel extends Phaser.Scene {
 
         //---------- on affiche les textes que l'on veut faire apparaître (boutons, titre...) ----------
 
-        let cPBText1 = this.add.text(game.config.width/2-90, game.config.height -270, "[A] = throw bones",{font: "15px visitor", fill:"#000000"}); //375,560,FFF
-        let cPBText2 = this.add.text(game.config.width/2-90, game.config.height -240, "[R]",{font: "15px visitor", fill:"#000000"});
-        let cPBText3 = this.add.text(game.config.width/2-90, game.config.height -210, "[I] = infos controls",{font: "15px visitor", fill:"#000000"});
+        //let cPBText1 = this.add.text(game.config.width/2-90, game.config.height -270, "[A] = throw bones",{font: "15px visitor", fill:"#000000"}); //375,560,FFF
+        let cPBText2 = this.add.text(game.config.width/2-90, game.config.height -25, "[R] = back",{font: "15px Script MT Bold", fill:"#FFFFFF"});
+        /*let cPBText3 = this.add.text(game.config.width/2-90, game.config.height -210, "[I] = infos controls",{font: "15px visitor", fill:"#000000"});
         let cPBText4 = this.add.text(game.config.width/2-90, game.config.height -180, "[ArrowLeft] = go left",{font: "15px visitor", fill:"#000000"});
         let cPBText5 = this.add.text(game.config.width/2-90, game.config.height -150, "[ArrowRight] = go right",{font: "15px visitor", fill:"#000000"});
         let cPBText6 = this.add.text(game.config.width/2-90, game.config.height -120, "[ArrowTop] = jump",{font: "15px visitor", fill:"#000000"});
-        let cPBText7 = this.add.text(game.config.width/2-90, game.config.height -90, "[Ctrl] = disable Checkpoint",{font: "15px visitor", fill:"#000000"});
+        let cPBText7 = this.add.text(game.config.width/2-90, game.config.height -90, "[Ctrl] = disable Checkpoint",{font: "15px visitor", fill:"#000000"});*/
 
-        let cPBText2_1 = this.add.text(game.config.width/2-64, game.config.height -240, "= back/menu/pause",{font: "15px visitor", fill:"#000000"});
+        //let cPBText2_1 = this.add.text(game.config.width/2-64, game.config.height -45, "= back",{font: "15px visitor", fill:"#FFFFFF"});
 
         //tweens permet de donner un petit effet à la cible voulue (target)
         this.tweens.add(
@@ -55,14 +55,14 @@ class ControlsPanel extends Phaser.Scene {
             duration:2000,
             yoyo: true,
             repeat:-1,
-            delay:Math.random()*1000,
+            delay:0,
             alpha:
             {
-                startDelay:Math.random()*5000,
+                startDelay:0,
                 from:0,
                 to:1,
             }
-        })
+        })    
 
 
         //---------- quelques effets supplémentaires symphatiques ----------
@@ -70,107 +70,63 @@ class ControlsPanel extends Phaser.Scene {
         let lanterne = this.add.pointlight(game.config.width/2-378, game.config.height/2+32, 0, 50, 0.5);
         lanterne.attenuation = 0.05;
         lanterne.color.setTo(255, 200, 0);
-        this.tweens.add(
-        {
-            targets:lanterne,
-            duration:2000,
-            yoyo: true,
-            repeat:-1,
-            delay:Math.random()*1000,
-            alpha:
-            {
-                startDelay:Math.random()*5000,
-                from:0,
-                to:1,
-            }
-        })
+        let lanterne5 = this.add.pointlight(game.config.width/2+242, game.config.height/2+38, 0, 30, 0.5);
+        lanterne5.attenuation = 0.05;
+        lanterne5.color.setTo(255, 200, 0);
 
         let lanterne2 = this.add.pointlight(game.config.width/2-250, game.config.height/2+40, 0, 30, 0.5);
         lanterne2.attenuation = 0.05;
         lanterne2.color.setTo(255, 200, 0);
-        this.tweens.add(
-        {
-            targets:lanterne2,
-            duration:2000,
-            yoyo: true,
-            repeat:-1,
-            delay:Math.random()*3000,
-            alpha:
-            {
-                startDelay:Math.random()*5000,
-                from:0,
-                to:1,
-            }
-        })
+        let lanterne6 = this.add.pointlight(game.config.width/2+370, game.config.height/2+31, 0, 50, 0.5);
+        lanterne6.attenuation = 0.05;
+        lanterne6.color.setTo(255, 200, 0);
 
         let lanterne3 = this.add.pointlight(game.config.width/2-190, game.config.height/2+45, 0, 15, 0.5);
         lanterne3.attenuation = 0.05;
         lanterne3.color.setTo(255, 200, 0);
-        this.tweens.add(
-        {
-            targets:lanterne3,
-            duration:2000,
-            yoyo: true,
-            repeat:-1,
-            delay:Math.random()*2000,
-            alpha:
-            {
-                startDelay:Math.random()*5000,
-                from:0,
-                to:1,
-            }
-        })
-
         let lanterne4 = this.add.pointlight(game.config.width/2+182, game.config.height/2+45, 0, 15, 0.5);
         lanterne4.attenuation = 0.05;
         lanterne4.color.setTo(255, 200, 0);
+
+
         this.tweens.add(
         {
-            targets:lanterne4,
-            duration:2000,
+            targets:[lanterne, lanterne6],
+            duration:1000,
             yoyo: true,
             repeat:-1,
-            delay:Math.random()*2000,
+            delay:0,
             alpha:
             {
-                startDelay:Math.random()*5000,
+                startDelay:0,
                 from:0,
                 to:1,
             }
         })
-
-        
-        let lanterne5 = this.add.pointlight(game.config.width/2+242, game.config.height/2+38, 0, 30, 0.5);
-        lanterne5.attenuation = 0.05;
-        lanterne5.color.setTo(255, 200, 0);
         this.tweens.add(
         {
-            targets:lanterne5,
+            targets:[lanterne2, lanterne5],
             duration:2000,
             yoyo: true,
             repeat:-1,
-            delay:Math.random()*1000,
+            delay:0,
             alpha:
             {
-                startDelay:Math.random()*5000,
+                startDelay:0,
                 from:0,
                 to:1,
             }
         })
-
-        let lanterne6 = this.add.pointlight(game.config.width/2+370, game.config.height/2+31, 0, 50, 0.5);
-        lanterne6.attenuation = 0.05;
-        lanterne6.color.setTo(255, 200, 0);
         this.tweens.add(
         {
-            targets:lanterne6,
-            duration:2000,
+            targets:[lanterne3, lanterne4],
+            duration:3000,
             yoyo: true,
             repeat:-1,
-            delay:Math.random()*3000,
+            delay:0,
             alpha:
             {
-                startDelay:Math.random()*5000,
+                startDelay:0,
                 from:0,
                 to:1,
             }

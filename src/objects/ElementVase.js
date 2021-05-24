@@ -12,7 +12,7 @@ class ElementVase extends Phaser.Physics.Arcade.Sprite
     this.setImmovable(true);
     this.setDisplaySize(32, 32);
     this.setBounceX(0);
-    this.setGravityY(5000)
+    this.setGravityY(5000);
     this.setVelocity(0, 0);
     this.setBodySize(this.body.width, this.body.height);
 

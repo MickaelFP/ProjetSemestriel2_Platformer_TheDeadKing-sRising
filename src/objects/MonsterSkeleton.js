@@ -36,22 +36,25 @@ class MonsterSkeleton extends ObjetEnnemi{
 
     move(player)
     {
-        if(this.scene.player.x > this.x - 400 && this.scene.player.x < this.x - 10 && this.scene.player.y <= this.y && this.scene.player.y >= this.y-200)
+        if(!this.isDead && !Tableau.current.monsterMoveStop)
         {
+            if(this.scene.player.x > this.x - 400 && this.scene.player.x < this.x - 10 && this.scene.player.y <= this.y && this.scene.player.y >= this.y-200)
+            {
             //console.log("GRRRRR GAUCHE");
-            this.setVelocityX(-80*(Math.random()+1.5));
-            //this.flipX = true;
+                this.setVelocityX(-80*(Math.random()+1.5));
+                //this.flipX = true;
+            }
+            else if(this.scene.player.x < this.x + 400 && this.scene.player.x > this.x + 10 && this.scene.player.y <= this.y && this.scene.player.y >= this.y-200)
+            {
+                //console.log("GRRRRR DROITE");
+                this.setVelocityX(80*(Math.random()+1.5));
+                //this.flipX = false;
+            }
         }
-        else if(this.scene.player.x < this.x + 400 && this.scene.player.x > this.x + 10 && this.scene.player.y <= this.y && this.scene.player.y >= this.y-200)
-        {
-            //console.log("GRRRRR DROITE");
-            this.setVelocityX(80*(Math.random()+1.5));
-            //this.flipX = false;
-        }
-        /*else
+        else
         {
             this.setVelocityX(0);
-        }*/
+        }
     }
 
     animation()

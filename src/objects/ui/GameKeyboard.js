@@ -45,8 +45,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                         
                         case "i":
                             Tableau.current.iPressed = true;
-                            //Tableau.current.showInfos = true;
-                            //console.log("ShowInfosCtrl");
+                            console.log("ShowInfosCtrl");
                             break;
         
                         case "Control":
@@ -64,6 +63,15 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                             Tableau.current.dPressed = true;
                             break;
             
+                        case "p":
+                            console.log("temps mort");
+                            Tableau.current.pPressed = true;
+                            break;
+                        
+                        /*case "f":
+                            Tableau.current.escapePressed = true;
+                            break;*/
+
                         case "r":/*
                             Tableau.current.cameras.main.fadeOut(1000, 0, 0, 0)
                             Tableau.current.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
@@ -107,7 +115,9 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                             break;
                         
                         case "i":
+                            console.log("plus besoin");
                             Tableau.current.iPressed = false;
+                            Tableau.current.infosTime = true;
                             break;
                             
                         case "Control":
@@ -124,7 +134,17 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                             Tableau.current.dPressed = false;
                             Tableau.current.timingDash = true;
                             break;
-                        
+
+                        case "p":
+                            console.log("c'est reparti");
+                            Tableau.current.pPressed = false;
+                            Tableau.current.pauseTime = true;
+                            break;
+                            
+                        /*case "f":
+                            Tableau.current.escapePressed = false;
+                            break;*/
+
                         case "r":/*
                             Tableau.current.cameras.main.fadeOut(1000, 0, 0, 0)
                             Tableau.current.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 

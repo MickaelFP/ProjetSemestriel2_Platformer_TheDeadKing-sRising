@@ -14,7 +14,7 @@ class Ui extends Phaser.Scene{
         /*****LIST DE FONT TEXTE ( ils ne fonctionnes pas tous malheureusement :'[ )*****
         
         //  Hanalei Fill*  //  Courrier  //  Verdana  //  Georgia  //  Arial*  //  Tahoma  //  Marlett*  //  Lucida Console*  //  Trebuchet MS*
-        //  Webdings*  //  Impact*  //  visitor  //  ...
+        //  Webdings*  //  Impact*  //  Script MT Bold  //  ...
 
         */
 
@@ -27,7 +27,7 @@ class Ui extends Phaser.Scene{
          * @private
          */
         this._scoreText = this.add.text(16, 16, '', {
-            font:'32px "visitor"',
+            font:'32px "Script MT Bold"',
             fill: '#fff'
         });
 
@@ -37,7 +37,7 @@ class Ui extends Phaser.Scene{
         * @private
         */
         this._hpText = this.add.text(16, 16+80, '', {
-            font:'16px "visitor"',
+            font:'16px "Script MT Bold"',
             fill: '#fff'
         });
 
@@ -47,7 +47,7 @@ class Ui extends Phaser.Scene{
          * @private
          */
         this._tableauText = this.add.text(this.sys.canvas.width-16, 16, '', {
-            font:'32px "visitor"',
+            font:'32px "Script MT Bold"',
             align: 'right',
             fill: '#fff'
         })
@@ -58,7 +58,7 @@ class Ui extends Phaser.Scene{
          * @private
          */
         this._tableauTextClass = this.add.text(this.sys.canvas.width-16, 16+32, '', {
-            font:'24px "visitor"',
+            font:'24px "Script MT Bold"',
             align: 'right',
             fill: '#fff',
         }).setAlpha(0.5)

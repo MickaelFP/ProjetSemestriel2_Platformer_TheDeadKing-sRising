@@ -33,7 +33,7 @@ class Niveau1 extends Tableau
         this.load.image('solFragile', 'assets/elements/sol_fragile.png'); // solFragile.png / sol-terre
         this.load.image('solFragilePierre', 'assets/elements/roche_devant.png'); // solFragilePierre.png');
         this.load.image('rocheQuiRoule', 'assets/elements/roche_devant2.jpg'); // solFragilePierre1.png');
-        this.load.image('infCtrl', 'assets/elements/infosControls2.png');
+        this.load.image('infCtrl', 'assets/elements/infos_controls3.png');
 
         this.load.spritesheet('checkPoint', 'assets/Spritesheet/corbeauAnimation1.png', { frameWidth: 448, frameHeight: 448 } );
 
@@ -805,7 +805,49 @@ class Niveau1 extends Tableau
             scale: { start: 0.6, end: 0.1 },
             blendMode: 'NORMAL', 
         });
-
+        this.emitter = this.particles4.createEmitter(
+        {
+            x: 1728, y: 812,
+            speed: 10,
+            moveToX: {min:100,max:10000},
+            moveToY: {min:846,max:846},
+            rotate: {min:-360,max:360},
+            lifespan: 200000,
+            quantity: 4,
+            frequency: 1000,
+            delay: 1000,
+            scale: { start: 0.6, end: 0.1 },
+            blendMode: 'NORMAL', 
+        });
+        this.emitter = this.particles4.createEmitter(
+        {
+            x: 2912, y: 812,
+            speed: 10,
+            moveToX: {min:100,max:10000},
+            moveToY: {min:846,max:846},
+            rotate: {min:-360,max:360},
+            lifespan: 200000,
+            quantity: 4,
+            frequency: 1000,
+            delay: 1000,
+            scale: { start: 0.6, end: 0.1 },
+            blendMode: 'NORMAL', 
+        });
+        this.emitter = this.particles4.createEmitter(
+        {
+            x: 4544, y: 812,
+            speed: 10,
+            moveToX: {min:100,max:10000},
+            moveToY: {min:846,max:846},
+            rotate: {min:-360,max:360},
+            lifespan: 200000,
+            quantity: 4,
+            frequency: 1000,
+            delay: 1000,
+            scale: { start: 0.6, end: 0.1 },
+            blendMode: 'NORMAL', 
+        });
+        
 
         //------------------------------------------------ Collisions ------------------------------------------------
 

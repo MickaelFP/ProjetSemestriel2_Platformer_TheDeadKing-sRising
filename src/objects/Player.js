@@ -91,7 +91,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
     move()
     {
 
-        if(!Tableau.current.playerMoveStop)
+        if(!Tableau.current.playerMoveStop && !Tableau.current.player.isDead)
         {
             //console.log("Tu peux bouger")
             switch (true)
@@ -120,6 +120,11 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                     this.setVelocityX(0);
                     this.anims.play('turn', true);
             }
+        }
+        else if(!Tableau.current.dPressed)
+        {
+            this.setVelocityX(0);
+            this.anims.play('turn', true);
         }
 
         if(this.body.velocity.y != 0)

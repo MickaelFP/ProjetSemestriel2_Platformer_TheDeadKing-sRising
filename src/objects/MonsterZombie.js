@@ -92,7 +92,7 @@ class MonsterZombie extends ObjetEnnemi{
 
     move(player)
     {
-        if(!this.isDead)
+        if(!this.isDead && !Tableau.current.monsterMoveStop)
         {
             if(this.scene.player.x > this.x - 400 && this.scene.player.x < this.x - 10 && this.scene.player.y <= this.y && this.scene.player.y >= this.y-200)
             {
@@ -110,6 +110,10 @@ class MonsterZombie extends ObjetEnnemi{
             {
                 this.setVelocityX(0);
             }
+        }
+        else
+        {
+            this.setVelocityX(0);
         }
     }
 
