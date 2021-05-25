@@ -912,42 +912,53 @@ class Niveau1 extends Tableau
                 Tableau.current.playerMoveStop = true;
                 player.stop();
                 Tableau.current.invincible();
-                this.player.setPosition(player.x-994, player.y-1152);//384);
+
                 this.passageMusic = true;
-                //console.log("passage   DEBUG");
-
-                if(this.passageMusic)
+                this.passageCamera = true;
+                //console.log("passageCamera   DEBUG");
+                
+            }
+            if(this.passageMusic)
+            {
+                //console.log("passageMusic   DEBUG   DEBUG");
+                player.anims.play('turn', true);
+                this.gate = this.sound.add('openingGate');
+                var musicConfig = 
                 {
-                    //console.log("passageMusic   DEBUG   DEBUG");
-                    player.anims.play('turn', true);
-                    this.gate = this.sound.add('openingGate');
-                    var musicConfig = 
-                    {
-                        mute: false,
-                        volume: 0.5,
-                        rate : 1,
-                        detune: 0,
-                        seek: 0,
-                        loop: false,
-                        delay:0,
-                    }
-                    this.gate.play(musicConfig);
-    
-                    this.passageMusic = false;
-                    this.passage = false;
-
-                    if(!this.passage)
-                    {
-                        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
-                        {
-                            //console.log("cameras.main.fadeOut   DEBUG   DEBUG   DEBUG");
-                            this.cameras.main.fadeIn(1000, 0, 0, 0);
-                        })
-                        this.passage = true;
-                        //this.passageMusic = true;
-                    }
+                    mute: false,
+                    volume: 0.5,
+                    rate : 1,
+                    detune: 0,
+                    seek: 0,
+                    loop: false,
+                    delay:0,
                 }
-                Tableau.current.playerMoveStop = false;
+                this.gate.play(musicConfig);
+
+                this.passage = false;
+                this.passageMusic = false;
+
+            }
+            
+            if(!this.passage)
+            {
+
+                //console.log("cameras.main.fadeIn   DEBUG   DEBUG   DEBUG");
+                this.cameras.main.fadeIn(6000, 0, 0, 0);
+                this.player.setPosition(player.x-994, player.y-1152);//384);
+                this.time.addEvent
+                ({
+                    delay: 1000,
+                    callback: ()=>
+                    {
+                        Tableau.current.playerMoveStop = false;
+                        //console.log("Marche, cours, plonge, mais ne vole pas !!!");
+                    },
+                    loop: false
+                })
+
+                this.passage = true;
+                //this.passageMusic = true;
             }
 
         }, null, this);
