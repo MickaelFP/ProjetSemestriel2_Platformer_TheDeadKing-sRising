@@ -42,7 +42,7 @@ class Niveau1 extends Tableau
         this.load.image('monster-fly', 'assets/entities/chauve-souris.png'); // original 'monster-fly'
         this.load.image('bossSpectre', 'assets/entities/bossSpectre_Remastered.png');
 
-        this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie2.png', { frameWidth: 32, frameHeight: 48 } );       
+        this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie_remastered.png', { frameWidth: 32, frameHeight: 48 } );       
         this.load.spritesheet('squelette', 'assets/Spritesheet/player0.png', { frameWidth: 32, frameHeight: 48 } ); 
 
         // -----Particules-------------

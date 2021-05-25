@@ -32,21 +32,21 @@ class MonsterZombie extends ObjetEnnemi{
 
         this.anims.create({
             key: 'left',
-            frames: this.anims.generateFrameNumbers('zombie2', { start: 0, end: 3 }),
+            frames: this.anims.generateFrameNumbers('zombie2', { start: 0, end: 5 }),
             frameRate: 5,
             repeat: -1
         });
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('zombie2', { start: 7, end: 10 }),
+            frames: this.anims.generateFrameNumbers('zombie2', { start: 6, end: 11 }),
             frameRate: 5,
             repeat: -1
         });
 
         this.anims.create({
             key: 'immobile',
-            frames: this.anims.generateFrameNumbers('zombie2', { start: 4, end: 6 }),
+            frames: this.anims.generateFrameNumbers('zombie2', { start: 12, end: 13 }),
             frameRate: 2,
             repeat: -1
         });
