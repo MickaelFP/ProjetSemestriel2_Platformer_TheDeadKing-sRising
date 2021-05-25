@@ -48,7 +48,7 @@ class GamePadButtons extends GameKeyboard
         btnD.x = scene.sys.canvas.width * -1 + w * 5.2;
         btnD.y = w * 0.8;
 
-
+        // On appuie
         btnLEFT.on('pointerdown', function () {
 
             console.log("btnLEFT");
@@ -68,9 +68,7 @@ class GamePadButtons extends GameKeyboard
         btnUP.on('pointerdown', function () 
         {
             console.log("btnUP");
-            //Tableau.current.player.directionY = -1;
             Tableau.current.arrowUpPressed = true;
-            Tableau.current.jumpStop = false;
         });
         btnDOWN.on('pointerdown', function () 
         {
@@ -81,7 +79,7 @@ class GamePadButtons extends GameKeyboard
             Tableau.current.tJAfterPressArrowDown();
         });
 
-
+        // On relâche
         btnLEFT.on('pointerup', function () 
         {
             console.log("btnLEFT  off");

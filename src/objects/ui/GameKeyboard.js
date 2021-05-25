@@ -25,7 +25,9 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                             break;
         
                         case "ArrowUp":
+                            console.log("je presse arrowUp");
                             Tableau.current.arrowUpPressed = true;
+                            Tableau.current.keyboardArrowUp = true;
                             break;
         
                         case "ArrowDown":
@@ -88,20 +90,25 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                 {
                     switch (kevent.key){
                         case "ArrowRight":
-                            Tableau.current.player.directionX = 1;
+                            //Tableau.current.player.directionX = 1;
+                            Tableau.current.arrowRightUnpressed = true;
                             Tableau.current.arrowRightPressed = false;
                             Tableau.current.JumpRetomber();
                             break;
         
                         case "ArrowLeft":
-                            Tableau.current.player.directionX = -1;
+                            //Tableau.current.player.directionX = -1;
+                            Tableau.current.arrowLeftUnpressed = true;
                             Tableau.current.arrowLeftPressed = false;
                             Tableau.current.JumpRetomber();
                             break;
         
                         case "ArrowUp":
-                            Tableau.current.player.directionY=0;
+                            console.log("je relêche arrowUp");
+                            Tableau.current.keyboardArrowUp = false;
+                            Tableau.current.player.directionY = 0;
                             Tableau.current.arrowUpPressed = false;
+                            Tableau.current.firstJump = true;
                             break;
         
                         case "ArrowDown":

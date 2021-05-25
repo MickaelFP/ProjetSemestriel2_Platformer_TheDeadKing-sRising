@@ -157,11 +157,14 @@ class Tableau extends Phaser.Scene{
         this.accelerationSpeed1 = false;
         this.dashActivated = false;
 
+        this.arrowRightUnpressed = false;
         this.arrowRightPressed = false;
+        this.arrowLeftUnpressed = false;
         this.arrowLefttPressed = false;
         this.playerMoveStop = false;
         //this.contactSolides = false;
 
+        this.keyboardArrowUp = false;
         this.arrowUpPressed = false;
         this.jumpStop = false;
         this.timingJump = true;
@@ -212,6 +215,7 @@ class Tableau extends Phaser.Scene{
 
         // ----------------------------------- Effets pour chaques touches configurées -----------------------------------
 
+        this.deplacementPlayer();
         this.jumper();
         this.throwBones();
         this.showInfoCtrl();
@@ -253,23 +257,77 @@ class Tableau extends Phaser.Scene{
     } // FIN DE UPDATE
 
 
+    deplacementPlayer() // Pour plus de fluidité de le changement de direction gauche/droite, droite/gauche (Uniquement sur PC)
+    {
+        if(this.arrowLeftUnpressed) // Fonctions ...Unpressed définies dans Tableau.js et appelées true dans GameKeyboard.js
+        {
+            if(this.arrowRightPressed)
+            {
+                //console.log("Mystère 1 : Left -> y Right");
+                this.player.directionX = 1;
+                this.arrowLeftUnpressed = false;
+            }
+            else
+            {
+                //console.log("Mystère 1 : Left -> n Right");
+                this.player.directionX = 0;
+                this.arrowLeftUnpressed = false;
+            }
+        }
+        else if(this.arrowRightUnpressed)
+        {
+            if(this.arrowLeftPressed)
+            {
+                //console.log("Mystère 1 : Right -> y Left");
+                this.player.directionX = -1;
+                this.arrowRightUnpressed = false;
+            }
+            else
+            {
+                //console.log("Mystère 1 : Right -> n Left");
+                this.player.directionX = 0;
+                this.arrowRightUnpressed = false;
+            }
+        }
+    }
+
+
     jumper()
     {
         if(this.arrowUpPressed && !this.player.isDead)
         {
-            //console.log("On jump");
-            this.player.directionY = -1;
-            this.jumpStop = false;
+            if(this.firstJump)
+            {
+                console.log("On jump");
+                this.player.directionY = -1;
+                this.jumpStop = false;
+                this.firstJump = false;
+            }
+            else
+            {
+                this.player.directionY = 0;
+            }
+
+            if(!this.keyboardArrowUp)
+            {
+                this.time.addEvent
+                ({
+                    delay: 200,
+                    callback: ()=>
+                    {
+                        this.arrowUpPressed = false;
+                        console.log("stopJump if Pad !!!");
+                    },
+                    loop: false
+                })
+            }
 
         }
     }
 
 
     playerIntangible()
-    {
-        //this.player.directionX = 0;
-        //this.player.directionY = 0;
-        //this.player.setGravity(0, 0);
+    {;
         this.player.isDead = true;
     }
     playerTangible()
