@@ -8,6 +8,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
 
             this.cursors = scene.input.keyboard.createCursorKeys();
 
+            if(!this.isMobil){
             scene.input.keyboard.on('keydown', function(kevent){
                 if(Tableau.current && Tableau.current.player)
                 {
@@ -24,9 +25,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                             break;
         
                         case "ArrowUp":
-                            Tableau.current.player.directionY=-1;
                             Tableau.current.arrowUpPressed = true;
-                            Tableau.current.jumpStop = false;
                             break;
         
                         case "ArrowDown":
@@ -45,7 +44,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                         
                         case "i":
                             Tableau.current.iPressed = true;
-                            console.log("ShowInfosCtrl");
+                            //console.log("ShowInfosCtrl");
                             break;
         
                         case "Control":
@@ -64,7 +63,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                             break;
             
                         case "p":
-                            console.log("temps mort");
+                            //console.log("temps mort");
                             Tableau.current.pPressed = true;
                             break;
                         
@@ -115,7 +114,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                             break;
                         
                         case "i":
-                            console.log("plus besoin");
+                            //console.log("plus besoin");
                             Tableau.current.iPressed = false;
                             Tableau.current.infosTime = true;
                             break;
@@ -136,7 +135,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                             break;
 
                         case "p":
-                            console.log("c'est reparti");
+                            //console.log("c'est reparti");
                             Tableau.current.pPressed = false;
                             Tableau.current.pauseTime = true;
                             break;
@@ -157,6 +156,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                 }
 
             });
+            }
 
         
 

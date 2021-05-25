@@ -944,22 +944,28 @@ class Niveau1 extends Tableau
             {
 
                 //console.log("cameras.main.fadeIn   DEBUG   DEBUG   DEBUG");
-                this.cameras.main.fadeIn(6000, 0, 0, 0);
+                this.cameras.main.fadeIn(3000, 0, 0, 0);
                 this.player.setPosition(player.x-994, player.y-1152);//384);
                 this.time.addEvent
                 ({
-                    delay: 1000,
+                    delay: 2000,
                     callback: ()=>
                     {
                         Tableau.current.playerMoveStop = false;
-                        //console.log("Marche, cours, plonge, mais ne vole pas !!!");
+                        console.log("Marche, cours, plonge, mais ne vole pas !!!");
                     },
                     loop: false
                 })
 
                 this.passage = true;
+                //this.tpFiniBouge = true;
                 //this.passageMusic = true;
             }
+
+            /*if(this.tpFiniBouge)
+            {
+
+            }*/
 
         }, null, this);
 

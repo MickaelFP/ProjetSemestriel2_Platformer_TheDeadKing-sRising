@@ -68,7 +68,7 @@ class GamePadButtons extends GameKeyboard
         btnUP.on('pointerdown', function () 
         {
             console.log("btnUP");
-            Tableau.current.player.directionY = -1;
+            //Tableau.current.player.directionY = -1;
             Tableau.current.arrowUpPressed = true;
             Tableau.current.jumpStop = false;
         });
@@ -99,13 +99,14 @@ class GamePadButtons extends GameKeyboard
         btnUP.on('pointerup', function () 
         {
             console.log("btnUP  off");
-            Tableau.current.player.directionY=0;
+            Tableau.current.player.directionY = 0;
             Tableau.current.arrowUpPressed = false;
+            Tableau.current.firstJump = true;
         });
         btnDOWN.on('pointerup', function () 
         {
             console.log("btnDOWN  off");
-            Tableau.current.player.directionY=0;
+            Tableau.current.player.directionY = 0;
             Tableau.current.arrowDownPressed = false;
         });
 

@@ -166,6 +166,7 @@ class Tableau extends Phaser.Scene{
         this.jumpStop = false;
         this.timingJump = true;
         this.stopTomber = false;
+        this.firstJump = true;
         
         this.arrowDownPressed = false;
         this.tJArrowDownPressed = false;
@@ -211,12 +212,13 @@ class Tableau extends Phaser.Scene{
 
         // ----------------------------------- Effets pour chaques touches configurées -----------------------------------
 
+        this.jumper();
         this.throwBones();
         this.showInfoCtrl();
         this.playerHealing();
         this.dash();
         this.clearCheckPoints(); 
-        this.fullScreenFonction();
+        //this.fullScreenFonction();
         this.pause();
 
         // ----------------------------------- Effets déclenchés -----------------------------------
@@ -249,6 +251,18 @@ class Tableau extends Phaser.Scene{
         }, null, this);
 
     } // FIN DE UPDATE
+
+
+    jumper()
+    {
+        if(this.arrowUpPressed && !this.player.isDead)
+        {
+            //console.log("On jump");
+            this.player.directionY = -1;
+            this.jumpStop = false;
+
+        }
+    }
 
 
     playerIntangible()
@@ -291,7 +305,7 @@ class Tableau extends Phaser.Scene{
     }
 
 
-    fullScreenFonction() // fonctionne pas
+    /*fullScreenFonction() // fonctionne pas
     {
         if(this.escapePressed)
         {
@@ -305,7 +319,7 @@ class Tableau extends Phaser.Scene{
             }
         }
 
-    }
+    }*/
 
 
     /*storyBox() // Comme j'ai déjà surchargé mes assets Tiled, cette fois on essaye la méthode de position ( même si j'en raffole pas -_- ).
