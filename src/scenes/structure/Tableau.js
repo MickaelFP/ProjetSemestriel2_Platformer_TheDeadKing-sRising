@@ -259,32 +259,32 @@ class Tableau extends Phaser.Scene{
 
     deplacementPlayer() // Pour plus de fluidité de le changement de direction gauche/droite, droite/gauche (Uniquement sur PC)
     {
-        if(this.arrowLeftUnpressed) // Fonctions ...Unpressed définies dans Tableau.js et appelées true dans GameKeyboard.js
+        if(this.arrowLeftUnpressed && !Tableau.current.player.jumping) // Fonctions ...Unpressed définies dans Tableau.js et appelées true dans GameKeyboard.js
         {
             if(this.arrowRightPressed)
             {
-                //console.log("Mystère 1 : Left -> y Right");
+                console.log("Mystère 1 : Left -> y Right");
                 this.player.directionX = 1;
                 this.arrowLeftUnpressed = false;
             }
             else
             {
-                //console.log("Mystère 1 : Left -> n Right");
+                console.log("Mystère 1 : Left -> n Right");
                 this.player.directionX = 0;
                 this.arrowLeftUnpressed = false;
             }
         }
-        else if(this.arrowRightUnpressed)
+        else if(this.arrowRightUnpressed && !Tableau.current.player.jumping)
         {
             if(this.arrowLeftPressed)
             {
-                //console.log("Mystère 1 : Right -> y Left");
+                console.log("Mystère 1 : Right -> y Left");
                 this.player.directionX = -1;
                 this.arrowRightUnpressed = false;
             }
             else
             {
-                //console.log("Mystère 1 : Right -> n Left");
+                console.log("Mystère 1 : Right -> n Left");
                 this.player.directionX = 0;
                 this.arrowRightUnpressed = false;
             }
