@@ -1,9 +1,9 @@
-class ElementRocheQuiRoule extends Phaser.Physics.Arcade.Sprite 
+class ElementRocheQuiRoule2 extends Phaser.Physics.Arcade.Sprite 
 {
 
     constructor(scene, x, y,) 
     {
-        super(scene, x, y, 'rocheQuiRoule');
+        super(scene, x, y, 'rocheQuiRoule2');
 
         scene.add.existing(this);
         scene.physics.add.existing(this);

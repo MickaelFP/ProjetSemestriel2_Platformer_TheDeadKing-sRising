@@ -20,6 +20,7 @@ class Tableau extends Phaser.Scene{
         this.load.image('sky', 'assets/backgrounds/sky3.png');
         this.load.image('sun', 'assets/elements/sun.jpg');
         this.load.image('ossement', 'assets/elements/ossement.png');
+        this.load.image('etoffe', 'assets/elements/etoffes.png');
         this.load.image('blood', 'assets/elements/bloodblack.png');
         this.load.image('spike', 'assets/elements/spike.png');
         this.load.image('osExplosion', 'assets/elements/persoMort.png');
@@ -35,6 +36,7 @@ class Tableau extends Phaser.Scene{
         this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie_remastered.png', { frameWidth: 32, frameHeight: 48 } ); 
 
         this.load.audio('os', 'assets/Sound/os_sound.mp3');
+        //this.load.audio('tissu', 'assets/Sound/tissu_sound.mp3');
         this.load.audio('splash', 'assets/Sound/splash.mp3');
         this.load.audio('crack', 'assets/Sound/crack.mp3');
         this.load.audio('brkkk', 'assets/Sound/broke_sound.mp3');
@@ -990,15 +992,15 @@ class Tableau extends Phaser.Scene{
     } // FIN DE VASEBROKE 
 
 
-    // ********************************* Gestionnaire de collectibilité des ossements (score) *********************************
-    //
+    // ********************************* Gestionnaire de collectibilité des ressources (score, equipements...) *********************************
+    // OSSEMENTS
     ramasserEtoile (player, star)
     {
         star.disableBody(true, true);
         star.emit("disabled");
         ui.gagne();
-        this.music = this.sound.add('os');
 
+        this.music = this.sound.add('os');
         var musicConfig = 
         {
             mute: false,
@@ -1025,8 +1027,27 @@ class Tableau extends Phaser.Scene{
             this.win();
         }
         */
-    } // FIN DE RAMASSERETOILE
+    }
+    // ETOFFES
+    ramasserEtoffe (player, etoffe)
+    {
+        etoffe.disableBody(true, true);
+        //etoffe.emit("disabled");
+        ui.ramasser();
 
+        this.music = this.sound.add('os');
+        var musicConfig = 
+        {
+            mute: false,
+            volume: 0.3,
+            rate : 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay:0,
+        }
+        this.music.play(musicConfig);
+    }
 
     // ********************************* Tentative de déplacement d'un monstre en fonction des coordonées du joueur *********************************
     //
@@ -1297,7 +1318,6 @@ class Tableau extends Phaser.Scene{
             },
             loop: false
         })
-    
     }
     vulnerable()
     {

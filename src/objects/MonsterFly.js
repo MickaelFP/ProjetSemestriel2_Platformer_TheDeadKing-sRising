@@ -49,7 +49,7 @@ class MonsterFly extends ObjetEnnemi{
                 onComplete: function () {
                     me.start();
                 }
-            })
+        })
 
     }
 

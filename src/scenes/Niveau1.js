@@ -13,13 +13,14 @@ class Niveau1 extends Tableau
         // nos images principales
         this.load.image('star', 'assets/elements/ossement.png');
         this.load.image('ossement', 'assets/elements/ossement.png');
+        this.load.image('etoffe', 'assets/elements/etoffes.png');
         this.load.image('os', 'assets/elements/ossement.png');
         this.load.image('platformStone', 'assets/elements/platformStone.png');
         this.load.image('plate', 'assets/elements/petitePlateformePierre.png');
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere3.png');
 
         // les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingAlpha9_3.json'); // -> 'TheDeadKingRisingAlpha1-3.json'
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingBeta3.json'); // -> 'TheDeadKingRisingAlpha9-3.json'
 
         // -----Decors-------------
         this.load.image('night', 'assets/backgrounds/nuit_etoile_turquoise.png'); // sky_plan_nuitEtoileCarre.png');
@@ -34,6 +35,7 @@ class Niveau1 extends Tableau
         this.load.image('solFragile', 'assets/elements/sol_fragile.png'); // solFragile.png / sol-terre
         this.load.image('solFragilePierre', 'assets/elements/roche_devant.png'); // solFragilePierre.png');
         this.load.image('rocheQuiRoule', 'assets/elements/roche_devant3.jpg'); // solFragilePierre1.png');
+        this.load.image('rocheQuiRoule2', 'assets/elements/roche_devant3_2.jpg');
         this.load.image('infCtrl', 'assets/elements/infos_controls3.png');
 
         this.load.spritesheet('checkPoint', 'assets/Spritesheet/corbeauAnimation1.png', { frameWidth: 448, frameHeight: 448 } );
@@ -72,6 +74,7 @@ class Niveau1 extends Tableau
         // -----Atlas de texture généré avec https://free-tex-packer.com/app/ -------------
         //on y trouve notre étoiles et une tête de mort
         this.load.atlas('particles', 'assets/particles/particlesM.png', 'assets/particles/particles.json'); // original 'particles.png'
+        this.load.atlas('particles2', 'assets/particles/particles2.png', 'assets/particles/particles.json');
     }
     create() 
     {
@@ -222,7 +225,7 @@ class Niveau1 extends Tableau
         this.platforms5 = this.physics.add.group();
 
         this.platforms5.create(5040, 896+hauteurDif);
-        this.platforms5.create(5440, 1280+hauteurDif);
+        //this.platforms5.create(5440, 1280+hauteurDif);
 
         this.platforms5.children.iterate(function (child) {
             child.setImmovable(true);
@@ -274,11 +277,14 @@ class Niveau1 extends Tableau
         // 3 Permet d'utiliser l'éditeur de collision de Tiled...mais ne semble pas marcher pas avec le moteur de physique ARCADE, donc oubliez cette option :(
         //this.map.setCollisionFromCollisionGroup(true,true,this.plateformesSimples);
 
-        //------------------------------------------------ Les étoiles (objets) ------------------------------------------------
-
+        //------------------------------------------------ Les collectibles (objets: star, ossements, equipement...) ------------------------------------------------
+        //
+        //this.collectiblesContainer=this.add.container();
+        //
+        // OSSEMENTS
         this.stars = this.physics.add.group(
         {
-            allowGravity: true,
+            allowGravity: false,
             immovable: false,
             bounceY:0
         });
@@ -287,9 +293,46 @@ class Niveau1 extends Tableau
         this.starsObjects.forEach(starObject => 
         {
             // Pour chaque étoile on la positionne pour que ça colle bien car les étoiles ne font pas 64x64
-            let star = this.stars.create(starObject.x+48, starObject.y-64, 'particles','star');
+            let star = this.stars.create(starObject.x+48, starObject.y-10/*, 'particles2'*/,'star');
+            this.tweens.add({
+                targets: [star],
+                y: {
+                    from: starObject.y-10,
+                    to: starObject.y-12,
+                    duration: 500,
+                    ease: 'Sine.easeInOut',
+                    yoyo: -1,
+                    repeat:-1
+                }
+            });
+        });
+        //
+        // EQUIPEMENT
+        this.etoffes = this.physics.add.group(
+        {
+            allowGravity: false,
+            immovable: false,
+            bounceY:0
         });
 
+        this.etoffesObjects = this.map.getObjectLayer('etoffes')['objects'];
+        // On crée des étoiles pour chaque objet rencontré
+        this.etoffesObjects.forEach(etoffeObject => 
+        {
+            // Pour chaque étoile on la positionne pour que ça colle bien car les étoiles ne font pas 64x64
+            let etoffe = this.etoffes.create(etoffeObject.x+48, etoffeObject.y-10, 'etoffe');
+            this.tweens.add({
+                targets: [etoffe],
+                y: {
+                    from: etoffeObject.y-10,
+                    to: etoffeObject.y-12,
+                    duration: 500,
+                    ease: 'Sine.easeInOut',
+                    yoyo: -1,
+                    repeat:-1
+                }
+            });
+        });
 
         //------------------------------------------------ Les monstres (objets tiled) ------------------------------------------------
 
@@ -385,6 +428,13 @@ class Niveau1 extends Tableau
         this.rocheQuiRouleObjects.forEach(monsterObject => 
         {
             let monster=new ElementRocheQuiRoule(this,monsterObject.x+32,monsterObject.y-32);
+            this.monstersContainer.add(monster);
+            this.physics.add.collider(monster, this.solides);
+        });
+        this.rocheQuiRouleObjects2 = this.map.getObjectLayer('rocheQuiRoule2')['objects'];
+        this.rocheQuiRouleObjects2.forEach(monsterObject => 
+        {
+            let monster=new ElementRocheQuiRoule2(this,monsterObject.x+32,monsterObject.y-32);
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
         });
@@ -617,20 +667,22 @@ class Niveau1 extends Tableau
 
 
         //------------------------------------------------ Effet sur les étoiles (ou autre collectible) ------------------------------------------------
-
+        //
+        // OSSEMENTS
         let starsFxContainer=ici.add.container();
         this.stars.children.iterate(function(etoile) 
         {
-            let particles=ici.add.particles("particles","star");
+            let particles=ici.add.particles("particles2","star");
             let emmiter=particles.createEmitter(
             {
-                tint:[  0xFFFFFF,0xE8E8E8,0xDBDBDB,0xCCCCCC ], // original [  0xFF8800,0xFFFF00,0x88FF00,0x8800FF ]
-                rotate: {min:0,max:360},
-                scale: {start: 0.2, end: 0.2},
-                alpha: { start: 1, end: 0 },
+                //tint:[  0xFFFFFF,0xE8E8E8,0xDBDBDB,0xCCCCCC ], // original [  0xFF8800,0xFFFF00,0x88FF00,0x8800FF ]
+                tint:[  0x7BF44E,0x95F671,0xB0F895,0xCAFBB8 ],
+                //rotate: {min:360,max:360},
+                scale: {start: 0.2, end: 0.1},
+                alpha: { start: 0.4, end: 0 },
                 blendMode: Phaser.BlendModes.ADD, //MULTIPLY
                 //lifespan:3000,
-                speed:40
+                speed:30
             });
             etoile.on("disabled",function()
             {
@@ -854,9 +906,11 @@ class Niveau1 extends Tableau
         //les solides
         this.physics.add.collider(this.player, this.solides);
         this.physics.add.collider(this.stars, this.solides);
+        this.physics.add.collider(this.etoffes, this.solides);
 
         //joueur et étoiles(collectibles)
         this.physics.add.overlap(this.player, this.stars, this.ramasserEtoile, null, this);
+        this.physics.add.overlap(this.player, this.etoffes, this.ramasserEtoffe, null, this);
 
         //quand on touche la lave (ou autre surface mortelle), on meurt
         this.physics.add.collider(this.player, this.lave,this.playerDie,null,this);
@@ -864,18 +918,23 @@ class Niveau1 extends Tableau
         //plateformes
         this.physics.add.collider(this.player, this.platforms); // entre joueur et plateformes
         this.physics.add.collider(this.stars, this.platforms); // entre étoiles et plateformes
+        this.physics.add.collider(this.etoffes, this.platforms); // entre étoffes et plateformes
 
         this.physics.add.collider(this.player, this.platforms2);
         this.physics.add.collider(this.stars, this.platforms2);
+        this.physics.add.collider(this.etoffes, this.platforms2);
 
         this.physics.add.collider(this.player, this.platforms3);
         this.physics.add.collider(this.stars, this.platforms3);
+        this.physics.add.collider(this.etoffes, this.platforms3);
 
         this.physics.add.collider(this.player, this.platforms4);
         this.physics.add.collider(this.stars, this.platforms4);
+        this.physics.add.collider(this.etoffes, this.platforms4);
 
         this.physics.add.collider(this.player, this.platforms5);
         this.physics.add.collider(this.stars, this.platforms5);
+        this.physics.add.collider(this.etoffes, this.platforms5);
 
         //projectils
         //...
@@ -1167,10 +1226,14 @@ class Niveau1 extends Tableau
 
         //on définit les z à la fin. z-- = on décrémente par rapport à z ou à la valeur précédente qui décrémente de z.
         let z=1000; 
+
+        this.infCtrl.setDepth(1000);
+        this.checkPoints.setDepth(997);
         this.platforms5.setDepth(984);
         //this.platforms6.setDepth(984);
-        this.checkPoints.setDepth(997);
-        this.infCtrl.setDepth(1000);
+        //this.collectiblesContainer.setDepth(992);
+        this.etoffes.setDepth(991);
+
         debug.setDepth(z--);
 
         this.skyDevant.setDepth(z--);

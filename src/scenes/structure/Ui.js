@@ -14,13 +14,13 @@ class Ui extends Phaser.Scene{
         /*****LIST DE FONT TEXTE ( ils ne fonctionnes pas tous malheureusement :'[ )*****
         
         //  Hanalei Fill*  //  Courrier  //  Verdana  //  Georgia  //  Arial*  //  Tahoma  //  Marlett*  //  Lucida Console*  //  Trebuchet MS*
-        //  Webdings*  //  Impact*  //  Script MT Bold  //  ...
+        //  Webdings*  //  Impact*  //  /*Script MT Bold*/  //  ...
 
-        */
 
         /********** ON DEFINIT L'AFFICHAGE DU TEXT ET DE L'UI A L'ECRAN **********/
 
-        this.score=0;
+        this.score = 0;
+        this.nbPiece = 0;
         /**
          * Le champ texte du score
          * @type {Phaser.GameObjects.Text}
@@ -40,6 +40,16 @@ class Ui extends Phaser.Scene{
             font:'16px "Script MT Bold"',
             fill: '#fff'
         });
+
+        /**
+        * Le champ texte du nombre de pièces d'équipement
+        * @type {Phaser.GameObjects.Text}
+        * @private
+        */
+                 this._outfitText = this.add.text(16, 16+160, '', {
+                    font:'16px "Script MT Bold"',
+                    fill: '#fff'
+                });
 
         /**
          * Le champ texte avec la clé du tableau
@@ -80,32 +90,37 @@ class Ui extends Phaser.Scene{
         let me=this;
         setTimeout(function(){
             me.tableau="Hello World";
-            me.gagne(0)
+            me.gagne(0);
         },100)
 
         setTimeout(function(){
             me.tableau="Hello World";
-            me.gagne1(0)
+            me.gagne1(0);
         },100)
 
         setTimeout(function(){
             me.tableau="Hello World";
-            me.gagne2(0)
+            me.gagne2(0);
         },100)
 
         setTimeout(function(){
             me.tableau="Hello World";
-            me.perdre(0)
+            me.perdre(0);
         },100)
 
         setTimeout(function(){
             me.tableau="Hello World";
-            me.perdre1(0)
+            me.perdre1(0);
         },100)
 
         setTimeout(function(){
             me.tableau="Hello World";
-            me.perdre2(0)
+            me.perdre2(0);
+        },100)
+
+        setTimeout(function(){
+            me.tableau="Hello World";
+            me.ramasser(0);
         },100)
 
         //let pad=new GamePad(this,0,0);
@@ -293,6 +308,39 @@ class Ui extends Phaser.Scene{
         {
             this.pad.visible = false;
             this._scoreText.visible = false;
+        }
+
+    }
+
+
+    //------------------------------------------------ Gestion du nombre de pièces d'équipement ---------------------------------
+
+    /********** QUAND ON RECUPERE DES PIECES D'ETOFFE **********/
+
+    ramasser(points=1)
+    {
+        let me = this;
+        me.nbPiece += points;
+        if(me.nbPiece < 20)
+        {
+            if (me.nbPiece > 0)
+            {
+                me._outfitText.setText('Outfit: ' + me.nbPiece);
+            }
+            else if (me.score < 0)
+            {
+                me.nbPiece = 0;
+                me._outfitText.setText('Outfit: ' + me.nbPiece);
+            }
+            else
+            {
+                me.nbPiece = 0;
+            }
+        }
+        else
+        {
+            me.nbPiece = 20;
+            me._outfitText.setText('Outfit: ' + me.nbPiece);
         }
 
     }
