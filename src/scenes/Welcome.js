@@ -19,7 +19,7 @@ class Welcome extends Phaser.Scene {
   
     create()
     {
-        // Fonts : Script MT Bold, CustomFont1
+        // Fonts : Script MT Bold, Script MT
 
         //---------- on clean le storage ----------
 
@@ -80,13 +80,13 @@ class Welcome extends Phaser.Scene {
 
         //---------- on affiche les textes que l'on veut faire apparaître (boutons, titre...) ----------
 
-        let startBText1 = this.add.text(game.config.width/2-80, game.config.height -265, "Play",{font: "28px CustomFont", fill:"#000000"}); //375,560,FFF
-        let startBText2 = this.add.text(game.config.width/2-80, game.config.height -165, "Ctrls",{font: "28px CustomFont", fill:"#000000"});
-        let startBText3 = this.add.text(game.config.width/2-80, game.config.height -65, "Credits",{font: "28px CustomFont", fill:"#000000"});
+        let startBText1 = this.add.text(game.config.width/2-80, game.config.height -265, "Play",{font: "28px Script MT", fill:"#000000"}); //375,560,FFF
+        let startBText2 = this.add.text(game.config.width/2-80, game.config.height -165, "Ctrls",{font: "28px Script MT", fill:"#000000"});
+        let startBText3 = this.add.text(game.config.width/2-80, game.config.height -65, "Credits",{font: "28px Script MT", fill:"#000000"});
 
-        let startBText1_2 = this.add.text(game.config.width/2-12, game.config.height -265, "[enter]",{font: "28px CustomFont", fill:"#000000"});
-        let startBText2_2 = this.add.text(game.config.width/2-12, game.config.height -165, "[space]",{font: "28px CustomFont", fill:"#000000"});
-        let startBText3_2 = this.add.text(game.config.width/2+12, game.config.height -65, "[-]",{font: "28px CustomFont", fill:"#000000"});
+        let startBText1_2 = this.add.text(game.config.width/2-12, game.config.height -265, "[enter]",{font: "28px Script MT", fill:"#000000"});
+        let startBText2_2 = this.add.text(game.config.width/2-12, game.config.height -165, "[space]",{font: "28px Script MT", fill:"#000000"});
+        let startBText3_2 = this.add.text(game.config.width/2+12, game.config.height -65, "[-]",{font: "28px Script MT", fill:"#000000"});
 
         //tweens permet de donner un petit effet à la cible voulue (target)
         this.tweens.add(
