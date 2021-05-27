@@ -1,14 +1,18 @@
-class MonsterBossSpectre extends ObjetEnnemi{
+/*class MonsterBossSpectre2 extends Phaser.Physics.Arcade.Sprite
+{
     /**
      *
      * @param {Tableau} scene
      * @param x
      * @param y
-     */
-    constructor(scene, x, y) {                                                              //OBLIGATOIRE
-        super(scene, x, y,"bossSpectre");                                                       //OBLIGATOIRE
-        //pas de gravité
-        this.body.allowGravity=true;
+     
+    constructor(scene, x, y)
+    {
+        super(scene, x, y,"bossSpectre");
+
+        scene.add.existing(this);
+        scene.physics.add.existing(this);
+        scene.physics.add.collider(scene.player, this);
         
         //this.physics.add.sprite(300,this.sys.canvas.height-70,"monster-zombie");
         //this.physics.add.collider(monster, this.solides);
@@ -31,7 +35,7 @@ class MonsterBossSpectre extends ObjetEnnemi{
             repeat: -1,
         });
         this.anims.play('moving', true);
-        */
+        
 
         
         // X
@@ -82,7 +86,7 @@ class MonsterBossSpectre extends ObjetEnnemi{
             {
                 from: this.minX,
                 to: this.maxX,
-                duration: 10*1600*Math.random(), // 1500 de base
+                duration: 10*800*Math.random(), // 1500 de base
                 ease: 'Sine.easeInOut',
                 yoyo: -1,
                 repeat: -1,
@@ -93,14 +97,49 @@ class MonsterBossSpectre extends ObjetEnnemi{
             {
                 from: this.minY,
                 to: this.maxY,
-                duration: 10*800*Math.random(), // 5000 de base
+                duration: 10*2500, // 5000 de base
                 ease: 'Sine.easeInOut',
                 yoyo: -1,
                 repeat: -1
             }
         });
     }
-    
+
+
+    DamageEffect()
+    {
+        console.log("Crêve manant !!!")
+        this.BarreDeVie -= 1;
+
+        if(this.BarreDeVie <= 0)
+        {
+            Tableau.current.player.setVelocityY(-500);
+            console.log("Boss hp : " + this.BarreDeVie);
+            this.isDead = true;
+            this.isAlive = false;
+            this.disableBody(true, true);
+            Tableau.current.oneDropePower = true;
+            Tableau.current.oneShotOnBoss = true;
+        }
+        else
+        {
+            Tableau.current.player.setVelocityY(-500);
+            console.log("Raaaaa, la prochaine c'est la bonne !!!")
+            console.log("Boss hp : " + this.BarreDeVie);
+            Tableau.current.oneShotOnBoss = true;
+        }
+
+        if(this.velocity.x > 0)
+        {
+            
+        }
+
+        /*if(this.isDead)
+        {
+            Tableau.current.win();
+        }
+    }
+
 
     invulnerability()
     {
@@ -135,8 +174,60 @@ class MonsterBossSpectre extends ObjetEnnemi{
 
 
     update(player)
-    {  
+    {
         //this.invulnerability();
+        //this.physics.add.overlap(Tableau.current.player, this, this.update(), null, this);
+        /*this.physics.add.overlap(Tableau.current.player, this, function(player)
+        {
+            ici.allumerBougie2(bougie2.bougie2Object.name);
+
+            if(Tableau.current.player.body.velocity.y == 0)
+            {
+                Tableau.current.jumpStop = false;
+            }
+            else
+            {
+                Tableau.current.jumpStop = true;
+            }
+
+        }, null, this);
+
+        if(!this.isDead && this.scene.player.x <= this.body.position.x + this.body.width && this.scene.player.x >= this.body.position.x &&
+            this.scene.player.y <= this.body.position.y + this.body.height && this.scene.player.y >= this.body.position.y )
+        {
+
+            if (Tableau.current.player.body.velocity.y >= 0 && Tableau.current.player.getBounds().bottom < this.getBounds().top+30) // this.body.touching.up && !this.isDead) 
+            {
+                console.log("dans la zone du boss");
+                //this.world.player.setVelocityX(400);
+                //this.killEffect();
+    
+                if(!Tableau.current.oneShotOnBoss) // && !Tableau.current.bossShield)
+                {
+                    this.DamageEffect();
+                }
+                else
+                {
+                    Tableau.current.time.addEvent
+                    ({
+                        delay: 5000,
+                        callback: ()=>
+                        {
+                            Tableau.current.oneShotOnBoss = false;
+                        },
+                        loop: false
+                    })
+                    Tableau.current.player.directionY = 500;
+                }
+    
+            }
+            else
+            {
+                Tableau.current.playerDamage();
+            }
+        }
+
+            
         /*if (player.x - monster.x > 0)
         {
             monster.scale.x = 1;
@@ -144,8 +235,10 @@ class MonsterBossSpectre extends ObjetEnnemi{
         else 
         {
             monster.scale.x = -1;
-        }*/
+        }
             
     }
+    
 
-}
+
+}*/

@@ -188,7 +188,7 @@ class Ui extends Phaser.Scene{
         }
     }
     // Elevé
-    gagne2(points=100)
+    gagne2(points=200)
     {
         let me = this;
         me.score += points;

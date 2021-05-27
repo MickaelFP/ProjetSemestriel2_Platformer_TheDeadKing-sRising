@@ -194,6 +194,7 @@ class Tableau extends Phaser.Scene{
         this.bossShield = false;
         this.oneDropePower = false;
         this.oneShotOnBoss = false;
+        this.hpMiniBoss = 10;
         //
         this.antiBug = true;
 
@@ -977,6 +978,40 @@ class Tableau extends Phaser.Scene{
     } // FIN DE SAIGNEPLAYER
 
 
+    /**
+     *
+     * @param {Sprite} object Objet qui saigne
+     * @param {function} onComplete Fonction à appeler quand l'animation est finie
+     */
+    saigneMiniBoss(object,onComplete)
+    {
+        let me=this;
+        me.blood.visible=true;
+        me.blood.rotation = Phaser.Math.Between(0,6);
+        me.blood.x=object.x;
+        me.blood.y=object.y;
+        me.tweens.add({
+            targets:me.blood,
+            duration:200,
+            displayHeight:
+            {
+                from:40,
+                to:70,
+            },
+            displayWidth:
+            {
+                from:40,
+                to:70,
+            },
+            onComplete: function () 
+            {
+                me.blood.visible=false;
+                onComplete();
+            }
+        })
+    } // FIN DE SAIGNEMINIBOSS
+
+
     // ********************************* Gestionnaire des effets déclenchés à la destruction d'un vase *********************************
     //
     /**
@@ -1112,6 +1147,75 @@ class Tableau extends Phaser.Scene{
         this.scene.restart();
 
     } // FIN DE HITSPIKE
+
+
+    miniBossLife()
+    {
+        this.hpMiniBoss -= 1;
+        console.log(this.hpMiniBoss);
+        if(this.hpMiniBoss <= 0)
+        {
+            ui.gagne2();
+            //monster.body.enable = false // Invulnérabilité temporaire
+            miniBoss.isDead = true; //ok le monstre est mort
+            //console.log("hitMonster() -> monster.isDead=true")
+            miniBoss.disableBody(true,true);//plus de collisions
+ 
+            this.saigneMiniBoss(miniBoss,function()
+            {
+                //effets déclenchés à la fin de l'animation :)
+            })
+ 
+            //petit son de mort du monstre
+            this.music = this.sound.add('splash');
+ 
+            var musicConfig = 
+            {
+                mute: false,
+                volume: 0.3,
+                rate : 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay:0,
+            }
+            this.music.play(musicConfig);
+        }
+        else
+        {
+            
+        }
+    }
+
+
+    /**
+     * Quand on touche un monstre
+     * si on le touche par en haut on le tue, sinon c'est lui qui nous tue
+     * @param {Player} player
+     * @param {Phaser.Physics.Arcade.Sprite} monster
+     */
+    hitMiniBoss(player, miniBoss)
+    {
+        if(!this.invicibleForEver)
+        {
+            let me=this;
+     
+            //this.blood2.setDepth(996);
+            if(miniBoss.isDead !== true)
+            { //si notre monstre n'est pas déjà mort
+                if(player.body.velocity.y >= 0 && player.getBounds().bottom < miniBoss.getBounds().top+30)
+                {
+                    this.miniBossLife();
+                    player.directionY = 500;
+
+                } 
+                else
+                {
+                    me.playerDamage();
+                }
+            }
+        }
+    } // FIN DE HITMONSTER
 
 
     /**

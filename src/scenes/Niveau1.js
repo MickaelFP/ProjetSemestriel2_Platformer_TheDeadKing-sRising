@@ -380,17 +380,25 @@ class Niveau1 extends Tableau
             //this.physics.add.collider(monster, this.projectil);
         });
         
+        
         // On crée le boss
         this.bossSpectreObjects = this.map.getObjectLayer('bossSpectre')['objects'];
-        this.bossSpectreObjects.forEach(monsterObject => 
+        this.bossSpectreObjects.forEach(miniBossObject => 
         {
-            let monster=new MonsterBossSpectre(this,monsterObject.x,monsterObject.y);
-            this.monstersContainer.add(monster);
-            this.physics.add.collider(monster, this.player);
-            this.physics.add.collider(monster, this.solides);
-            this.physics.add.collider(monster, this.platforms6);
-            this.physics.add.collider(monster, this.projectil);
+            let miniBoss=new MonsterBossSpectre(this,miniBossObject.x,miniBossObject.y);
+            this.monstersContainer.add(miniBoss);
+            this.physics.add.collider(miniBoss, this.player);
+            this.physics.add.collider(miniBoss, this.solides);
+            this.physics.add.collider(miniBoss, this.platforms6);
+            this.physics.add.collider(miniBoss, this.projectil);
             //this.physics.add.overlap(this.player, this.monster, monster.update(), null, this);
+
+            this.physics.add.overlap(this.bossSpectreObjects, this.player, function(bossSpectreObjects, player)
+            {
+                console.log("Debug Debug Debug Debug Debug Debug Debug")
+                Tableau.current.hitMiniBoss();
+
+            }, null, this);
         });
 
 
@@ -1281,7 +1289,8 @@ class Niveau1 extends Tableau
         {
             console.log("on atteint le checkpoint", checkPointName);
             localStorage.setItem("checkPoint", checkPointName);
-            this.musicAmb = this.sound.add('AmbianceHalloween1');
+
+            this.checkpointSound = this.sound.add('criCorbeau');
 
             var musicConfig = 
             {
@@ -1293,7 +1302,7 @@ class Niveau1 extends Tableau
                 loop: false,
                 delay:0,
             }
-            this.musicAmb.play(musicConfig);
+            this.checkpointSound.play(musicConfig);
            //this.unique = true;
         }
     } //---------------------------------- FIN DE SAVECHECKPOINT ----------------------------------
