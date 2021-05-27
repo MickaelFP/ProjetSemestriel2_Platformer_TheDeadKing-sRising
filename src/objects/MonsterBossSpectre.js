@@ -1,4 +1,4 @@
-class MonsterBossSpectre extends ObjetEnnemi
+class MonsterBossSpectre extends Phaser.Physics.Arcade.Sprite
 {
     /**
      *
@@ -9,22 +9,23 @@ class MonsterBossSpectre extends ObjetEnnemi
     constructor(scene, x, y)
     {
         super(scene, x, y,"bossSpectre");
-        this.body.allowGravity = false;
 
-        //scene.add.existing(this);
-        //scene.physics.add.existing(this);
-        //scene.physics.add.collider(scene.player, this);
+        scene.add.existing(this);
+        scene.physics.add.existing(this);
+        scene.physics.add.collider(scene.player, this);
         
         //this.physics.add.sprite(300,this.sys.canvas.height-70,"monster-zombie");
         //this.physics.add.collider(monster, this.solides);
         //this.physics.add.overlap(this.player, this.monstre, this.hitSpike, null, this);
         //this.setBounce(1);
+        this.body.allowGravity = false;
         this.setDisplaySize(160,180);
         this.setCollideWorldBounds(true);
         this.setBodySize(this.body.width,this.body.height);
         this.setVelocityX(0);
 
         this.BarreDeVie = 10;
+        console.log("Boss hp : " + this.BarreDeVie);
 
         /*
         this.anims.create({
@@ -54,8 +55,7 @@ class MonsterBossSpectre extends ObjetEnnemi
         this.alpha = 0;
         let me = this;
 
-        //on fait apparaitre notre objet avec un petit delay, puis on lance l'animation
-        //ceci a pour effet de décaler les animations pour ce même objet
+
         scene.tweens.add(
         {
             targets: this,
@@ -108,32 +108,100 @@ class MonsterBossSpectre extends ObjetEnnemi
 
     DamageEffect()
     {
-        
+        console.log("Crêve manant !!!")
+        this.BarreDeVie -= 1;
+
+        if(this.BarreDeVie <= 0)
+        {
+            Tableau.current.player.setVelocityY(-500);
+            console.log("Boss hp : " + this.BarreDeVie);
+            this.isDead = true;
+            this.isAlive = false;
+            this.disableBody(true, true);
+            Tableau.current.oneDropePower = true;
+            Tableau.current.oneShotOnBoss = true;
+        }
+        else
+        {
+            console.log("Raaaaa, la prochaine c'est la bonne !!!")
+            console.log("Boss hp : " + this.BarreDeVie);
+            Tableau.current.oneShotOnBoss = true;
+        }
+
+        /*if(this.isDead)
+        {
+            Tableau.current.win();
+        }*/
     }
-   
+
+
+    invulnerability()
+    {
+        if(!Tableau.current.oneShotOnBoss && !this.isDead)
+        {
+            Tableau.current.time.addEvent
+            ({
+                delay: 15000,
+                callback: ()=>
+                {
+                    if(!Tableau.current.oneShotOnBoss)
+                    {
+                        Tableau.current.bossShield = true;
+                        Tableau.current.time.addEvent
+                        ({
+                            delay: 5000,
+                            callback: ()=>
+                            {
+                                if(!Tableau.current.oneShotOnBoss)
+                                {
+                                    Tableau.current.bossShield = false;
+                                }
+                            },
+                            loop: false
+                        })
+                    }
+                },
+                loop: true
+            })
+        }
+    }
+
 
     update(player)
     {
-        if (this.body.touching.up && !this.isDead) 
+        //this.invulnerability();
+
+        if(!this.isDead)
         {
-          //this.world.player.setVelocityX(400);
-          //this.killEffect();
-          this.DamageEffect();
-          this.disableBody(true, true);
-          this.isAlive = false;
-          Tableau.current.oneDropePower = true;
-        }
+            if (player.body.velocity.y >= 0 && player.getBounds().bottom < monster.getBounds().top+30) // this.body.touching.up && !this.isDead) 
+            {
+                //this.world.player.setVelocityX(400);
+                //this.killEffect();
     
-
-        if(!this.isDead & this.BarreDeVie <= 0)
-        {
-            this.isDead = true;
+                if(!Tableau.current.oneShotOnBoss) // && !Tableau.current.bossShield)
+                {
+                    this.DamageEffect();
+                }
+                else
+                {
+                    Tableau.current.time.addEvent
+                    ({
+                        delay: 5000,
+                        callback: ()=>
+                        {
+                            Tableau.current.oneShotOnBoss = false;
+                        },
+                        loop: false
+                    })
+                }
+    
+            }
+            else
+            {
+                Tableau.current.playerDamage();
+            }
         }
 
-        if(this.isDead)
-        {
-            Tableau.current.win();
-        }
             
         /*if (player.x - monster.x > 0)
         {

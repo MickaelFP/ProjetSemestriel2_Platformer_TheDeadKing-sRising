@@ -131,67 +131,70 @@ class Tableau extends Phaser.Scene{
 
 
         // ----------------------------------- booleans simples que l'on compte utiliser -----------------------------------
-
+        //
         this.aPressed = false;
         this.oneShootOnly = true;
         this.youCanDestroyIt = false;
         //this.projectilDestroyed = false;
-
+        //
         this.iPressed = false;
         this.showInfos = false;
         this.infosTime = true;
         this.firstInfos = true;
-
+        //
         this.ControlPressed = false;
-
+        //
         this.pPressed = false;
         this.pauseTime = true;
         this.firstTimePressed = true;
-
+        //
         this.ePressed = false;
         this.oneHeal = false;
         this.startAuraHeal = false;
-
+        //
         this.dPressed = false;
         this.timingDash = false;
         this.oneTiming = true;
         this.oneDash = false;
         this.accelerationSpeed1 = false;
         this.dashActivated = false;
-
+        //
         this.arrowRightUnpressed = false;
         this.arrowRightPressed = false;
         this.arrowLeftUnpressed = false;
         this.arrowLefttPressed = false;
         this.playerMoveStop = false;
         //this.contactSolides = false;
-
+        //
         this.keyboardArrowUp = false;
         this.arrowUpPressed = false;
         this.jumpStop = false;
         this.timingJump = true;
         this.stopTomber = false;
         this.firstJump = true;
-        
+        //
         this.arrowDownPressed = false;
         this.tJArrowDownPressed = false;
-
+        //
         this.vaseDrope = false;
         this.oneDrope = false;
-        this.oneDropePower = false;
         this.monsterOfVaseIsDead = false;
-
+        //
         this.invicibleForEver = false;
         this.startAuraDmg = false;
-
+        //
         this.destructionTorcheLight = false;
         //this.torcheContact = false;
         //this.oneTorche = false;
-
+        //
         //this.zombieAlive = true;
         this.walking = true;
         this.monsterMoveStop = false;
-
+        //
+        this.bossShield = false;
+        this.oneDropePower = false;
+        this.oneShotOnBoss = false;
+        //
         this.antiBug = true;
 
     }
@@ -265,13 +268,13 @@ class Tableau extends Phaser.Scene{
         {
             if(this.arrowRightPressed)
             {
-                console.log("Mystère 1 : Left -> y Right");
+                //console.log("Mystère 1 : Left -> y Right");
                 this.player.directionX = 1;
                 this.arrowLeftUnpressed = false;
             }
             else
             {
-                console.log("Mystère 1 : Left -> n Right");
+                //console.log("Mystère 1 : Left -> n Right");
                 this.player.directionX = 0;
                 this.arrowLeftUnpressed = false;
             }
@@ -280,13 +283,13 @@ class Tableau extends Phaser.Scene{
         {
             if(this.arrowLeftPressed)
             {
-                console.log("Mystère 1 : Right -> y Left");
+                //console.log("Mystère 1 : Right -> y Left");
                 this.player.directionX = -1;
                 this.arrowRightUnpressed = false;
             }
             else
             {
-                console.log("Mystère 1 : Right -> n Left");
+                //console.log("Mystère 1 : Right -> n Left");
                 this.player.directionX = 0;
                 this.arrowRightUnpressed = false;
             }
@@ -300,7 +303,7 @@ class Tableau extends Phaser.Scene{
         {
             if(this.firstJump)
             {
-                console.log("On jump");
+                //console.log("On jump");
                 this.player.directionY = -1;
                 this.jumpStop = false;
                 this.firstJump = false;
@@ -318,7 +321,7 @@ class Tableau extends Phaser.Scene{
                     callback: ()=>
                     {
                         this.arrowUpPressed = false;
-                        console.log("stopJump if Pad !!!");
+                        //console.log("stopJump if Pad !!!");
                     },
                     loop: false
                 })
@@ -344,7 +347,7 @@ class Tableau extends Phaser.Scene{
         {
             if(this.firstTimePressed)
             {
-                console.log("On stop");
+                //console.log("On stop");
                 //this.playerMoveStop = true;
                 this.playerIntangible();
                 this.monsterMoveStop = true;
@@ -353,7 +356,7 @@ class Tableau extends Phaser.Scene{
             }
             else
             {
-                console.log("On redémarre");
+                //console.log("On redémarre");
                 this.playerTangible();
                 //this.playerMoveStop = false;
                 this.monsterMoveStop = false;
@@ -590,7 +593,7 @@ class Tableau extends Phaser.Scene{
             if (this.oneDrope)
             {
                 let me = this;
-                console.log("oneDrope");
+                //console.log("oneDrope");
 
                 me.monsterOfVase=new MonsterZombie(this,this.player.x+150,this.player.y+24,"zombie2").setDepth(996);
                 me.physics.add.collider(me.monsterOfVase, this.solides);
@@ -598,17 +601,17 @@ class Tableau extends Phaser.Scene{
 
                 if(!me.monsterOfVaseIsDead)
                 {                
-                    console.log("FIRST DEBUG");
+                    //console.log("FIRST DEBUG");
                     this.time.addEvent
                     ({
                         delay: 5000,
                         callback: ()=>
                         {
-                            console.log("SECOND DEBUG");
+                            //console.log("SECOND DEBUG");
                             if(!me.monsterOfVaseIsDead)
                             {
                                 this.monsterOfVase.disableBody(true,true);
-                                console.log("THIRD DEBUG");
+                                //console.log("THIRD DEBUG");
     
                                 this.saigne(me.monsterOfVase,function(){})
                                 this.music = this.sound.add('splash');

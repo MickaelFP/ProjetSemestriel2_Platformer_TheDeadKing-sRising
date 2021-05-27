@@ -385,9 +385,11 @@ class Niveau1 extends Tableau
         {
             let monster=new MonsterBossSpectre(this,monsterObject.x,monsterObject.y);
             this.monstersContainer.add(monster);
+            this.physics.add.collider(monster, this.player);
             this.physics.add.collider(monster, this.solides);
             this.physics.add.collider(monster, this.platforms6);
-            //this.physics.add.collider(monster, this.projectil);
+            this.physics.add.collider(monster, this.projectil);
+            this.physics.add.overlap(this.player, this.monster, monster.update(), null, this);
         });
 
 
@@ -412,7 +414,7 @@ class Niveau1 extends Tableau
             let monster=new ElementSolFragile(this,monsterObject.x+32,monsterObject.y-32);
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
-            this.physics.add.collider(monster, this.solides);
+            this.physics.add.collider(monster, this.projectil);
         });
 
         this.solFragilePierreObjects = this.map.getObjectLayer('solFragilePierre')['objects'];

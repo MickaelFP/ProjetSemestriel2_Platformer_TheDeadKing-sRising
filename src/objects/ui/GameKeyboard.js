@@ -25,7 +25,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                             break;
         
                         case "ArrowUp":
-                            console.log("je presse arrowUp");
+                            //console.log("je presse arrowUp");
                             Tableau.current.arrowUpPressed = true;
                             Tableau.current.keyboardArrowUp = true;
                             break;
@@ -51,7 +51,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
         
                         case "Control":
                             //console.log("checkPoint disable");
-                            Tableau.current.ControlPressed = true;
+                            //Tableau.current.ControlPressed = true;
                             break;
         
                         case "e":
@@ -104,7 +104,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                             break;
         
                         case "ArrowUp":
-                            console.log("je relêche arrowUp");
+                            //console.log("je relêche arrowUp");
                             Tableau.current.keyboardArrowUp = false;
                             Tableau.current.player.directionY = 0;
                             Tableau.current.arrowUpPressed = false;
