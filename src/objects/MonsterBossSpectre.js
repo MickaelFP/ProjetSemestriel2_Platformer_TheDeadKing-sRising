@@ -82,7 +82,7 @@ class MonsterBossSpectre extends ObjetEnnemi{
             {
                 from: this.minX,
                 to: this.maxX,
-                duration: 10*1600*Math.random(), // 1500 de base
+                duration: 1500, // 1500 de base
                 ease: 'Sine.easeInOut',
                 yoyo: -1,
                 repeat: -1,
@@ -93,7 +93,7 @@ class MonsterBossSpectre extends ObjetEnnemi{
             {
                 from: this.minY,
                 to: this.maxY,
-                duration: 10*800*Math.random(), // 5000 de base
+                duration: 5000, // 5000 de base
                 ease: 'Sine.easeInOut',
                 yoyo: -1,
                 repeat: -1

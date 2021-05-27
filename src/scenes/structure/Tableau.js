@@ -33,7 +33,8 @@ class Tableau extends Phaser.Scene{
         this.load.image('cacheTop', 'assets/backgrounds/cache_haut_ok.png');
         this.load.image('cacheBot', 'assets/backgrounds/cache_bas_ok.png');
 
-        this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie_remastered.png', { frameWidth: 32, frameHeight: 48 } ); 
+        this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie_remastered2.png', { frameWidth: 32, frameHeight: 56 } ); 
+        this.load.spritesheet('player', 'assets/Spritesheet/playerRemastered.png', { frameWidth: 32, frameHeight: 64  } );
 
         this.load.audio('os', 'assets/Sound/os_sound.mp3');
         //this.load.audio('tissu', 'assets/Sound/tissu_sound.mp3');
@@ -47,10 +48,6 @@ class Tableau extends Phaser.Scene{
         this.load.audio('criZombie', 'assets/Sound/Zombie_ID-2111.wav');
         this.load.audio('shhh', 'assets/Sound/sabre-9.mp3');
 
-        this.load.spritesheet('player',
-            'assets/Spritesheet/playerRemastered.png',
-            { frameWidth: 32, frameHeight: 64  }
-        );
     }
     create(){
 

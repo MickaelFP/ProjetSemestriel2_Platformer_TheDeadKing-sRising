@@ -44,7 +44,7 @@ class Niveau1 extends Tableau
         this.load.image('monster-fly', 'assets/entities/chauve-souris.png'); // original 'monster-fly'
         this.load.image('bossSpectre', 'assets/entities/bossSpectre_Remastered.png');
 
-        this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie_remastered.png', { frameWidth: 32, frameHeight: 48 } );       
+        //this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie_remastered2.png', { frameWidth: 32, frameHeight: 56 } );       
         this.load.spritesheet('squelette', 'assets/Spritesheet/player0.png', { frameWidth: 32, frameHeight: 48 } ); 
 
         // -----Particules-------------
@@ -731,7 +731,7 @@ class Niveau1 extends Tableau
 
         // On change de ciel
         // On fait une tileSprite ce qui permet d'avoir une image qui se répète
-        this.sky=this.add.tileSprite(
+        this.sky = this.add.tileSprite(
             0,
             0,
             this.sys.canvas.width,
@@ -752,7 +752,7 @@ class Niveau1 extends Tableau
         this.sky2.setScrollFactor(0);
         this.sky2.blendMode=Phaser.BlendModes.ADD;*/
 
-        this.sky3=this.add.tileSprite
+        this.sky3 = this.add.tileSprite
         (
             0,
             0,
@@ -763,7 +763,7 @@ class Niveau1 extends Tableau
         this.sky3.setOrigin(0,0);
         this.sky3.setScrollFactor(0);
         
-        this.sky4=this.add.tileSprite
+        this.sky4 = this.add.tileSprite
         (
             0,
             0,
@@ -774,7 +774,7 @@ class Niveau1 extends Tableau
         this.sky4.setOrigin(0,0);
         this.sky4.setScrollFactor(0);
         
-        this.sky5=this.add.tileSprite
+        this.sky5 = this.add.tileSprite
         (
             0,
             0,
@@ -785,7 +785,7 @@ class Niveau1 extends Tableau
         this.sky5.setOrigin(0,0);
         this.sky5.setScrollFactor(0);
 
-        this.skyDevant=this.add.tileSprite
+        this.skyDevant = this.add.tileSprite
         (
             0,
             0,
