@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'CustomFont';
+    font-style: bold;
+    src: url('assets/fonts/SCRIPTBL.ttf');
+}
+
 body{
     /* centre le jeu dans l'écran */
     margin: 0;
@@ -13,5 +19,3 @@ body{
     --w:896px;
     --h:448px;
 }
-
-
