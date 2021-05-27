@@ -1,7 +1,8 @@
 @font-face {
     font-family: 'CustomFont';
     font-style: bold;
-    src: url('assets/fonts/SCRIPTBL.ttf');
+    src: local(''),
+        url('assets/fonts/SCRIPTBL.ttf')format('ttf');
 }
 
 body{
