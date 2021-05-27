@@ -123,9 +123,15 @@ class MonsterBossSpectre extends Phaser.Physics.Arcade.Sprite
         }
         else
         {
+            Tableau.current.player.setVelocityY(-500);
             console.log("Raaaaa, la prochaine c'est la bonne !!!")
             console.log("Boss hp : " + this.BarreDeVie);
             Tableau.current.oneShotOnBoss = true;
+        }
+
+        if(this.velocity.x > 0)
+        {
+            
         }
 
         /*if(this.isDead)
@@ -170,11 +176,29 @@ class MonsterBossSpectre extends Phaser.Physics.Arcade.Sprite
     update(player)
     {
         //this.invulnerability();
-
-        if(!this.isDead)
+        //this.physics.add.overlap(Tableau.current.player, this, this.update(), null, this);
+        /*this.physics.add.overlap(Tableau.current.player, this, function(player)
         {
-            if (player.body.velocity.y >= 0 && player.getBounds().bottom < monster.getBounds().top+30) // this.body.touching.up && !this.isDead) 
+            ici.allumerBougie2(bougie2.bougie2Object.name);
+
+            if(Tableau.current.player.body.velocity.y == 0)
             {
+                Tableau.current.jumpStop = false;
+            }
+            else
+            {
+                Tableau.current.jumpStop = true;
+            }
+
+        }, null, this);*/
+
+        if(!this.isDead && this.scene.player.x <= this.body.position.x + this.body.width && this.scene.player.x >= this.body.position.x &&
+            this.scene.player.y <= this.body.position.y + this.body.height && this.scene.player.y >= this.body.position.y )
+        {
+
+            if (Tableau.current.player.body.velocity.y >= 0 && Tableau.current.player.getBounds().bottom < this.getBounds().top+30) // this.body.touching.up && !this.isDead) 
+            {
+                console.log("dans la zone du boss");
                 //this.world.player.setVelocityX(400);
                 //this.killEffect();
     
@@ -193,6 +217,7 @@ class MonsterBossSpectre extends Phaser.Physics.Arcade.Sprite
                         },
                         loop: false
                     })
+                    Tableau.current.player.directionY = 500;
                 }
     
             }

@@ -70,6 +70,7 @@ class Niveau1 extends Tableau
         this.load.audio('openingGate', 'assets/Sound/Gate-barriere-metallique-ouverture_ID-2357.mp3');
         this.load.audio('allumageBougie', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
         this.load.audio('allumageTorche', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
+        this.load.audio('criCorbeau', 'assets/Sound/sf_corbeau_01.mp3');
  
         // -----Atlas de texture généré avec https://free-tex-packer.com/app/ -------------
         //on y trouve notre étoiles et une tête de mort
@@ -124,7 +125,7 @@ class Niveau1 extends Tableau
         let largeurDuTableau=this.map.widthInPixels;
         let hauteurDuTableau=this.map.heightInPixels;
         this.physics.world.setBounds(0, 0, largeurDuTableau,  hauteurDuTableau);
-        this.cameras.main.setBounds(0, 0, largeurDuTableau, hauteurDuTableau);
+        this.cameras.main.setBounds(0, -1350, largeurDuTableau, hauteurDuTableau);
         this.cameras.main.startFollow(this.player, true, 1, 1);
 
         //------------------------------------------------ Plateformes simples ------------------------------------------------
@@ -389,7 +390,7 @@ class Niveau1 extends Tableau
             this.physics.add.collider(monster, this.solides);
             this.physics.add.collider(monster, this.platforms6);
             this.physics.add.collider(monster, this.projectil);
-            this.physics.add.overlap(this.player, this.monster, monster.update(), null, this);
+            //this.physics.add.overlap(this.player, this.monster, monster.update(), null, this);
         });
 
 
@@ -499,7 +500,7 @@ class Niveau1 extends Tableau
         //on crée des checkpoints pour chaque objet rencontré
         this.checkPointsObjects.forEach(checkPointObject => 
         {
-            let point=this.checkPoints.create(checkPointObject.x+248,checkPointObject.y+183,'checkPoint').play('cp', true).setDepth(987).setDisplaySize(16,16).setBodySize(64,64)
+            let point=this.checkPoints.create(checkPointObject.x+248,checkPointObject.y+183,'checkPoint').play('cp', true).setDisplaySize(16,16).setBodySize(64,64)
             .setOrigin(14,12.4);
             point.blendMode=Phaser.BlendModes.COLOR_DODGE;
             point.checkPointObject=checkPointObject;
@@ -1230,7 +1231,7 @@ class Niveau1 extends Tableau
         let z=1000; 
 
         this.infCtrl.setDepth(1000);
-        this.checkPoints.setDepth(997);
+        this.checkPoints.setDepth(987);
         this.platforms5.setDepth(984);
         //this.platforms6.setDepth(984);
         //this.collectiblesContainer.setDepth(992);
@@ -1280,6 +1281,19 @@ class Niveau1 extends Tableau
         {
             console.log("on atteint le checkpoint", checkPointName);
             localStorage.setItem("checkPoint", checkPointName);
+            this.musicAmb = this.sound.add('AmbianceHalloween1');
+
+            var musicConfig = 
+            {
+                mute: false,
+                volume: 1,
+                rate : 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay:0,
+            }
+            this.musicAmb.play(musicConfig);
            //this.unique = true;
         }
     } //---------------------------------- FIN DE SAVECHECKPOINT ----------------------------------

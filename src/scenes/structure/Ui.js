@@ -14,7 +14,7 @@ class Ui extends Phaser.Scene{
         /*****LIST DE FONT TEXTE ( ils ne fonctionnes pas tous malheureusement :'[ )*****
         
         //  Hanalei Fill*  //  Courrier  //  Verdana  //  Georgia  //  Arial*  //  Tahoma  //  Marlett*  //  Lucida Console*  //  Trebuchet MS*
-        //  Webdings*  //  Impact*  //  /*Script MT Bold*/  //  ...
+        //  Webdings*  //  Impact*  //  /*Script MT*/  //  ...
 
 
         /********** ON DEFINIT L'AFFICHAGE DU TEXT ET DE L'UI A L'ECRAN **********/
@@ -27,7 +27,7 @@ class Ui extends Phaser.Scene{
          * @private
          */
         this._scoreText = this.add.text(16, 16, '', {
-            font:'32px "Script MT Bold"',
+            font:'32px "Script MT"',
             fill: '#fff'
         });
 
@@ -37,7 +37,7 @@ class Ui extends Phaser.Scene{
         * @private
         */
         this._hpText = this.add.text(16, 16+80, '', {
-            font:'16px "Script MT Bold"',
+            font:'16px "Script MT"',
             fill: '#fff'
         });
 
@@ -46,10 +46,10 @@ class Ui extends Phaser.Scene{
         * @type {Phaser.GameObjects.Text}
         * @private
         */
-                 this._outfitText = this.add.text(16, 16+160, '', {
-                    font:'16px "Script MT Bold"',
-                    fill: '#fff'
-                });
+        this._outfitText = this.add.text(16, 16+120, '', {
+            font:'16px "Script MT"',
+            fill: '#fff'
+        });
 
         /**
          * Le champ texte avec la clé du tableau
@@ -57,7 +57,7 @@ class Ui extends Phaser.Scene{
          * @private
          */
         this._tableauText = this.add.text(this.sys.canvas.width-16, 16, '', {
-            font:'32px "Script MT Bold"',
+            font:'32px "Script MT"',
             align: 'right',
             fill: '#fff'
         })
@@ -68,7 +68,7 @@ class Ui extends Phaser.Scene{
          * @private
          */
         this._tableauTextClass = this.add.text(this.sys.canvas.width-16, 16+32, '', {
-            font:'24px "Script MT Bold"',
+            font:'24px "Script MT"',
             align: 'right',
             fill: '#fff',
         }).setAlpha(0.5)
