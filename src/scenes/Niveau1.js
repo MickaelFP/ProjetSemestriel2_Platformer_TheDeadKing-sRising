@@ -2352,7 +2352,7 @@ class Niveau1 extends Tableau
             || this.previousPosition !== actualPosition
         ){
             this.previousPosition=actualPosition;
-            //this.optimizeDisplay();
+            this.optimizeDisplay();
         }
 
     }//---------------------------------- FIN DE UPDATE ----------------------------------
