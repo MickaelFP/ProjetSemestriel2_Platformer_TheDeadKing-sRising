@@ -2280,6 +2280,8 @@ class Niveau1 extends Tableau
      */
     optimizeDisplay()
     {
+        console.log("optimizeDisplay");
+
         //return;
         let world=this.cameras.main.worldView; // le rectangle de la caméra, (les coordonnées de la zone visible)
         /*
