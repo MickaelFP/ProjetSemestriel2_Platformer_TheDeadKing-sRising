@@ -791,7 +791,7 @@ class Niveau1 extends Tableau
         //------------------------------------------------ Effets particules ------------------------------------------------
 
         //----- effets de feuilles -----
-        this.particles1 = this.add.particles('feuille1');
+        /*this.particles1 = this.add.particles('feuille1');
         this.emitter = this.particles1.createEmitter(
         {
             x: -200, y: 600,
@@ -896,7 +896,7 @@ class Niveau1 extends Tableau
             delay: 1000,
             scale: { start: 0.6, end: 0.1 },
             blendMode: 'NORMAL', 
-        });
+        });*/
         
 
         //------------------------------------------------ Collisions ------------------------------------------------
@@ -1251,10 +1251,10 @@ class Niveau1 extends Tableau
 
         this.skyDevant.setDepth(z--);
 
-        this.particles1.setDepth(z--);
-        this.particles2.setDepth(z--);
-        this.particles3.setDepth(z--);
-        this.blood.setDepth(z--);
+        //this.particles1.setDepth(z--);
+        //this.particles2.setDepth(z--);
+        //this.particles3.setDepth(z--);
+        //this.blood.setDepth(z--);
         this.blood2.setDepth(z--);
 
         this.monstersContainer.setDepth(z--);
@@ -1270,7 +1270,7 @@ class Niveau1 extends Tableau
         this.derriere.setDepth(z--);
 
         this.sky5.setDepth(z--);
-        this.particles4.setDepth(z--);
+        //this.particles4.setDepth(z--);
         this.sky4.setDepth(z--);
         this.sky3.setDepth(z--);
         //this.sky2.setDepth(z--);
