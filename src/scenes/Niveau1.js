@@ -512,7 +512,7 @@ class Niveau1 extends Tableau
             repeat: -1
         });
 
-        this.bougies0 = this.physics.add.staticGroup();
+        /*this.bougies0 = this.physics.add.staticGroup();
         this.bougies0Objects = this.map.getObjectLayer('bougies')['objects'];
         this.bougies0Objects.forEach(bougieObject => 
         {
@@ -661,7 +661,7 @@ class Niveau1 extends Tableau
             .setBodySize(torche8Object.width*4,torche8Object.height*4).setDisplaySize(48,64);
             tchLight8.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight8.torche8Object=torche8Object;
-        });
+        });*/
 
 
         //------------------------------------------------ Effet sur les étoiles (ou autre collectible) ------------------------------------------------
@@ -1044,7 +1044,7 @@ class Niveau1 extends Tableau
         //------------------------------------------------ Bougies ------------------------------------------------
 
         //quand on touche une bougie
-        this.physics.add.overlap(this.player, this.bougies0, function(player, bougie)
+        /*this.physics.add.overlap(this.player, this.bougies0, function(player, bougie)
         {
             ici.allumerBougie(bougie.bougieObject.name);
 
@@ -1233,7 +1233,7 @@ class Niveau1 extends Tableau
                 Tableau.current.jumpStop = false;
             }
 
-        }, null, this);
+        }, null, this);*/
 
         //--------------------------------- Z order -----------------------------------------------
 
@@ -2278,7 +2278,7 @@ class Niveau1 extends Tableau
      */
     optimizeDisplay()
     {
-        console.log("optimizeDisplay");
+        //  console.log("optimizeDisplay");
 
         //return;
         let world=this.cameras.main.worldView; // le rectangle de la caméra, (les coordonnées de la zone visible)
