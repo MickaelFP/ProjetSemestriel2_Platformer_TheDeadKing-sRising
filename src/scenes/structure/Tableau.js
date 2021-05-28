@@ -121,10 +121,10 @@ class Tableau extends Phaser.Scene{
         this.infCtrl.visible = false;
         this.infCtrl.setScrollFactor(0).setDepth(1000);
 
-        this.cacheTop = this.add.sprite(0,0, "cacheTop").setDepth(1000).setOrigin(0,0);
+        /*this.cacheTop = this.add.sprite(0,0, "cacheTop").setDepth(1000).setOrigin(0,0);
         this.cacheTop.visible = false;
         this.cacheBot = this.add.sprite(0,0, "cacheBot").setDepth(1000).setOrigin(0,0);
-        this.cacheBot.visible = false;
+        this.cacheBot.visible = false;*/
 
 
         // ----------------------------------- booleans simples que l'on compte utiliser -----------------------------------
@@ -530,7 +530,7 @@ class Tableau extends Phaser.Scene{
 
     auraEffect()
     {
-        /*if(this.startAuraDmg)
+        if(this.startAuraDmg)
         {
             this.auraDamage.setPosition(this.player.x, this.player.y);
             this.auraDamage.visible=true;
@@ -550,7 +550,7 @@ class Tableau extends Phaser.Scene{
         {
             this.auraHeal.setPosition(this.player.x, this.player.y);
             this.auraHeal.visible=false;
-        }*/
+        }
     }
 
 
@@ -651,7 +651,7 @@ class Tableau extends Phaser.Scene{
 
     dash(player)
     {
-        /*if(this.dPressed && !this.oneDash && this.dashActivated)
+        if(this.dPressed && !this.oneDash && this.dashActivated)
         {
             this.playerMoveStop = true
             if(this.player.body.velocity.x > 0)
@@ -810,7 +810,7 @@ class Tableau extends Phaser.Scene{
                 },
                 loop: false
             })
-        }*/
+        }
     }
 
 
@@ -1088,52 +1088,6 @@ class Tableau extends Phaser.Scene{
         this.music.play(musicConfig);
     }
 
-    // ********************************* Tentative de déplacement d'un monstre en fonction des coordonées du joueur *********************************
-    //
-    /**
-     * Quand on dépasse un monstre
-     * il se tourne vers nous
-     * @param {Player} player
-     * @param {Phaser.Physics.Arcade.Sprite} monster
-     *//*
-    monsterMove(player, monster)
-    {       
-        //let me=this;
-        this.player.body.position.x = playerX;
-        this.player.position.x = playerX;
-        this.player.x = playerX;
-        this.monster.body.position.x = monsterX;
-        this.monster.position.x = monsterX;
-        this.monster.x = monsterX;
-
-        if (playerX < monsterX)
-        {
-            if(monster.VelocityX < 0)
-            {
-                monster.flipX = true;
-                monster.setVelocityX = -100;
-            }
-            else
-            {
-                monster.flipX = true;
-                monster.setVelocityX = -100;//-100;
-            }
-        } 
-        else if (playerX > monsterX)
-        {
-            if(monster.VelocityX > 0)
-            {
-                monster.flipX = false;
-                monster.setVelocityX = 100;
-            }
-            else
-            {
-                monster.flipX = true;
-                monster.setVelocityX = 100;//-100;
-            }
-        }
-    }*/
-
 
     /**
      * Aïeee ça fait mal
@@ -1224,7 +1178,7 @@ class Tableau extends Phaser.Scene{
      * si on le touche par en haut on le tue, sinon c'est lui qui nous tue
      * @param {Player} player
      * @param {Phaser.Physics.Arcade.Sprite} monster
-     *//*
+     */
     hitMonster(player, monster)
     {
         if(!this.invicibleForEver)
@@ -1272,7 +1226,7 @@ class Tableau extends Phaser.Scene{
                 }
             }
         }
-    } // FIN DE HITMONSTER*/
+    } // FIN DE HITMONSTER
 
 
     playerDamage(player,hp)
@@ -1551,65 +1505,6 @@ class Tableau extends Phaser.Scene{
         })
     }
     // *********************************
-
-
-    /**
-     * Tue le player
-     * - le rend invisible
-     * - fait apparaitre du sang
-     * - ressuscite le player
-     * - redémarre le tableau
-     */  /*
-    playerDie(player,hp)
-    {
-        let me=this;
-        if(!me.player.isDead) 
-        {
-            ui.perdre1();
-            ui.losePV();
-            if(this.hp != 0)
-            {
-                me.saignePlayer(me.player, function () 
-                {
-                    //à la fin de la petite anim, on relance le jeu
-                    me.blood2.visible = false;
-                    me.player.anims.play('turn');
-                    //player.directionX= -100;
-                    //me.scene.restart();
-                })
-            }
-            else
-            {
-                me.player.isDead = true;
-                me.player.visible = false;
-                //ça saigne...
-                me.saignePlayer(me.player, function () 
-                {
-                    //à la fin de la petite anim, on relance le jeu
-                    me.blood2.visible = false;
-                    me.player.anims.play('turn');
-                    me.player.isDead = false;
-                    me.scene.restart();
-                })
-                this.music = this.sound.add('crack');
-    
-                var musicConfig = 
-                {
-                    mute: false,
-                    volume: 0.3,
-                    rate : 1,
-                    detune: 0,
-                    seek: 0,
-                    loop: false,
-                    delay:0,
-                }
-                this.music.play(musicConfig);
-    
-                localStorage.removeItem("bougie");
-            }
-
-        }
-    }*/
 
     /**
      * Pour reset cette scène proprement

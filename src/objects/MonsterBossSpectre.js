@@ -1,12 +1,20 @@
-class MonsterBossSpectre extends ObjetEnnemi{
+class MonsterBossSpectre extends ObjetPhysique{
     /**
      *
      * @param {Tableau} scene
      * @param x
      * @param y
      */
-    constructor(scene, x, y) {                                                              //OBLIGATOIRE
-        super(scene, x, y,"bossSpectre");                                                       //OBLIGATOIRE
+    constructor(scene, x, y) {
+        super(scene, x, y,"bossSpectre");
+        scene.physics.add.overlap(
+            scene.player,
+            this,
+            scene.hitMiniBoss,
+            null,
+            scene
+        );
+
         //pas de gravité
         this.body.allowGravity=true;
         

@@ -280,3 +280,112 @@
 
             
     //*********************************************************************//
+
+
+
+        /**
+     * Tue le player
+     * - le rend invisible
+     * - fait apparaitre du sang
+     * - ressuscite le player
+     * - redémarre le tableau
+     */  /*
+    playerDie(player,hp)
+    {
+        let me=this;
+        if(!me.player.isDead) 
+        {
+            ui.perdre1();
+            ui.losePV();
+            if(this.hp != 0)
+            {
+                me.saignePlayer(me.player, function () 
+                {
+                    //à la fin de la petite anim, on relance le jeu
+                    me.blood2.visible = false;
+                    me.player.anims.play('turn');
+                    //player.directionX= -100;
+                    //me.scene.restart();
+                })
+            }
+            else
+            {
+                me.player.isDead = true;
+                me.player.visible = false;
+                //ça saigne...
+                me.saignePlayer(me.player, function () 
+                {
+                    //à la fin de la petite anim, on relance le jeu
+                    me.blood2.visible = false;
+                    me.player.anims.play('turn');
+                    me.player.isDead = false;
+                    me.scene.restart();
+                })
+                this.music = this.sound.add('crack');
+    
+                var musicConfig = 
+                {
+                    mute: false,
+                    volume: 0.3,
+                    rate : 1,
+                    detune: 0,
+                    seek: 0,
+                    loop: false,
+                    delay:0,
+                }
+                this.music.play(musicConfig);
+    
+                localStorage.removeItem("bougie");
+            }
+
+        }
+    }*/
+
+
+
+
+    // ********************************* Tentative de déplacement d'un monstre en fonction des coordonées du joueur *********************************
+    //
+    /**
+     * Quand on dépasse un monstre
+     * il se tourne vers nous
+     * @param {Player} player
+     * @param {Phaser.Physics.Arcade.Sprite} monster
+     *//*
+    monsterMove(player, monster)
+    {       
+        //let me=this;
+        this.player.body.position.x = playerX;
+        this.player.position.x = playerX;
+        this.player.x = playerX;
+        this.monster.body.position.x = monsterX;
+        this.monster.position.x = monsterX;
+        this.monster.x = monsterX;
+
+        if (playerX < monsterX)
+        {
+            if(monster.VelocityX < 0)
+            {
+                monster.flipX = true;
+                monster.setVelocityX = -100;
+            }
+            else
+            {
+                monster.flipX = true;
+                monster.setVelocityX = -100;//-100;
+            }
+        } 
+        else if (playerX > monsterX)
+        {
+            if(monster.VelocityX > 0)
+            {
+                monster.flipX = false;
+                monster.setVelocityX = 100;
+            }
+            else
+            {
+                monster.flipX = true;
+                monster.setVelocityX = 100;//-100;
+            }
+        }
+    }*/

@@ -23,7 +23,7 @@ class Welcome extends Phaser.Scene {
 
         //---------- on clean le storage ----------
 
-        /*localStorage.removeItem("bougie");
+        localStorage.removeItem("bougie");
         localStorage.removeItem("bougie1");
         localStorage.removeItem("bougie2");
         localStorage.removeItem("bougie3");
@@ -35,7 +35,7 @@ class Welcome extends Phaser.Scene {
         localStorage.removeItem("torche5");
         localStorage.removeItem("torche6");
         localStorage.removeItem("torche7");
-        localStorage.removeItem("torche8");*/
+        localStorage.removeItem("torche8");
 
         //---------- booleans que l'on compte utiliser ----------
 

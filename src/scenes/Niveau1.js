@@ -74,7 +74,7 @@ class Niveau1 extends Tableau
  
         // -----Atlas de texture généré avec https://free-tex-packer.com/app/ -------------
         //on y trouve notre étoiles et une tête de mort
-        this.load.atlas('particles', 'assets/particles/particlesM.png', 'assets/particles/particles.json'); // original 'particles.png'
+        //this.load.atlas('particles', 'assets/particles/particlesM.png', 'assets/particles/particles.json'); // original 'particles.png'
         this.load.atlas('particles2', 'assets/particles/particles2.png', 'assets/particles/particles.json');
     }
     create() 
@@ -115,7 +115,8 @@ class Niveau1 extends Tableau
         let hauteurDuTableau=this.map.heightInPixels;
         this.physics.world.setBounds(0, 0, largeurDuTableau,  hauteurDuTableau);
         this.cameras.main.setBounds(0, 0, largeurDuTableau, hauteurDuTableau);
-        this.cameras.main.startFollow(this.player, true, 1, 1);
+        this.cameras.main.startFollow(this.player, true, 1, 1.5);
+
 
         //------------------------------------------------ Plateformes simples ------------------------------------------------
 
@@ -272,6 +273,8 @@ class Niveau1 extends Tableau
         //this.collectiblesContainer=this.add.container();
         //
         // OSSEMENTS
+
+        this.starList = [];
         this.stars = this.physics.add.group(
         {
             allowGravity: false,
@@ -295,10 +298,11 @@ class Niveau1 extends Tableau
                     repeat:-1
                 }
             });
+            this.starList.push(star);
         });
         //
         // EQUIPEMENT
-        /*this.etoffes = this.physics.add.group(
+        this.etoffes = this.physics.add.group(
         {
             allowGravity: false,
             immovable: false,
@@ -322,14 +326,14 @@ class Niveau1 extends Tableau
                     repeat:-1
                 }
             });
-        });*/
+        });
 
         //------------------------------------------------ Les monstres (objets tiled) ------------------------------------------------
 
         //let fonction1 = this;
         this.monstersContainer=this.add.container();
 
-        /*// On crée des montres volants pour chaque objet rencontré
+        // On crée des montres volants pour chaque objet rencontré
         this.flyingMonstersObjects = this.map.getObjectLayer('flyingMonsters')['objects'];
         this.flyingMonstersObjects.forEach(monsterObject => 
         {
@@ -388,13 +392,14 @@ class Niveau1 extends Tableau
                 Tableau.current.hitMiniBoss();
 
             }, null, this);
-        });*/
+        });
 
 
         //------------------------------------------------ Les elements interactifs (objets tiled) ------------------------------------------------
 
         // Elements cassables
         //this.escaliers = this.physics.add.staticGroup();
+        this.vaseList = [];
         this.vaseObjects = this.map.getObjectLayer('vase')['objects'];
         this.vaseObjects.forEach(monsterObject => 
         {
@@ -402,8 +407,10 @@ class Niveau1 extends Tableau
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
             this.physics.add.collider(monster, this.projectil);
+            this.vaseList.push(monster);
         });
 
+        this.solFragileList = [];
         this.solFragileObjects = this.map.getObjectLayer('solFragile')['objects'];
         this.solFragileObjects.forEach(monsterObject => 
         {
@@ -411,30 +418,38 @@ class Niveau1 extends Tableau
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
             this.physics.add.collider(monster, this.projectil);
+            this.solFragileList.push(monster);
         });
 
+        this.solFragilePierreList = [];
         this.solFragilePierreObjects = this.map.getObjectLayer('solFragilePierre')['objects'];
         this.solFragilePierreObjects.forEach(monsterObject => 
         {
             let monster=new ElementSolFragilePierre(this,monsterObject.x+32,monsterObject.y-32);
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
+            this.solFragilePierreList.push(monster);
         });
 
         // Elements movibles
+        this.rocheQuiRouleList = [];
         this.rocheQuiRouleObjects = this.map.getObjectLayer('rocheQuiRoule')['objects'];
         this.rocheQuiRouleObjects.forEach(monsterObject => 
         {
             let monster=new ElementRocheQuiRoule(this,monsterObject.x+32,monsterObject.y-32);
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
+            this.rocheQuiRouleList.push(monster);
         });
+
+        this.rocheQuiRoule2List = [];
         this.rocheQuiRouleObjects2 = this.map.getObjectLayer('rocheQuiRoule2')['objects'];
         this.rocheQuiRouleObjects2.forEach(monsterObject => 
         {
             let monster=new ElementRocheQuiRoule2(this,monsterObject.x+32,monsterObject.y-32);
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
+            this.rocheQuiRoule2List.push(monster);
         });
 
         // ------------------------------------------------ Boxes text ------------------------------------------------
@@ -470,14 +485,15 @@ class Niveau1 extends Tableau
 
         //------------------------------------------------ Escaliers ------------------------------------------------
 
+        this.escalierList = [];
         this.escaliers = this.physics.add.staticGroup();
         this.escaliersObjects = this.map.getObjectLayer('escaliers')['objects'];
         //on crée des passages pour chaque objet rencontré
         this.escaliersObjects.forEach(escaliersObject => 
         {
             let passage=this.escaliers.create(escaliersObject.x+32,escaliersObject.y-16).setOrigin(0.5,1);
-            passage.blendMode=Phaser.BlendModes.COLOR_DODGE;
             passage.escaliersObject=escaliersObject;
+            this.escalierList.push(passage);
         });
 
 
@@ -497,7 +513,7 @@ class Niveau1 extends Tableau
         {
             let point=this.checkPoints.create(checkPointObject.x+248,checkPointObject.y+183,'checkPoint').play('cp', true).setDisplaySize(16,16).setBodySize(64,64)
             .setOrigin(14,12.4);
-            point.blendMode=Phaser.BlendModes.COLOR_DODGE;
+            /*point.blendMode=Phaser.BlendModes.COLOR_DODGE;*/
             point.checkPointObject=checkPointObject;
         });
 
@@ -512,7 +528,7 @@ class Niveau1 extends Tableau
             repeat: -1
         });
 
-        /*this.bougies0 = this.physics.add.staticGroup();
+        this.bougies0 = this.physics.add.staticGroup();
         this.bougies0Objects = this.map.getObjectLayer('bougies')['objects'];
         this.bougies0Objects.forEach(bougieObject => 
         {
@@ -661,12 +677,13 @@ class Niveau1 extends Tableau
             .setBodySize(torche8Object.width*4,torche8Object.height*4).setDisplaySize(48,64);
             tchLight8.blendMode=Phaser.BlendModes.COLOR_DODGE;
             tchLight8.torche8Object=torche8Object;
-        });*/
+        });
 
 
         //------------------------------------------------ Effet sur les étoiles (ou autre collectible) ------------------------------------------------
         //
         // OSSEMENTS
+
         let starsFxContainer=ici.add.container();
         this.stars.children.iterate(function(etoile) 
         {
@@ -791,7 +808,7 @@ class Niveau1 extends Tableau
         //------------------------------------------------ Effets particules ------------------------------------------------
 
         //----- effets de feuilles -----
-        /*this.particles1 = this.add.particles('feuille1');
+        this.particles1 = this.add.particles('feuille1');
         this.emitter = this.particles1.createEmitter(
         {
             x: -200, y: 600,
@@ -896,7 +913,7 @@ class Niveau1 extends Tableau
             delay: 1000,
             scale: { start: 0.6, end: 0.1 },
             blendMode: 'NORMAL', 
-        });*/
+        });
         
 
         //------------------------------------------------ Collisions ------------------------------------------------
@@ -904,35 +921,35 @@ class Niveau1 extends Tableau
         //les solides
         this.physics.add.collider(this.player, this.solides);
         this.physics.add.collider(this.stars, this.solides);
-        //this.physics.add.collider(this.etoffes, this.solides);
+        this.physics.add.collider(this.etoffes, this.solides);
 
         //joueur et étoiles(collectibles)
         this.physics.add.overlap(this.player, this.stars, this.ramasserEtoile, null, this);
-        //this.physics.add.overlap(this.player, this.etoffes, this.ramasserEtoffe, null, this);
+        this.physics.add.overlap(this.player, this.etoffes, this.ramasserEtoffe, null, this);
 
         //quand on touche la lave (ou autre surface mortelle), on meurt
-        this.physics.add.collider(this.player, this.lave,this.playerDie,null,this);
+        //this.physics.add.collider(this.player, this.lave,this.playerDie,null,this);
 
         //plateformes
         this.physics.add.collider(this.player, this.platforms); // entre joueur et plateformes
         this.physics.add.collider(this.stars, this.platforms); // entre étoiles et plateformes
-        //this.physics.add.collider(this.etoffes, this.platforms); // entre étoffes et plateformes
+        this.physics.add.collider(this.etoffes, this.platforms); // entre étoffes et plateformes
 
         this.physics.add.collider(this.player, this.platforms2);
         this.physics.add.collider(this.stars, this.platforms2);
-        //this.physics.add.collider(this.etoffes, this.platforms2);
+        this.physics.add.collider(this.etoffes, this.platforms2);
 
         this.physics.add.collider(this.player, this.platforms3);
         this.physics.add.collider(this.stars, this.platforms3);
-        //this.physics.add.collider(this.etoffes, this.platforms3);
+        this.physics.add.collider(this.etoffes, this.platforms3);
 
         this.physics.add.collider(this.player, this.platforms4);
         this.physics.add.collider(this.stars, this.platforms4);
-        //this.physics.add.collider(this.etoffes, this.platforms4);
+        this.physics.add.collider(this.etoffes, this.platforms4);
 
         this.physics.add.collider(this.player, this.platforms5);
         this.physics.add.collider(this.stars, this.platforms5);
-        //this.physics.add.collider(this.etoffes, this.platforms5);
+        this.physics.add.collider(this.etoffes, this.platforms5);
 
         //projectils
         //...
@@ -1044,7 +1061,7 @@ class Niveau1 extends Tableau
         //------------------------------------------------ Bougies ------------------------------------------------
 
         //quand on touche une bougie
-        /*this.physics.add.overlap(this.player, this.bougies0, function(player, bougie)
+        this.physics.add.overlap(this.player, this.bougies0, function(player, bougie)
         {
             ici.allumerBougie(bougie.bougieObject.name);
 
@@ -1233,7 +1250,7 @@ class Niveau1 extends Tableau
                 Tableau.current.jumpStop = false;
             }
 
-        }, null, this);*/
+        }, null, this);
 
         //--------------------------------- Z order -----------------------------------------------
 
@@ -1245,16 +1262,16 @@ class Niveau1 extends Tableau
         this.platforms5.setDepth(984);
         //this.platforms6.setDepth(984);
         //this.collectiblesContainer.setDepth(992);
-        //this.etoffes.setDepth(991);
+        this.etoffes.setDepth(991);
 
         debug.setDepth(z--);
 
         this.skyDevant.setDepth(z--);
 
-        //this.particles1.setDepth(z--);
-        //this.particles2.setDepth(z--);
-        //this.particles3.setDepth(z--);
-        //this.blood.setDepth(z--);
+        this.particles1.setDepth(z--);
+        this.particles2.setDepth(z--);
+        this.particles3.setDepth(z--);
+        this.blood.setDepth(z--);
         this.blood2.setDepth(z--);
 
         this.monstersContainer.setDepth(z--);
@@ -1270,7 +1287,7 @@ class Niveau1 extends Tableau
         this.derriere.setDepth(z--);
 
         this.sky5.setDepth(z--);
-        //this.particles4.setDepth(z--);
+        this.particles4.setDepth(z--);
         this.sky4.setDepth(z--);
         this.sky3.setDepth(z--);
         //this.sky2.setDepth(z--);
@@ -1753,13 +1770,6 @@ class Niveau1 extends Tableau
                                     to:1,
                                 }
                             })
-                            /*if(Tableau.current.destructionTorcheLight)
-                            {
-                                torcheSprite.destroy();
-                                torche1.destroy();
-                                torche2.destroy();
-                            }
-                            Tableau.current.destructionTorcheLight = true;*/
 
                         this.unSeul21 = false;
                     }
@@ -2281,7 +2291,7 @@ class Niveau1 extends Tableau
         //  console.log("optimizeDisplay");
 
         //return;
-        let world=this.cameras.main.worldView; // le rectangle de la caméra, (les coordonnées de la zone visible)
+        //let world=this.cameras.main.worldView; // le rectangle de la caméra, (les coordonnées de la zone visible)
         /*
         // on va activer / désactiver les particules de lave
         for( let particule of this.laveFxContainer.getAll()){ // parcours toutes les particules de lave
@@ -2303,6 +2313,79 @@ class Niveau1 extends Tableau
         }
         */
         // ici on peut appliquer le même principe pour des monstres, des collectibles etc...
+
+
+        // Est-ce que le rectangle doit faire les dimensions du tableau et est-ce qu'un rectangle doit être placé sur chaques objets dans tiled ?
+        this.rectList.forEach(rec =>
+            {
+                if(rec.isActive) // Le joueur est en contact avec le rectangle
+                {
+                    if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), this.player.getBounds() ))
+                    {
+                        this.escalierList.forEach(torch =>
+                        {
+                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), torch.getBounds() ))
+                            {
+                                torch.isActive = true;
+                            }
+                        });
+                        this.starList.forEach(star =>
+                        {
+                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), star.getBounds() ))
+                            {
+                                star.isActive = true;
+                            }
+                        });
+                        this.solFragileList.forEach(planche => 
+                        {
+                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), planche.getBounds() ))
+                            {
+                                planche.isActive = true;
+                            }
+                        });
+                        this.solFragilePierreList.forEach(bri =>
+                        {
+                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), bri.getBounds() ))
+                            {
+                                bri.isActive = true;
+                            }
+                        });
+                    }
+                    else // Le joueur n'est pas en contact avec le rectangle
+                    {
+                        this.torcheList.forEach(torch =>
+                        {
+                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), torch.getBounds() ))
+                            {
+                                torch.isActive = false;
+                            }
+                        });
+                        this.starList.forEach(star =>
+                        {
+                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), star.getBounds() ))
+                            {
+                                star.isActive = false;
+                            }
+                        });
+                        this.plancheList.forEach(planche =>
+                        {
+                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), planche.getBounds() ))
+                            {
+                                planche.isActive = false;
+                            }
+                        });
+                        this.brisableList.forEach(bri =>
+                        {
+                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), bri.getBounds() ))
+                            {
+                                bri.isActive = false;
+                            }
+                        });
+    
+                        rec.isActive = false;
+                    }
+                }
+            });
 
     } //---------------------------------- FIN DE OPTIMIZEDISPLAY ----------------------------------
 
@@ -2346,14 +2429,16 @@ class Niveau1 extends Tableau
 
         //optimisation
         //teste si la caméra a bougé
-        let actualPosition=JSON.stringify(this.cameras.main.worldView);
+        /*let actualPosition=JSON.stringify(this.cameras.main.worldView);
         if(
             !this.previousPosition
             || this.previousPosition !== actualPosition
         ){
             this.previousPosition=actualPosition;
             this.optimizeDisplay();
-        }
+        }*/
+
+        //this.optimizeDisplay();
 
     }//---------------------------------- FIN DE UPDATE ----------------------------------
 }

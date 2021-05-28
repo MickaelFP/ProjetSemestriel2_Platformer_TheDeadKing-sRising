@@ -12,8 +12,6 @@ class ObjetEnnemi extends ObjetPhysique{
             scene.player,
             this,
             scene.hitMonster,
-            //scene.hitVase,
-            //scene.monsterMove,
             null,
             scene
         );
