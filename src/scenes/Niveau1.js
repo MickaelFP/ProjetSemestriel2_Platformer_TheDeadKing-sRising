@@ -1022,7 +1022,7 @@ class Niveau1 extends Tableau
                     callback: ()=>
                     {
                         Tableau.current.playerMoveStop = false;
-                        console.log("Marche, cours, plonge, mais ne vole pas !!!");
+                        //console.log("Marche, cours, plonge, mais ne vole pas !!!");
                     },
                     loop: false
                 })

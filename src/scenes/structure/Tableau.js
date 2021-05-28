@@ -1414,7 +1414,7 @@ class Tableau extends Phaser.Scene{
     invincible()
     {
 
-        console.log("invincible");
+        //console.log("invincible");
         this.invicibleForEver = true;
         this.zombieAlive = false;
         this.time.addEvent
@@ -1432,14 +1432,14 @@ class Tableau extends Phaser.Scene{
         this.startAuraDmg = false;
         this.invicibleForEver = false;
         this.zombieAlive = true;
-        console.log("vulnerable");
+        //console.log("vulnerable");
 
     }
     // pour un évènement à durée moyenne
     invincibleM()
     {
         
-        console.log("invincibleM");
+        //console.log("invincibleM");
         this.invicibleForEver = true;
         this.zombieAlive = false;
         this.time.addEven
@@ -1457,13 +1457,13 @@ class Tableau extends Phaser.Scene{
     {
         this.invicibleForEver = false;
         this.zombieAlive = true;
-        console.log("vulnerableM");
+        //console.log("vulnerableM");
 
     }
     // pour une durée indéterminée, jusqu'à un déclenchement
     invincibleXXX()
     {
-        console.log("invincibleXXX");
+        //console.log("invincibleXXX");
         while(!this.invincibleForEver)
         {
             this.invicibleForEver = true;
@@ -1488,7 +1488,7 @@ class Tableau extends Phaser.Scene{
     }
     vulnerableXXX()
     {
-        console.log("vulnerableXXX");
+        //console.log("vulnerableXXX");
         while(this.invincibleForEver)
         {
             this.invicibleForEver = false;
