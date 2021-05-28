@@ -5,6 +5,8 @@ class ElementRocheQuiRoule extends Phaser.Physics.Arcade.Sprite
     {
         super(scene, x, y, 'rocheQuiRoule');
 
+        console.log("ElementQuiRoule en vie");
+
         scene.add.existing(this);
         scene.physics.add.existing(this);
         scene.physics.add.collider(scene.player, this);

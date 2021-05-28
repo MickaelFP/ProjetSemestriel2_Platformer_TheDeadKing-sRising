@@ -10,6 +10,8 @@ class MonsterFly extends ObjetEnnemi{
         //pas de gravité
         this.body.allowGravity=false;
 
+        console.log("MonsterFly en vie");
+
         //gestion de la taille...car attention notre png est très grand (et c'est maaaaal car pas optimisé)
         this.setDisplaySize(64,64);
 

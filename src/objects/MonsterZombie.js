@@ -10,6 +10,8 @@ class MonsterZombie extends ObjetEnnemi{
         //pas de gravité
         this.body.allowGravity=true;
         
+        console.log("Zombie en vie");
+
         //this.physics.add.sprite(300,this.sys.canvas.height-70,"monster-zombie");
         this.setDisplaySize(40,60);
         this.setCollideWorldBounds(true);

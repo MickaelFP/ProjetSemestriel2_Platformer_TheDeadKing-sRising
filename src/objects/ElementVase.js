@@ -5,6 +5,8 @@ class ElementVase extends Phaser.Physics.Arcade.Sprite
   {
     super(scene, x, y, 'vase');
 
+    console.log("Vase en vie");
+
     scene.add.existing(this);
     scene.physics.add.existing(this);
     scene.physics.add.collider(scene.player, this);

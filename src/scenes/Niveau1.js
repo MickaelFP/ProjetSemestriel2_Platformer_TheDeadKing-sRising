@@ -85,21 +85,10 @@ class Niveau1 extends Tableau
         
         this.game.sound.stopAll();
 
+        if(this.scene.sys.game.device.os.desktop !== true && this.scene.sys.game.device.os.linux !== true && this.scene.sys.game.device.os.macOS !== true)
+
         **********/
 
-        this.musicAmb = this.sound.add('AmbianceHalloween1');
-
-        var musicConfig = 
-        {
-            mute: false,
-            volume: 0.5,
-            rate : 1,
-            detune: 0,
-            seek: 0,
-            loop: true,
-            delay:0,
-        }
-        this.musicAmb.play(musicConfig);
 
         // On en aura besoin...
         let ici=this;
@@ -382,7 +371,7 @@ class Niveau1 extends Tableau
         
         
         // On crée le boss
-        this.bossSpectreObjects = this.map.getObjectLayer('bossSpectre')['objects'];
+        /*this.bossSpectreObjects = this.map.getObjectLayer('bossSpectre')['objects'];
         this.bossSpectreObjects.forEach(miniBossObject => 
         {
             let miniBoss=new MonsterBossSpectre(this,miniBossObject.x,miniBossObject.y);
@@ -399,7 +388,7 @@ class Niveau1 extends Tableau
                 Tableau.current.hitMiniBoss();
 
             }, null, this);
-        });
+        });*/
 
 
         //------------------------------------------------ Les elements interactifs (objets tiled) ------------------------------------------------
@@ -1026,6 +1015,21 @@ class Niveau1 extends Tableau
                     },
                     loop: false
                 })
+
+                
+                this.musicAmb = this.sound.add('AmbianceHalloween1');
+
+                var musicConfig = 
+                {
+                    mute: false,
+                    volume: 0.5,
+                    rate : 1,
+                    detune: 0,
+                    seek: 0,
+                    loop: true,
+                    delay:0,
+                }
+                this.musicAmb.play(musicConfig);
 
                 this.passage = true;
                 //this.tpFiniBouge = true;
