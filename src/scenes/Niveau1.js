@@ -298,7 +298,7 @@ class Niveau1 extends Tableau
         });
         //
         // EQUIPEMENT
-        this.etoffes = this.physics.add.group(
+        /*this.etoffes = this.physics.add.group(
         {
             allowGravity: false,
             immovable: false,
@@ -322,7 +322,7 @@ class Niveau1 extends Tableau
                     repeat:-1
                 }
             });
-        });
+        });*/
 
         //------------------------------------------------ Les monstres (objets tiled) ------------------------------------------------
 
@@ -906,11 +906,11 @@ class Niveau1 extends Tableau
         //les solides
         this.physics.add.collider(this.player, this.solides);
         this.physics.add.collider(this.stars, this.solides);
-        this.physics.add.collider(this.etoffes, this.solides);
+        //this.physics.add.collider(this.etoffes, this.solides);
 
         //joueur et étoiles(collectibles)
         this.physics.add.overlap(this.player, this.stars, this.ramasserEtoile, null, this);
-        this.physics.add.overlap(this.player, this.etoffes, this.ramasserEtoffe, null, this);
+        //this.physics.add.overlap(this.player, this.etoffes, this.ramasserEtoffe, null, this);
 
         //quand on touche la lave (ou autre surface mortelle), on meurt
         this.physics.add.collider(this.player, this.lave,this.playerDie,null,this);
@@ -918,23 +918,23 @@ class Niveau1 extends Tableau
         //plateformes
         this.physics.add.collider(this.player, this.platforms); // entre joueur et plateformes
         this.physics.add.collider(this.stars, this.platforms); // entre étoiles et plateformes
-        this.physics.add.collider(this.etoffes, this.platforms); // entre étoffes et plateformes
+        //this.physics.add.collider(this.etoffes, this.platforms); // entre étoffes et plateformes
 
         this.physics.add.collider(this.player, this.platforms2);
         this.physics.add.collider(this.stars, this.platforms2);
-        this.physics.add.collider(this.etoffes, this.platforms2);
+        //this.physics.add.collider(this.etoffes, this.platforms2);
 
         this.physics.add.collider(this.player, this.platforms3);
         this.physics.add.collider(this.stars, this.platforms3);
-        this.physics.add.collider(this.etoffes, this.platforms3);
+        //this.physics.add.collider(this.etoffes, this.platforms3);
 
         this.physics.add.collider(this.player, this.platforms4);
         this.physics.add.collider(this.stars, this.platforms4);
-        this.physics.add.collider(this.etoffes, this.platforms4);
+        //this.physics.add.collider(this.etoffes, this.platforms4);
 
         this.physics.add.collider(this.player, this.platforms5);
         this.physics.add.collider(this.stars, this.platforms5);
-        this.physics.add.collider(this.etoffes, this.platforms5);
+        //this.physics.add.collider(this.etoffes, this.platforms5);
 
         //projectils
         //...
@@ -1247,7 +1247,7 @@ class Niveau1 extends Tableau
         this.platforms5.setDepth(984);
         //this.platforms6.setDepth(984);
         //this.collectiblesContainer.setDepth(992);
-        this.etoffes.setDepth(991);
+        //this.etoffes.setDepth(991);
 
         debug.setDepth(z--);
 

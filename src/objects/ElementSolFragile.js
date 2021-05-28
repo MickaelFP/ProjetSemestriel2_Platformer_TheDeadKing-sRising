@@ -6,8 +6,6 @@ class ElementSolFragile extends Phaser.Physics.Arcade.Sprite
     super(scene, x, y, 'solFragile');
     //this.body.allowGravity=false;
 
-    console.log("solFragile en vie");
-
     scene.add.existing(this);
     scene.physics.add.existing(this);
     scene.physics.add.collider(scene.player, this);
