@@ -530,7 +530,7 @@ class Tableau extends Phaser.Scene{
 
     auraEffect()
     {
-        if(this.startAuraDmg)
+        /*if(this.startAuraDmg)
         {
             this.auraDamage.setPosition(this.player.x, this.player.y);
             this.auraDamage.visible=true;
@@ -550,7 +550,7 @@ class Tableau extends Phaser.Scene{
         {
             this.auraHeal.setPosition(this.player.x, this.player.y);
             this.auraHeal.visible=false;
-        }
+        }*/
     }
 
 
@@ -651,7 +651,7 @@ class Tableau extends Phaser.Scene{
 
     dash(player)
     {
-        if(this.dPressed && !this.oneDash && this.dashActivated)
+        /*if(this.dPressed && !this.oneDash && this.dashActivated)
         {
             this.playerMoveStop = true
             if(this.player.body.velocity.x > 0)
@@ -810,7 +810,7 @@ class Tableau extends Phaser.Scene{
                 },
                 loop: false
             })
-        }
+        }*/
     }
 
 
