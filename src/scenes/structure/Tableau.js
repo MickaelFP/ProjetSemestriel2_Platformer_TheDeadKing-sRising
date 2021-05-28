@@ -34,7 +34,7 @@ class Tableau extends Phaser.Scene{
         this.load.image('cacheBot', 'assets/backgrounds/cache_bas_ok.png');
 
         this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie_remastered2.png', { frameWidth: 32, frameHeight: 56 } ); 
-        this.load.spritesheet('player', 'assets/Spritesheet/playerRemastered.png', { frameWidth: 32, frameHeight: 64  } );
+        this.load.spritesheet('player', 'assets/Spritesheet/playerRemastered3.png', { frameWidth: 32, frameHeight: 64  } );
 
         this.load.audio('os', 'assets/Sound/os_sound.mp3');
         //this.load.audio('tissu', 'assets/Sound/tissu_sound.mp3');

@@ -53,6 +53,13 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             frameRate: 20
         });
 
+        this.anims.create(
+        {
+            key: 'jumpUp',
+            frames: this.anims.generateFrameNumbers('player', { start: 22, end: 25 }),
+            frameRate: 20
+        });
+
         this._directionX=0;
         this._directionY=0;
 
@@ -117,6 +124,11 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                     this.anims.play('jumpRight', true);
                     break;
     
+                case this._directionY > 0 && this.body.velocity.x == 0 && this.jumping:
+                    console.log("please jashdiuhygsiuydguyagduyzagd");
+                    this.anims.play('jumpUp', true);
+                    break;
+
                 default:
                     this.setVelocityX(0);
                     this.anims.play('turn', true);

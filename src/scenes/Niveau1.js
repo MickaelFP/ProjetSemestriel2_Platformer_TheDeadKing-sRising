@@ -33,7 +33,7 @@ class Niveau1 extends Tableau
         // -----Elements interactifs-------------
         this.load.image('vase', 'assets/elements/vase.png');
         this.load.image('solFragile', 'assets/elements/sol_fragile.png'); // solFragile.png / sol-terre
-        this.load.image('solFragilePierre', 'assets/elements/roche_devant.png'); // solFragilePierre.png');
+        this.load.image('solFragilePierre', 'assets/elements/roche_devant1.jpg'); // solFragilePierre.png');
         this.load.image('rocheQuiRoule', 'assets/elements/roche_devant3.jpg'); // solFragilePierre1.png');
         this.load.image('rocheQuiRoule2', 'assets/elements/roche_devant3_2.jpg');
         this.load.image('infCtrl', 'assets/elements/infos_controls3.png');
