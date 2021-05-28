@@ -371,7 +371,7 @@ class Niveau1 extends Tableau
         
         
         // On crée le boss
-        /*this.bossSpectreObjects = this.map.getObjectLayer('bossSpectre')['objects'];
+        this.bossSpectreObjects = this.map.getObjectLayer('bossSpectre')['objects'];
         this.bossSpectreObjects.forEach(miniBossObject => 
         {
             let miniBoss=new MonsterBossSpectre(this,miniBossObject.x,miniBossObject.y);
@@ -388,7 +388,7 @@ class Niveau1 extends Tableau
                 Tableau.current.hitMiniBoss();
 
             }, null, this);
-        });*/
+        });
 
 
         //------------------------------------------------ Les elements interactifs (objets tiled) ------------------------------------------------
@@ -2352,7 +2352,7 @@ class Niveau1 extends Tableau
             || this.previousPosition !== actualPosition
         ){
             this.previousPosition=actualPosition;
-            this.optimizeDisplay();
+            //this.optimizeDisplay();
         }
 
     }//---------------------------------- FIN DE UPDATE ----------------------------------
