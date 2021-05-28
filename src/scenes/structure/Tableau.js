@@ -1224,7 +1224,7 @@ class Tableau extends Phaser.Scene{
      * si on le touche par en haut on le tue, sinon c'est lui qui nous tue
      * @param {Player} player
      * @param {Phaser.Physics.Arcade.Sprite} monster
-     */
+     *//*
     hitMonster(player, monster)
     {
         if(!this.invicibleForEver)
@@ -1272,7 +1272,7 @@ class Tableau extends Phaser.Scene{
                 }
             }
         }
-    } // FIN DE HITMONSTER
+    } // FIN DE HITMONSTER*/
 
 
     playerDamage(player,hp)

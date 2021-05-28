@@ -329,7 +329,7 @@ class Niveau1 extends Tableau
         //let fonction1 = this;
         this.monstersContainer=this.add.container();
 
-        // On crée des montres volants pour chaque objet rencontré
+        /*// On crée des montres volants pour chaque objet rencontré
         this.flyingMonstersObjects = this.map.getObjectLayer('flyingMonsters')['objects'];
         this.flyingMonstersObjects.forEach(monsterObject => 
         {
@@ -388,7 +388,7 @@ class Niveau1 extends Tableau
                 Tableau.current.hitMiniBoss();
 
             }, null, this);
-        });
+        });*/
 
 
         //------------------------------------------------ Les elements interactifs (objets tiled) ------------------------------------------------
@@ -402,8 +402,6 @@ class Niveau1 extends Tableau
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
             this.physics.add.collider(monster, this.projectil);
-            /*passage.blendMode=Phaser.BlendModes.COLOR_DODGE;
-            passage.escaliersObject=escaliersObject;*/
         });
 
         this.solFragileObjects = this.map.getObjectLayer('solFragile')['objects'];
