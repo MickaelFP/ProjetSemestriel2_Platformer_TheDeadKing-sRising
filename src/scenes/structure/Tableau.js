@@ -19,20 +19,24 @@ class Tableau extends Phaser.Scene{
     preload(){
         this.load.image('sky', 'assets/backgrounds/sky3.png');
         this.load.image('sun', 'assets/elements/sun.jpg');
+
         this.load.image('ossement', 'assets/elements/ossement.png');
         this.load.image('etoffe', 'assets/elements/etoffes.png');
         this.load.image('blood', 'assets/elements/bloodblack.png');
         this.load.image('spike', 'assets/elements/spike.png');
         this.load.image('osExplosion', 'assets/elements/persoMort.png');
         this.load.image('broke', 'assets/elements/vaseBroke.png');
+
         this.load.image('infCtrl', 'assets/elements/infos_controls3.png');
         this.load.image('hp0', 'assets/ui/hp0.png');
         this.load.image('hp1', 'assets/ui/hp1.png');
         this.load.image('hp2', 'assets/ui/hp2.png');
         this.load.image('hp3', 'assets/ui/hp3.png');
+
         this.load.image('cacheTop', 'assets/backgrounds/cache_haut_ok.png');
         this.load.image('cacheBot', 'assets/backgrounds/cache_bas_ok.png');
 
+        this.load.spritesheet('power', 'assets/Spritesheet/power.png', { frameWidth: 260, frameHeight: 253  } );
         this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie_remastered2.png', { frameWidth: 32, frameHeight: 56 } ); 
         this.load.spritesheet('player', 'assets/Spritesheet/playerRemastered3.png', { frameWidth: 32, frameHeight: 64  } );
 
@@ -73,6 +77,7 @@ class Tableau extends Phaser.Scene{
         */
         this.player=new Player(this,0+160,0+1952);//160//1200/1968
         this.player.setMaxVelocity(800,800); //évite que le player quand il tombe ne traverse des plateformes
+        this.playerPower = 0;
 
         this.auraDamage = this.add.pointlight(this.player.x, this.player.y, 0, 2000, 0.02);
         this.auraDamage.setDepth(999);
@@ -227,6 +232,7 @@ class Tableau extends Phaser.Scene{
         this.clearCheckPoints(); 
         //this.fullScreenFonction();
         this.pause();
+        this.powerLevel();
 
         // ----------------------------------- Effets déclenchés -----------------------------------
 
@@ -257,7 +263,23 @@ class Tableau extends Phaser.Scene{
 
         }, null, this);
 
+        this.physics.add.overlap(this.miniBoss, this.shoot, function(monsterOfVase, shoot)
+        {
+            this.destroyProjectil();
+            this.miniBossLife();
+
+        }, null, this);
+
     } // FIN DE UPDATE
+
+
+    powerLevel(playerPower)
+    {
+        if(playerPower = 1)
+        {
+            this.dashActivated = true;
+        }
+    }
 
 
     deplacementPlayer() // Pour plus de fluidité de le changement de direction gauche/droite, droite/gauche (Uniquement sur PC)
@@ -1007,9 +1029,11 @@ class Tableau extends Phaser.Scene{
             onComplete: function () 
             {
                 me.blood.visible=false;
+                this.power = new CollectiblePower(this,this.player.x+150,this.player.y+24,"power").setDepth(996);
                 onComplete();
             }
         })
+
     } // FIN DE SAIGNEMINIBOSS
 
 
@@ -1036,6 +1060,7 @@ class Tableau extends Phaser.Scene{
     ramasserEtoile (player, star)
     {
         star.disableBody(true, true);
+        star.body.destroy();
         star.emit("disabled");
         ui.gagne();
 
@@ -1068,11 +1093,34 @@ class Tableau extends Phaser.Scene{
         */
     }
     // ETOFFES
-    ramasserEtoffe (player, etoffe)
+    ramasserEtoffe (player, etoffes)
     {
-        etoffe.disableBody(true, true);
+        console.log("ou est le bug");
+        etoffes.disableBody(true, true);
+        etoffes.body.destroy();
         //etoffe.emit("disabled");
         ui.ramasser();
+
+        this.music = this.sound.add('os');
+        var musicConfig = 
+        {
+            mute: false,
+            volume: 0.3,
+            rate : 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay:0,
+        }
+        this.music.play(musicConfig);
+    }
+    // POWER
+    ramasserPower (player, power)
+    {
+        power.disableBody(true, true);
+        power.body.destroy();
+
+        this.playerPower += 1;
 
         this.music = this.sound.add('os');
         var musicConfig = 
@@ -1104,7 +1152,7 @@ class Tableau extends Phaser.Scene{
     } // FIN DE HITSPIKE
 
 
-    miniBossLife()
+    miniBossLife(miniBoss)
     {
         this.hpMiniBoss -= 1;
         console.log(this.hpMiniBoss);
@@ -1112,11 +1160,12 @@ class Tableau extends Phaser.Scene{
         {
             ui.gagne2();
             //monster.body.enable = false // Invulnérabilité temporaire
-            miniBoss.isDead = true; //ok le monstre est mort
+            this.miniBoss.isDead = true; //ok le monstre est mort
             //console.log("hitMonster() -> monster.isDead=true")
-            miniBoss.disableBody(true,true);//plus de collisions
+            this.miniBoss.disableBody(true,true);//plus de collisions
+            this.miniBoss.body.destroy();
  
-            this.saigneMiniBoss(miniBoss,function()
+            this.saigneMiniBoss(this.miniBoss,function()
             {
                 //effets déclenchés à la fin de l'animation :)
             })
@@ -1136,10 +1185,7 @@ class Tableau extends Phaser.Scene{
             }
             this.music.play(musicConfig);
         }
-        else
-        {
-            
-        }
+
     }
 
 
@@ -1158,10 +1204,11 @@ class Tableau extends Phaser.Scene{
             //this.blood2.setDepth(996);
             if(miniBoss.isDead !== true)
             { //si notre monstre n'est pas déjà mort
-                if(player.body.velocity.y >= 0 && player.getBounds().bottom < miniBoss.getBounds().top+30)
+                if(Tableau.current.player.jumping && player.getBounds().bottom < miniBoss.getBounds().top+30)
                 {
+                    player.setVelocityY(-600);
                     this.miniBossLife();
-                    player.directionY = 500;
+                    
 
                 } 
                 else
@@ -1196,6 +1243,7 @@ class Tableau extends Phaser.Scene{
                     monster.isDead=true; //ok le monstre est mort
                     //console.log("hitMonster() -> monster.isDead=true")
                     monster.disableBody(true,true);//plus de collisions
+                    monster.body.destroy();
     
                     this.saigne(monster,function()
                     {

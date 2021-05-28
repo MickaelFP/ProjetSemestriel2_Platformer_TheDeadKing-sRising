@@ -378,20 +378,11 @@ class Niveau1 extends Tableau
         this.bossSpectreObjects = this.map.getObjectLayer('bossSpectre')['objects'];
         this.bossSpectreObjects.forEach(miniBossObject => 
         {
-            let miniBoss=new MonsterBossSpectre(this,miniBossObject.x,miniBossObject.y);
-            this.monstersContainer.add(miniBoss);
-            this.physics.add.collider(miniBoss, this.player);
-            this.physics.add.collider(miniBoss, this.solides);
-            this.physics.add.collider(miniBoss, this.platforms6);
-            this.physics.add.collider(miniBoss, this.projectil);
+            this.miniBoss=new MonsterBossSpectre(this,miniBossObject.x,miniBossObject.y);
+            this.monstersContainer.add(this.miniBoss);
+            //this.physics.add.collider(this.miniBoss, this.player);
+
             //this.physics.add.overlap(this.player, this.monster, monster.update(), null, this);
-
-            this.physics.add.overlap(this.bossSpectreObjects, this.player, function(bossSpectreObjects, player)
-            {
-                console.log("Debug Debug Debug Debug Debug Debug Debug")
-                Tableau.current.hitMiniBoss();
-
-            }, null, this);
         });
 
 
@@ -921,7 +912,7 @@ class Niveau1 extends Tableau
         //les solides
         this.physics.add.collider(this.player, this.solides);
         this.physics.add.collider(this.stars, this.solides);
-        this.physics.add.collider(this.etoffes, this.solides);
+        //this.physics.add.collider(this.etoffes, this.solides);
 
         //joueur et étoiles(collectibles)
         this.physics.add.overlap(this.player, this.stars, this.ramasserEtoile, null, this);
@@ -933,23 +924,23 @@ class Niveau1 extends Tableau
         //plateformes
         this.physics.add.collider(this.player, this.platforms); // entre joueur et plateformes
         this.physics.add.collider(this.stars, this.platforms); // entre étoiles et plateformes
-        this.physics.add.collider(this.etoffes, this.platforms); // entre étoffes et plateformes
+        //this.physics.add.collider(this.etoffes, this.platforms); // entre étoffes et plateformes
 
         this.physics.add.collider(this.player, this.platforms2);
         this.physics.add.collider(this.stars, this.platforms2);
-        this.physics.add.collider(this.etoffes, this.platforms2);
+        //this.physics.add.collider(this.etoffes, this.platforms2);
 
         this.physics.add.collider(this.player, this.platforms3);
         this.physics.add.collider(this.stars, this.platforms3);
-        this.physics.add.collider(this.etoffes, this.platforms3);
+        //this.physics.add.collider(this.etoffes, this.platforms3);
 
         this.physics.add.collider(this.player, this.platforms4);
         this.physics.add.collider(this.stars, this.platforms4);
-        this.physics.add.collider(this.etoffes, this.platforms4);
+        //this.physics.add.collider(this.etoffes, this.platforms4);
 
         this.physics.add.collider(this.player, this.platforms5);
         this.physics.add.collider(this.stars, this.platforms5);
-        this.physics.add.collider(this.etoffes, this.platforms5);
+        //this.physics.add.collider(this.etoffes, this.platforms5);
 
         //projectils
         //...

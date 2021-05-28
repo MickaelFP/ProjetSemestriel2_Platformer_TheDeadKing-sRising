@@ -16,7 +16,7 @@ class MonsterBossSpectre extends ObjetPhysique{
         );
 
         //pas de gravité
-        this.body.allowGravity=true;
+        this.body.allowGravity=false;
         
         //this.physics.add.sprite(300,this.sys.canvas.height-70,"monster-zombie");
         //this.physics.add.collider(monster, this.solides);
@@ -90,7 +90,7 @@ class MonsterBossSpectre extends ObjetPhysique{
             {
                 from: this.minX,
                 to: this.maxX,
-                duration: 1500, // 1500 de base
+                duration: 2500, // 1500 de base
                 ease: 'Sine.easeInOut',
                 yoyo: -1,
                 repeat: -1,
@@ -101,7 +101,7 @@ class MonsterBossSpectre extends ObjetPhysique{
             {
                 from: this.minY,
                 to: this.maxY,
-                duration: 5000, // 5000 de base
+                duration: 2000, // 5000 de base
                 ease: 'Sine.easeInOut',
                 yoyo: -1,
                 repeat: -1
