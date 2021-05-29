@@ -17,6 +17,20 @@ class MonsterFly extends ObjetEnnemi{
         this.setBodySize(this.body.width,this.body.height);
         this.setOffset(0, 0);
 
+        this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('monster-fly', { start: 0, end: 3 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'right',
+            frames: this.anims.generateFrameNumbers('monster-fly', { start: 4, end: 7 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
         //définir les propriété que l'on va utiliser dans notre animation
 
         // X
@@ -53,6 +67,32 @@ class MonsterFly extends ObjetEnnemi{
 
     }
 
+
+    update()
+    {
+        this.animation();
+
+    }
+
+
+    animation()
+    {
+        if(this.body.velocity.x < 0)
+        {
+            //console.log("anims.play left");
+            this.anims.play('left', true);
+            //this.flipX = true;
+        }
+        else if (this.body.velocity.x > 0)
+        {
+            //console.log("anims.play right");
+            this.anims.play('right', true);
+            //this.flipX = false;
+        }
+
+    }
+
+
     start(){
         this.scene.tweens.add({
             targets: this,
@@ -63,7 +103,7 @@ class MonsterFly extends ObjetEnnemi{
                 ease: 'Sine.easeInOut',
                 yoyo: -1,
                 repeat:-1,
-                flipX:true,
+                flipX:false,
             },
             y: {
                 from: this.minY,

@@ -34,6 +34,89 @@
         }, 
         {
          "draworder":"topdown",
+         "id":39,
+         "name":"bloquerFly",
+         "objects":[
+                {
+                 "gid":48,
+                 "height":64,
+                 "id":191,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":2304,
+                 "y":576
+                }, 
+                {
+                 "gid":48,
+                 "height":64,
+                 "id":192,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":2944,
+                 "y":576
+                }, 
+                {
+                 "gid":48,
+                 "height":64,
+                 "id":193,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":4224,
+                 "y":576
+                }, 
+                {
+                 "gid":48,
+                 "height":64,
+                 "id":196,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":5312,
+                 "y":576
+                }, 
+                {
+                 "gid":48,
+                 "height":64,
+                 "id":197,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":5184,
+                 "y":704
+                }, 
+                {
+                 "gid":48,
+                 "height":64,
+                 "id":198,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":5760,
+                 "y":704
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":17,
          "name":"escaliers",
          "objects":[
@@ -1683,8 +1766,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":39,
- "nextobjectid":191,
+ "nextlayerid":40,
+ "nextobjectid":199,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

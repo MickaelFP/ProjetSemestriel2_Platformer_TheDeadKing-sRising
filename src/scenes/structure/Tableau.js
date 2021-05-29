@@ -38,6 +38,7 @@ class Tableau extends Phaser.Scene{
 
         this.load.spritesheet('power', 'assets/Spritesheet/power.png', { frameWidth: 260, frameHeight: 253  } );
         this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie_remastered2.png', { frameWidth: 32, frameHeight: 56 } ); 
+        this.load.spritesheet('monster-fly', 'assets/Spritesheet/chauve-sourie-1.png', { frameWidth: 55, frameHeight: 51 } );
         this.load.spritesheet('player', 'assets/Spritesheet/playerRemastered3.png', { frameWidth: 32, frameHeight: 64  } );
 
         this.load.audio('os', 'assets/Sound/os_sound.mp3');
@@ -957,7 +958,7 @@ class Tableau extends Phaser.Scene{
             },
             onComplete: function () 
             {
-                me.blood.visible=false;
+                me.blood.visible = false;
                 onComplete();
             }
         })
@@ -973,11 +974,11 @@ class Tableau extends Phaser.Scene{
      */
     saignePlayer(object,onComplete)
     {
-        let me=this;
-        me.blood2.visible=true;
+        let me = this;
+        me.blood2.visible = true;
         me.blood2.rotation = Phaser.Math.Between(0,6);
-        me.blood2.x=object.x;
-        me.blood2.y=object.y;
+        me.blood2.x = object.x;
+        me.blood2.y = object.y;
         me.tweens.add(
             {
             targets:me.blood2,
@@ -994,7 +995,7 @@ class Tableau extends Phaser.Scene{
             },
             onComplete: function () 
             {
-                me.blood2.visible=false;
+                me.blood2.visible = false;
                 onComplete();
             }
         })
@@ -1008,8 +1009,8 @@ class Tableau extends Phaser.Scene{
      */
     saigneMiniBoss(object,onComplete)
     {
-        let me=this;
-        me.blood.visible=true;
+        let me = this;
+        me.blood.visible = true;
         me.blood.rotation = Phaser.Math.Between(0,6);
         me.blood.x=object.x;
         me.blood.y=object.y;
@@ -1028,7 +1029,7 @@ class Tableau extends Phaser.Scene{
             },
             onComplete: function () 
             {
-                me.blood.visible=false;
+                me.blood.visible = false;
                 this.power = new CollectiblePower(this,this.player.x+150,this.player.y+24,"power").setDepth(996);
                 onComplete();
             }
@@ -1046,11 +1047,11 @@ class Tableau extends Phaser.Scene{
      */
     vaseBroke(object) //,onComplete)
     {
-        let me=this;
-        me.broke.visible=true;
+        let me = this;
+        me.broke.visible = true;
         me.broke.rotation = Phaser.Math.Between(0,6);
-        me.broke.x=object.x;
-        me.broke.y=object.y;
+        me.broke.x = object.x;
+        me.broke.y = object.y;
         
     } // FIN DE VASEBROKE 
 
@@ -1199,7 +1200,7 @@ class Tableau extends Phaser.Scene{
     {
         if(!this.invicibleForEver)
         {
-            let me=this;
+            let me = this;
      
             //this.blood2.setDepth(996);
             if(miniBoss.isDead !== true)
@@ -1230,7 +1231,7 @@ class Tableau extends Phaser.Scene{
     {
         if(!this.invicibleForEver)
         {
-            let me=this;
+            let me = this;
 
             //this.blood2.setDepth(996);
             if(monster.isDead !== true)
@@ -1240,7 +1241,7 @@ class Tableau extends Phaser.Scene{
                     this.monsterOfVaseIsDead = true;
                     ui.gagne1();
                     //monster.body.enable = false // Invulnérabilité temporaire
-                    monster.isDead=true; //ok le monstre est mort
+                    monster.isDead = true; //ok le monstre est mort
                     //console.log("hitMonster() -> monster.isDead=true")
                     monster.disableBody(true,true);//plus de collisions
                     monster.body.destroy();
@@ -1265,7 +1266,7 @@ class Tableau extends Phaser.Scene{
                     }
                     this.music.play(musicConfig);
     
-                    player.directionY=500;
+                    player.directionY = 500;
     
                 } 
                 else
@@ -1282,7 +1283,7 @@ class Tableau extends Phaser.Scene{
         if(!this.player.isDead)
         {        // Le joueur est blessé
             let me = this;
-            if(this.lifePoints>=2)
+            if(this.lifePoints >= 2)
             {
                 ui.perdre1();
                 ui.losePV();
@@ -1295,7 +1296,7 @@ class Tableau extends Phaser.Scene{
                 //console.log('playerDamage(player,hp) -> postInfos');
             }
             // Le joueur est mort
-            else if (this.lifePoints<2) 
+            else if (this.lifePoints < 2) 
             {
                 //console.log('playerDamage(player,hp) -> DEAD');
                 if (!me.player.isDead) 
@@ -1333,7 +1334,7 @@ class Tableau extends Phaser.Scene{
                     me.scene.restart();
     
                 }
-                this.lifePoints=3;
+                this.lifePoints = 3;
                 //console.log('playerDamage(player,hp) -> lifePoints = 3');
             }
         }
