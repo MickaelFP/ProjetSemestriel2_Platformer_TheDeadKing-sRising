@@ -14,14 +14,14 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                     console.log(kevent.key);
                     switch (kevent.key){
                         case "ArrowRight":
-                            if(!Tableau.current.isMobile){
+                            if(!Tableau.current.isMobile && Tableau.current.player.staticY){
                             Tableau.current.player.directionX = 1;
                             Tableau.current.arrowRightPressed = true;
                             }
                             break;
         
                         case "ArrowLeft":
-                            if(!Tableau.current.isMobile){
+                            if(!Tableau.current.isMobile && Tableau.current.player.staticY){
                             Tableau.current.player.directionX = -1;
                             Tableau.current.arrowLeftPressed = true;
                             }
@@ -64,7 +64,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                             if(!Tableau.current.isMobile){
                             //console.log("checkPoint disable");
                             console.log("reset checkpoint");
-                            Tableau.current.ControlPressed = true;
+                            //Tableau.current.ControlPressed = true;
                             }
                             break;
         
@@ -137,7 +137,6 @@ class GameKeyboard extends Phaser.GameObjects.Container{
         
                         case "ArrowDown":
                             if(!Tableau.current.isMobile){
-                            Tableau.current.player.directionY = 0;
                             Tableau.current.arrowDownPressed = false;
                             }
                             break;

@@ -224,22 +224,24 @@ class Tableau extends Phaser.Scene{
 
         // ----------------------------------- Effets pour chaques touches configurées -----------------------------------
 
-        this.deplacementPlayer();
-        this.jumper();
-        this.throwBones();
-        this.showInfoCtrl();
-        this.playerHealing();
-        this.dash();
-        this.clearCheckPoints(); 
+        this.deplacementPlayerOptimisation();   // Quand le joeur se déplace
+        this.jumper();                          // Quand le joueur saute
+
+        this.throwBones();                      // Lancer des projectils
+        this.showInfoCtrl();                    // Afficher une image d'information
+        this.playerHealing();                   // Se soigner
+        this.dash();                            // dash...
+        this.clearCheckPoints();                // Reset les checkPoints
         //this.fullScreenFonction();
-        this.pause();
-        this.powerLevel();
+        this.pause();                           // Mettre le jeu en pause (mouvements joueur et monstres stoppés, plus invulnérabilité)
+        this.powerLevel();                      // Rammasser un collectible qui débloque des capacités / compétences
 
         // ----------------------------------- Effets déclenchés -----------------------------------
 
-        this.vaseDropping();
-        this.auraEffect();
-        this.cacheCache();
+        this.vaseDropping();                    // Faire drope des choses quand on détruit quelquechose
+        this.auraEffect();                      // Effet d'éclairage de l'écran (feedback : dégats, heal, luminosité...)
+        this.cacheCache();                      // Faire apparaître des images suivant la positions du joueur
+        this.collisionSup();                    // Quelques effets de collisions (destruction de projectil, perte de pv...)
         /* this.storyBox(); */
 
         /* ************************************************************************************* */
@@ -248,11 +250,11 @@ class Tableau extends Phaser.Scene{
 
         /* ************************************************************************************* */
 
+    } // FIN DE UPDATE
 
-        // ----------------------------------- Drop d'objet (ou de monstre...) -----------------------------------
 
-        // ----------------------------------- Collisions / destructions -----------------------------------
-        
+    collisionSup(monster, player, onComplete, monsterOfVase, miniBoss, shoot, bloquerFly, chauvesouris)
+    {
         this.physics.add.overlap(this.monsterOfVase, this.shoot, function(monsterOfVase, shoot)
         {
             this.destroyProjectil();
@@ -266,13 +268,7 @@ class Tableau extends Phaser.Scene{
 
         }, null, this);
 
-        this.physics.add.overlap(this.chauvesouris, this.bloquerFly, function(chauvesouris, bloquerFly)
-        {
-
-
-        }, null, this);
-
-    } // FIN DE UPDATE
+    }
 
 
     powerLevel(playerPower)
@@ -287,7 +283,7 @@ class Tableau extends Phaser.Scene{
     // Pour plus de fluidité de le changement de direction gauche/droite, droite/gauche (Uniquement sur PC) et un effet plus réaliste des déplacement
     // Fonctions ...Unpressed définies dans Tableau.js et appelées true dans GameKeyboard.js
     // Fonctions staticY et semiMobileY définies dans Player.js, correspondent au mouvement du joueur par rapport à l'axe Y (tomber, sauter ou aucun des deux)
-    deplacementPlayer() 
+    deplacementPlayerOptimisation() 
     {
         if(this.arrowLeftUnpressed) 
         {
@@ -295,13 +291,13 @@ class Tableau extends Phaser.Scene{
             {
                 if(this.arrowRightPressed)
                 {
-                    console.log("Mystère 1 : Left -> y Right");
+                    //console.log("Mystère 1 : Left -> y Right");
                     this.player.directionX = 1;
                     this.arrowLeftUnpressed = false;
                 }
                 else
                 {
-                    console.log("Mystère 1 : Left -> n Right");
+                    //console.log("Mystère 1 : Left -> n Right");
                     this.player.directionX = 0;
                     this.arrowLeftUnpressed = false;
                 }
@@ -329,13 +325,13 @@ class Tableau extends Phaser.Scene{
             {
                 if(this.arrowLeftPressed)
                 {
-                    console.log("Mystère 2 : Right -> y Left");
+                    //console.log("Mystère 2 : Right -> y Left");
                     this.player.directionX = -1;
                     this.arrowRightUnpressed = false;
                 }
                 else
                 {
-                    console.log("Mystère 2 : Right -> n Left");
+                    //console.log("Mystère 2 : Right -> n Left");
                     this.player.directionX = 0;
                     this.arrowRightUnpressed = false;
                 }
@@ -357,13 +353,13 @@ class Tableau extends Phaser.Scene{
             }*/
         }
 
-
+        // Pour éviter que le joueur ne se déplace sans que l'on appuye sur une touche lorsqu'il retombe au sol
         if(!this.arrowLeftPressed && !this.arrowRightPressed && Tableau.current.player.staticY)
         {
-            this.player.directionX = 0;
+            Tableau.current.player.directionX = 0;
         }
 
-    }
+    } // FIN DE deplacementPlayerOptimisation()
 
 
     jumper()
@@ -372,7 +368,6 @@ class Tableau extends Phaser.Scene{
         {
             if(this.firstJump)
             {
-                //console.log("On jump");
                 this.player.directionY = -1;
                 this.jumpStop = false;
                 this.firstJump = false;
@@ -390,14 +385,46 @@ class Tableau extends Phaser.Scene{
                     callback: ()=>
                     {
                         this.arrowUpPressed = false;
-                        //console.log("stopJump if Pad !!!");
                     },
                     loop: false
                 })
             }
 
         }
-    }
+    } // FIN DE jumper()
+
+
+    timingJumping()
+    {
+        //console.log("Tableau.current -> timingJump = false");
+        this.time.addEvent
+        ({
+            delay: 1000,
+            callback: ()=>
+            {
+                this.timingJump = true;
+                //console.log("Tableau.current -> timingJump = true");
+            },
+            loop: false
+        })
+    } // FIN DE timingJumping()
+
+    tJAfterPressArrowDown()
+    {
+        this.jumpStop = true;
+        this.tJArrowDownPressed = true;
+        this.time.addEvent
+        ({
+            delay: 1000,
+            callback: ()=>
+            {
+                this.tJArrowDownPressed = false;
+                this.jumpStop = false;
+                //console.log("Tableau.current -> tJAfterPressArrowDown = true");
+            },
+            loop: false
+        })
+    } // FIN DE tJAfterPressArrowDown()
 
 
     playerIntangible()
@@ -623,39 +650,6 @@ class Tableau extends Phaser.Scene{
             this.auraHeal.visible=false;
         }
     }
-
-
-    timingJumping()
-    {
-        //console.log("Tableau.current -> timingJump = false");
-        this.time.addEvent
-        ({
-            delay: 1000,
-            callback: ()=>
-            {
-                this.timingJump = true;
-                //console.log("Tableau.current -> timingJump = true");
-            },
-            loop: false
-        })
-    } // FIN DE timingJumping()
-
-    tJAfterPressArrowDown()
-    {
-        this.jumpStop = true;
-        this.tJArrowDownPressed = true;
-        this.time.addEvent
-        ({
-            delay: 1000,
-            callback: ()=>
-            {
-                this.tJArrowDownPressed = false;
-                this.jumpStop = false;
-                //console.log("Tableau.current -> tJAfterPressArrowDown = true");
-            },
-            loop: false
-        })
-    } // FIN DE tJAfterPressArrowDown()
 
     vaseDropping()
     {
@@ -944,7 +938,7 @@ class Tableau extends Phaser.Scene{
 
     throwBones()
     {
-        if (this.aPressed && this.oneShootOnly)
+        if (this.aPressed && this.oneShootOnly && ui.score > 0)
         {
             let me = this;
 

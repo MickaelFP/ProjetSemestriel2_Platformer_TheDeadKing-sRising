@@ -92,7 +92,59 @@ class Player extends Phaser.Physics.Arcade.Sprite{
     {
         this.move();
         this.jump();
+        this.animation();
 
+    }
+
+
+    animation() // bien plus fluide qu'un switch (et y aura aucun bug avec ça)
+    {
+        if(this.body.velocity.x < 0)
+        {
+            if(this.body.velocity.y < 0)
+            {
+                this.anims.play('jumpLeft', true);
+            }
+            else if(this.body.velocity.y > 0)
+            {
+                this.anims.play('jumpLeft', true);
+            }
+            else
+            {
+                this.anims.play('left', true);
+            }
+        }
+        else if(this.body.velocity.x > 0)
+        {
+            if(this.body.velocity.y < 0)
+            {
+                this.anims.play('jumpRight', true);
+            }
+            else if(this.body.velocity.y > 0)
+            {
+                this.anims.play('jumpRight', true);
+            }
+            else
+            {
+                this.anims.play('right', true);
+            }
+        }
+        else
+        {
+            if(this.body.velocity.y < 0)
+            {
+                this.anims.play('jumpUp', true);
+            }
+            else if(this.body.velocity.y > 0)
+            {
+                this.anims.play('Fall', true);
+            }
+            else
+            {
+                this.anims.play('turn', true);
+            }
+
+        }
     }
 
 
@@ -116,39 +168,36 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             //console.log("Tu peux bouger")
             switch (true)
             {
-                case this.body.velocity.x == 0 && this.jumping:
-                    //console.log("please jashdiuhygsiuydguyagduyzagd");
-                    this.anims.play('jumpUp', true);
+                case this.body.velocity.x  == 0 && this.jumping:
+                    //console.log("jump");
                     break;
 
                 case this.body.velocity.x == 0 && this.falling:
-                    //console.log("please jashdiuhygsiuydguyagduyzagd");
-                    this.anims.play('Fall', true);
+                    //console.log("fall");
                     break;
 
                 case this._directionX < 0 && this.staticY:
+                    //console.log("left");
                     this.setVelocityX(-160);
-                    this.anims.play('left', true);
                     break;
     
                 case this._directionX > 0 && this.staticY:
+                    //console.log("right");
                     this.setVelocityX(160);
-                    this.anims.play('right', true);
                     break;
     
                 case this._directionX < 0 && this.semiMobileY:
+                    //console.log("jumpLeft");
                     this.setVelocityX(-160);
-                    this.anims.play('jumpLeft', true);
                     break;
                 
                 case this._directionX > 0 && this.semiMobileY:
+                    //console.log("jumpRight");
                     this.setVelocityX(160);
-                    this.anims.play('jumpRight', true);
                     break;
 
                 default:
                     this.setVelocityX(0);
-                    this.anims.play('turn', true);
             }
         }
         /*else
@@ -208,10 +257,8 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                     {
                         if(this.body.blocked.down || this.body.touching.down)
                         {
-    
                             if(Tableau.current.timingJump == true)
                             {
-                                //console.log("scene.player -> jumping = true");
                                 this.setVelocityY(-500);
                                 Tableau.current.timingJump = false;
                                 Tableau.current.timingJumping();
@@ -219,21 +266,9 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                         }
                     }
                 }
-                /*else
-                {
-                    this.jumping = false;
-                }*/
             }
-            /*else if(!Tableau.current.arrowUpPressed & this.body.velocity.y == 0)
-            {
-                Tableau.current.jumpStop = true;
-                //this.jumping = false;
-            }*/
+
         }
-        /*else
-        {
-            this.jumping = false;
-        }*/
 
     }  // FIN DE JUMP
     

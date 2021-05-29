@@ -64,12 +64,12 @@ class MonsterSkeleton extends ObjetEnnemi{
         
             if(this.body.velocity.x < 0)
             {
-                this.flipX=true;
+                this.flipX = true;
                 
             }
             else
             {
-                this.flipX=false;
+                this.flipX = false;
             }
         }
     }

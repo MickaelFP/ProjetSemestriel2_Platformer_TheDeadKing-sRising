@@ -215,7 +215,7 @@ class Niveau1 extends Tableau
         // joueur
         this.platforms5 = this.physics.add.group();
 
-        this.platforms5.create(5040, 896+hauteurDif);
+        this.platforms5.create(5040, 896 + hauteurDif);
         //this.platforms5.create(5440, 1280+hauteurDif);
 
         this.platforms5.children.iterate(function (child) {
@@ -229,17 +229,24 @@ class Niveau1 extends Tableau
         // monstre
         this.platforms6 = this.physics.add.group();
 
+        this.platforms6.create(2304, 66 + hauteurDif, 'solFragilePierre');
+        this.platforms6.create(2944, 66 + hauteurDif, 'solFragilePierre');
+        this.platforms6.create(4224, 66 + hauteurDif, 'solFragilePierre');
+        this.platforms6.create(5312, 66 + hauteurDif, 'solFragilePierre');
+        this.platforms6.create(5184, 194 + hauteurDif, 'solFragilePierre');
+        this.platforms6.create(5760, 194 + hauteurDif, 'solFragilePierre');
         /*this.platforms6.create(1516, 322+hauteurDif, 'solFragilePierre');
         this.platforms6.create(2028, 322+hauteurDif, 'solFragilePierre');
         this.platforms6.create(2380, 322+hauteurDif, 'solFragilePierre');
         this.platforms6.create(2994, 322+hauteurDif, 'solFragilePierre');*/
-        this.platforms6.create(3964, 1280+hauteurDif, 'solFragilePierre');
-        this.platforms6.create(4160, 1280+hauteurDif, 'solFragilePierre');
-        this.platforms6.create(4848, 1280+hauteurDif, 'solFragilePierre');
+        this.platforms6.create(3964, 1280 + hauteurDif, 'solFragilePierre');
+        this.platforms6.create(4160, 1280 + hauteurDif, 'solFragilePierre');
+        this.platforms6.create(4848, 1280 + hauteurDif, 'solFragilePierre');
         /*this.platforms6.create(4237, 322+hauteurDif, 'solFragilePierre');
         this.platforms6.create(5349, 322+hauteurDif, 'solFragilePierre');
         this.platforms6.create(5645, 322+hauteurDif, 'solFragilePierre');
         this.platforms6.create(6100, 322+hauteurDif, 'solFragilePierre');*/
+
 
 
 
@@ -339,8 +346,9 @@ class Niveau1 extends Tableau
         this.flyingMonstersObjects = this.map.getObjectLayer('flyingMonsters')['objects'];
         this.flyingMonstersObjects.forEach(monsterObject => 
         {
-            this.chauvesouris=new MonsterFly(this,monsterObject.x,monsterObject.y);
+            this.chauvesouris = new MonsterFly(this,monsterObject.x,monsterObject.y);
             this.monstersContainer.add(this.chauvesouris);
+            this.physics.add.collider(this.chauvesouris, this.platforms6);
             //this.physics.add.collider(monster, this.projectil);
         });
 
@@ -348,9 +356,9 @@ class Niveau1 extends Tableau
         this.zombiesObjects = this.map.getObjectLayer('zombies')['objects'];
         this.zombiesObjects.forEach(monsterObject => 
         {
-            let monster=new MonsterZombie(this,monsterObject.x,monsterObject.y-30);
-            this.monstersContainer.add(monster);
-            this.physics.add.collider(monster, this.solides);
+            this.zomb = new MonsterZombie(this,monsterObject.x,monsterObject.y-30);
+            this.monstersContainer.add(this.zomb);
+            this.physics.add.collider(this.zomb, this.solides);
             //this.physics.add.collider(monster, Tableau.current.shoot); //this.projectil //this.solides
 
             this.physics.add.overlap(this.zombiesObjects, this.shoot, function(zombiesObjects, shoot)
@@ -443,15 +451,6 @@ class Niveau1 extends Tableau
             this.monstersContainer.add(monster);
             this.physics.add.collider(monster, this.solides);
             this.rocheQuiRoule2List.push(monster);
-        });
-
-        this.bloquerFlyList = [];
-        this.bloquerFlyObjects = this.map.getObjectLayer('bloquerFly')['objects'];
-        this.bloquerFlyObjects.forEach(bloquerFlyObject => 
-        {
-            this.bloquerFly=new ElementBloquerFly(this,bloquerFlyObject.x+32,bloquerFlyObject.y-32);
-            this.monstersContainer.add(this.bloquerFly);
-            this.bloquerFlyList.push(this.bloquerFly);
         });
 
         // ------------------------------------------------ Boxes text ------------------------------------------------
@@ -2442,7 +2441,7 @@ class Niveau1 extends Tableau
 
     } //---------------------------------- FIN DE MOVEPARALLAX ----------------------------------
 
-    update()
+    update(chauvesouris, bloquerFly)
     {
         super.update();
         this.moveParallax();
