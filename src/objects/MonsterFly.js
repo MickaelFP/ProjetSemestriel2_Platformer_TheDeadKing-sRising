@@ -21,10 +21,17 @@ class MonsterFly extends ObjetEnnemi{
         this.anims.create({
             key: 'moving',
             frames: this.anims.generateFrameNumbers('monster-fly', { start: 0, end: 3 }),
-            frameRate: 10,
+            frameRate: 6,
             repeat: -1
         });
         this.anims.play('moving', true)
+
+        this.anims.create({
+            key: 'movingFast',
+            frames: this.anims.generateFrameNumbers('monster-fly', { start: 0, end: 3 }),
+            frameRate: 12,
+            repeat: -1
+        });
 
     }
 
@@ -40,20 +47,28 @@ class MonsterFly extends ObjetEnnemi{
     {
         if(!this.isDead && !Tableau.current.monsterMoveStop)
         {
-            if(this.scene.player.x > this.x - 196 && this.scene.player.x < this.x && this.scene.player.y <= this.y && this.scene.player.y >= this.y + 64)
+            if(this.scene.player.x > this.x - 196 && this.scene.player.x < this.x - 10 && this.scene.player.y <= this.y + 64 && this.scene.player.y >= this.y)
             {
                 console.log("GRRRRR GAUCHE");
                 this.setVelocityX(-80*(Math.random()+1.5));
+                this.anims.play('movingFast', true)
             }
-            else if(this.scene.player.x < this.x + 196 && this.scene.player.x > this.x && this.scene.player.y <= this.y && this.scene.player.y >= this.y + 64)
+            else if(this.scene.player.x < this.x + 196 && this.scene.player.x > this.x + 10 && this.scene.player.y <= this.y + 64 && this.scene.player.y >= this.y)
             {
                 console.log("GRRRRR DROITE");
                 this.setVelocityX(80*(Math.random()+1.5));
+                this.anims.play('movingFast', true)
+            }
+            else
+            {
+                this.anims.play('moving', true)
             }
         }
         else
         {
             this.setVelocityX(0);
+            this.anims.play('moving', true)
+
         }
     }
 

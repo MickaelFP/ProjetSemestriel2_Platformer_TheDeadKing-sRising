@@ -5,8 +5,8 @@ class MonsterSkeleton extends ObjetEnnemi{
      * @param x
      * @param y
      */
-    constructor(scene, x, y) {                                                              //OBLIGATOIRE
-        super(scene, x, y,"squelette");                                                       //OBLIGATOIRE
+    constructor(scene, x, y) {
+        super(scene, x, y,"squelette");
         //pas de gravité
         this.body.allowGravity=true;
         
@@ -24,7 +24,13 @@ class MonsterSkeleton extends ObjetEnnemi{
             frameRate: 5,
             repeat: -1,
         });
-        this.anims.play('moving', true);       
+        this.anims.play('moving', true);    
+        this.anims.create({
+            key: 'movingFast',
+            frames: this.anims.generateFrameNumbers('squelette', { start: 4, end: 7 }),
+            frameRate: 10,
+            repeat: -1,
+        });   
 
     }
     update()
@@ -40,20 +46,23 @@ class MonsterSkeleton extends ObjetEnnemi{
         {
             if(this.scene.player.x > this.x - 400 && this.scene.player.x < this.x - 10 && this.scene.player.y <= this.y && this.scene.player.y >= this.y-200)
             {
-            //console.log("GRRRRR GAUCHE");
                 this.setVelocityX(-80*(Math.random()+1.5));
-                //this.flipX = true;
+                this.anims.play('movingFast', true);
             }
             else if(this.scene.player.x < this.x + 400 && this.scene.player.x > this.x + 10 && this.scene.player.y <= this.y && this.scene.player.y >= this.y-200)
             {
-                //console.log("GRRRRR DROITE");
                 this.setVelocityX(80*(Math.random()+1.5));
-                //this.flipX = false;
+                this.anims.play('movingFast', true);
+            }
+            else
+            {
+                this.anims.play('moving', true);
             }
         }
         else
         {
             this.setVelocityX(0);
+            this.anims.play('moving', true);
         }
     }
 
