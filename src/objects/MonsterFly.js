@@ -34,7 +34,7 @@ class MonsterFly extends ObjetEnnemi{
         //définir les propriété que l'on va utiliser dans notre animation
 
         // X
-        this.originalX=x;
+        /*this.originalX=x;
         this.minX=x-200;
         this.maxX=x+200;
 
@@ -63,7 +63,7 @@ class MonsterFly extends ObjetEnnemi{
                 onComplete: function () {
                     me.start();
                 }
-        })
+        })*/
 
     }
 
@@ -71,7 +71,34 @@ class MonsterFly extends ObjetEnnemi{
     update()
     {
         this.animation();
+        this.move();
 
+    }
+
+
+    move(player)
+    {
+        if(!this.isDead && !Tableau.current.monsterMoveStop)
+        {
+            if(this.scene.player.x > this.x - 400 && this.scene.player.x < this.x - 10 && this.scene.player.y <= this.y && this.scene.player.y == this.y)
+            {
+                //console.log("GRRRRR GAUCHE");
+                this.setVelocityX(-80*(Math.random()+1.5));
+            }
+            else if(this.scene.player.x < this.x + 400 && this.scene.player.x > this.x + 10 && this.scene.player.y <= this.y && this.scene.player.y == this.y)
+            {
+                //console.log("GRRRRR DROITE");
+                this.setVelocityX(80*(Math.random()+1.5));
+            }
+            else
+            {
+                this.setVelocityX(0);
+            }
+        }
+        else
+        {
+            this.setVelocityX(0);
+        }
     }
 
 
@@ -81,19 +108,17 @@ class MonsterFly extends ObjetEnnemi{
         {
             //console.log("anims.play left");
             this.anims.play('left', true);
-            //this.flipX = true;
         }
         else if (this.body.velocity.x > 0)
         {
             //console.log("anims.play right");
             this.anims.play('right', true);
-            //this.flipX = false;
         }
 
     }
 
 
-    start(){
+    /*start(){
         this.scene.tweens.add({
             targets: this,
             x: {
@@ -114,6 +139,6 @@ class MonsterFly extends ObjetEnnemi{
                 repeat:-1
             }
         });
-    }
+    }*/
 
 }

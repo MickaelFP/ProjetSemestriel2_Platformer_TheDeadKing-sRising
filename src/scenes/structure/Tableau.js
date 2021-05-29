@@ -39,7 +39,7 @@ class Tableau extends Phaser.Scene{
         this.load.spritesheet('power', 'assets/Spritesheet/power.png', { frameWidth: 260, frameHeight: 253  } );
         this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie_remastered2.png', { frameWidth: 32, frameHeight: 56 } ); 
         this.load.spritesheet('monster-fly', 'assets/Spritesheet/chauve-sourie-1.png', { frameWidth: 55, frameHeight: 51 } );
-        this.load.spritesheet('player', 'assets/Spritesheet/playerRemastered3.png', { frameWidth: 32, frameHeight: 64  } );
+        this.load.spritesheet('player', 'assets/Spritesheet/playerRemastered4.png', { frameWidth: 32, frameHeight: 64  } );
 
         this.load.audio('os', 'assets/Sound/os_sound.mp3');
         //this.load.audio('tissu', 'assets/Sound/tissu_sound.mp3');
@@ -248,11 +248,6 @@ class Tableau extends Phaser.Scene{
 
         /* ************************************************************************************* */
 
-        if(this.stopTomber && this.player.body.blocked.down)
-        {
-            this.player.directionX=0;
-            this.stopTomber = false;
-        }
 
         // ----------------------------------- Drop d'objet (ou de monstre...) -----------------------------------
 
@@ -264,10 +259,16 @@ class Tableau extends Phaser.Scene{
 
         }, null, this);
 
-        this.physics.add.overlap(this.miniBoss, this.shoot, function(monsterOfVase, shoot)
+        this.physics.add.overlap(this.miniBoss, this.shoot, function(miniBoss, shoot)
         {
             this.destroyProjectil();
             this.miniBossLife();
+
+        }, null, this);
+
+        this.physics.add.overlap(this.chauvesouris, this.bloquerFly, function(chauvesouris, bloquerFly)
+        {
+
 
         }, null, this);
 
@@ -283,38 +284,85 @@ class Tableau extends Phaser.Scene{
     }
 
 
-    deplacementPlayer() // Pour plus de fluidité de le changement de direction gauche/droite, droite/gauche (Uniquement sur PC)
+    // Pour plus de fluidité de le changement de direction gauche/droite, droite/gauche (Uniquement sur PC) et un effet plus réaliste des déplacement
+    // Fonctions ...Unpressed définies dans Tableau.js et appelées true dans GameKeyboard.js
+    // Fonctions staticY et semiMobileY définies dans Player.js, correspondent au mouvement du joueur par rapport à l'axe Y (tomber, sauter ou aucun des deux)
+    deplacementPlayer() 
     {
-        if(this.arrowLeftUnpressed && !Tableau.current.player.jumping) // Fonctions ...Unpressed définies dans Tableau.js et appelées true dans GameKeyboard.js
+        if(this.arrowLeftUnpressed) 
         {
-            if(this.arrowRightPressed)
+            if(Tableau.current.player.staticY) // Quand le joueur ne saute pas ni ne tombe
             {
-                //console.log("Mystère 1 : Left -> y Right");
-                this.player.directionX = 1;
-                this.arrowLeftUnpressed = false;
+                if(this.arrowRightPressed)
+                {
+                    console.log("Mystère 1 : Left -> y Right");
+                    this.player.directionX = 1;
+                    this.arrowLeftUnpressed = false;
+                }
+                else
+                {
+                    console.log("Mystère 1 : Left -> n Right");
+                    this.player.directionX = 0;
+                    this.arrowLeftUnpressed = false;
+                }
             }
-            else
+            /*else if (Tableau.current.player.semiMobileY) // Quand le joueur saute ou tombe
             {
-                //console.log("Mystère 1 : Left -> n Right");
-                this.player.directionX = 0;
-                this.arrowLeftUnpressed = false;
-            }
+                if(this.arrowRightPressed)
+                {
+                    console.log("Mystère 1 : Left -> y Right");
+                    this.player.directionX = 1;
+                    this.arrowLeftUnpressed = false;
+                }
+                else
+                {
+                    console.log("Mystère 1 : Left -> n Right");
+                    this.player.directionX = -1;
+                    this.arrowLeftUnpressed = false;
+                }
+            }*/
         }
-        else if(this.arrowRightUnpressed && !Tableau.current.player.jumping)
+
+        else if(this.arrowRightUnpressed)
         {
-            if(this.arrowLeftPressed)
+            if (Tableau.current.player.staticY) 
             {
-                //console.log("Mystère 1 : Right -> y Left");
-                this.player.directionX = -1;
-                this.arrowRightUnpressed = false;
+                if(this.arrowLeftPressed)
+                {
+                    console.log("Mystère 2 : Right -> y Left");
+                    this.player.directionX = -1;
+                    this.arrowRightUnpressed = false;
+                }
+                else
+                {
+                    console.log("Mystère 2 : Right -> n Left");
+                    this.player.directionX = 0;
+                    this.arrowRightUnpressed = false;
+                }
             }
-            else
+            /*else if(Tableau.current.player.semiMobileY)
             {
-                //console.log("Mystère 1 : Right -> n Left");
-                this.player.directionX = 0;
-                this.arrowRightUnpressed = false;
-            }
+                if(this.arrowLeftPressed)
+                {
+                    console.log("Mystère 2 : Right -> y Left");
+                    this.player.directionX = -1;
+                    this.arrowRightUnpressed = false;
+                }
+                else
+                {
+                    console.log("Mystère 2 : Right -> n Left");
+                    this.player.directionX = 1;
+                    this.arrowRightUnpressed = false;
+                }
+            }*/
         }
+
+
+        if(!this.arrowLeftPressed && !this.arrowRightPressed && Tableau.current.player.staticY)
+        {
+            this.player.directionX = 0;
+        }
+
     }
 
 
@@ -1096,7 +1144,7 @@ class Tableau extends Phaser.Scene{
     // ETOFFES
     ramasserEtoffe (player, etoffes)
     {
-        console.log("ou est le bug");
+        //console.log("ou est le bug");
         etoffes.disableBody(true, true);
         etoffes.body.destroy();
         //etoffe.emit("disabled");
@@ -1205,7 +1253,7 @@ class Tableau extends Phaser.Scene{
             //this.blood2.setDepth(996);
             if(miniBoss.isDead !== true)
             { //si notre monstre n'est pas déjà mort
-                if(Tableau.current.player.jumping && player.getBounds().bottom < miniBoss.getBounds().top+30)
+                if(Tableau.current.player.falling && player.getBounds().bottom < miniBoss.getBounds().top+30)
                 {
                     player.setVelocityY(-600);
                     this.miniBossLife();
@@ -1508,14 +1556,20 @@ class Tableau extends Phaser.Scene{
 
     JumpRetomber()
     {
-        if(!this.player.body.blocked.down)// || Tableau.player.body.touching.down)
+        if(Tableau.current.player.semiMobileY)// || Tableau.player.body.touching.down)
         {
             //console.log("jumping = true");
             this.stopTomber = true;
         }
         else
         {
-            this.player.directionX=0;
+            this.player.directionX = 0;
+        }
+
+        if(this.stopTomber && Tableau.current.player.staticY) // this.player.body.blocked.down)
+        {
+            this.player.directionX = 0;
+            this.stopTomber = false;
         }
     } // FIN DE JUMPRETOMBER
 

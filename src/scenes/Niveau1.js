@@ -20,7 +20,7 @@ class Niveau1 extends Tableau
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere3.png');
 
         // les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingBeta3.json'); // -> 'TheDeadKingRisingAlpha9-3.json'
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingBeta4.json'); // -> 'TheDeadKingRisingAlpha9-3.json'
 
         // -----Decors-------------
         this.load.image('night', 'assets/backgrounds/nuit_etoile_turquoise.png'); // sky_plan_nuitEtoileCarre.png');
@@ -115,7 +115,7 @@ class Niveau1 extends Tableau
         let hauteurDuTableau=this.map.heightInPixels;
         this.physics.world.setBounds(0, 0, largeurDuTableau,  hauteurDuTableau);
         this.cameras.main.setBounds(0, 0, largeurDuTableau, hauteurDuTableau);
-        this.cameras.main.startFollow(this.player, true, 1, 1.5);
+        this.cameras.main.startFollow(this.player, true, 1, 1.5, 0, 128);
 
 
         //------------------------------------------------ Plateformes simples ------------------------------------------------
@@ -302,6 +302,7 @@ class Niveau1 extends Tableau
         });
         //
         // EQUIPEMENT
+        this.etoffeList = [];
         this.etoffes = this.physics.add.group(
         {
             allowGravity: false,
@@ -326,6 +327,7 @@ class Niveau1 extends Tableau
                     repeat:-1
                 }
             });
+            this.etoffeList.push(etoffe);
         });
 
         //------------------------------------------------ Les monstres (objets tiled) ------------------------------------------------
@@ -337,8 +339,8 @@ class Niveau1 extends Tableau
         this.flyingMonstersObjects = this.map.getObjectLayer('flyingMonsters')['objects'];
         this.flyingMonstersObjects.forEach(monsterObject => 
         {
-            let monster=new MonsterFly(this,monsterObject.x,monsterObject.y);
-            this.monstersContainer.add(monster);
+            this.chauvesouris=new MonsterFly(this,monsterObject.x,monsterObject.y);
+            this.monstersContainer.add(this.chauvesouris);
             //this.physics.add.collider(monster, this.projectil);
         });
 
@@ -443,6 +445,15 @@ class Niveau1 extends Tableau
             this.rocheQuiRoule2List.push(monster);
         });
 
+        this.bloquerFlyList = [];
+        this.bloquerFlyObjects = this.map.getObjectLayer('bloquerFly')['objects'];
+        this.bloquerFlyObjects.forEach(bloquerFlyObject => 
+        {
+            this.bloquerFly=new ElementBloquerFly(this,bloquerFlyObject.x+32,bloquerFlyObject.y-32);
+            this.monstersContainer.add(this.bloquerFly);
+            this.bloquerFlyList.push(this.bloquerFly);
+        });
+
         // ------------------------------------------------ Boxes text ------------------------------------------------
 
         /*this.firstTexteBoxe = new ElementBoxeTexte(this,0+480,0+1952).setDepth(996);//160//1200/1968
@@ -519,6 +530,7 @@ class Niveau1 extends Tableau
             repeat: -1
         });
 
+        this.bougie0List = [];
         this.bougies0 = this.physics.add.staticGroup();
         this.bougies0Objects = this.map.getObjectLayer('bougies')['objects'];
         this.bougies0Objects.forEach(bougieObject => 
@@ -529,7 +541,8 @@ class Niveau1 extends Tableau
             bgLight.bougieObject=bougieObject;
         });
 
-        //     bougies 1     //     
+        //     bougies 1     //    
+        this.bougie0List = []; 
         this.bougies1 = this.physics.add.staticGroup();
         this.bougies1Objects = this.map.getObjectLayer('bougies1')['objects'];
         this.bougies1Objects.forEach(bougie1Object => 
@@ -539,7 +552,8 @@ class Niveau1 extends Tableau
             bgLight1.blendMode=Phaser.BlendModes.COLOR_DODGE;
             bgLight1.bougie1Object=bougie1Object;
         });
-        //     bougies 2     //     
+        //     bougies 2     //  
+        this.bougie0List = [];   
         this.bougies2 = this.physics.add.staticGroup();
         this.bougies2Objects = this.map.getObjectLayer('bougies2')['objects'];
         this.bougies2Objects.forEach(bougie2Object => 
@@ -550,7 +564,8 @@ class Niveau1 extends Tableau
             bgLight2.bougie2Object=bougie2Object;
         });
         
-        //     bougies 3     //     
+        //     bougies 3     //    
+        this.bougie0List = []; 
         this.bougies3 = this.physics.add.staticGroup();
         this.bougies3Objects = this.map.getObjectLayer('bougies3')['objects'];
         this.bougies3Objects.forEach(bougie3Object => 
@@ -572,6 +587,7 @@ class Niveau1 extends Tableau
             repeat: -1
         });
 
+        this.torche0List = [];
         this.torches0 = this.physics.add.staticGroup();
         this.torches0Objects = this.map.getObjectLayer('torches')['objects'];
         this.torches0Objects.forEach(torcheObject => 
@@ -583,6 +599,7 @@ class Niveau1 extends Tableau
         });
 
         //      torches 1     //
+        this.torche1List = [];
         this.torches1 = this.physics.add.staticGroup();
         this.torches1Objects = this.map.getObjectLayer('torches1')['objects'];
         this.torches1Objects.forEach(torche1Object => 
@@ -594,6 +611,7 @@ class Niveau1 extends Tableau
         });
 
         //      torches 2     //
+        this.torche2List = [];
         this.torches2 = this.physics.add.staticGroup();
         this.torches2Objects = this.map.getObjectLayer('torches2')['objects'];
         this.torches2Objects.forEach(torche2Object => 
@@ -605,6 +623,7 @@ class Niveau1 extends Tableau
         });
 
         //      torches 3     //
+        this.torche3List = [];
         this.torches3 = this.physics.add.staticGroup();
         this.torches3Objects = this.map.getObjectLayer('torches3')['objects'];
         this.torches3Objects.forEach(torche3Object => 
@@ -616,6 +635,7 @@ class Niveau1 extends Tableau
         });
 
         //      torches 4     //
+        this.torche4List = [];
         this.torches4 = this.physics.add.staticGroup();
         this.torches4Objects = this.map.getObjectLayer('torches4')['objects'];
         this.torches4Objects.forEach(torche4Object => 
@@ -627,6 +647,7 @@ class Niveau1 extends Tableau
         });
 
         //      torches 5     //
+        this.torche5List = [];
         this.torches5 = this.physics.add.staticGroup();
         this.torches5Objects = this.map.getObjectLayer('torches5')['objects'];
         this.torches5Objects.forEach(torche5Object => 
@@ -638,6 +659,7 @@ class Niveau1 extends Tableau
         });
 
         //      torches 6     //
+        this.torche6List = [];
         this.torches6 = this.physics.add.staticGroup();
         this.torches6Objects = this.map.getObjectLayer('torches6')['objects'];
         this.torches6Objects.forEach(torche6Object => 
@@ -649,6 +671,7 @@ class Niveau1 extends Tableau
         });
 
         //      torches 7     //
+        this.torche7List = [];
         this.torches7 = this.physics.add.staticGroup();
         this.torches7Objects = this.map.getObjectLayer('torches7')['objects'];
         this.torches7Objects.forEach(torche7Object => 
@@ -660,6 +683,7 @@ class Niveau1 extends Tableau
         });
 
         //      torches 8     //
+        this.torche8List = [];
         this.torches8 = this.physics.add.staticGroup();
         this.torches8Objects = this.map.getObjectLayer('torches8')['objects'];
         this.torches8Objects.forEach(torche8Object => 
@@ -2315,9 +2339,9 @@ class Niveau1 extends Tableau
                     {
                         this.escalierList.forEach(torch =>
                         {
-                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), torch.getBounds() ))
+                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), passage.getBounds() ))
                             {
-                                torch.isActive = true;
+                                passage.isActive = true;
                             }
                         });
                         this.starList.forEach(star =>
@@ -2327,18 +2351,25 @@ class Niveau1 extends Tableau
                                 star.isActive = true;
                             }
                         });
+                        this.etoffeList.forEach(star =>
+                            {
+                                if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), etoffe.getBounds() ))
+                                {
+                                    etoffe.isActive = true;
+                                }
+                            });
                         this.solFragileList.forEach(planche => 
                         {
-                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), planche.getBounds() ))
+                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), monster.getBounds() ))
                             {
-                                planche.isActive = true;
+                                monster.isActive = true;
                             }
                         });
                         this.solFragilePierreList.forEach(bri =>
                         {
-                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), bri.getBounds() ))
+                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), monster.getBounds() ))
                             {
-                                bri.isActive = true;
+                                monster.isActive = true;
                             }
                         });
                     }

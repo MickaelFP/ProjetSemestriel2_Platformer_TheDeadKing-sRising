@@ -12,7 +12,12 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.setBodySize(this.body.width-6,this.body.height-3);
         //this.scale = 0.3; 
         this.setOffset(3, 3);
+
         this.jumping = false;
+        this.falling = true;
+        this.staticY = false;
+        this.semiMobileY = false;
+
         console.log("player Is Created");
 
         /********** On définit les animations du joueur **********/
@@ -57,7 +62,14 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         {
             key: 'jumpUp',
             frames: this.anims.generateFrameNumbers('player', { start: 22, end: 25 }),
-            frameRate: 4
+            frameRate: 8
+        });
+
+        this.anims.create(
+        {
+            key: 'Fall',
+            frames: [ { key: 'player', frame: 26 } ],
+            frameRate: 20
         });
 
         this._directionX=0;
@@ -104,29 +116,34 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             //console.log("Tu peux bouger")
             switch (true)
             {
-                case this._directionX < 0 && !this.jumping:
+                case this.body.velocity.x == 0 && this.jumping:
+                    //console.log("please jashdiuhygsiuydguyagduyzagd");
+                    this.anims.play('jumpUp', true);
+                    break;
+
+                case this.body.velocity.x == 0 && this.falling:
+                    //console.log("please jashdiuhygsiuydguyagduyzagd");
+                    this.anims.play('Fall', true);
+                    break;
+
+                case this._directionX < 0 && this.staticY:
                     this.setVelocityX(-160);
                     this.anims.play('left', true);
                     break;
     
-                case this._directionX > 0 && !this.jumping:
+                case this._directionX > 0 && this.staticY:
                     this.setVelocityX(160);
                     this.anims.play('right', true);
                     break;
     
-                case this._directionX < 0 && this.jumping:
+                case this._directionX < 0 && this.semiMobileY:
                     this.setVelocityX(-160);
                     this.anims.play('jumpLeft', true);
                     break;
                 
-                case this._directionX > 0 && this.jumping:
+                case this._directionX > 0 && this.semiMobileY:
                     this.setVelocityX(160);
                     this.anims.play('jumpRight', true);
-                    break;
-    
-                case this._directionY < 0 && this._directionX == 0 && this.jumping:
-                    console.log("please jashdiuhygsiuydguyagduyzagd");
-                    this.anims.play('jumpUp', true);
                     break;
 
                 default:
@@ -134,19 +151,47 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                     this.anims.play('turn', true);
             }
         }
-        else if(!Tableau.current.dPressed)
+        /*else
         {
-            this.setVelocityX(0);
-            this.anims.play('turn', true);
-        }
+            if(!Tableau.current.dPressed)
+            {
+                this.setVelocityX(0);
+                this.anims.play('turn', true);
+            }
+        }*/
 
         if(this.body.velocity.y != 0)
         {
-            this.jumping = true;
+            if(this.body.velocity.y < 0)
+            {
+                this.jumping = true;
+                this.falling = false;
+            }
+            if(this.body.velocity.y > 0)
+            {
+                this.falling = true;
+                this.jumping = false;
+            }
         }
         else
         {
             this.jumping = false;
+            this.falling = false;
+        }
+
+        if(!this.jumping && !this.falling)
+        {
+            this.staticY = true;
+            this.semiMobileY = false;
+        }
+        else if(this.jumping || this.falling)
+        {
+            this.semiMobileY = true;
+            this.staticY = false;
+        }
+        else{
+            this.staticY = false;
+            this.semiMobileY = false;
         }
 
     } // FIN DE MOVE
