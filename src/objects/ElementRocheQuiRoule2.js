@@ -12,28 +12,23 @@ class ElementRocheQuiRoule2 extends Phaser.Physics.Arcade.Sprite
         this.setImmovable(false);
         this.setDisplaySize(64, 64);
         this.setBounceX(0);
-        //this.setGravityY(5000);
+        this.setGravityY(600);
         //this.setVelocity(0, 0);
+        this.setFriction(1);
         this.setBodySize(this.body.width, this.body.height);
     }
 
 
     update() 
     {
-        this.setVelocity(0, 0);
-        this.gravity();
-    }
-
-
-    gravity() 
-    {
-        if (this.body.velocity.y != 0) 
+        this.setVelocityX(0);
+        if(this.body.position.x > 5184 || this.body.position.x < 4996)
         {
-            this.setGravityY(600);
+            this.setImmovable(true);
         }
-        else 
+        else
         {
-            this.setGravityY(0);
+            this.setImmovable(false);
         }
     }
 

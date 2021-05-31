@@ -17,6 +17,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.falling = true;
         this.staticY = false;
         this.semiMobileY = false;
+        this.contactPlayerPB = false;
 
         console.log("player Is Created");
 
@@ -209,7 +210,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             }
         }*/
 
-        if(this.body.velocity.y != 0)
+        if(this.body.velocity.y != 0 && !this.contactPlayerPB)
         {
             if(this.body.velocity.y < 0)
             {

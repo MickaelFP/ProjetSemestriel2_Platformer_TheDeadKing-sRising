@@ -20,7 +20,7 @@ class Niveau1 extends Tableau
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere3.png');
 
         // les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingBeta4.json'); // -> 'TheDeadKingRisingAlpha9-3.json'
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingBeta5.json'); // -> 'TheDeadKingRisingAlpha9-3.json'
 
         // -----Decors-------------
         this.load.image('night', 'assets/backgrounds/nuit_etoile_turquoise.png'); // sky_plan_nuitEtoileCarre.png');
@@ -188,19 +188,23 @@ class Niveau1 extends Tableau
         // plateformes pierre
         this.platforms4 = this.physics.add.group();
 
-        this.platforms4.create(3906, 880+hauteurDif, 'plate');
-        this.platforms4.create(3938, 768+hauteurDif, 'plate');
-        this.platforms4.create(4050, 736+hauteurDif, 'plate');
-        this.platforms4.create(3934, 612+hauteurDif, 'plate');
-        this.platforms4.create(3996, 500+hauteurDif, 'plate');
+        //this.platforms4.create(3906, 880+hauteurDif, 'plate');
+        //this.platforms4.create(3938, 768+hauteurDif, 'plate');
+        //this.platforms4.create(4050, 736+hauteurDif, 'plate');
+        //this.platforms4.create(3934, 612+hauteurDif, 'plate');
+        this.platforms4.create(3968, 500+hauteurDif, 'plate');
 
-        this.platforms4.create(4832, 1584+hauteurDif, 'plate');
-        this.platforms4.create(4896, 1520+hauteurDif, 'plate');
-        this.platforms4.create(4960, 1456+hauteurDif, 'plate');
+        //this.platforms4.create(4832, 1584+hauteurDif, 'plate');
+        //this.platforms4.create(4896, 1520+hauteurDif, 'plate');
+        //this.platforms4.create(4960, 1456+hauteurDif, 'plate');
 
-        this.platforms4.create(5248, 1168+hauteurDif, 'plate');
-        this.platforms4.create(5296, 1056+hauteurDif, 'plate');
-        this.platforms4.create(5344, 1232+hauteurDif, 'plate');
+        //this.platforms4.create(5248, 1168+hauteurDif, 'plate');
+        this.platforms4.create(5390, 976+hauteurDif, 'plate');
+        this.platforms4.create(5374, 1104+hauteurDif, 'plate');
+        this.platforms4.create(5248, 1216+hauteurDif, 'plate');
+        this.platforms4.create(5392, 1262+hauteurDif, 'plate');
+
+
 
         this.platforms4.children.iterate(function (child) {
             child.setImmovable(true);
@@ -208,24 +212,25 @@ class Niveau1 extends Tableau
             child.setCollideWorldBounds(false);
             child.setFriction(1);
             child.setOrigin(0,0);
-            child.setDisplaySize(32,16);
+            child.setDisplaySize(64,16);
         });
 
         // plateformes antibug
         // joueur
         this.platforms5 = this.physics.add.group();
 
-        this.platforms5.create(5040, 896 + hauteurDif);
-        //this.platforms5.create(5440, 1280+hauteurDif);
+        //this.platforms5.create(4992, 896 + hauteurDif); // +192
+        //this.platforms5.create(6400, 1280 + hauteurDif); // -1216
 
         this.platforms5.children.iterate(function (child) {
-            child.setImmovable(true);
+            child.setImmovable(false);
             child.body.allowGravity=false;
             child.setCollideWorldBounds(false);
             child.setFriction(1);
             child.setOrigin(0,0);
-            child.setDisplaySize(16,64);
+            child.setDisplaySize(64,64);
         });
+
         // monstre
         this.platforms6 = this.physics.add.group();
 
@@ -247,9 +252,6 @@ class Niveau1 extends Tableau
         this.platforms6.create(5645, 322+hauteurDif, 'solFragilePierre');
         this.platforms6.create(6100, 322+hauteurDif, 'solFragilePierre');*/
 
-
-
-
         this.platforms6.children.iterate(function (child) {
             child.setImmovable(true);
             child.body.allowGravity=false;
@@ -258,6 +260,20 @@ class Niveau1 extends Tableau
             child.setOrigin(0,0);
             child.setDisplaySize(16,64);
         });
+        // element 64x64
+        /*this.platforms7 = this.physics.add.group();
+        this.platforms7.children.iterate(function (child) {
+            child.setImmovable(true);
+            child.body.allowGravity=false;
+            child.setCollideWorldBounds(false);
+            child.setFriction(1);
+            child.setOrigin(0,0);
+            child.setDisplaySize(64,64);
+        });*/
+        /*this.physics.add.overlap(this.player, this.platforms7, function(player, platforms7)
+        {
+            console.log("contact avec la pierre qui roule");
+        }, null, this);*/
 
 
         //------------------------------------------------ On définit les collisions (plusieurs méthodes existent) ------------------------------------------------
@@ -437,20 +453,33 @@ class Niveau1 extends Tableau
         this.rocheQuiRouleObjects = this.map.getObjectLayer('rocheQuiRoule')['objects'];
         this.rocheQuiRouleObjects.forEach(monsterObject => 
         {
-            let monster=new ElementRocheQuiRoule(this,monsterObject.x+32,monsterObject.y-32);
-            this.monstersContainer.add(monster);
-            this.physics.add.collider(monster, this.solides);
-            this.rocheQuiRouleList.push(monster);
+            this.roule = new ElementRocheQuiRoule(this,monsterObject.x+32,monsterObject.y-32);
+            this.monstersContainer.add(this.roule);
+            this.physics.add.collider(this.roule, this.solides);
+            this.rocheQuiRouleList.push(this.roule);
+
+            this.physics.add.overlap(this.player, this.roule, function(player, roule)
+            {
+                Tableau.current.player.body.velocity.y = 0;
+    
+            }, null, this);
+
         });
 
         this.rocheQuiRoule2List = [];
         this.rocheQuiRouleObjects2 = this.map.getObjectLayer('rocheQuiRoule2')['objects'];
         this.rocheQuiRouleObjects2.forEach(monsterObject => 
         {
-            let monster=new ElementRocheQuiRoule2(this,monsterObject.x+32,monsterObject.y-32);
-            this.monstersContainer.add(monster);
-            this.physics.add.collider(monster, this.solides);
-            this.rocheQuiRoule2List.push(monster);
+            this.roule2 = new ElementRocheQuiRoule2(this,monsterObject.x+32,monsterObject.y-32);
+            this.monstersContainer.add(this.roule2);
+            this.physics.add.collider(this.roule2, this.solides);
+            this.rocheQuiRoule2List.push(this.roule2);
+
+            this.physics.add.overlap(this.player, this.roule2, function(player, roule2)
+            {
+                Tableau.current.player.body.velocity.y = 0;
+    
+            }, null, this);
         });
 
         // ------------------------------------------------ Boxes text ------------------------------------------------
@@ -2447,6 +2476,8 @@ class Niveau1 extends Tableau
         this.moveParallax();
 
         this.monstersContainer.each(function (child) {child.update();})
+
+        //this.platforms5.startFollow(this.roule, true, 1, 1);
 
         //optimisation
         //teste si la caméra a bougé
