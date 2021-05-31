@@ -1254,7 +1254,7 @@ class Tableau extends Phaser.Scene{
 
     playerDamage(player,hp)
     {
-        if(!this.player.isDead)
+        /*if(!this.player.isDead)
         {        // Le joueur est blessé
             let me = this;
             if(this.lifePoints >= 2)
@@ -1311,7 +1311,7 @@ class Tableau extends Phaser.Scene{
                 this.lifePoints = 3;
                 //console.log('playerDamage(player,hp) -> lifePoints = 3');
             }
-        }
+        }*/
 
     } // FIN DE PLAYERDAMAGE
 

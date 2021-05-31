@@ -485,6 +485,11 @@ class Niveau1 extends Tableau
 
         // ------------------------------------------------ Boxes text ------------------------------------------------
 
+        this.TutoBox1 = this.add.sprite(this.player.body.position.x, this.player.body.position.y , 'tutoBox1').setDepth(987).setDisplaySize(48,96);
+        this.TutoBox1.alpha = 0;
+        this.TutoBox1.visible = true;
+
+
         /*this.firstTexteBoxe = new ElementBoxeTexte(this,0+480,0+1952).setDepth(996);//160//1200/1968
         this.physics.add.overlap(this.player, this.firstTexteBoxe, function(player, firstTexteBoxe)
         {
@@ -1185,7 +1190,13 @@ class Niveau1 extends Tableau
         }, null, this);
         this.physics.add.overlap(this.player, this.torches1, function(player, torche1)
         {
-            ici.allumerTorche1(torche1.torche1Object.name);
+            //ici.allumerTorche1(torche1.torche1Object.name);
+            ici.allumerTorche0(
+                torche1.torche1Object.name,
+                "torche1",
+                "torches1Objects",
+                "unSeul21"
+            );
 
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
@@ -1199,7 +1210,13 @@ class Niveau1 extends Tableau
         }, null, this);
         this.physics.add.overlap(this.player, this.torches2, function(player, torche2)
         {
-            ici.allumerTorche2(torche2.torche2Object.name);
+            //ici.allumerTorche2(torche2.torche2Object.name);
+            ici.allumerTorche0(
+                torche2.torche2Object.name,
+                "torche2",
+                "torches2Objects",
+                "unSeul22"
+            );
 
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
@@ -1213,7 +1230,13 @@ class Niveau1 extends Tableau
         }, null, this);
         this.physics.add.overlap(this.player, this.torches3, function(player, torche3)
         {
-            ici.allumerTorche3(torche3.torche3Object.name);
+            //ici.allumerTorche3(torche3.torche3Object.name);
+            ici.allumerTorche0(
+                torche3.torche3Object.name,
+                "torche3",
+                "torches3Objects",
+                "unSeul23"
+            );
 
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
@@ -1227,7 +1250,13 @@ class Niveau1 extends Tableau
         }, null, this);
         this.physics.add.overlap(this.player, this.torches4, function(player, torche4)
         {
-            ici.allumerTorche4(torche4.torche4Object.name);
+            //ici.allumerTorche4(torche4.torche4Object.name);
+            ici.allumerTorche0(
+                torche4.torche4Object.name,
+                "torche4",
+                "torches4Objects",
+                "unSeul24"
+            );
 
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
@@ -1241,7 +1270,13 @@ class Niveau1 extends Tableau
         }, null, this);
         this.physics.add.overlap(this.player, this.torches5, function(player, torche5)
         {
-            ici.allumerTorche5(torche5.torche5Object.name);
+            //ici.allumerTorche5(torche5.torche5Object.name);
+            ici.allumerTorche0(
+                torche5.torche5Object.name,
+                "torche5",
+                "torches5Objects",
+                "unSeul25"
+            );
 
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
@@ -1401,7 +1436,7 @@ class Niveau1 extends Tableau
         else if (storedBougie === bougieName)
         {
             this.bougies0Objects.forEach(bougieObject => 
-                {
+            {
                     
                     if(bougieObject.name === storedBougie && this.unSeul0 === true)
                     {
@@ -1749,218 +1784,82 @@ class Niveau1 extends Tableau
         }
     } //---------------------------------- FIN DE ALLUMERTORCHE ----------------------------------
 
-    allumerTorche1(torche1Name, player)
+    allumerTorche0(name,localStorageName,tiledObjectName,unseulname)
     {
-        let storedTorche1 = localStorage.getItem("torche1")
-        if (storedTorche1 !== torche1Name)
+        console.log("yoyolo",name);
+        let ls = localStorage.getItem(localStorageName)
+        if (ls !== name)
         {
-            localStorage.setItem("torche1", torche1Name);
+            localStorage.setItem(localStorageName, name);
             this.unSeul21 = true;
-            //Tableau.current.destructionTorcheLight = false;
         }
-        else if (storedTorche1 === torche1Name && this.unSeul21 === true)
+        else if (ls === name && this.unSeul21 === true)
         {
-            this.torches1Objects.forEach(torche1Object => 
+            this[tiledObjectName].forEach(obj =>
+            {
+                if(obj.name === ls)
                 {
-                    
-                    if(torche1Object.name === storedTorche1)
-                    {
-                            this.allumeTorche1 = this.sound.add('allumageTorche');
-                            var musicConfig = 
-                            {
-                                mute: false,
-                                volume: 0.4,
-                                rate : 1,
-                                detune: 0,
-                                seek: 0,
-                                loop: false,
-                                delay:0,
-                            }
-                            this.allumeTorche1.play(musicConfig);
-    
-                            let torcheSprite1 = this.add.sprite(torche1Object.x+32,torche1Object.y-48,'torcheAnime').play('tch', true).setDepth(987).setDisplaySize(48,96);
-                            let torche21 = this.add.pointlight(torche1Object.x+32, torche1Object.y-49, 0, 200, 0.3).setDepth(987);
-                            torche21.attenuation = 0.05;
-                            torche21.color.setTo(255, 100, 0);
-                            //torche2.destroy(); //torche2.visible = false;
-                            this.tweens.add(
-                            {
-                                targets:torche21,
-                                duration:1,
-                                delay:Math.random()*1000,
-                                alpha:
+                    let sound = this.sound.add('allumageTorche');
+                    let musicConfig =
+                        {
+                            mute: false,
+                            volume: 0.4,
+                            rate : 1,
+                            detune: 0,
+                            seek: 0,
+                            loop: false,
+                            delay:0,
+                        }
+                    sound.play(musicConfig);
+                    this.add.sprite(obj.x+32,obj.y-48,'torcheAnime')
+                        .play('tch', true)
+                        .setDepth(987)
+                        .setDisplaySize(48,96);
+                    let t = this.add.pointlight(obj.x+32, obj.y-49, 0, 200, 0.3).setDepth(987);
+                    t.attenuation = 0.05;
+                    t.color.setTo(255, 100, 0);
+
+                    this.tweens.add(
+                        {
+                            targets:t,
+                            duration:1,
+                            delay:Math.random()*1000,
+                            alpha:
                                 {
                                     startDelay:Math.random()*5000,
                                     from:0,
                                     to:1,
                                 }
-                            })
-                            this.unSeul21 = false;
-                            let torche11 = this.add.pointlight(torche1Object.x+32, torche1Object.y-49, 0, 20, 0.2).setDepth(987);
-                            torche11.attenuation = 0.05;
-                            torche11.color.setTo(255, 50, 0);
-                            //torche1.destroy();
-                            this.tweens.add(
-                            {
-                                targets:torche11,
-                                duration:200,
-                                yoyo: true,
-                                repeat:-1,
-                                delay:Math.random()*1000,
-                                alpha:
+                        })
+                    this.unSeul21 = false;
+                    let t2 = this.add.pointlight(obj.x+32, obj.y-49, 0, 20, 0.2).setDepth(987);
+                    t2.attenuation = 0.05;
+                    t2.color.setTo(255, 50, 0);
+                    this.tweens.add(
+                        {
+                            targets:t2,
+                            duration:200,
+                            yoyo: true,
+                            repeat:-1,
+                            delay:Math.random()*1000,
+                            alpha:
                                 {
                                     startDelay:Math.random()*5000,
                                     from:0,
                                     to:1,
                                 }
-                            })
+                        })
 
-                        this.unSeul21 = false;
-                    }
+                    this[unseulname] = false;
+                }
 
-                });
+            });
         }
     } //---------------------------------- FIN DE ALLUMERTORCHE1 ----------------------------------
 
-    allumerTorche2(torche2Name, player)
-    {
-        let storedTorche2 = localStorage.getItem("torche2")
-        if (storedTorche2 !== torche2Name)
-        {
-            localStorage.setItem("torche2", torche2Name);
-            this.unSeul22 = true;
-        }
-        else if (storedTorche2 === torche2Name && this.unSeul22 === true)
-        {
-            this.torches2Objects.forEach(torche2Object => 
-                {
-                    
-                    if(torche2Object.name === storedTorche2)
-                    {
-                            this.allumeTorche2 = this.sound.add('allumageTorche');
-                            var musicConfig = 
-                            {
-                                mute: false,
-                                volume: 0.4,
-                                rate : 1,
-                                detune: 0,
-                                seek: 0,
-                                loop: false,
-                                delay:0,
-                            }
-                            this.allumeTorche2.play(musicConfig);
-    
-                            let torcheSprite2 = this.add.sprite(torche2Object.x+32,torche2Object.y-48,'torcheAnime').play('tch', true).setDepth(987).setDisplaySize(48,96);
-                            let torche22 = this.add.pointlight(torche2Object.x+32, torche2Object.y-49, 0, 200, 0.3).setDepth(987);
-                            torche22.attenuation = 0.05;
-                            torche22.color.setTo(255, 100, 0);
-                            this.tweens.add(
-                            {
-                                targets:torche22,
-                                duration:1,
-                                delay:Math.random()*1000,
-                                alpha:
-                                {
-                                    startDelay:Math.random()*5000,
-                                    from:0,
-                                    to:1,
-                                }
-                            })
-                            this.unSeul22 = false;
-                            let torche12 = this.add.pointlight(torche2Object.x+32, torche2Object.y-49, 0, 20, 0.2).setDepth(987);
-                            torche12.attenuation = 0.05;
-                            torche12.color.setTo(255, 50, 0);
-                            this.tweens.add(
-                            {
-                                targets:torche12,
-                                duration:200,
-                                yoyo: true,
-                                repeat:-1,
-                                delay:Math.random()*1000,
-                                alpha:
-                                {
-                                    startDelay:Math.random()*5000,
-                                    from:0,
-                                    to:1,
-                                }
-                            })
+    //---------------------------------- FIN DE ALLUMERTORCHE2 ----------------------------------
 
-                        this.unSeul22 = false;
-                    }
-
-                });
-        }
-    } //---------------------------------- FIN DE ALLUMERTORCHE2 ----------------------------------
-
-    allumerTorche3(torche3Name, player)
-    {
-        let storedTorche3 = localStorage.getItem("torche3")
-        if (storedTorche3 !== torche3Name)
-        {
-            localStorage.setItem("torche3", torche3Name);
-            this.unSeul23 = true;
-        }
-        else if (storedTorche3 === torche3Name && this.unSeul23 === true)
-        {
-            this.torches3Objects.forEach(torche3Object => 
-                {
-                    
-                    if(torche3Object.name === storedTorche3)
-                    {
-                            this.allumeTorche3 = this.sound.add('allumageTorche');
-                            var musicConfig = 
-                            {
-                                mute: false,
-                                volume: 0.4,
-                                rate : 1,
-                                detune: 0,
-                                seek: 0,
-                                loop: false,
-                                delay:0,
-                            }
-                            this.allumeTorche3.play(musicConfig);
-    
-                            let torcheSprite3 = this.add.sprite(torche3Object.x+32,torche3Object.y-48,'torcheAnime').play('tch', true).setDepth(987).setDisplaySize(48,96);
-                            let torche23 = this.add.pointlight(torche3Object.x+32, torche3Object.y-49, 0, 200, 0.3).setDepth(987);
-                            torche23.attenuation = 0.05;
-                            torche23.color.setTo(255, 100, 0);
-                            this.tweens.add(
-                            {
-                                targets:torche23,
-                                duration:1,
-                                delay:Math.random()*1000,
-                                alpha:
-                                {
-                                    startDelay:Math.random()*5000,
-                                    from:0,
-                                    to:1,
-                                }
-                            })
-                            this.unSeul23 = false;
-                            let torche13 = this.add.pointlight(torche3Object.x+32, torche3Object.y-49, 0, 20, 0.2).setDepth(987);
-                            torche13.attenuation = 0.05;
-                            torche13.color.setTo(255, 50, 0);
-                            this.tweens.add(
-                            {
-                                targets:torche13,
-                                duration:200,
-                                yoyo: true,
-                                repeat:-1,
-                                delay:Math.random()*1000,
-                                alpha:
-                                {
-                                    startDelay:Math.random()*5000,
-                                    from:0,
-                                    to:1,
-                                }
-                            })
-
-                        this.unSeul23 = false;
-                    }
-
-                });
-        }
-    } //---------------------------------- FIN DE ALLUMERTORCHE3 ----------------------------------
+    //---------------------------------- FIN DE ALLUMERTORCHE3 ----------------------------------
 
     allumerTorche4(torche4Name, player)
     {
@@ -2472,16 +2371,16 @@ class Niveau1 extends Tableau
     } //---------------------------------- FIN DE MOVEPARALLAX ----------------------------------
 
 
-    storyBox() // Comme j'ai déjà surchargé mes assets Tiled, cette fois on essaye la méthode de position ( même si j'en raffole pas -_- ).
+    storyBox(TutoBox1) // Comme j'ai déjà surchargé mes assets Tiled, cette fois on essaye la méthode de position ( même si j'en raffole pas -_- ).
     {
         // ----------------------------------- Box Tuto -----------------------------------
         //connu : 512 x, 1984 y /déduction : 576 x, 2048 y
-        if(this.player.body.position.x > 512  && this.player.body.position.y > 1984 && this.player.body.position.x < 576 && this.player.body.position.y > 2048)
+        if(this.player.body.position.x > 320  && this.player.body.position.y > 1984 && this.player.body.position.x < 384 && this.player.body.position.y > 2048)
         {
-            this.TutoBox1 = this.add.sprite(this.player.body.position.x, this.player.body.position.y , 'tutoBox1').setDepth(987).setDisplaySize(48,96);
-            this.TutoBox1alpha = 0;
+            console.log("je suis dans la tutoBox 1");
             this.TutoBox1.visible = true;
-            if(this.player.body.position.x < 544){
+
+            if(this.player.body.position.x < 352){
                 //this.tuto_dash.alpha=1;
                 Tableau.current.tweens.add({
                     targets: TutoBox1,
@@ -2490,7 +2389,7 @@ class Niveau1 extends Tableau
                     ease: 'Sine.easeInOut',
     
                 })
-            }else if(this.player.body.position.x > 544){
+            }else if(this.player.body.position.x > 352){
                 //this.tuto_dash.alpha=0;
                 Tableau.current.tweens.add({
                     targets: Tableau.current.tuto_dash,
@@ -2570,7 +2469,7 @@ class Niveau1 extends Tableau
     {
         super.update();
         this.moveParallax();
-        //this.storyBox()
+        this.storyBox()
 
         this.monstersContainer.each(function (child) {child.update();})
 
