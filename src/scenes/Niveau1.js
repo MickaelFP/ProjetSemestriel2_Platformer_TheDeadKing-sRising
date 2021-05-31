@@ -2470,10 +2470,80 @@ class Niveau1 extends Tableau
 
     } //---------------------------------- FIN DE MOVEPARALLAX ----------------------------------
 
+
+    storyBox() // Comme j'ai déjà surchargé mes assets Tiled, cette fois on essaye la méthode de position ( même si j'en raffole pas -_- ).
+    {
+        // ----------------------------------- Box Tuto -----------------------------------
+        //connu : 512 x, 1984 y /déduction : 576 x, 2048 y
+        if(this.player.body.position.y < 512  && this.player.body.position.y > 1984 && this.player.body.position.x < 576 && this.player.body.position.y > 2048)
+        {
+
+        }/*
+        // 896 x, 1984 y / 960 x, 2048 y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+        // 1280 x, 1984 y / 1344 x, 2048 y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+
+        // ----------------------------------- Box Apprentissage des Objectifs -----------------------------------
+        // Partie 1
+        // x, y / x, y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+        // x, y / x, y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+
+        // Partie 2
+        // x, y / x, y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+
+        // Partie 3
+        // x, y / x, y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+         // x, y / x, y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+        // x, y / x, y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+
+        // Partie 4
+        // x, y / x, y
+        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        {
+            
+        }
+
+        // Partie Secrète*/
+
+    } // FIN DE STORYBOX */
+
+
     update(chauvesouris, bloquerFly)
     {
         super.update();
         this.moveParallax();
+        //this.storyBox()
 
         this.monstersContainer.each(function (child) {child.update();})
 
@@ -2493,5 +2563,6 @@ class Niveau1 extends Tableau
         //this.optimizeDisplay();
 
     }//---------------------------------- FIN DE UPDATE ----------------------------------
+
 }
 
