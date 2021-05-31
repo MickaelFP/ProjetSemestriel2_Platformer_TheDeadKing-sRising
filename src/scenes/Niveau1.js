@@ -18,6 +18,7 @@ class Niveau1 extends Tableau
         this.load.image('platformStone', 'assets/elements/platformStone.png');
         this.load.image('plate', 'assets/elements/petitePlateformePierre.png');
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere3.png');
+        this.load.image('tutoBox1', 'assets/elements/TutoBox1.png');
 
         // les données du tableau qu'on a créé dans TILED
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingBeta5.json'); // -> 'TheDeadKingRisingAlpha9-3.json'
@@ -2475,10 +2476,36 @@ class Niveau1 extends Tableau
     {
         // ----------------------------------- Box Tuto -----------------------------------
         //connu : 512 x, 1984 y /déduction : 576 x, 2048 y
-        if(this.player.body.position.y < 512  && this.player.body.position.y > 1984 && this.player.body.position.x < 576 && this.player.body.position.y > 2048)
+        if(this.player.body.position.x > 512  && this.player.body.position.y > 1984 && this.player.body.position.x < 576 && this.player.body.position.y > 2048)
         {
-
-        }/*
+            this.TutoBox1 = this.add.sprite(this.player.body.position.x, this.player.body.position.y , 'tutoBox1').setDepth(987).setDisplaySize(48,96);
+            this.TutoBox1alpha = 0;
+            this.TutoBox1.visible = true;
+            if(this.player.body.position.x < 544){
+                //this.tuto_dash.alpha=1;
+                Tableau.current.tweens.add({
+                    targets: TutoBox1,
+                    alpha:1,
+                    duration: 100,
+                    ease: 'Sine.easeInOut',
+    
+                })
+            }else if(this.player.body.position.x > 544){
+                //this.tuto_dash.alpha=0;
+                Tableau.current.tweens.add({
+                    targets: Tableau.current.tuto_dash,
+                    alpha:0,
+                    duration: 100,
+                    ease: 'Sine.easeInOut',
+    
+                })
+            }
+        }
+        else
+        {
+            this.TutoBox1.visible = false;
+        }
+        /*
         // 896 x, 1984 y / 960 x, 2048 y
         if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
         {
