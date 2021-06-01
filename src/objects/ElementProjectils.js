@@ -90,7 +90,7 @@ class ElementProjectils extends Phaser.Physics.Arcade.Sprite
 
     /*if (this.broken == true) 
     {
-      this.world.add.sprite(this.x, this.y, 'broke').setDepth(986);
+      this.world.add.sprite(this.x, this.y, 'broke').setDepth(986+Tableau.current.depthConst);
       this.broken = false;
     }*/
   }

@@ -64,6 +64,8 @@ class Tableau extends Phaser.Scene{
         this.sys.scene.scale.lockOrientation("landscape")
         console.log("On est sur "+this.constructor.name+" / "+this.scene.key);
 
+        this.depthConst = 500;
+
         /**
          * Le ciel en fond
          * @type {Phaser.GameObjects.Image}
@@ -81,13 +83,13 @@ class Tableau extends Phaser.Scene{
         this.playerPower = 0;
 
         this.auraDamage = this.add.pointlight(this.player.x, this.player.y, 0, 2000, 0.02);
-        this.auraDamage.setDepth(999);
+        this.auraDamage.setDepth(999+this.depthConst);
         this.auraDamage.attenuation = 0.1;
         this.auraDamage.color.setTo(354, 10, 10);
         this.auraDamage.visible=false;
 
         this.auraHeal = this.add.pointlight(this.player.x, this.player.y, 0, 2000, 0.02);
-        this.auraHeal.setDepth(999);
+        this.auraHeal.setDepth(999+this.depthConst);
         this.auraHeal.attenuation = 0.1;
         this.auraHeal.color.setTo(0, 255, 0);
         this.auraHeal.visible=false;
@@ -95,7 +97,7 @@ class Tableau extends Phaser.Scene{
         //this.boxRenderPlayer = new ObjetBoxRenderPlayer(this,this.player.x, this.player.y);
 
         this.pv3=this.add.sprite(90, 100, "hp3");
-        this.pv3.setDepth(1000);
+        this.pv3.setDepth(1000+this.depthConst);
         this.pv3.setScrollFactor(0);
 
         ui._hpText.setText('Body : ');
@@ -125,7 +127,7 @@ class Tableau extends Phaser.Scene{
         this.infCtrl.displayWidth=400;
         this.infCtrl.displayHeight=400;
         this.infCtrl.visible = false;
-        this.infCtrl.setScrollFactor(0).setDepth(1000);
+        this.infCtrl.setScrollFactor(0).setDepth(1000+this.depthConst);
 
         /*this.cacheTop = this.add.sprite(0,0, "cacheTop").setDepth(1000).setOrigin(0,0);
         this.cacheTop.visible = false;
@@ -512,7 +514,7 @@ class Tableau extends Phaser.Scene{
             if(this.lifePoints == 2)
             {
                 this.pv2=this.add.sprite(90, 100, "hp2");
-                this.pv2.setDepth(1000);
+                this.pv2.setDepth(1000+this.depthConst);
                 this.pv2.setScrollFactor(0);
                 this.pv3.destroy();
                 //console.log("InfosLifePoints() -> hp2");
@@ -520,7 +522,7 @@ class Tableau extends Phaser.Scene{
             if(this.lifePoints == 1)
             {
                 this.pv1=this.add.sprite(90, 100, "hp1");
-                this.pv1.setDepth(1000);
+                this.pv1.setDepth(1000+this.depthConst);
                 this.pv1.setScrollFactor(0);
                 this.pv2.destroy();
                 //console.log("InfosLifePoints() -> hp1");
@@ -528,7 +530,7 @@ class Tableau extends Phaser.Scene{
             if(this.lifePoints == 0)
             {
                 this.pv0=this.add.sprite(90, 100, "hp0");
-                this.pv0.setDepth(1000);
+                this.pv0.setDepth(1000+this.depthConst);
                 this.pv0.setScrollFactor(0);
                 this.pv1.destroy();
                 //console.log("InfosLifePoints() -> hp0");
@@ -543,7 +545,7 @@ class Tableau extends Phaser.Scene{
             if(this.lifePoints == 3)
             {
                 this.pv3=this.add.sprite(90, 100, "hp3");
-                this.pv3.setDepth(1000);
+                this.pv3.setDepth(1000+this.depthConst);
                 this.pv3.setScrollFactor(0);
                 this.pv2.destroy();
                 //console.log("InfosLifePoints2() -> hp3");
@@ -551,7 +553,7 @@ class Tableau extends Phaser.Scene{
             if(this.lifePoints == 2)
             {
                 this.pv2=this.add.sprite(90, 100, "hp2");
-                this.pv2.setDepth(1000);
+                this.pv2.setDepth(1000+this.depthConst);
                 this.pv2.setScrollFactor(0);
                 this.pv1.destroy();
                 //console.log("InfosLifePoints2() -> hp2");
@@ -596,7 +598,7 @@ class Tableau extends Phaser.Scene{
                 let me = this;
                 //console.log("oneDrope");
 
-                me.monsterOfVase=new MonsterZombie(this,this.player.x+150,this.player.y+24,"zombie2").setDepth(996);
+                me.monsterOfVase=new MonsterZombie(this,this.player.x+150,this.player.y+24,"zombie2").setDepth(996+this.depthConst);
                 me.physics.add.collider(me.monsterOfVase, this.solides);
                 me.physics.add.collider(me.monsterOfVase, this.platforms6);
 
@@ -877,7 +879,7 @@ class Tableau extends Phaser.Scene{
             let me = this;
 
             me.oneShootOnly = false;
-            me.shoot=new ElementProjectils(this,this.player.x +30,this.player.y-30,"ossement").setDepth(996);
+            me.shoot=new ElementProjectils(this,this.player.x +30,this.player.y-30,"ossement").setDepth(996+this.depthConst);
             me.physics.add.collider(this.solides, this.shoot);
 
             if(this.arrowRightPressed)
@@ -1006,7 +1008,7 @@ class Tableau extends Phaser.Scene{
             onComplete: function () 
             {
                 me.blood.visible = false;
-                this.power = new CollectiblePower(this,this.player.x+150,this.player.y+24,"power").setDepth(996);
+                this.power = new CollectiblePower(this,this.player.x+150,this.player.y+24,"power").setDepth(996+this.depthConst);
                 onComplete();
             }
         })
@@ -1178,7 +1180,7 @@ class Tableau extends Phaser.Scene{
         {
             let me = this;
      
-            //this.blood2.setDepth(996);
+            //this.blood2.setDepth(996+this.depthConst);
             if(miniBoss.isDead !== true)
             { //si notre monstre n'est pas déjà mort
                 if(Tableau.current.player.falling && player.getBounds().bottom < miniBoss.getBounds().top+30)
@@ -1209,7 +1211,7 @@ class Tableau extends Phaser.Scene{
         {
             let me = this;
 
-            //this.blood2.setDepth(996);
+            //this.blood2.setDepth(996+this.depthConst);
             if(monster.isDead !== true)
             { //si notre monstre n'est pas déjà mort
                 if(player.body.velocity.y >= 0 && player.getBounds().bottom < monster.getBounds().top+30)
@@ -1278,7 +1280,7 @@ class Tableau extends Phaser.Scene{
                 if (!me.player.isDead) 
                 {
                     ui.perdre2();
-                    this.blood2.setDepth(1000);
+                    this.blood2.setDepth(1000+this.depthConst);
                     me.player.isDead = true;
                     me.player.visible = false;
                     // ça saigne...
