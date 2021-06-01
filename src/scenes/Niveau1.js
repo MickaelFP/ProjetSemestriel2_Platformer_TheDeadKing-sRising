@@ -2113,19 +2113,19 @@ class Niveau1 extends Tableau
 
     storyBox() // Comme j'ai déjà surchargé mes assets Tiled, cette fois on essaye la méthode de position ( même si j'en raffole pas -_- ).
     {
-        if(this.player.body.position.x >= 480  && this.player.body.position.y > 1920 && this.player.body.position.x <= 632 && this.player.body.position.y <= 1984)
+        if(this.player.body.position.x >= 352  && this.player.body.position.y > 1920 && this.player.body.position.x <= 760 && this.player.body.position.y <= 1984)
         {
             this.TutoBox1.visible = true;
 
-            if(this.player.body.position.x >= 512 && this.player.body.position.x <= 600){
+            if(this.player.body.position.x >= 502 && this.player.body.position.x <= 600){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox1,
                     alpha:1,
-                    duration: 100,
+                    duration: 300,
                     ease: 'Sine.easeInOut',
     
                 })
-            }else if(this.player.body.position.x < 512 || this.player.body.position.x > 600){
+            }else if(this.player.body.position.x < 502 || this.player.body.position.x > 600){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox1,
                     alpha:0,
