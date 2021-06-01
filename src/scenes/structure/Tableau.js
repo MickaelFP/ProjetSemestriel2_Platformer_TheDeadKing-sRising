@@ -33,8 +33,8 @@ class Tableau extends Phaser.Scene{
         this.load.image('hp2', 'assets/ui/hp2.png');
         this.load.image('hp3', 'assets/ui/hp3.png');
 
-        this.load.image('cacheTop', 'assets/backgrounds/cache_haut_ok.png');
-        this.load.image('cacheBot', 'assets/backgrounds/cache_bas_ok.png');
+        //this.load.image('cacheTop', 'assets/backgrounds/cache_haut_ok.png');
+        //this.load.image('cacheBot', 'assets/backgrounds/cache_bas_ok.png');
 
         this.load.spritesheet('power', 'assets/Spritesheet/power.png', { frameWidth: 260, frameHeight: 253  } );
         this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie_remastered2.png', { frameWidth: 32, frameHeight: 56 } ); 
@@ -128,11 +128,6 @@ class Tableau extends Phaser.Scene{
         this.infCtrl.displayHeight=400;
         this.infCtrl.visible = false;
         this.infCtrl.setScrollFactor(0).setDepth(1000+this.depthConst);
-
-        /*this.cacheTop = this.add.sprite(0,0, "cacheTop").setDepth(1000).setOrigin(0,0);
-        this.cacheTop.visible = false;
-        this.cacheBot = this.add.sprite(0,0, "cacheBot").setDepth(1000).setOrigin(0,0);
-        this.cacheBot.visible = false;*/
 
 
         // ----------------------------------- booleans simples que l'on compte utiliser -----------------------------------
@@ -242,7 +237,7 @@ class Tableau extends Phaser.Scene{
 
         this.vaseDropping();                    // Faire drope des choses quand on détruit quelquechose
         this.auraEffect();                      // Effet d'éclairage de l'écran (feedback : dégats, heal, luminosité...)
-        this.cacheCache();                      // Faire apparaître des images suivant la positions du joueur
+        //this.cacheCache();                      // Faire apparaître des images suivant la positions du joueur
         this.collisionSup();                    // Quelques effets de collisions (destruction de projectil, perte de pv...)
 
 
@@ -464,45 +459,6 @@ class Tableau extends Phaser.Scene{
         }
 
     }
-
-
-    /*fullScreenFonction() // fonctionne pas
-    {
-        if(this.escapePressed)
-        {
-            if (this.scale.isFullscreen)
-            {
-                this.scale.stopFullscreen();
-            }
-            else
-            {
-                this.scale.startFullscreen();
-            }
-        }
-
-    }*/
-
-
-    cacheCache()
-    {
-        if(!this.isMobile)
-        {
-            if(this.player.body.position.y < 832)
-            {
-                //this.cacheBot.visible = true;
-                //this.cacheTop.visible = false;
-                this.skyDevant.visible = true;
-            }
-            else
-            {
-                //this.cacheTop.visible = true;
-                //this.cacheBot.visible = false;
-                this.skyDevant.visible = false;
-            }
-        }
-
-
-    } // FIN DE CACHECACHE
 
     
     // ********************************* Gestionnaire de l'affichage des points de vies *********************************
@@ -815,7 +771,7 @@ class Tableau extends Phaser.Scene{
     }
 
 
-    acceleration1()
+    /*acceleration1()
     {
         this.player.setVelocityX(800);
         this.time.addEvent
@@ -830,7 +786,7 @@ class Tableau extends Phaser.Scene{
             },
             loop: false
         })
-    }
+    }*/
 
 
     clearCheckPoints()
