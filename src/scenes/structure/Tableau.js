@@ -483,19 +483,21 @@ class Tableau extends Phaser.Scene{
 
     cacheCache()
     {
-        /*if(!this.isMobile)
+        if(!this.isMobile)
         {
             if(this.player.body.position.y < 832)
             {
-                this.cacheBot.visible = true;
-                this.cacheTop.visible = false;
+                //this.cacheBot.visible = true;
+                //this.cacheTop.visible = false;
+                this.skyDevant.visible = true;
             }
             else
             {
-                this.cacheTop.visible = true;
-                this.cacheBot.visible = false;
+                //this.cacheTop.visible = true;
+                //this.cacheBot.visible = false;
+                this.skyDevant.visible = false;
             }
-        }*/
+        }
 
 
     } // FIN DE CACHECACHE
