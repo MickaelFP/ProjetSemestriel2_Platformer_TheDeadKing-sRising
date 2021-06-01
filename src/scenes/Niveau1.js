@@ -34,7 +34,7 @@ class Niveau1 extends Tableau
         this.load.image('chateauLoin', 'assets/backgrounds/cinquieme_plan_chateauLoin.png'); // chateauLoin_x896_2.png');
         this.load.image('grilleHerbe', 'assets/backgrounds/second_plan_grille_remastered.png'); // grille_x896_2.png');
         this.load.image('colines', 'assets/backgrounds/colinesForet_Remastered.png'); // quatrieme_plan_colinesForet2.png');
-        this.load.image('ombresTombes', 'assets/backgrounds/ombres_plan_surface_l_flou.png'); // ombres_plan_surface/l/.png
+        //this.load.image('ombresTombes', 'assets/backgrounds/ombres_plan_surface_l_flou.png'); // ombres_plan_surface/l/.png
 
         // -----Elements interactifs-------------
         this.load.image('vase', 'assets/elements/vase.png');
@@ -843,7 +843,7 @@ class Niveau1 extends Tableau
         this.sky5.setOrigin(0,0);
         this.sky5.setScrollFactor(0);
 
-        this.skyDevant = this.add.tileSprite
+        /*this.skyDevant = this.add.tileSprite
         (
             0,
             0,
@@ -852,7 +852,7 @@ class Niveau1 extends Tableau
             'ombresTombes'
         );
         this.skyDevant.setOrigin(0,0);
-        this.skyDevant.setScrollFactor(0);
+        this.skyDevant.setScrollFactor(0);*/
 
 
         //------------------------------------------------ Sources lumineuses ------------------------------------------------
@@ -1179,7 +1179,13 @@ class Niveau1 extends Tableau
         //quand on touche une torche
         this.physics.add.overlap(this.player, this.torches0, function(player, torche)
         {
-            ici.allumerTorche(torche.torcheObject.name);
+            //ici.allumerTorche(torche.torcheObject.name);
+            ici.allumerGroupeTorche(
+                torche.torcheObject.name,
+                "torche",
+                "torches0Objects",
+                "unSeul"
+            );
 
             if(!this.player.body.blocked.down || !this.player.body.touching.down)
             {
@@ -1356,7 +1362,7 @@ class Niveau1 extends Tableau
         //--------------------------------- Z order -----------------------------------------------
 
         //on définit les z à la fin. z-- = on décrémente par rapport à z ou à la valeur précédente qui décrémente de z.
-        let z=1000+Tableau.current.depthConst+Tableau.current.depthConst;
+        let z=1000+Tableau.current.depthConst;
 
         this.infCtrl.setDepth(1000+Tableau.current.depthConst);
         this.checkPoints.setDepth(987+Tableau.current.depthConst);
@@ -1367,7 +1373,7 @@ class Niveau1 extends Tableau
 
         debug.setDepth(z--);
 
-        this.skyDevant.setDepth(z--);
+        //this.skyDevant.setDepth(z--);
 
         this.particles1.setDepth(z--);
         this.particles2.setDepth(z--);
@@ -1731,7 +1737,7 @@ class Niveau1 extends Tableau
 
 
     // TORCHES
-    allumerTorche(torcheName, player)
+    /*allumerTorche(torcheName, player)
     {
         let storedTorche=localStorage.getItem("torche")
         if (storedTorche !== torcheName)
@@ -1804,7 +1810,7 @@ class Niveau1 extends Tableau
 
                 });
         }
-    } //---------------------------------- FIN DE ALLUMERTORCHE ----------------------------------
+    } *///---------------------------------- FIN DE ALLUMERTORCHE ----------------------------------
 
     allumerGroupeTorche(name, localStorageName, tiledObjectName, unseulname)
     {
@@ -2029,8 +2035,8 @@ class Niveau1 extends Tableau
         this.sky5.tilePositionY=this.cameras.main.scrollY+22;//+0//*0.05;
 
         //les ombres devant
-        this.skyDevant.tilePositionX=this.cameras.main.scrollX*10;//*0.6//0.15;
-        this.skyDevant.tilePositionY=this.cameras.main.scrollY;//+0//*0.05;
+        /*this.skyDevant.tilePositionX=this.cameras.main.scrollX*10;//*0.6//0.15;
+        this.skyDevant.tilePositionY=this.cameras.main.scrollY;//+0//*0.05;*/
 
     } //---------------------------------- FIN DE MOVEPARALLAX ----------------------------------
 
