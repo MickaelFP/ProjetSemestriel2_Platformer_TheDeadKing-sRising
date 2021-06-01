@@ -1362,7 +1362,7 @@ class Niveau1 extends Tableau
         //--------------------------------- Z order -----------------------------------------------
 
         //on définit les z à la fin. z-- = on décrémente par rapport à z ou à la valeur précédente qui décrémente de z.
-        let z=1000+Tableau.current.depthConst;
+        let z=1000;
 
         this.infCtrl.setDepth(1000);
         this.checkPoints.setDepth(987);
