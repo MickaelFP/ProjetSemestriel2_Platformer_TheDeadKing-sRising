@@ -19,9 +19,14 @@ class Niveau1 extends Tableau
         this.load.image('plate', 'assets/elements/petitePlateformePierre.png');
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere3.png');
         this.load.image('tutoBox1', 'assets/elements/TutoBox1.png');
+        this.load.image('tutoBox2', 'assets/elements/TutoBox2.png');
+        this.load.image('tutoBox3', 'assets/elements/TutoBox3.png');
+        this.load.image('tutoBox4', 'assets/elements/TutoBox4.png');
+        this.load.image('tutoBox5', 'assets/elements/TutoBox5.png');
+        this.load.image('tutoBox6', 'assets/elements/TutoBox6.png');
 
         // les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingBeta7.json'); // -> 'TheDeadKingRisingAlpha9-3.json'
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingBeta7mx.json'); // -> 'TheDeadKingRisingAlpha9-3.json'
 
         // -----Decors-------------
         this.load.image('night', 'assets/backgrounds/nuit_etoile_turquoise.png'); // sky_plan_nuitEtoileCarre.png');
@@ -189,7 +194,7 @@ class Niveau1 extends Tableau
         // plateformes pierre
         this.platforms4 = this.physics.add.group();
 
-        this.platforms4.create(3904, 468+hauteurDif, 'plate');
+        this.platforms4.create(4032, 532+hauteurDif, 'plate');
         this.platforms4.create(3968, 628+hauteurDif, 'plate');
 
         this.platforms4.create(5390, 976+hauteurDif, 'plate');
@@ -477,26 +482,34 @@ class Niveau1 extends Tableau
 
         // ------------------------------------------------ Boxes text ------------------------------------------------
 
-        this.TutoBox1 = this.add.sprite(this.player.body.position.x, this.player.body.position.y , 'tutoBox1').setDepth(987).setDisplaySize(48,96);
+        this.TutoBox1 = this.add.sprite(556, 1792 , 'tutoBox1').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
         this.TutoBox1.alpha = 0;
-        this.TutoBox1.visible = true;
+        this.TutoBox1.visible = false;
+        this.TutoBox2 = this.add.sprite(940, 1792 , 'tutoBox2').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
+        this.TutoBox2.alpha = 0;
+        this.TutoBox2.visible = false;
+        this.TutoBox3 = this.add.sprite(1324, 1792 , 'tutoBox3').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
+        this.TutoBox3.alpha = 0;
+        this.TutoBox3.visible = false;
 
+        this.TutoBox4 = this.add.sprite(492, 640 , 'tutoBox4').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
+        this.TutoBox4.alpha = 0;
+        this.TutoBox4.visible = false;
+        this.TutoBox5 = this.add.sprite(832, 376 , 'tutoBox5').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
+        this.TutoBox5.alpha = 0;
+        this.TutoBox5.visible = false;
 
-        /*this.firstTexteBoxe = new ElementBoxeTexte(this,0+480,0+1952).setDepth(996);//160//1200/1968
-        this.physics.add.overlap(this.player, this.firstTexteBoxe, function(player, firstTexteBoxe)
-        {
-            if(!this.player.body.blocked.down || !this.player.body.touching.down)
-            {
-                Tableau.current.jumpStop = true;
-                //console.log("jumpStop = true");
-            }
-            else
-            {
+        this.TutoBox6 = this.add.sprite(1280, 640 , 'tutoBox6').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
+        this.TutoBox6.alpha = 0;
+        this.TutoBox6.visible = false;
 
-                
-            }
-        }, null, this);*/
+       /* this.TutoBox7 = this.add.sprite(556, 1792 , 'tutoBox7').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
+        this.TutoBox7.alpha = 0;
+        this.TutoBox7.visible = false;
 
+        this.TutoBox8 = this.add.sprite(556, 1792 , 'tutoBox8').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
+        this.TutoBox8.alpha = 0;
+        this.TutoBox8.visible = false;*/
 
         /*
         // Elements collectibles
@@ -2022,28 +2035,23 @@ class Niveau1 extends Tableau
     } //---------------------------------- FIN DE MOVEPARALLAX ----------------------------------
 
 
-    storyBox(TutoBox1) // Comme j'ai déjà surchargé mes assets Tiled, cette fois on essaye la méthode de position ( même si j'en raffole pas -_- ).
+    storyBox() // Comme j'ai déjà surchargé mes assets Tiled, cette fois on essaye la méthode de position ( même si j'en raffole pas -_- ).
     {
-        // ----------------------------------- Box Tuto -----------------------------------
-        //connu : 512 x, 1984 y /déduction : 576 x, 2048 y
-        if(this.player.body.position.x > 320  && this.player.body.position.y > 1984 && this.player.body.position.x < 384 && this.player.body.position.y > 2048)
+        if(this.player.body.position.x >= 480  && this.player.body.position.y > 1920 && this.player.body.position.x <= 632 && this.player.body.position.y <= 1984)
         {
-            console.log("je suis dans la tutoBox 1");
             this.TutoBox1.visible = true;
 
-            if(this.player.body.position.x < 352){
-                //this.tuto_dash.alpha=1;
+            if(this.player.body.position.x >= 512 && this.player.body.position.x <= 600){
                 Tableau.current.tweens.add({
-                    targets: TutoBox1,
+                    targets: this.TutoBox1,
                     alpha:1,
                     duration: 100,
                     ease: 'Sine.easeInOut',
     
                 })
-            }else if(this.player.body.position.x > 352){
-                //this.tuto_dash.alpha=0;
+            }else if(this.player.body.position.x < 512 || this.player.body.position.x > 600){
                 Tableau.current.tweens.add({
-                    targets: Tableau.current.tuto_dash,
+                    targets: this.TutoBox1,
                     alpha:0,
                     duration: 100,
                     ease: 'Sine.easeInOut',
@@ -2055,63 +2063,142 @@ class Niveau1 extends Tableau
         {
             this.TutoBox1.visible = false;
         }
-        /*
-        // 896 x, 1984 y / 960 x, 2048 y
-        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+
+        if(this.player.body.position.x >= 864  && this.player.body.position.y > 1920 && this.player.body.position.x <= 1016 && this.player.body.position.y <= 1984)
         {
-            
+            this.TutoBox2.visible = true;
+
+            if(this.player.body.position.x >= 896 && this.player.body.position.x <= 984){
+                Tableau.current.tweens.add({
+                    targets: this.TutoBox2,
+                    alpha:1,
+                    duration: 100,
+                    ease: 'Sine.easeInOut',
+
+                })
+            }else if(this.player.body.position.x < 896 || this.player.body.position.x > 984){
+                Tableau.current.tweens.add({
+                    targets: this.TutoBox2,
+                    alpha:0,
+                    duration: 100,
+                    ease: 'Sine.easeInOut',
+
+                })
+            }
         }
-        // 1280 x, 1984 y / 1344 x, 2048 y
-        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        else
         {
-            
+            this.TutoBox2.visible = false;
         }
 
-        // ----------------------------------- Box Apprentissage des Objectifs -----------------------------------
-        // Partie 1
-        // x, y / x, y
-        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        if(this.player.body.position.x >= 1248  && this.player.body.position.y > 1920 && this.player.body.position.x <= 1400 && this.player.body.position.y <= 1984)
         {
-            
+            this.TutoBox3.visible = true;
+
+            if(this.player.body.position.x >= 1280 && this.player.body.position.x <= 1368){
+                Tableau.current.tweens.add({
+                    targets: this.TutoBox3,
+                    alpha:1,
+                    duration: 100,
+                    ease: 'Sine.easeInOut',
+
+                })
+            }else if(this.player.body.position.x < 1280 || this.player.body.position.x > 1368){
+                Tableau.current.tweens.add({
+                    targets: this.TutoBox3,
+                    alpha:0,
+                    duration: 100,
+                    ease: 'Sine.easeInOut',
+
+                })
+            }
         }
-        // x, y / x, y
-        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        else
         {
-            
+            this.TutoBox3.visible = false;
         }
 
-        // Partie 2
-        // x, y / x, y
-        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        if(this.player.body.position.x >= 416  && this.player.body.position.y > 768 && this.player.body.position.x <= 568 && this.player.body.position.y <= 832)
         {
-            
+            this.TutoBox4.visible = true;
+
+            if(this.player.body.position.x >= 448 && this.player.body.position.x <= 536){
+                Tableau.current.tweens.add({
+                    targets: this.TutoBox4,
+                    alpha:1,
+                    duration: 100,
+                    ease: 'Sine.easeInOut',
+
+                })
+            }else if(this.player.body.position.x < 448 || this.player.body.position.x > 536){
+                Tableau.current.tweens.add({
+                    targets: this.TutoBox4,
+                    alpha:0,
+                    duration: 100,
+                    ease: 'Sine.easeInOut',
+
+                })
+            }
+        }
+        else
+        {
+            this.TutoBox4.visible = false;
         }
 
-        // Partie 3
-        // x, y / x, y
-        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        if(this.player.body.position.x >= 756  && this.player.body.position.y > 504 && this.player.body.position.x <= 908 && this.player.body.position.y <= 568)
         {
-            
+            this.TutoBox5.visible = true;
+
+            if(this.player.body.position.x >= 788 && this.player.body.position.x <= 876){
+                Tableau.current.tweens.add({
+                    targets: this.TutoBox5,
+                    alpha:1,
+                    duration: 100,
+                    ease: 'Sine.easeInOut',
+
+                })
+            }else if(this.player.body.position.x < 788 || this.player.body.position.x > 876){
+                Tableau.current.tweens.add({
+                    targets: this.TutoBox5,
+                    alpha:0,
+                    duration: 100,
+                    ease: 'Sine.easeInOut',
+
+                })
+            }
         }
-         // x, y / x, y
-        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        else
         {
-            
-        }
-        // x, y / x, y
-        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
-        {
-            
+            this.TutoBox5.visible = false;
         }
 
-        // Partie 4
-        // x, y / x, y
-        if(this.player.body.position.y < && this.player.body.position.y > && this.player.body.position.x < && this.player.body.position.x >)
+        if(this.player.body.position.x >= 1204  && this.player.body.position.y > 768 && this.player.body.position.x <= 1356 && this.player.body.position.y <= 832)
         {
-            
-        }
+            console.log("je suis dans la tutoBox 6");
+            this.TutoBox6.visible = true;
 
-        // Partie Secrète*/
+            if(this.player.body.position.x >= 1236 && this.player.body.position.x <= 1324){
+                Tableau.current.tweens.add({
+                    targets: this.TutoBox6,
+                    alpha:1,
+                    duration: 100,
+                    ease: 'Sine.easeInOut',
+
+                })
+            }else if(this.player.body.position.x < 1236 || this.player.body.position.x > 1324){
+                Tableau.current.tweens.add({
+                    targets: this.TutoBox6,
+                    alpha:0,
+                    duration: 100,
+                    ease: 'Sine.easeInOut',
+
+                })
+            }
+        }
+        else
+        {
+            this.TutoBox6.visible = false;
+        }
 
     } // FIN DE STORYBOX */
 

@@ -96,7 +96,7 @@
   <object id="108" name="escalier" gid="69" x="1856" y="1984" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="4" name="stars">
-  <object id="16" gid="70" x="448" y="1984" width="64" height="64"/>
+  <object id="16" gid="70" x="576" y="1984" width="64" height="64"/>
   <object id="19" gid="70" x="834" y="568" width="64" height="64"/>
   <object id="22" gid="70" x="1439.5" y="823.5" width="64" height="64"/>
   <object id="24" gid="70" x="2398.5" y="815" width="64" height="64"/>
@@ -126,7 +126,7 @@
  <objectgroup id="37" name="etoffes">
   <object id="176" gid="71" x="1730" y="608" width="64" height="64"/>
   <object id="178" gid="71" x="4996" y="606" width="64" height="64"/>
-  <object id="181" gid="71" x="832" y="1984" width="64" height="64"/>
+  <object id="181" gid="71" x="960" y="1984" width="64" height="64"/>
   <object id="182" gid="71" x="3072" y="1792" width="64" height="64"/>
   <object id="183" gid="71" x="3392" y="832" width="64" height="64"/>
   <object id="184" gid="71" x="4258" y="726" width="64" height="64"/>
@@ -155,11 +155,11 @@
   <object id="69" gid="11" x="4992" y="832" width="64" height="64"/>
   <object id="70" gid="11" x="5824" y="832" width="64" height="64"/>
   <object id="199" gid="11" x="5440" y="832" width="64" height="64"/>
-  <object id="201" gid="11" x="6016" y="832" width="64" height="64" rotation="90"/>
+  <object id="201" gid="11" x="6016" y="768" width="64" height="64" rotation="90"/>
  </objectgroup>
  <objectgroup id="20" name="bougies">
   <object id="115" name="bougie1" gid="49" x="128" y="768" width="64" height="64"/>
-  <object id="116" name="bougie2" gid="49" x="1344" y="768" width="64" height="64"/>
+  <object id="116" name="bougie2" gid="49" x="1345" y="768" width="64" height="64"/>
   <object id="120" name="bougie6" gid="49" x="4096" y="768" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="32" name="bougies1">
@@ -220,7 +220,7 @@
   <object id="11" gid="6" x="5184" y="1408" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="10" name="vase">
-  <object id="80" gid="91" x="1216" y="1984" width="64" height="64"/>
+  <object id="80" gid="91" x="1344" y="1984" width="64" height="64"/>
   <object id="83" gid="91" x="1664" y="832" width="64" height="64"/>
   <object id="85" gid="91" x="2560" y="832" width="64" height="64"/>
   <object id="87" gid="91" x="4480" y="832" width="64" height="64"/>
