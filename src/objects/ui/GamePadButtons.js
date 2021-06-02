@@ -8,6 +8,9 @@ class GamePadButtons extends GameKeyboard
         super(scene, x, y)
         scene.add.existing(this);
 
+        game.input.addPointer();
+        game.input.addPointer();
+
         if(!this.scene.sys.game.device.os.desktop) {
             this.size = size;
             let w = this.size / 2;
