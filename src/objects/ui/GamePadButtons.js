@@ -13,7 +13,6 @@ class GamePadButtons extends GameKeyboard
         let w = this.size / 2;
         let pad2 = scene.add.container();
 
-
         let btnUP = scene.add.circle(0, 0, w / 2, 0xffffff, 0.3).setInteractive();
         let btnLEFT = scene.add.circle(0, 0, w / 2, 0xffffff, 0.3).setInteractive();
         let btnRIGHT = scene.add.circle(0, 0, w / 2, 0xffffff, 0.3).setInteractive();

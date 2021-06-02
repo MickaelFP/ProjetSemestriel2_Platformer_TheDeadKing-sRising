@@ -123,10 +123,19 @@ class Ui extends Phaser.Scene{
             me.ramasser(0);
         },100)
 
-        //let pad=new GamePad(this,0,0);
-        this.pad=new GamePadButtons(this,0,0);
-        this.pad.x = this.sys.canvas.width - this.pad.size-32;
-        this.pad.y = this.sys.canvas.height - this.pad.size-32;
+        //let pad=new GamePad(this,0,0); GameKeyboard
+        if(this.isMobile == true)
+        {
+            this.pad=new GamePadButtons(this,0,0);
+            this.pad.x = this.sys.canvas.width - this.pad.size-32;
+            this.pad.y = this.sys.canvas.height - this.pad.size-32;
+        }
+        else
+        {
+            this.pad=new GameKeyboard(this,0,0);
+            this.pad.x = this.sys.canvas.width - this.pad.size-32;
+            this.pad.y = this.sys.canvas.height - this.pad.size-32;
+        }
 
         let btFs=this.add.image(0,0,'ui/full-screen-icon');
         btFs.setInteractive();
@@ -293,22 +302,35 @@ class Ui extends Phaser.Scene{
     //
     //---------------------------------
 
-    update(){
-        if(Tableau.current){
+    update()
+    {
+        if(Tableau.current)
+        {
             this._tableauText.setText(Tableau.current.scene.key);
             this._tableauTextClass.setText(Tableau.current.constructor.name);
         }
 
         if(Tableau.current && Tableau.current.player)
         {
-            this.pad.visible = true;
             this._scoreText.visible = true;
         }
         else
         {
-            this.pad.visible = false;
             this._scoreText.visible = false;
         }
+
+        if(this.isMobile)
+        {
+            if(Tableau.current && Tableau.current.player)
+            {
+                this.pad.visible = true;
+            }
+            else
+            {
+                this.pad.visible = false;
+            }
+        }
+
 
     }
 
