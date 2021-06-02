@@ -1396,7 +1396,7 @@ class Niveau1 extends Tableau
         //this.unique = false;
         if (localStorage.getItem("checkPoint") !== checkPointName) // this.unique == false
         {
-            console.log("on atteint le checkpoint", checkPointName);
+            //console.log("on atteint le checkpoint", checkPointName);
             localStorage.setItem("checkPoint", checkPointName);
 
             this.checkpointSound = this.sound.add('criCorbeau');

@@ -64,7 +64,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                             if(!Tableau.current.isMobile){
                             //console.log("checkPoint disable");
                             //console.log("reset checkpoint");
-                            Tableau.current.ControlPressed = true;
+                            //Tableau.current.ControlPressed = true;
                             }
                             break;
         

@@ -28,9 +28,6 @@ class MonsterBossSpectre extends ObjetPhysique{
         this.setBodySize(this.body.width,this.body.height);
         this.setVelocityX(0);
 
-        this.BarreDeVie = 10;
-        console.log("Boss hp : " + this.BarreDeVie);
-
         /*
         this.anims.create({
             key: 'moving',

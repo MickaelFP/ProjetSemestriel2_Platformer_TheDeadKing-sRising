@@ -13,6 +13,8 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //this.scale = 0.3; 
         this.setOffset(3, 3);
 
+        this.varSpeed = 0;
+
         this.jumping = false;
         this.falling = true;
         this.staticY = false;
@@ -179,22 +181,22 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
                 case this._directionX < 0 && this.staticY:
                     //console.log("left");
-                    this.setVelocityX(-160);
+                    this.setVelocityX(-160-this.varSpeed);
                     break;
     
                 case this._directionX > 0 && this.staticY:
                     //console.log("right");
-                    this.setVelocityX(160);
+                    this.setVelocityX(160+this.varSpeed);
                     break;
     
                 case this._directionX < 0 && this.semiMobileY:
                     //console.log("jumpLeft");
-                    this.setVelocityX(-160);
+                    this.setVelocityX(-160-this.varSpeed);
                     break;
                 
                 case this._directionX > 0 && this.semiMobileY:
                     //console.log("jumpRight");
-                    this.setVelocityX(160);
+                    this.setVelocityX(160+this.varSpeed);
                     break;
 
                 default:
@@ -260,7 +262,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                         {
                             if(Tableau.current.timingJump == true)
                             {
-                                this.setVelocityY(-500);
+                                this.setVelocityY(-500-(this.varSpeed/2));
                                 Tableau.current.timingJump = false;
                                 Tableau.current.timingJumping();
                             }

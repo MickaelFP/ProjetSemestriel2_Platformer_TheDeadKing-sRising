@@ -15,8 +15,10 @@ class MonsterFly extends ObjetEnnemi{
         this.setCollideWorldBounds(true);
         this.setBodySize(this.body.width,this.body.height);
         //this.setOffset(0, 0);
-        this.setVelocityX(-40*(Math.random()+1.5));
+        this.setVelocityX(100);
         this.setBounceX(1);
+
+        this.v = false;
 
         this.anims.create({
             key: 'moving',
@@ -45,19 +47,29 @@ class MonsterFly extends ObjetEnnemi{
 
     move(player)
     {
+
         if(!this.isDead && !Tableau.current.monsterMoveStop)
         {
             if(this.scene.player.x > this.x - 196 && this.scene.player.x < this.x - 10 && this.scene.player.y <= this.y + 64 && this.scene.player.y >= this.y - 64)
             {
                 //console.log("GRRRRR GAUCHE");
-                this.setVelocityX(-80*(Math.random()+1.5));
+                this.setVelocityX(-200); // -80*(Math.random()+1.5));
                 this.anims.play('movingFast', true)
+                this.v = false;
             }
             else if(this.scene.player.x < this.x + 196 && this.scene.player.x > this.x + 10 && this.scene.player.y <= this.y + 64 && this.scene.player.y >= this.y - 64)
             {
                 //console.log("GRRRRR DROITE");
-                this.setVelocityX(80*(Math.random()+1.5));
+                this.setVelocityX(200);
                 this.anims.play('movingFast', true)
+                this.v = false;
+            }
+            else if (!this.v)
+            {
+                //console.log("????????????,");
+                this.setVelocityX(100);
+                this.anims.play('moving', true)
+                this.v = true;
             }
             else
             {

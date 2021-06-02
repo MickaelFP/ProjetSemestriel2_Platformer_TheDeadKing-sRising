@@ -36,7 +36,7 @@ class Tableau extends Phaser.Scene{
         //this.load.image('cacheTop', 'assets/backgrounds/cache_haut_ok.png');
         //this.load.image('cacheBot', 'assets/backgrounds/cache_bas_ok.png');
 
-        this.load.spritesheet('power', 'assets/Spritesheet/power.png', { frameWidth: 260, frameHeight: 253  } );
+        this.load.spritesheet('power', 'assets/Spritesheet/power1.png', { frameWidth: 260, frameHeight: 253  } );
         this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie_remastered2.png', { frameWidth: 32, frameHeight: 56 } ); 
         this.load.spritesheet('monster-fly', 'assets/Spritesheet/chauve-sourie-1.png', { frameWidth: 55, frameHeight: 51 } );
         this.load.spritesheet('player', 'assets/Spritesheet/playerRemastered4.png', { frameWidth: 32, frameHeight: 64  } );
@@ -52,6 +52,7 @@ class Tableau extends Phaser.Scene{
         this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
         this.load.audio('criZombie', 'assets/Sound/Zombie_ID-2111.wav');
         this.load.audio('shhh', 'assets/Sound/sabre-9.mp3');
+        this.load.audio('waow', 'assets/Sound/boule_magique.mp3');
 
     }
     create(){
@@ -194,7 +195,7 @@ class Tableau extends Phaser.Scene{
         this.bossShield = false;
         this.oneDropePower = false;
         this.oneShotOnBoss = false;
-        this.hpMiniBoss = 10;
+        this.hpMiniBoss = 1;
         //
         this.antiBug = true;
 
@@ -268,12 +269,13 @@ class Tableau extends Phaser.Scene{
     }
 
 
-    powerLevel(playerPower)
+    powerLevel()
     {
-        if(playerPower = 1)
+        if(this.playerPower >= 1)
         {
             this.dashActivated = true;
         }
+        else { this.dashActivated = false }
     }
 
 
@@ -830,7 +832,7 @@ class Tableau extends Phaser.Scene{
 
     throwBones()
     {
-        if (this.aPressed && this.oneShootOnly && ui.score > 0)
+        if (this.aPressed && this.oneShootOnly && ui.score >= 2)
         {
             let me = this;
 
@@ -851,12 +853,7 @@ class Tableau extends Phaser.Scene{
 
             this.destroyProjectil2();
 
-            /*me.physics.add.collider(this.plateform, this.aPressed);
-            me.physics.add.collider(this.plateform2, this.aPressed);
-            me.physics.add.collider(this.plateform3, this.aPressed);
-            me.physics.add.collider(this.plateform4, this.aPressed);
-            me.physics.add.collider(this.plateform5, this.aPressed);
-            me.physics.add.collider(this.plateform6, this.aPressed);*/
+            /*me.physics.add.collider(this.plateform, this.aPressed);*/
 
             ui.perdre();
             me.aPressed=false;
@@ -964,10 +961,11 @@ class Tableau extends Phaser.Scene{
             onComplete: function () 
             {
                 me.blood.visible = false;
-                this.power = new CollectiblePower(this,this.player.x+150,this.player.y+24,"power").setDepth(996);
                 onComplete();
             }
         })
+        me.power = new CollectiblePower(this,Tableau.current.player.body.position.x + 150,Tableau.current.player.body.position.y + 24,"power")
+            .setDepth(996);
 
     } // FIN DE SAIGNEMINIBOSS
 
@@ -1052,12 +1050,14 @@ class Tableau extends Phaser.Scene{
     // POWER
     ramasserPower (player, power)
     {
+        //console.log("pouvoirs ugrade");
         power.disableBody(true, true);
         power.body.destroy();
 
         this.playerPower += 1;
+        Tableau.current.player.varSpeed += 20;
 
-        this.music = this.sound.add('os');
+        this.music = this.sound.add('waow');
         var musicConfig = 
         {
             mute: false,
@@ -1069,6 +1069,17 @@ class Tableau extends Phaser.Scene{
             delay:0,
         }
         this.music.play(musicConfig);
+
+        this.time.addEvent
+        ({
+            delay: 2000,
+            callback: ()=>
+            {
+                this.win();
+            },
+            loop: false
+        })
+
     }
 
 
@@ -1090,7 +1101,7 @@ class Tableau extends Phaser.Scene{
     miniBossLife(miniBoss)
     {
         this.hpMiniBoss -= 1;
-        console.log(this.hpMiniBoss);
+        //console.log(this.hpMiniBoss);
         if(this.hpMiniBoss <= 0)
         {
             ui.gagne2();
@@ -1500,7 +1511,7 @@ class Tableau extends Phaser.Scene{
      */
     _destroy()
     {
-        console.log("destroy");
+        //console.log("destroy");
         this.player.stop();
         this.scene.stop();
     }
@@ -1532,7 +1543,7 @@ class Tableau extends Phaser.Scene{
      */
     win()
     {
-        console.log("Victory");
+        //console.log("Victory");
         localStorage.removeItem("checkPoint");
         Tableau.suivant();
     }
