@@ -1,4 +1,139 @@
 
+        //------------------------------------------------ Optimisation ------------------------------------------------
+
+            update()
+            {
+                    //optimisation
+                    //teste si la caméra a bougé
+                    /*let actualPosition=JSON.stringify(this.cameras.main.worldView);
+                    if(
+                        !this.previousPosition
+                        || this.previousPosition !== actualPosition
+                    ){
+                        this.previousPosition=actualPosition;
+                        this.optimizeDisplay();
+                    }*/
+
+                    //this.optimizeDisplay();
+            }
+
+
+            /**
+             * Permet d'activer, désactiver des éléments en fonction de leur visibilité dans l'écran ou non
+             */
+            optimizeDisplay()
+            {
+                //  console.log("optimizeDisplay");
+
+                //return;
+                //let world=this.cameras.main.worldView; // le rectangle de la caméra, (les coordonnées de la zone visible)
+                /*
+                // on va activer / désactiver les particules de lave
+                for( let particule of this.laveFxContainer.getAll()){ // parcours toutes les particules de lave
+                    if(Phaser.Geom.Rectangle.Overlaps(world,particule.rectangle)){
+                        //si le rectangle de la particule est dans le rectangle de la caméra
+                        if(!particule.visible){
+                            //on active les particules
+                            particule.resume();
+                            particule.visible=true;
+                        }
+                    }else{
+                        //si le rectangle de la particule n'est PAS dans le rectangle de la caméra
+                        if(particule.visible){
+                            //on désactive les particules
+                            particule.pause();
+                            particule.visible=false;
+                        }
+                    }
+                }
+                */
+                // ici on peut appliquer le même principe pour des monstres, des collectibles etc...
+
+
+                // Est-ce que le rectangle doit faire les dimensions du tableau et est-ce qu'un rectangle doit être placé sur chaques objets dans tiled ?
+                this.rectList.forEach(rec =>
+                    {
+                        if(rec.isActive) // Le joueur est en contact avec le rectangle
+                        {
+                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), this.player.getBounds() ))
+                            {
+                                this.escalierList.forEach(torch =>
+                                {
+                                    if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), passage.getBounds() ))
+                                    {
+                                        passage.isActive = true;
+                                    }
+                                });
+                                this.starList.forEach(star =>
+                                {
+                                    if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), star.getBounds() ))
+                                    {
+                                        star.isActive = true;
+                                    }
+                                });
+                                this.etoffeList.forEach(star =>
+                                    {
+                                        if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), etoffe.getBounds() ))
+                                        {
+                                            etoffe.isActive = true;
+                                        }
+                                    });
+                                this.solFragileList.forEach(planche =>
+                                {
+                                    if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), monster.getBounds() ))
+                                    {
+                                        monster.isActive = true;
+                                    }
+                                });
+                                this.solFragilePierreList.forEach(bri =>
+                                {
+                                    if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), monster.getBounds() ))
+                                    {
+                                        monster.isActive = true;
+                                    }
+                                });
+                            }
+                            else // Le joueur n'est pas en contact avec le rectangle
+                            {
+                                this.torcheList.forEach(torch =>
+                                {
+                                    if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), torch.getBounds() ))
+                                    {
+                                        torch.isActive = false;
+                                    }
+                                });
+                                this.starList.forEach(star =>
+                                {
+                                    if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), star.getBounds() ))
+                                    {
+                                        star.isActive = false;
+                                    }
+                                });
+                                this.plancheList.forEach(planche =>
+                                {
+                                    if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), planche.getBounds() ))
+                                    {
+                                        planche.isActive = false;
+                                    }
+                                });
+                                this.brisableList.forEach(bri =>
+                                {
+                                    if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), bri.getBounds() ))
+                                    {
+                                        bri.isActive = false;
+                                    }
+                                });
+
+                                rec.isActive = false;
+                            }
+                        }
+                    });
+
+            } //---------------------------------- FIN DE OPTIMIZEDISPLAY ----------------------------------
+
+
+
+
         //------------------------------------------------ Effet sur la lave (ou autre surface mortelle) ------------------------------------------------
 
         /*this.laveFxContainer=this.add.container();

@@ -20,13 +20,13 @@ class Niveau1 extends Tableau
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere3.png');
         this.load.image('tutoBox1', 'assets/elements/TutoBox1.png');
         this.load.image('tutoBox2', 'assets/elements/TutoBox2.png');
-        this.load.image('tutoBox3', 'assets/elements/TutoBox3.png');
-        this.load.image('tutoBox4', 'assets/elements/TutoBox4.png');
+        this.load.image('tutoBox3', 'assets/elements/TutoBox4.png');
+        this.load.image('tutoBox4', 'assets/elements/TutoBox3.png');
         this.load.image('tutoBox5', 'assets/elements/TutoBox5.png');
         this.load.image('tutoBox6', 'assets/elements/TutoBox6.png');
 
         // les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingBeta7mx.json'); // -> 'TheDeadKingRisingAlpha9-3.json'
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingBeta8.json'); // -> 'TheDeadKingRisingAlpha9-3.json'
 
         // -----Decors-------------
         this.load.image('night', 'assets/backgrounds/nuit_etoile_turquoise.png'); // sky_plan_nuitEtoileCarre.png');
@@ -40,7 +40,7 @@ class Niveau1 extends Tableau
         this.load.image('vase', 'assets/elements/vase.png');
         this.load.image('solFragile', 'assets/elements/sol_fragile.png'); // solFragile.png / sol-terre
         this.load.image('solFragilePierre', 'assets/elements/roche_devant1.jpg'); // solFragilePierre.png');
-        this.load.image('rocheQuiRoule', 'assets/elements/roche_devant3.jpg'); // solFragilePierre1.png');
+        this.load.image('rocheQuiRoule', 'assets/elements/roche_devant3_4.jpg'); // solFragilePierre1.png');
         this.load.image('rocheQuiRoule2', 'assets/elements/roche_devant3_2.jpg');
         this.load.image('infCtrl', 'assets/elements/infos_controls3.png');
 
@@ -194,15 +194,14 @@ class Niveau1 extends Tableau
         // plateformes pierre
         this.platforms4 = this.physics.add.group();
 
+        this.platforms4.create(3904, 468+hauteurDif, 'plate');
         this.platforms4.create(4032, 532+hauteurDif, 'plate');
-        this.platforms4.create(3968, 628+hauteurDif, 'plate');
+        this.platforms4.create(3936, 628+hauteurDif, 'plate');
 
         this.platforms4.create(5390, 976+hauteurDif, 'plate');
         this.platforms4.create(5374, 1104+hauteurDif, 'plate');
         this.platforms4.create(5248, 1216+hauteurDif, 'plate');
         this.platforms4.create(5392, 1262+hauteurDif, 'plate');
-
-
 
         this.platforms4.children.iterate(function (child) {
             child.setImmovable(true);
@@ -216,9 +215,6 @@ class Niveau1 extends Tableau
         // plateformes antibug
         // joueur
         this.platforms5 = this.physics.add.group();
-
-        //this.platforms5.create(4992, 896 + hauteurDif); // +192
-        //this.platforms5.create(6400, 1280 + hauteurDif); // -1216
 
         this.platforms5.children.iterate(function (child) {
             child.setImmovable(false);
@@ -238,17 +234,9 @@ class Niveau1 extends Tableau
         this.platforms6.create(5312, 66 + hauteurDif, 'solFragilePierre');
         this.platforms6.create(5184, 194 + hauteurDif, 'solFragilePierre');
         this.platforms6.create(5760, 194 + hauteurDif, 'solFragilePierre');
-        /*this.platforms6.create(1516, 322+hauteurDif, 'solFragilePierre');
-        this.platforms6.create(2028, 322+hauteurDif, 'solFragilePierre');
-        this.platforms6.create(2380, 322+hauteurDif, 'solFragilePierre');
-        this.platforms6.create(2994, 322+hauteurDif, 'solFragilePierre');*/
         this.platforms6.create(3964, 1280 + hauteurDif, 'solFragilePierre');
         this.platforms6.create(4160, 1280 + hauteurDif, 'solFragilePierre');
         this.platforms6.create(4848, 1280 + hauteurDif, 'solFragilePierre');
-        /*this.platforms6.create(4237, 322+hauteurDif, 'solFragilePierre');
-        this.platforms6.create(5349, 322+hauteurDif, 'solFragilePierre');
-        this.platforms6.create(5645, 322+hauteurDif, 'solFragilePierre');
-        this.platforms6.create(6100, 322+hauteurDif, 'solFragilePierre');*/
 
         this.platforms6.children.iterate(function (child) {
             child.setImmovable(true);
@@ -258,20 +246,6 @@ class Niveau1 extends Tableau
             child.setOrigin(0,0);
             child.setDisplaySize(16,64);
         });
-        // element 64x64
-        /*this.platforms7 = this.physics.add.group();
-        this.platforms7.children.iterate(function (child) {
-            child.setImmovable(true);
-            child.body.allowGravity=false;
-            child.setCollideWorldBounds(false);
-            child.setFriction(1);
-            child.setOrigin(0,0);
-            child.setDisplaySize(64,64);
-        });*/
-        /*this.physics.add.overlap(this.player, this.platforms7, function(player, platforms7)
-        {
-            console.log("contact avec la pierre qui roule");
-        }, null, this);*/
 
 
         //------------------------------------------------ On définit les collisions (plusieurs méthodes existent) ------------------------------------------------
@@ -290,8 +264,6 @@ class Niveau1 extends Tableau
         //this.map.setCollisionFromCollisionGroup(true,true,this.plateformesSimples);
 
         //------------------------------------------------ Les collectibles (objets: star, ossements, equipement...) ------------------------------------------------
-        //
-        //this.collectiblesContainer=this.add.container();
         //
         // OSSEMENTS
 
@@ -482,47 +454,34 @@ class Niveau1 extends Tableau
 
         // ------------------------------------------------ Boxes text ------------------------------------------------
 
-        this.TutoBox1 = this.add.sprite(556, 1792 , 'tutoBox1').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
+        this.TutoBox1 = this.add.sprite(556, 1792 , 'tutoBox1').setDepth(1001).setDisplaySize(192+120,128+80);
         this.TutoBox1.alpha = 0;
         this.TutoBox1.visible = false;
-        this.TutoBox2 = this.add.sprite(940, 1792 , 'tutoBox2').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
+        this.TutoBox2 = this.add.sprite(940, 1792 , 'tutoBox2').setDepth(1001).setDisplaySize(192+120,128+80);
         this.TutoBox2.alpha = 0;
         this.TutoBox2.visible = false;
-        this.TutoBox3 = this.add.sprite(1324, 1792 , 'tutoBox3').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
+        this.TutoBox3 = this.add.sprite(1324, 1792 , 'tutoBox3').setDepth(1001).setDisplaySize(192+120,128+80);
         this.TutoBox3.alpha = 0;
         this.TutoBox3.visible = false;
 
-        this.TutoBox4 = this.add.sprite(492, 640 , 'tutoBox4').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
+        this.TutoBox4 = this.add.sprite(492, 640 , 'tutoBox4').setDepth(1001).setDisplaySize(192+120,128+80);
         this.TutoBox4.alpha = 0;
         this.TutoBox4.visible = false;
-        this.TutoBox5 = this.add.sprite(832, 376 , 'tutoBox5').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
+        this.TutoBox5 = this.add.sprite(492, 376, 'tutoBox5').setDepth(1001).setDisplaySize(192+120,128+80);
         this.TutoBox5.alpha = 0;
         this.TutoBox5.visible = false;
-
-        this.TutoBox6 = this.add.sprite(1280, 640 , 'tutoBox6').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
+        this.TutoBox6 = this.add.sprite(832, 376 , 'tutoBox6').setDepth(1001).setDisplaySize(192+120,128+80);
         this.TutoBox6.alpha = 0;
         this.TutoBox6.visible = false;
 
-       /* this.TutoBox7 = this.add.sprite(556, 1792 , 'tutoBox7').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
+
+        /*this.TutoBox7 = this.add.sprite(1280, 640 , 'tutoBox6').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
         this.TutoBox7.alpha = 0;
-        this.TutoBox7.visible = false;
+        this.TutoBox7.visible = false;*/
 
-        this.TutoBox8 = this.add.sprite(556, 1792 , 'tutoBox8').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
-        this.TutoBox8.alpha = 0;
-        this.TutoBox8.visible = false;*/
+        //this.TutoBox8 = this.add.sprite(556, 1792 , 'tutoBox7').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
+        //this.TutoBox9 = this.add.sprite(556, 1792 , 'tutoBox8').setDepth(1001).setDisplaySize(192+76.8,128+31.2);
 
-        /*
-        // Elements collectibles
-        this.bonus = this.physics.add.group({
-            allowGravity: false,
-            immovable: true,
-            bounceY:0
-        });
-        this.bonusObjects = this.map.getObjectLayer('bonus')['objects'];
-        this.bonusObjects.forEach(bonusObjects => {
-            //this.rammasserBonusUn()
-            let bonus = this.bonus.create(bonusObjects.x+32, bonusObjects.y+32 ,'bonus');   
-        });*/
 
         //------------------------------------------------ Escaliers ------------------------------------------------
 
@@ -1117,7 +1076,13 @@ class Niveau1 extends Tableau
         //quand on touche une bougie
         this.physics.add.overlap(this.player, this.bougies0, function(player, bougie)
         {
-            ici.allumerBougie(bougie.bougieObject.name);
+            //ici.allumerBougie(bougie.bougieObject.name);
+            ici.allumerGroupeBougie(
+                bougie.bougieObject.name,
+                "bougie",
+                "bougies0Objects",
+                "unSeul0"
+            );
 
             if(this.player.body.velocity.y == 0)// & !this.timingStopJump)
             {
@@ -1135,7 +1100,13 @@ class Niveau1 extends Tableau
         }, null, this);
         this.physics.add.overlap(this.player, this.bougies1, function(player, bougie1)
         {
-            ici.allumerBougie1(bougie1.bougie1Object.name);
+            //ici.allumerBougie1(bougie1.bougie1Object.name);
+            ici.allumerGroupeBougie(
+                bougie1.bougie1Object.name,
+                "bougie1",
+                "bougies1Objects",
+                "unSeul1"
+            );
 
             if(Tableau.current.player.body.velocity.y == 0)
             {
@@ -1149,7 +1120,13 @@ class Niveau1 extends Tableau
         }, null, this);
         this.physics.add.overlap(this.player, this.bougies2, function(player, bougie2)
         {
-            ici.allumerBougie2(bougie2.bougie2Object.name);
+            //ici.allumerBougie2(bougie2.bougie2Object.name);
+            ici.allumerGroupeBougie(
+                bougie2.bougie2Object.name,
+                "bougie2",
+                "bougies2Objects",
+                "unSeul2"
+            );
 
             if(Tableau.current.player.body.velocity.y == 0)
             {
@@ -1163,7 +1140,13 @@ class Niveau1 extends Tableau
         }, null, this);
         this.physics.add.overlap(this.player, this.bougies3, function(player, bougie3)
         {
-            ici.allumerBougie3(bougie3.bougie3Object.name);
+            //ici.allumerBougie3(bougie3.bougie3Object.name);
+            ici.allumerGroupeBougie(
+                bougie3.bougie3Object.name,
+                "bougie3",
+                "bougies3Objects",
+                "unSeul3"
+            );
 
             if(Tableau.current.player.body.velocity.y == 0)
             {
@@ -1364,9 +1347,9 @@ class Niveau1 extends Tableau
         //on définit les z à la fin. z-- = on décrémente par rapport à z ou à la valeur précédente qui décrémente de z.
         let z=1000;
 
-        this.infCtrl.setDepth(1000);
-        this.checkPoints.setDepth(987);
-        this.platforms5.setDepth(984);
+        this.infCtrl.setDepth(1002);
+        this.checkPoints.setDepth(987+1);
+        this.platforms5.setDepth(984+1);
         //this.platforms6.setDepth(984);
         //this.collectiblesContainer.setDepth(992+Tableau.current.depthConst);
         this.etoffes.setDepth(991);
@@ -1454,20 +1437,21 @@ class Niveau1 extends Tableau
     // BOUGIES
     allumerGroupeBougie(name, localStorageName, tiledObjectName, unseulname)
     {
-        let storedBougie3 = localStorage.getItem("bougie3")
-        if (storedBougie3 !== name)
+        let ls = localStorage.getItem(localStorageName)
+        if (ls !== name)
         {
-            localStorage.setItem("bougie3", name);
-            this.unSeul3 = true;
+            localStorage.setItem(localStorageName, name);
+            this[unseulname] = true;
+            //this.unSeul3 = true;
         }
-        else if (storedBougie3 === name)
+        else if (ls === name)
         {
-            this.bougies3Objects.forEach(bougie3Object =>
+            this[tiledObjectName].forEach(obj =>
             {
 
-                if(bougie3Object.name === storedBougie3 && this.unSeul3 === true)
+                if(obj.name === ls && this[unseulname] === true)
                 {
-                    this.allumeBougie3 = this.sound.add('allumageBougie');
+                    let sound = this.sound.add('allumageBougie');
                     var musicConfig =
                         {
                             mute: false,
@@ -1478,15 +1462,18 @@ class Niveau1 extends Tableau
                             loop: false,
                             delay:0,
                         }
-                    this.allumeBougie3.play(musicConfig);
+                    sound.play(musicConfig);
 
-                    let bougieSprite3 = this.add.sprite(bougie3Object.x+32,bougie3Object.y-20,'bougieAnime').play('bg', true).setDepth(987+1);
-                    let bougie23 = this.add.pointlight(bougie3Object.x+33, bougie3Object.y-24, 0, 200, 0.3).setDepth(987+1);
-                    bougie23.attenuation = 0.05;
-                    bougie23.color.setTo(255, 200, 0);
+                    this.add.sprite(obj.x+32,obj.y-20,'bougieAnime')
+                        .play('bg', true)
+                        .setDepth(987+1);
+                    let b = this.add.pointlight(obj.x+33, obj.y-24, 0, 200, 0.3)
+                        .setDepth(987+1);
+                    b.attenuation = 0.05;
+                    b.color.setTo(255, 200, 0);
                     this.tweens.add(
                         {
-                            targets:bougie23,
+                            targets:b,
                             duration:1,
                             delay:Math.random()*1000,
                             alpha:
@@ -1496,13 +1483,14 @@ class Niveau1 extends Tableau
                                     to:1,
                                 }
                         })
-                    this.unSeul3 = false;
-                    let bougie13 = this.add.pointlight(bougie3Object.x+33, bougie3Object.y-24, 0, 10, 0.2).setDepth(987+1);
-                    bougie13.attenuation = 0.05;
-                    bougie13.color.setTo(255, 200, 0);
+                    this[unseulname] = false;
+                    let b2 = this.add.pointlight(obj.x+33, obj.y-24, 0, 10, 0.2)
+                        .setDepth(987+1);
+                    b2.attenuation = 0.05;
+                    b2.color.setTo(255, 200, 0);
                     this.tweens.add(
                         {
-                            targets:bougie13,
+                            targets:b2,
                             duration:200,
                             yoyo: true,
                             repeat:-1,
@@ -1515,7 +1503,7 @@ class Niveau1 extends Tableau
                                 }
                         })
 
-                    this.unSeul3 = false;
+                    this[unseulname] = false;
                 }
 
             });
@@ -1595,292 +1583,6 @@ class Niveau1 extends Tableau
         }
     } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
 
-    allumerBougie1(bougie1Name, player)
-    {
-        let storedBougie1 = localStorage.getItem("bougie1")
-        if (storedBougie1 !== bougie1Name)
-        {
-            localStorage.setItem("bougie1", bougie1Name);
-            this.unSeul1 = true;
-        }
-        else if (storedBougie1 === bougie1Name)
-        {
-            this.bougies1Objects.forEach(bougie1Object => 
-                {
-                    
-                    if(bougie1Object.name === storedBougie1 && this.unSeul1 === true)
-                    {
-                            this.allumeBougie1 = this.sound.add('allumageBougie');
-                            var musicConfig = 
-                            {
-                                mute: false,
-                                volume: 0.2,
-                                rate : 1,
-                                detune: 0,
-                                seek: 0,
-                                loop: false,
-                                delay:0,
-                            }
-                            this.allumeBougie1.play(musicConfig);
-    
-                            let bougieSprite1 = this.add.sprite(bougie1Object.x+32,bougie1Object.y-20,'bougieAnime').play('bg', true).setDepth(987+1+Tableau.current.depthConst);
-                            let bougie21 = this.add.pointlight(bougie1Object.x+33, bougie1Object.y-24, 0, 200, 0.3).setDepth(987+1+Tableau.current.depthConst);
-                            bougie21.attenuation = 0.05;
-                            bougie21.color.setTo(255, 200, 0);
-                            this.tweens.add(
-                            {
-                                targets:bougie21,
-                                duration:1,
-                                delay:Math.random()*1000,
-                                alpha:
-                                {
-                                    startDelay:Math.random()*5000,
-                                    from:0,
-                                    to:1,
-                                }
-                            })
-                            this.unSeul1 = false;
-                            let bougie11 = this.add.pointlight(bougie1Object.x+33, bougie1Object.y-24, 0, 10, 0.2).setDepth(987+1+Tableau.current.depthConst);
-                            bougie11.attenuation = 0.05;
-                            bougie11.color.setTo(255, 200, 0);
-                            this.tweens.add(
-                            {
-                                targets:bougie11,
-                                duration:200,
-                                yoyo: true,
-                                repeat:-1,
-                                delay:Math.random()*1000,
-                                alpha:
-                                {
-                                    startDelay:Math.random()*5000,
-                                    from:0,
-                                    to:1,
-                                }
-                            })
-
-                        this.unSeul1 = false;
-                    }
-
-                });
-        }
-    } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
-
-    allumerBougie2(bougie2Name, player)
-    {
-        let storedBougie2 = localStorage.getItem("bougie2")
-        if (storedBougie2 !== bougie2Name)
-        {
-            localStorage.setItem("bougie2", bougie2Name);
-            this.unSeul2 = true;
-        }
-        else if (storedBougie2 === bougie2Name)
-        {
-            this.bougies2Objects.forEach(bougie2Object => 
-                {
-                    
-                    if(bougie2Object.name === storedBougie2 && this.unSeul2 === true)
-                    {
-                            this.allumeBougie2 = this.sound.add('allumageBougie');
-                            var musicConfig = 
-                            {
-                                mute: false,
-                                volume: 0.2,
-                                rate : 1,
-                                detune: 0,
-                                seek: 0,
-                                loop: false,
-                                delay:0,
-                            }
-                            this.allumeBougie2.play(musicConfig);
-    
-                            let bougieSprite2 = this.add.sprite(bougie2Object.x+32,bougie2Object.y-20,'bougieAnime').play('bg', true).setDepth(987+1+Tableau.current.depthConst);
-                            let bougie22 = this.add.pointlight(bougie2Object.x+33, bougie2Object.y-24, 0, 200, 0.3).setDepth(987+1+Tableau.current.depthConst);
-                            bougie22.attenuation = 0.05;
-                            bougie22.color.setTo(255, 200, 0);
-                            this.tweens.add(
-                            {
-                                targets:bougie22,
-                                duration:1,
-                                delay:Math.random()*1000,
-                                alpha:
-                                {
-                                    startDelay:Math.random()*5000,
-                                    from:0,
-                                    to:1,
-                                }
-                            })
-                            this.unSeul2 = false;
-                            let bougie12 = this.add.pointlight(bougie2Object.x+33, bougie2Object.y-24, 0, 10, 0.2).setDepth(987+1+Tableau.current.depthConst);
-                            bougie12.attenuation = 0.05;
-                            bougie12.color.setTo(255, 200, 0);
-                            this.tweens.add(
-                            {
-                                targets:bougie12,
-                                duration:200,
-                                yoyo: true,
-                                repeat:-1,
-                                delay:Math.random()*1000,
-                                alpha:
-                                {
-                                    startDelay:Math.random()*5000,
-                                    from:0,
-                                    to:1,
-                                }
-                            })
-
-                        this.unSeul2 = false;
-                    }
-
-                });
-        }
-    } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
-
-    allumerBougie3(bougie3Name, player)
-    {
-        let storedBougie3 = localStorage.getItem("bougie3")
-        if (storedBougie3 !== bougie3Name)
-        {
-            localStorage.setItem("bougie3", bougie3Name);
-            this.unSeul3 = true;
-        }
-        else if (storedBougie3 === bougie3Name)
-        {
-            this.bougies3Objects.forEach(bougie3Object => 
-                {
-                    
-                    if(bougie3Object.name === storedBougie3 && this.unSeul3 === true)
-                    {
-                            this.allumeBougie3 = this.sound.add('allumageBougie');
-                            var musicConfig = 
-                            {
-                                mute: false,
-                                volume: 0.2,
-                                rate : 1,
-                                detune: 0,
-                                seek: 0,
-                                loop: false,
-                                delay:0,
-                            }
-                            this.allumeBougie3.play(musicConfig);
-    
-                            let bougieSprite3 = this.add.sprite(bougie3Object.x+32,bougie3Object.y-20,'bougieAnime').play('bg', true).setDepth(987+1+Tableau.current.depthConst);
-                            let bougie23 = this.add.pointlight(bougie3Object.x+33, bougie3Object.y-24, 0, 200, 0.3).setDepth(987+1+Tableau.current.depthConst);
-                            bougie23.attenuation = 0.05;
-                            bougie23.color.setTo(255, 200, 0);
-                            this.tweens.add(
-                            {
-                                targets:bougie23,
-                                duration:1,
-                                delay:Math.random()*1000,
-                                alpha:
-                                {
-                                    startDelay:Math.random()*5000,
-                                    from:0,
-                                    to:1,
-                                }
-                            })
-                            this.unSeul3 = false;
-                            let bougie13 = this.add.pointlight(bougie3Object.x+33, bougie3Object.y-24, 0, 10, 0.2).setDepth(987+1+Tableau.current.depthConst);
-                            bougie13.attenuation = 0.05;
-                            bougie13.color.setTo(255, 200, 0);
-                            this.tweens.add(
-                            {
-                                targets:bougie13,
-                                duration:200,
-                                yoyo: true,
-                                repeat:-1,
-                                delay:Math.random()*1000,
-                                alpha:
-                                {
-                                    startDelay:Math.random()*5000,
-                                    from:0,
-                                    to:1,
-                                }
-                            })
-
-                        this.unSeul3 = false;
-                    }
-
-                });
-        }
-    } //---------------------------------- FIN DE ALLUMERBOUGIE ----------------------------------
-
-
-    // TORCHES
-    /*allumerTorche(torcheName, player)
-    {
-        let storedTorche=localStorage.getItem("torche")
-        if (storedTorche !== torcheName)
-        {
-            //console.log("on allume la torche", torcheName);
-            localStorage.setItem("torche", torcheName);
-            this.unSeul = true;
-
-        }
-        else if (storedTorche === torcheName && this.unSeul === true)
-        {
-            //console.log("torche allumée", torcheName);
-            this.torches0Objects.forEach(torcheObject => 
-            {
-                    
-                    if(torcheObject.name === storedTorche)
-                    {
-                            this.allumeTorche = this.sound.add('allumageTorche');
-                            var musicConfig = 
-                            {
-                                mute: false,
-                                volume: 0.4,
-                                rate : 1,
-                                detune: 0,
-                                seek: 0,
-                                loop: false,
-                                delay:0,
-                            }
-                            this.allumeTorche.play(musicConfig);
-    
-                            let torcheSprite = this.add.sprite(torcheObject.x+32,torcheObject.y-48,'torcheAnime').play('tch', true).setDepth(987+Tableau.current.depthConst).setDisplaySize(48,96);
-                            let torche2 = this.add.pointlight(torcheObject.x+32, torcheObject.y-49, 0, 200, 0.3).setDepth(987+Tableau.current.depthConst);
-                            torche2.attenuation = 0.05;
-                            torche2.color.setTo(255, 100, 0);
-                            this.tweens.add(
-                            {
-                                targets:torche2,
-                                duration:1,
-                                //yoyo: true,
-                                //repeat:-1,
-                                delay:Math.random()*1000,
-                                alpha:
-                                {
-                                    startDelay:Math.random()*5000,
-                                    from:0,
-                                    to:1,
-                                }
-                            })
-                            this.unSeul = false;
-                            let torche1 = this.add.pointlight(torcheObject.x+32, torcheObject.y-49, 0, 20, 0.2).setDepth(987+Tableau.current.depthConst);
-                            torche1.attenuation = 0.05;
-                            torche1.color.setTo(255, 50, 0);
-                            this.tweens.add(
-                            {
-                                targets:torche1,
-                                duration:200,//4000,
-                                yoyo: true,
-                                repeat:-1,
-                                delay:Math.random()*1000,
-                                alpha:
-                                {
-                                    startDelay:Math.random()*5000,
-                                    from:0,
-                                    to:1,
-                                }
-                            })
-
-                        this.unSeul = false;
-                    }
-
-                });
-        }
-    } *///---------------------------------- FIN DE ALLUMERTORCHE ----------------------------------
 
     allumerGroupeTorche(name, localStorageName, tiledObjectName, unseulname)
     {
@@ -1888,9 +1590,10 @@ class Niveau1 extends Tableau
         if (ls !== name)
         {
             localStorage.setItem(localStorageName, name);
-            this.unSeul21 = true;
+            this[unseulname] = true;
+            //this.unSeul21 = true;
         }
-        else if (ls === name && this.unSeul21 === true)
+        else if (ls === name && this[unseulname] === true)
         {
             this[tiledObjectName].forEach(obj =>
             {
@@ -1910,9 +1613,10 @@ class Niveau1 extends Tableau
                     sound.play(musicConfig);
                     this.add.sprite(obj.x+32,obj.y-48,'torcheAnime')
                         .play('tch', true)
-                        .setDepth(987+Tableau.current.depthConst)
+                        .setDepth(987+1)
                         .setDisplaySize(48,96);
-                    let t = this.add.pointlight(obj.x+32, obj.y-49, 0, 200, 0.3).setDepth(987+1+Tableau.current.depthConst);
+                    let t = this.add.pointlight(obj.x+32, obj.y-49, 0, 200, 0.3)
+                        .setDepth(987+1);
                     t.attenuation = 0.05;
                     t.color.setTo(255, 100, 0);
 
@@ -1928,8 +1632,9 @@ class Niveau1 extends Tableau
                                     to:1,
                                 }
                         })
-                    this.unSeul21 = false;
-                    let t2 = this.add.pointlight(obj.x+32, obj.y-49, 0, 20, 0.2).setDepth(987+1+Tableau.current.depthConst);
+                    this[unseulname] = false;
+                    let t2 = this.add.pointlight(obj.x+32, obj.y-49, 0, 20, 0.2)
+                        .setDepth(987+1);
                     t2.attenuation = 0.05;
                     t2.color.setTo(255, 50, 0);
                     this.tweens.add(
@@ -1953,131 +1658,6 @@ class Niveau1 extends Tableau
             });
         }
     }
-
-/*
-    // Ne pas oublier de nommer chaques checkpoints sur Tiled
-    saveEscaliers(escaliersName)
-    {
-        if (localStorage.getItem("escaliers") !== escaliersName)
-        {
-            console.log("on atteint le escaliers", escaliersName);
-            localStorage.setItem("escaliers", escaliersName);
-        }
-    }*/
-
-
-    /**
-     * Permet d'activer, désactiver des éléments en fonction de leur visibilité dans l'écran ou non
-     */
-    optimizeDisplay()
-    {
-        //  console.log("optimizeDisplay");
-
-        //return;
-        //let world=this.cameras.main.worldView; // le rectangle de la caméra, (les coordonnées de la zone visible)
-        /*
-        // on va activer / désactiver les particules de lave
-        for( let particule of this.laveFxContainer.getAll()){ // parcours toutes les particules de lave
-            if(Phaser.Geom.Rectangle.Overlaps(world,particule.rectangle)){
-                //si le rectangle de la particule est dans le rectangle de la caméra
-                if(!particule.visible){
-                    //on active les particules
-                    particule.resume();
-                    particule.visible=true;
-                }
-            }else{
-                //si le rectangle de la particule n'est PAS dans le rectangle de la caméra
-                if(particule.visible){
-                    //on désactive les particules
-                    particule.pause();
-                    particule.visible=false;
-                }
-            }
-        }
-        */
-        // ici on peut appliquer le même principe pour des monstres, des collectibles etc...
-
-
-        // Est-ce que le rectangle doit faire les dimensions du tableau et est-ce qu'un rectangle doit être placé sur chaques objets dans tiled ?
-        this.rectList.forEach(rec =>
-            {
-                if(rec.isActive) // Le joueur est en contact avec le rectangle
-                {
-                    if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), this.player.getBounds() ))
-                    {
-                        this.escalierList.forEach(torch =>
-                        {
-                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), passage.getBounds() ))
-                            {
-                                passage.isActive = true;
-                            }
-                        });
-                        this.starList.forEach(star =>
-                        {
-                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), star.getBounds() ))
-                            {
-                                star.isActive = true;
-                            }
-                        });
-                        this.etoffeList.forEach(star =>
-                            {
-                                if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), etoffe.getBounds() ))
-                                {
-                                    etoffe.isActive = true;
-                                }
-                            });
-                        this.solFragileList.forEach(planche => 
-                        {
-                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), monster.getBounds() ))
-                            {
-                                monster.isActive = true;
-                            }
-                        });
-                        this.solFragilePierreList.forEach(bri =>
-                        {
-                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), monster.getBounds() ))
-                            {
-                                monster.isActive = true;
-                            }
-                        });
-                    }
-                    else // Le joueur n'est pas en contact avec le rectangle
-                    {
-                        this.torcheList.forEach(torch =>
-                        {
-                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), torch.getBounds() ))
-                            {
-                                torch.isActive = false;
-                            }
-                        });
-                        this.starList.forEach(star =>
-                        {
-                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), star.getBounds() ))
-                            {
-                                star.isActive = false;
-                            }
-                        });
-                        this.plancheList.forEach(planche =>
-                        {
-                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), planche.getBounds() ))
-                            {
-                                planche.isActive = false;
-                            }
-                        });
-                        this.brisableList.forEach(bri =>
-                        {
-                            if (Phaser.Geom.Rectangle.Overlaps(rec.getBounds(), bri.getBounds() ))
-                            {
-                                bri.isActive = false;
-                            }
-                        });
-    
-                        rec.isActive = false;
-                    }
-                }
-            });
-
-    } //---------------------------------- FIN DE OPTIMIZEDISPLAY ----------------------------------
 
 
     /**
@@ -2117,15 +1697,15 @@ class Niveau1 extends Tableau
         {
             this.TutoBox1.visible = true;
 
-            if(this.player.body.position.x >= 502 && this.player.body.position.x <= 600){
+            if(this.player.body.position.x >= 502 && this.player.body.position.x <= 610){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox1,
                     alpha:1,
-                    duration: 300,
+                    duration: 100,
                     ease: 'Sine.easeInOut',
     
                 })
-            }else if(this.player.body.position.x < 502 || this.player.body.position.x > 600){
+            }else if(this.player.body.position.x < 502 || this.player.body.position.x > 610){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox1,
                     alpha:0,
@@ -2140,11 +1720,11 @@ class Niveau1 extends Tableau
             this.TutoBox1.visible = false;
         }
 
-        if(this.player.body.position.x >= 864  && this.player.body.position.y > 1920 && this.player.body.position.x <= 1016 && this.player.body.position.y <= 1984)
+        if(this.player.body.position.x >= 736  && this.player.body.position.y > 1920 && this.player.body.position.x <= 1144 && this.player.body.position.y <= 1984)
         {
             this.TutoBox2.visible = true;
 
-            if(this.player.body.position.x >= 896 && this.player.body.position.x <= 984){
+            if(this.player.body.position.x >= 886 && this.player.body.position.x <= 994){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox2,
                     alpha:1,
@@ -2152,7 +1732,7 @@ class Niveau1 extends Tableau
                     ease: 'Sine.easeInOut',
 
                 })
-            }else if(this.player.body.position.x < 896 || this.player.body.position.x > 984){
+            }else if(this.player.body.position.x < 886 || this.player.body.position.x > 994){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox2,
                     alpha:0,
@@ -2167,11 +1747,11 @@ class Niveau1 extends Tableau
             this.TutoBox2.visible = false;
         }
 
-        if(this.player.body.position.x >= 1248  && this.player.body.position.y > 1920 && this.player.body.position.x <= 1400 && this.player.body.position.y <= 1984)
+        if(this.player.body.position.x >= 1120  && this.player.body.position.y > 1920 && this.player.body.position.x <= 1528 && this.player.body.position.y <= 1984)
         {
             this.TutoBox3.visible = true;
 
-            if(this.player.body.position.x >= 1280 && this.player.body.position.x <= 1368){
+            if(this.player.body.position.x >= 1270 && this.player.body.position.x <= 1378){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox3,
                     alpha:1,
@@ -2179,7 +1759,7 @@ class Niveau1 extends Tableau
                     ease: 'Sine.easeInOut',
 
                 })
-            }else if(this.player.body.position.x < 1280 || this.player.body.position.x > 1368){
+            }else if(this.player.body.position.x < 1270 || this.player.body.position.x > 1378){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox3,
                     alpha:0,
@@ -2194,11 +1774,11 @@ class Niveau1 extends Tableau
             this.TutoBox3.visible = false;
         }
 
-        if(this.player.body.position.x >= 416  && this.player.body.position.y > 768 && this.player.body.position.x <= 568 && this.player.body.position.y <= 832)
+        if(this.player.body.position.x >= 288  && this.player.body.position.y > 768 && this.player.body.position.x <= 696 && this.player.body.position.y <= 832)
         {
             this.TutoBox4.visible = true;
 
-            if(this.player.body.position.x >= 448 && this.player.body.position.x <= 536){
+            if(this.player.body.position.x >= 438 && this.player.body.position.x <= 546){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox4,
                     alpha:1,
@@ -2206,7 +1786,7 @@ class Niveau1 extends Tableau
                     ease: 'Sine.easeInOut',
 
                 })
-            }else if(this.player.body.position.x < 448 || this.player.body.position.x > 536){
+            }else if(this.player.body.position.x < 438 || this.player.body.position.x > 546){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox4,
                     alpha:0,
@@ -2221,11 +1801,11 @@ class Niveau1 extends Tableau
             this.TutoBox4.visible = false;
         }
 
-        if(this.player.body.position.x >= 756  && this.player.body.position.y > 504 && this.player.body.position.x <= 908 && this.player.body.position.y <= 568)
+        if(this.player.body.position.x >= 288  && this.player.body.position.y > 504 && this.player.body.position.x <= 696 && this.player.body.position.y <= 570)
         {
             this.TutoBox5.visible = true;
 
-            if(this.player.body.position.x >= 788 && this.player.body.position.x <= 876){
+            if(this.player.body.position.x >= 438 && this.player.body.position.x <= 546){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox5,
                     alpha:1,
@@ -2233,7 +1813,7 @@ class Niveau1 extends Tableau
                     ease: 'Sine.easeInOut',
 
                 })
-            }else if(this.player.body.position.x < 788 || this.player.body.position.x > 876){
+            }else if(this.player.body.position.x < 438 || this.player.body.position.x > 546){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox5,
                     alpha:0,
@@ -2248,12 +1828,11 @@ class Niveau1 extends Tableau
             this.TutoBox5.visible = false;
         }
 
-        if(this.player.body.position.x >= 1204  && this.player.body.position.y > 768 && this.player.body.position.x <= 1356 && this.player.body.position.y <= 832)
+        if(this.player.body.position.x >= 628  && this.player.body.position.y > 504 && this.player.body.position.x <= 1036 && this.player.body.position.y <= 568)
         {
-            console.log("je suis dans la tutoBox 6");
             this.TutoBox6.visible = true;
 
-            if(this.player.body.position.x >= 1236 && this.player.body.position.x <= 1324){
+            if(this.player.body.position.x >= 778 && this.player.body.position.x <= 886){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox6,
                     alpha:1,
@@ -2261,7 +1840,7 @@ class Niveau1 extends Tableau
                     ease: 'Sine.easeInOut',
 
                 })
-            }else if(this.player.body.position.x < 1236 || this.player.body.position.x > 1324){
+            }else if(this.player.body.position.x < 778 || this.player.body.position.x > 886){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox6,
                     alpha:0,
@@ -2276,6 +1855,34 @@ class Niveau1 extends Tableau
             this.TutoBox6.visible = false;
         }
 
+        /*if(this.player.body.position.x >= 1076  && this.player.body.position.y > 768 && this.player.body.position.x <= 1484 && this.player.body.position.y <= 832)
+        {
+            console.log("je suis dans la tutoBox 6");
+            this.TutoBox7.visible = true;
+
+            if(this.player.body.position.x >= 1226 && this.player.body.position.x <= 1334){
+                Tableau.current.tweens.add({
+                    targets: this.TutoBox7,
+                    alpha:1,
+                    duration: 300,
+                    ease: 'Sine.easeInOut',
+
+                })
+            }else if(this.player.body.position.x < 1226 || this.player.body.position.x > 1334){
+                Tableau.current.tweens.add({
+                    targets: this.TutoBox7,
+                    alpha:0,
+                    duration: 100,
+                    ease: 'Sine.easeInOut',
+
+                })
+            }
+        }
+        else
+        {
+            this.TutoBox7.visible = false;
+        }*/
+
     } // FIN DE STORYBOX */
 
 
@@ -2283,24 +1890,13 @@ class Niveau1 extends Tableau
     {
         super.update();
         this.moveParallax();
-        this.storyBox()
+
+        if(!this.isMobile)
+        {
+            this.storyBox();
+        }
 
         this.monstersContainer.each(function (child) {child.update();})
-
-        //this.platforms5.startFollow(this.roule, true, 1, 1);
-
-        //optimisation
-        //teste si la caméra a bougé
-        /*let actualPosition=JSON.stringify(this.cameras.main.worldView);
-        if(
-            !this.previousPosition
-            || this.previousPosition !== actualPosition
-        ){
-            this.previousPosition=actualPosition;
-            this.optimizeDisplay();
-        }*/
-
-        //this.optimizeDisplay();
 
     }//---------------------------------- FIN DE UPDATE ----------------------------------
 

@@ -1,4 +1,12 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"tmx",
+         "target":"TheDeadKingRisingBeta7mx..tmx"
+        }
+    },
  "height":35,
  "infinite":false,
  "layers":[
