@@ -11,7 +11,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
             scene.input.keyboard.on('keydown', function(kevent){
                 if(Tableau.current && Tableau.current.player)
                 {
-                    console.log(kevent.key);
+                    //console.log(kevent.key);
                     switch (kevent.key){
                         case "ArrowRight":
                             if(!Tableau.current.isMobile && Tableau.current.player.staticY){
@@ -63,7 +63,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                         case "Control":
                             if(!Tableau.current.isMobile){
                             //console.log("checkPoint disable");
-                            console.log("reset checkpoint");
+                            //console.log("reset checkpoint");
                             Tableau.current.ControlPressed = true;
                             }
                             break;

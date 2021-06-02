@@ -19,7 +19,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.semiMobileY = false;
         this.contactPlayerPB = false;
 
-        console.log("player Is Created");
+        //console.log("player Is Created");
 
         /********** On définit les animations du joueur **********/
         this.anims.create(

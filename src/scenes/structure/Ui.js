@@ -9,7 +9,7 @@ class Ui extends Phaser.Scene{
         this.load.image('ui/full-screen-icon', 'assets/ui/full-screen.png');
     }
     create (){
-        console.log("create Ui")
+        //console.log("create Ui")
 
         /*****LIST DE FONT TEXTE ( ils ne fonctionnes pas tous malheureusement :'[ )*****
         
