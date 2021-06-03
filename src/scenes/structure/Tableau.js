@@ -104,7 +104,8 @@ class Tableau extends Phaser.Scene{
         ui._hpText.setText('Body : ');
 
         this.shoot = new ElementProjectils(this, 0 + 8600, 0 + 4448);
-        this.monsterOfVase = new MonsterZombie(this, 0 + 8600, 0 + 4448).setVelocity(0, 0);
+        this.monsterOfVase = new MonsterZombie(this, 0 + 8600, 0 + 4448)
+            .setVelocity(0, 0);
 
 
         // ----------------------------------- fonction en booleans d'affichage d'image -----------------------------------
@@ -195,7 +196,7 @@ class Tableau extends Phaser.Scene{
         this.bossShield = false;
         this.oneDropePower = false;
         this.oneShotOnBoss = false;
-        this.hpMiniBoss = 1;
+        this.hpMiniBoss = 10;
         //
         this.antiBug = true;
 
@@ -1444,7 +1445,7 @@ class Tableau extends Phaser.Scene{
 
     playerDamage(player,hp)
     {
-        /*if(!this.player.isDead)
+        if(!this.player.isDead)
         {        // Le joueur est blessé
             let me = this;
             if(this.lifePoints >= 2)
@@ -1501,7 +1502,7 @@ class Tableau extends Phaser.Scene{
                 this.lifePoints = 3;
                 //console.log('playerDamage(player,hp) -> lifePoints = 3');
             }
-        }*/
+        }
 
     } // FIN DE PLAYERDAMAGE
 
