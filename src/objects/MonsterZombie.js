@@ -63,7 +63,7 @@ class MonsterZombie extends ObjetEnnemi{
     zombieEffectSound()
     {
         if(this.isDead && this.onNeVieQuneFoisZB)
-        {;
+        {
             Tableau.current.zombieEffect();
             this.onNeVieQuneFoisZB = false;
             this.unSeulEffect = true;

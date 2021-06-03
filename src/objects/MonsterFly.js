@@ -19,6 +19,9 @@ class MonsterFly extends ObjetEnnemi{
         this.setBounceX(1);
 
         this.v = false;
+        this.flying = true;
+        this.onNeVieQuneFoisCS = true;
+        this.unSeulEffect = true;
 
         this.anims.create({
             key: 'moving',
@@ -37,10 +40,61 @@ class MonsterFly extends ObjetEnnemi{
 
     }
 
+
     update()
     {
         this.animation();
         this.move();
+        this.chauveSourieEffectSound();
+    }
+
+
+    chauveSourieEffectSound()
+    {
+        if(this.isDead && this.onNeVieQuneFoisCS)
+        {
+            Tableau.current.chauveSourieEffect();
+            this.onNeVieQuneFoisCS = false;
+            this.unSeulEffect = true;
+        }
+
+        if(!this.isDead && this.unSeulEffect)
+        {
+            if(this.scene.player.x > this.x - 196
+                && this.scene.player.x < this.x
+                && this.scene.player.y <= this.y + 64
+                && this.scene.player.y >= this.y - 64)
+            {
+                Tableau.current.chauveSourieEffect2();
+                this.unSeulEffect = false;
+            }
+            else if(this.scene.player.x < this.x + 196
+                && this.scene.player.x > this.x
+                && this.scene.player.y <= this.y + 64
+                && this.scene.player.y >= this.y - 64)
+            {
+                Tableau.current.chauveSourieEffect2();
+                this.unSeulEffect = false;
+            }
+        }
+        else if(!this.isDead && !this.unSeulEffect)
+        {
+            if(this.scene.player.x < this.x + 206
+                && this.scene.player.x > this.x + 196)
+            {
+                this.unSeulEffect = true;
+            }
+            else if(this.scene.player.x > this.x - 206
+                && this.scene.player.x < this.x - 196)
+            {
+                this.unSeulEffect = true;
+            }
+            else if(this.scene.player.y > this.y + 64
+                || this.scene.player.y < this.y - 64)
+            {
+                this.unSeulEffect = true;
+            }
+        }
 
     }
 

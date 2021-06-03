@@ -231,12 +231,23 @@ class Tableau extends Phaser.Scene{
                 loop: true,
                 delay: 0,
             }
+        this.musicSplash = this.sound.add('splash');
+        this.musicConfigSplash =
+            {
+                mute: false,
+                volume: 0.3,
+                rate : 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay:0,
+            }
         this.deadSquelette = this.sound.add('crackSkull');
         this.squeletteAttraction = this.sound.add('skullAttract');
         this.musicConfigMSd =
             {
                 mute: false,
-                volume: 0.5,
+                volume: 1,
                 rate: 1,
                 detune: 0,
                 seek: 0,
@@ -258,7 +269,19 @@ class Tableau extends Phaser.Scene{
         this.musicConfigMZALL =
             {
                 mute: false,
-                volume: 0.5,
+                volume: 0.3,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay: 0,
+            }
+        //this.deadChauveSourie = this.sound.add('splashChauveSourie');
+        this.chauveSourieAttraction = this.sound.add('chauveSourieAttract');
+        this.musicConfigMCSa =
+            {
+                mute: false,
+                volume: 1,
                 rate: 1,
                 detune: 0,
                 seek: 0,
@@ -330,53 +353,90 @@ class Tableau extends Phaser.Scene{
     } // FIN DE UPDATE
 
 
-    zombieEffect()
+    /* ***************************************** Dead Effects : Sound / sprite... ******************************/
+    //
+    zombieEffect(monster)
     {
-        console.log("zombieEffect");
         this.deadZombie.play(this.musicConfigMZALL);
+
+        this.saigne(monster,function(){});
+        this.musicSplash.play(this.musicConfigSplash);
     }
     zombieEffect2()
     {
-        console.log("zombieEffect 2");
         this.zombieAttraction.play(this.musicConfigMZALL);
     }
-
-
+    //
     squeletteEffect()
     {
-        console.log("squeletteEffect");
-        this.deadSquelette.play(this.musicConfigMSd)
+        let me = this;
+        this.saignePlayer(this.player, function ()
+        {
+            me.blood2.visible = false;
+        });
+        this.deadSquelette.play(this.musicConfigMSd);
     }
     squeletteEffect2()
     {
-        console.log("squeletteEffect 2");
         this.squeletteAttraction.play(this.musicConfigMSa);
     }
-    squeletteEffect2Stop()
+    //
+    chauveSourieEffect(monster)
     {
-        console.log("squeletteEffect 2 Stop");
-        this.squeletteAttraction.stop();
+        //this.deadChauveSourie.play(this.musicConfigMCSd);
+
+        this.saigne(monster,function(){});
+        this.musicSplash.play(this.musicConfigSplash);
     }
-
-
+    chauveSourieEffect2()
+    {
+        this.chauveSourieAttraction.play(this.musicConfigMCSa);
+    }
+    //
     monsterVaseEffect()
     {
-        console.log("monsterVaseEffect");
-        this.deadZombie.play(this.musicConfigDZ);
+        this.deadZombie.play(this.musicConfigMZALL);
+
+        let me=this;
+        me.blood.visible = true;
+        me.blood.rotation = Phaser.Math.Between(0,6);
+        me.blood.x = Tableau.current.player.body.position.x + 16;
+        me.blood.y = Tableau.current.player.body.position.y + 64;
+        me.tweens.add({
+            targets:me.blood,
+            duration:200,
+            displayHeight:
+                {
+                    from:40,
+                    to:70,
+                },
+            displayWidth:
+                {
+                    from:40,
+                    to:70,
+                },
+            onComplete: function ()
+            {
+                me.blood.visible = false;
+                //onComplete();
+            }
+        })
+        this.musicSplash.play(this.musicConfigSplash);
     }
     monsterVaseEffect2()
     {
-        console.log("monsterVaseEffect 2");
-        this.zombieAttraction.play(this.musicConfigZA);
+        this.zombieAttraction.play(this.musicConfigMZALL);
     }
-
-
-    miniBossEffect()
+    //
+    miniBossEffect(monster)
     {
         if(!this.miniBossEffectUnSeul)
         {
-            //console.log("miniBossEffect");
-            this.deadMiniBoss.play(this.musicConfigMBD);
+            //this.deadMiniBoss.play(this.musicConfigMBD);
+
+            this.saigne(monster,function(){});
+            this.musicSplash.play(this.musicConfigSplash);
+
             this.miniBossEffectUnSeul = true;
         }
     }
@@ -385,7 +445,7 @@ class Tableau extends Phaser.Scene{
         if(!this.miniBossEffect2UnSeul)
         {
             //console.log("miniBossEffect 2");
-            this.miniBossEffectAttraction.play(this.musicConfigMBA);
+            //this.miniBossEffectAttraction.play(this.musicConfigMBA);
             this.miniBossEffect2UnSeul = true;
             this.miniBossEffect2StopUnSeul = false;
         }
@@ -400,6 +460,7 @@ class Tableau extends Phaser.Scene{
             this.miniBossEffect2StopUnSeul = true;
         }
     }
+    /* **********************************************************/
 
 
     collisionSup(monster, player, onComplete, monsterOfVase, miniBoss, shoot, bloquerFly, chauvesouris)
@@ -1028,11 +1089,11 @@ class Tableau extends Phaser.Scene{
      */
     saigne(object,onComplete)
     {
-        let me=this;
-        me.blood.visible=true;
+        let me = this;
+        me.blood.visible = true;
         me.blood.rotation = Phaser.Math.Between(0,6);
-        me.blood.x=object.x;
-        me.blood.y=object.y;
+        me.blood.x = object.x;
+        me.blood.y = object.y;
         me.tweens.add({
             targets:me.blood,
             duration:200,
@@ -1068,7 +1129,7 @@ class Tableau extends Phaser.Scene{
         me.blood2.visible = true;
         me.blood2.rotation = Phaser.Math.Between(0,6);
         me.blood2.x = object.x;
-        me.blood2.y = object.y;
+        me.blood2.y = object.y + 32;
         me.tweens.add(
             {
             targets:me.blood2,
@@ -1349,15 +1410,15 @@ class Tableau extends Phaser.Scene{
                     monster.disableBody(true,true);//plus de collisions
                     monster.body.destroy();
     
-                    this.saigne(monster,function()
+                    /*this.saigne(monster,function()
                     {
                         //effets déclenchés à la fin de l'animation :)
-                    })
+                    })*/
     
                     //petit son de mort du monstre
-                    this.music = this.sound.add('splash');
-    
-                    var musicConfig = 
+                    /*this.music = this.sound.add('splash');
+
+                    var musicConfig =
                     {
                         mute: false,
                         volume: 0.3,
@@ -1367,7 +1428,7 @@ class Tableau extends Phaser.Scene{
                         loop: false,
                         delay:0,
                     }
-                    this.music.play(musicConfig);
+                    this.music.play(musicConfig);*/
     
                     player.directionY = 500;
     
