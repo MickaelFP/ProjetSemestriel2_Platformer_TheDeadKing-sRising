@@ -77,6 +77,7 @@ class Niveau1 extends Tableau
         this.load.audio('allumageBougie', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
         this.load.audio('allumageTorche', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
         this.load.audio('criCorbeau', 'assets/Sound/sf_corbeau_01.mp3');
+        this.load.audio('pousserRoche', 'assets/Sound/roche_pousser.mp3');
  
         // -----Atlas de texture généré avec https://free-tex-packer.com/app/ -------------
         //on y trouve notre étoiles et une tête de mort
@@ -455,28 +456,28 @@ class Niveau1 extends Tableau
 
         // ------------------------------------------------ Boxes text ------------------------------------------------
 
-        this.TutoBox1 = this.add.sprite(556, 1792 , 'tutoBox1').setDepth(1001).setDisplaySize(192+120,128+80);
+        this.TutoBox1 = this.add.sprite(556-12, 1792 , 'tutoBox1').setDepth(1001).setDisplaySize(192+120,128+80);
         this.TutoBox1.alpha = 0;
         this.TutoBox1.visible = false;
         this.boxLight1 = this.add.pointlight(541, 1965, 0, 50, 0.2).setDepth(987+1);
         this.boxLight1.attenuation = 0.05;
         this.boxLight1.color.setTo(50, 255, 50);
 
-        this.TutoBox2 = this.add.sprite(940, 1792 , 'tutoBox2').setDepth(1001).setDisplaySize(192+120,128+80);
+        this.TutoBox2 = this.add.sprite(940-12, 1792 , 'tutoBox2').setDepth(1001).setDisplaySize(192+120,128+80);
         this.TutoBox2.alpha = 0;
         this.TutoBox2.visible = false;
         this.boxLight2 = this.add.pointlight(925, 1965, 0, 50, 0.2).setDepth(987+1);
         this.boxLight2.attenuation = 0.05;
         this.boxLight2.color.setTo(50, 255, 50);
 
-        this.TutoBox3 = this.add.sprite(1324, 1792 , 'tutoBox3').setDepth(1001).setDisplaySize(192+120,128+80);
+        this.TutoBox3 = this.add.sprite(1324-12, 1792 , 'tutoBox3').setDepth(1001).setDisplaySize(192+120,128+80);
         this.TutoBox3.alpha = 0;
         this.TutoBox3.visible = false;
         this.boxLight3 = this.add.pointlight(1309, 1965, 0, 50, 0.2).setDepth(987+1);
         this.boxLight3.attenuation = 0.05;
         this.boxLight3.color.setTo(50, 255, 50);
 
-        this.TutoBox4 = this.add.sprite(492, 640 , 'tutoBox4').setDepth(1001).setDisplaySize(192+120,128+80);
+        this.TutoBox4 = this.add.sprite(492-12, 640 , 'tutoBox4').setDepth(1001).setDisplaySize(192+120,128+80);
         this.TutoBox4.alpha = 0;
         this.TutoBox4.visible = false;
         this.boxLight4 = this.add.pointlight(482, 808, 0, 50, 0.2).setDepth(987+1);
@@ -531,10 +532,13 @@ class Niveau1 extends Tableau
         //on crée des checkpoints pour chaque objet rencontré
         this.checkPointsObjects.forEach(checkPointObject => 
         {
-            let point=this.checkPoints.create(checkPointObject.x+248,checkPointObject.y+183,'checkPoint').play('cp', true).setDisplaySize(16,16).setBodySize(64,64)
+            this.point=this.checkPoints.create(checkPointObject.x+248,checkPointObject.y+183,'checkPoint').play('cp', true).setDisplaySize(16,16).setBodySize(64,64)
             .setOrigin(14,12.4);
             /*point.blendMode=Phaser.BlendModes.COLOR_DODGE;*/
-            point.checkPointObject=checkPointObject;
+            this.point.checkPointObject=checkPointObject;
+            this.checkPointsLight = this.add.pointlight(checkPointObject.x+32, checkPointObject.y-8, 0, 75, 0.15).setDepth(987+1);
+            this.checkPointsLight.attenuation = 0.05;
+            this.checkPointsLight.color.setTo(255, 50, 255);
         });
 
 
@@ -1003,6 +1007,7 @@ class Niveau1 extends Tableau
                 Tableau.current.jumpStop = false;
                 //console.log("jumpStop = false");
             }
+
         }, null, this);
 
         //------------------------------------------------ Escaliers ------------------------------------------------
@@ -1713,11 +1718,11 @@ class Niveau1 extends Tableau
 
     storyBox() // Comme j'ai déjà surchargé mes assets Tiled, cette fois on essaye la méthode de position ( même si j'en raffole pas -_- ).
     {
-        if(this.player.body.position.x >= 352  && this.player.body.position.y > 1920 && this.player.body.position.x <= 760 && this.player.body.position.y <= 1984)
+        if(this.player.body.position.x >= 352-12  && this.player.body.position.y > 1920 && this.player.body.position.x <= 760-12 && this.player.body.position.y <= 1984)
         {
             this.TutoBox1.visible = true;
 
-            if(this.player.body.position.x >= 502 && this.player.body.position.x <= 610){
+            if(this.player.body.position.x >= 502-12 && this.player.body.position.x <= 610-12){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox1,
                     alpha:1,
@@ -1725,7 +1730,7 @@ class Niveau1 extends Tableau
                     ease: 'Sine.easeInOut',
     
                 })
-            }else if(this.player.body.position.x < 502 || this.player.body.position.x > 610){
+            }else if(this.player.body.position.x < 502-12 || this.player.body.position.x > 610-12){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox1,
                     alpha:0,
@@ -1740,11 +1745,11 @@ class Niveau1 extends Tableau
             this.TutoBox1.visible = false;
         }
 
-        if(this.player.body.position.x >= 736  && this.player.body.position.y > 1920 && this.player.body.position.x <= 1144 && this.player.body.position.y <= 1984)
+        if(this.player.body.position.x >= 736-12 && this.player.body.position.y > 1920 && this.player.body.position.x <= 1144-12 && this.player.body.position.y <= 1984)
         {
             this.TutoBox2.visible = true;
 
-            if(this.player.body.position.x >= 886 && this.player.body.position.x <= 994){
+            if(this.player.body.position.x >= 886-12 && this.player.body.position.x <= 994-12){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox2,
                     alpha:1,
@@ -1752,7 +1757,7 @@ class Niveau1 extends Tableau
                     ease: 'Sine.easeInOut',
 
                 })
-            }else if(this.player.body.position.x < 886 || this.player.body.position.x > 994){
+            }else if(this.player.body.position.x < 886-12 || this.player.body.position.x > 994-12){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox2,
                     alpha:0,
@@ -1767,11 +1772,11 @@ class Niveau1 extends Tableau
             this.TutoBox2.visible = false;
         }
 
-        if(this.player.body.position.x >= 1120  && this.player.body.position.y > 1920 && this.player.body.position.x <= 1528 && this.player.body.position.y <= 1984)
+        if(this.player.body.position.x >= 1120-12  && this.player.body.position.y > 1920 && this.player.body.position.x <= 1528-12 && this.player.body.position.y <= 1984)
         {
             this.TutoBox3.visible = true;
 
-            if(this.player.body.position.x >= 1270 && this.player.body.position.x <= 1378){
+            if(this.player.body.position.x >= 1270-12 && this.player.body.position.x <= 1378-12){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox3,
                     alpha:1,
@@ -1779,7 +1784,7 @@ class Niveau1 extends Tableau
                     ease: 'Sine.easeInOut',
 
                 })
-            }else if(this.player.body.position.x < 1270 || this.player.body.position.x > 1378){
+            }else if(this.player.body.position.x < 1270-12 || this.player.body.position.x > 1378-12){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox3,
                     alpha:0,
@@ -1794,11 +1799,11 @@ class Niveau1 extends Tableau
             this.TutoBox3.visible = false;
         }
 
-        if(this.player.body.position.x >= 288  && this.player.body.position.y > 768 && this.player.body.position.x <= 696 && this.player.body.position.y <= 832)
+        if(this.player.body.position.x >= 288-12  && this.player.body.position.y > 768 && this.player.body.position.x <= 696-12 && this.player.body.position.y <= 832)
         {
             this.TutoBox4.visible = true;
 
-            if(this.player.body.position.x >= 438 && this.player.body.position.x <= 546){
+            if(this.player.body.position.x >= 438-12 && this.player.body.position.x <= 546-12){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox4,
                     alpha:1,
@@ -1806,7 +1811,7 @@ class Niveau1 extends Tableau
                     ease: 'Sine.easeInOut',
 
                 })
-            }else if(this.player.body.position.x < 438 || this.player.body.position.x > 546){
+            }else if(this.player.body.position.x < 438-12 || this.player.body.position.x > 546-12){
                 Tableau.current.tweens.add({
                     targets: this.TutoBox4,
                     alpha:0,
