@@ -42,7 +42,7 @@ class Tableau extends Phaser.Scene{
         this.load.spritesheet('player', 'assets/Spritesheet/playerRemastered4.png', { frameWidth: 32, frameHeight: 64  } );
 
         this.load.audio('os', 'assets/Sound/os_sound.mp3');
-        //this.load.audio('tissu', 'assets/Sound/tissu_sound.mp3');
+        this.load.audio('tissu', 'assets/Sound/souffle_air.mp3');
         this.load.audio('splash', 'assets/Sound/splash.mp3');
         this.load.audio('crack', 'assets/Sound/crack.mp3');
         this.load.audio('brkkk', 'assets/Sound/broke_sound.mp3');
@@ -207,7 +207,18 @@ class Tableau extends Phaser.Scene{
                 rate : 1,
                 detune: 0,
                 seek: 0,
-                loop: false,
+                loop: true,
+                delay:0,
+            }
+        this.rocheSound2 = this.sound.add('pousserRoche');
+        this.musicConfigX2 =
+            {
+                mute: false,
+                volume: 1,
+                rate : 1,
+                detune: 0,
+                seek: 0,
+                loop: true,
                 delay:0,
             }
     }
@@ -1045,11 +1056,11 @@ class Tableau extends Phaser.Scene{
         //etoffe.emit("disabled");
         ui.ramasser();
 
-        this.music = this.sound.add('os');
+        this.music = this.sound.add('tissu');
         var musicConfig = 
         {
             mute: false,
-            volume: 0.3,
+            volume: 0.1,
             rate : 1,
             detune: 0,
             seek: 0,

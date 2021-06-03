@@ -3,7 +3,7 @@ class ElementRocheQuiRoule2 extends Phaser.Physics.Arcade.Sprite
 
     constructor(scene, x, y,) 
     {
-        super(scene, x, y, 'rocheQuiRoule2');
+        super(scene, x, y, 'rocheQuiRoule');
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -18,19 +18,23 @@ class ElementRocheQuiRoule2 extends Phaser.Physics.Arcade.Sprite
         this.setBodySize(this.body.width, this.body.height);
 
         this.soundUnSeul2 = false;
+        this.neverMoveAgain2 = false;
 
     }
 
 
     limits()
     {
-        if(this.body.position.x > 5184 || this.body.position.x < 4996)
+        if(this.body.position.x > 5184 || this.body.position.x < 4998)
         {
+            console.log("bouge pas 2 = pas de son 2");
             this.setImmovable(true);
+            this.neverMoveAgain2 = true;
         }
         else
         {
             this.setImmovable(false);
+            this.neverMoveAgain2 = false;
         }
     }
 
@@ -42,9 +46,9 @@ class ElementRocheQuiRoule2 extends Phaser.Physics.Arcade.Sprite
             if(!this.soundUnSeul2)
             {
                 console.log("je veux du son 2");
-                Tableau.current.rocheSound.play(this.musicConfigX);
+                Tableau.current.rocheSound2.play(this.musicConfigX2);
                 this.soundUnSeul2 = true;
-                Tableau.current.time.addEvent
+                /*Tableau.current.time.addEvent
                 ({
                     delay: 3360,
                     callback: ()=>
@@ -52,12 +56,12 @@ class ElementRocheQuiRoule2 extends Phaser.Physics.Arcade.Sprite
                         this.soundUnSeul2 = false;
                     },
                     loop: false
-                })
+                })*/
             }
         }
         else
         {
-            Tableau.current.rocheSound.stop();
+            Tableau.current.rocheSound2.stop();
             this.soundUnSeul2 = false;
         }
     }
@@ -65,19 +69,28 @@ class ElementRocheQuiRoule2 extends Phaser.Physics.Arcade.Sprite
 
     update()
     {
-        /*if(Tableau.current.player.body.position.x < this.x - 64
+        if(Tableau.current.player.body.position.x < this.x - 64
             || Tableau.current.player.body.position.x > this.x + 33)
         {
             this.setVelocityX(0);
         }
-        else
+        else if(Tableau.current.player.body.position.x >= this.x - 64
+            && Tableau.current.player.body.position.x <= this.x + 33
+            && Tableau.current.player.body.position.y >= this.y - 64
+            && Tableau.current.player.body.position.y <= this.y + 64)
         {
-            console.log("sans un bruit 2");
-            this.setVelocityX(0.1);
+            if(!this.neverMoveAgain2 && Tableau.current.player.body.velocity.x !== 0)
+            {
+                this.setVelocityX(0.1);
+            }
+            else
+            {
+                this.setVelocityX(0);
+            }
         }
 
         this.limits();
-        this.soundPlaying();*/
+        this.soundPlaying();
 
     }
 }

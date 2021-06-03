@@ -11,19 +11,19 @@ class GamePadButtons extends GameKeyboard
         game.input.addPointer();
         game.input.addPointer();
 
-        if(!this.scene.sys.game.device.os.desktop) {
+        //if(!this.scene.sys.game.device.os.desktop) {
             this.size = size;
             let w = this.size / 2;
             let pad2 = scene.add.container();
 
-            let btnUP = scene.add.circle(0, 0, w / 2, 0xffffff, 0.3).setInteractive();
+            let btnUP = scene.add.circle(0, 0, w / 2, 0x000080, 0.3).setInteractive();
             let btnLEFT = scene.add.circle(0, 0, w / 2, 0xffffff, 0.3).setInteractive();
             let btnRIGHT = scene.add.circle(0, 0, w / 2, 0xffffff, 0.3).setInteractive();
             let btnDOWN = scene.add.circle(0, 0, w / 2, 0xffffff, 0.3).setInteractive();
 
-            let btnA = scene.add.circle(0, 0, w / 2, 0xffffff, 0.3).setInteractive();
-            let btnE = scene.add.circle(0, 0, w / 2, 0xffffff, 0.3).setInteractive();
-            let btnD = scene.add.circle(0, 0, w / 2, 0xffffff, 0.3).setInteractive();
+            let btnA = scene.add.circle(0, 0, w / 2, 0x808080, 0.3).setInteractive();
+            let btnE = scene.add.circle(0, 0, w / 2, 0x00FF00, 0.3).setInteractive();
+            let btnUP2 = scene.add.circle(0, 0, w / 2, 0x000080, 0.3).setInteractive();
 
 
             this.add(btnUP);
@@ -33,7 +33,7 @@ class GamePadButtons extends GameKeyboard
 
             this.add(btnA);
             this.add(btnE);
-            this.add(btnD);
+            this.add(btnUP2);
 
             btnUP.x = w * 1;
             btnLEFT.x = w * 0;
@@ -47,8 +47,8 @@ class GamePadButtons extends GameKeyboard
             btnA.y = w * 1;
             btnE.x = scene.sys.canvas.width * -1 + w * 4.8;
             btnE.y = w * 2;
-            btnD.x = scene.sys.canvas.width * -1 + w * 5.2;
-            btnD.y = w * 0.8;
+            btnUP2.x = scene.sys.canvas.width * -1 + w * 5.2;
+            btnUP2.y = w * 0.8;
 
             // On appuie
             btnLEFT.on('pointerdown', function () {
@@ -126,17 +126,28 @@ class GamePadButtons extends GameKeyboard
                 Tableau.current.oneHeal = false;
             });
 
-            btnD.on('pointerdown', function () {
+            btnUP2.on('pointerdown', function () {
+                console.log("btnUP");
+                Tableau.current.arrowUpPressed = true;
+            });
+            btnUP2.on('pointerup', function () {
+                console.log("btnUP  off");
+                Tableau.current.player.directionY = 0;
+                Tableau.current.arrowUpPressed = false;
+                Tableau.current.firstJump = true;
+            });
+
+            /*btnUP2.on('pointerdown', function () {
                 console.log("Tableau.current.dPressed = true");
                 //Tableau.current.dPressed = false;
                 Tableau.current.dPressed = true;
             });
-            btnD.on('pointerup', function () {
+            btnUP2.on('pointerup', function () {
                 console.log("Tableau.current.dPressed = false");
                 Tableau.current.dPressed = false;
                 Tableau.current.timingDash = true;
-            });
-        }
+            });*/
+        //}
     }
 
 }

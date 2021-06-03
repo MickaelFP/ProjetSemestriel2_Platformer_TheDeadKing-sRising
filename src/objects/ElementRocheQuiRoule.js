@@ -24,10 +24,11 @@ class ElementRocheQuiRoule extends Phaser.Physics.Arcade.Sprite
 
     limits()
     {
-        if(this.body.position.x < 5184 || this.body.position.x > 6400)
+        if(this.body.position.x < 5184 || this.body.position.x > 6398)
         {
             this.setImmovable(true);
             this.neverMoveAgain = true;
+            console.log("bouge pas = pas de son");
         }
         else
         {
@@ -46,7 +47,7 @@ class ElementRocheQuiRoule extends Phaser.Physics.Arcade.Sprite
                 console.log("je veux du son");
                 Tableau.current.rocheSound.play(this.musicConfigX);
                 this.soundUnSeul = true;
-                /*Tableau.current.time.addEvent
+                Tableau.current.time.addEvent
                 ({
                     delay: 3360,
                     callback: ()=>
@@ -54,7 +55,7 @@ class ElementRocheQuiRoule extends Phaser.Physics.Arcade.Sprite
                         this.soundUnSeul = false;
                     },
                     loop: false
-                })*/
+                })
             }
         }
         else
@@ -77,7 +78,7 @@ class ElementRocheQuiRoule extends Phaser.Physics.Arcade.Sprite
             && Tableau.current.player.body.position.y >= this.y - 64
             && Tableau.current.player.body.position.y <= this.y + 64)
         {
-            if(!this.neverMoveAgain)
+            if(!this.neverMoveAgain && Tableau.current.player.body.velocity.x !== 0)
             {
                 this.setVelocityX(0.1);
             }
