@@ -171,11 +171,11 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             //console.log("Tu peux bouger")
             switch (true)
             {
-                case this.body.velocity.x  == 0 && this.jumping:
+                case this.body.velocity.x  === 0 && this.jumping:
                     //console.log("jump");
                     break;
 
-                case this.body.velocity.x == 0 && this.falling:
+                case this.body.velocity.x === 0 && this.falling:
                     //console.log("fall");
                     break;
 
@@ -212,7 +212,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             }
         }*/
 
-        if(this.body.velocity.y != 0 && !this.contactPlayerPB)
+        if(this.body.velocity.y !== 0 && !this.contactPlayerPB)
         {
             if(this.body.velocity.y < 0)
             {

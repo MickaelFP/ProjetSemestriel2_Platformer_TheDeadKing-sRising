@@ -73,11 +73,18 @@ class Niveau1 extends Tableau
         this.load.audio('bruitZombie', 'assets/Sound/bruitZombie.mp3');
         this.load.audio('welcome', 'assets/Sound/Piano_Sonata_no_14_SV.mp3');
         this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
+        this.load.audio('CalmeGrotte', 'assets/Sound/Mourioche---passe-sous-silence_part2.mp3');
+        this.load.audio('epicMusic', 'assets/Sound/Dark-Hero-3.mp3');
         this.load.audio('openingGate', 'assets/Sound/Gate-barriere-metallique-ouverture_ID-2357.mp3');
         this.load.audio('allumageBougie', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
         this.load.audio('allumageTorche', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
         this.load.audio('criCorbeau', 'assets/Sound/sf_corbeau_01.mp3');
         this.load.audio('pousserRoche', 'assets/Sound/roche_pousser.mp3');
+        this.load.audio('splashZomb', 'assets/Sound/mort_zombie.mp3');
+        this.load.audio('zombAttract', 'assets/Sound/zombie_attract.wav');
+        this.load.audio('crackSkull', 'assets/Sound/sf_os_broye_01.mp3');
+        this.load.audio('skullAttract', 'assets/Sound/sf_os_broye_02.mp3');
+
  
         // -----Atlas de texture généré avec https://free-tex-packer.com/app/ -------------
         //on y trouve notre étoiles et une tête de mort
@@ -106,6 +113,11 @@ class Niveau1 extends Tableau
         this.passageMusic = false;
         this.passage = true
         this.passageCamera = false;
+
+        this.musicWelcomePermission = true;
+        this.musicAmbPermission = true;
+        this.musicEpicPermission = true;
+        this.musicCalmeGPermission = true;
 
         //this.playerMoveStop = false;
 
@@ -1070,7 +1082,7 @@ class Niveau1 extends Tableau
                 })
 
                 
-                this.musicAmb = this.sound.add('AmbianceHalloween1');
+                /*this.musicAmb = this.sound.add('AmbianceHalloween1');
 
                 var musicConfig = 
                 {
@@ -1082,7 +1094,7 @@ class Niveau1 extends Tableau
                     loop: true,
                     delay:0,
                 }
-                this.musicAmb.play(musicConfig);
+                this.musicAmb.play(musicConfig);*/
 
                 this.passage = true;
                 //this.tpFiniBouge = true;
@@ -1109,7 +1121,7 @@ class Niveau1 extends Tableau
                 "unSeul0"
             );
 
-            if(this.player.body.velocity.y == 0)// & !this.timingStopJump)
+            if(this.player.body.velocity.y === 0)// & !this.timingStopJump)
             {
                 Tableau.current.jumpStop = false;
                 //console.log("Niveau1.945-> jumpStop = false");
@@ -1133,7 +1145,7 @@ class Niveau1 extends Tableau
                 "unSeul1"
             );
 
-            if(Tableau.current.player.body.velocity.y == 0)
+            if(Tableau.current.player.body.velocity.y === 0)
             {
                 Tableau.current.jumpStop = false;
             }
@@ -1153,7 +1165,7 @@ class Niveau1 extends Tableau
                 "unSeul2"
             );
 
-            if(Tableau.current.player.body.velocity.y == 0)
+            if(Tableau.current.player.body.velocity.y === 0)
             {
                 Tableau.current.jumpStop = false;
             }
@@ -1173,7 +1185,7 @@ class Niveau1 extends Tableau
                 "unSeul3"
             );
 
-            if(Tableau.current.player.body.velocity.y == 0)
+            if(Tableau.current.player.body.velocity.y === 0)
             {
                 Tableau.current.jumpStop = false;
             }
@@ -1883,10 +1895,171 @@ class Niveau1 extends Tableau
     } // FIN DE STORYBOX */
 
 
-    update(chauvesouris, bloquerFly)
+    musicHall()
+    {
+        this.musicConfigWel =
+            {
+                mute: false,
+                volume: 1,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: true,
+                delay: 0,
+            }
+        this.musicConfigWelLow =
+            {
+                mute: false,
+                volume: 0.4,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: true,
+                delay: 0,
+            }
+        this.musicConfigAmb =
+            {
+                mute: false,
+                volume: 0.5,
+                rate : 1,
+                detune: 0,
+                seek: 0,
+                loop: true,
+                delay:0,
+            }
+        this.musicConfigEpic =
+            {
+                mute: false,
+                volume: 0.5,
+                rate : 1,
+                detune: 0,
+                seek: 0,
+                loop: true,
+                delay:0,
+            }
+        this.musicConfigCalmeG =
+            {
+                mute: false,
+                volume: 0.3,
+                rate : 1,
+                detune: 0,
+                seek: 0,
+                loop: true,
+                delay:0,
+            }
+
+        if(Tableau.current.player.body.position.x < 6592 - 64
+            && Tableau.current.player.body.position.y < 832)
+        {
+            this.musicAmbWelcome();
+        }
+        else if(Tableau.current.player.body.position.x < 6592 - 64
+            && Tableau.current.player.body.position.x < 2500
+            && Tableau.current.player.body.position.y >= 832)
+        {
+            this.musicWelcome();
+        }
+        else if(Tableau.current.player.body.position.x >= 6592 - 64
+            && Tableau.current.player.body.position.y <= 832)
+        {
+            this.musicEpic();
+        }
+        else if(Tableau.current.player.body.position.x < 6592 - 64
+            && Tableau.current.player.body.position.x > 2500
+            && Tableau.current.player.body.position.y > 832)
+        {
+            this.musicCalmeGrotte();
+        }
+    }
+
+
+    musicWelcome()
+    {
+        if(this.musicWelcomePermission)
+        {
+            this.game.sound.stopAll();
+
+            let welcome = this.sound.add('welcome');
+            welcome.play(this.musicConfigWel);
+
+            this.musicWelcomePermission = false;
+            this.musicAmbPermission = true;
+            this.musicEpicPermission = true;
+            this.musicCalmeGPermission = true;
+        }
+    }
+
+    musicAmbWelcome()
+    {
+        if(this.musicAmbPermission)
+        {
+            this.game.sound.stopAll();
+
+            let welcome = this.sound.add('welcome');
+            welcome.play(this.musicConfigWelLow);
+
+            let ambiance = this.sound.add('AmbianceHalloween1');
+            ambiance.play(this.musicConfigAmb);
+
+            this.musicAmbPermission = false;
+            this.musicWelcomePermission = true;
+            this.musicEpicPermission = true;
+            this.musicCalmeGPermission = true;
+        }
+    }
+
+
+    musicEpic()
+    {
+        if(this.musicEpicPermission && !this.miniBoss.isDead)
+        {
+            this.game.sound.stopAll();
+
+            let epic = this.sound.add('epicMusic');
+            epic.play(this.musicConfigEpic);
+
+            this.musicEpicPermission = false;
+            this.musicWelcomePermission = true;
+            this.musicAmbPermission = true;
+            this.musicCalmeGPermission = true;
+        }
+        else if(!this.musicEpicPermission && this.miniBoss.isDead)
+        {
+            this.game.sound.stopAll();
+
+            let ambiance = this.sound.add('AmbianceHalloween1');
+            ambiance.play(this.musicConfigAmb);
+
+            this.musicEpicPermission = true;
+            this.musicWelcomePermission = true;
+            this.musicAmbPermission = true;
+            this.musicCalmeGPermission = true;
+        }
+    }
+
+
+    musicCalmeGrotte()
+    {
+        if(this.musicCalmeGPermission)
+        {
+            this.game.sound.stopAll();
+
+            this.calmeGrotte = this.sound.add('CalmeGrotte');
+            this.calmeGrotte.play(this.musicConfigCalmeG);
+
+            this.musicCalmeGPermission = false;
+            this.musicAmbPermission = true;
+            this.musicWelcomePermission = true;
+            this.musicEpicPermission = true;
+        }
+    }
+
+
+    update()
     {
         super.update();
         this.moveParallax();
+        this.musicHall();
 
         if(!this.isMobile)
         {

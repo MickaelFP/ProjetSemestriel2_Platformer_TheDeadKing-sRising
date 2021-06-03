@@ -16,7 +16,10 @@ class MonsterSkeleton extends ObjetEnnemi{
         this.setBounceX(1);
         //this.setBodySize(this.body.width,this.body.height);
         this.setVelocityX(-40*(Math.random()+1.5));  // 80*(Math.random()+1.5) // -200
+
         this.walking = true;
+        this.onNeVieQuneFoisSQ = true;
+        this.unSeulEffect = true;
 
         this.anims.create({
             key: 'moving',
@@ -33,12 +36,64 @@ class MonsterSkeleton extends ObjetEnnemi{
         });   
 
     }
+
+
     update()
     {
         this.move();
         this.animation();
+        this.squeletteEffectSound();
+    }
+
+
+    squeletteEffectSound()
+    {
+        if(this.isDead && this.onNeVieQuneFoisSQ)
+        {
+            Tableau.current.squeletteEffect();
+            this.onNeVieQuneFoisSQ = false;
+            this.unSeulEffect = true;
+        }
+
+        if(!this.isDead && this.unSeulEffect)
+        {
+            if(this.scene.player.x > this.x - 256
+                && this.scene.player.x < this.x
+                && this.scene.player.y <= this.y
+                && this.scene.player.y >= this.y - 16)
+            {
+                Tableau.current.squeletteEffect2();
+                this.unSeulEffect = false;
+            }
+            else if(this.scene.player.x < this.x + 256
+                && this.scene.player.x > this.x
+                && this.scene.player.y <= this.y
+                && this.scene.player.y >= this.y - 16)
+            {
+                Tableau.current.squeletteEffect2();
+                this.unSeulEffect = false;
+            }
+        }
+        else if(!this.isDead && !this.unSeulEffect)
+        {
+            if(this.scene.player.x < this.x + 266
+                && this.scene.player.x > this.x + 256
+                && this.scene.player.y <= this.y
+                && this.scene.player.y >= this.y - 16)
+            {;
+                this.unSeulEffect = true;
+            }
+            else if(this.scene.player.x > this.x - 266
+                && this.scene.player.x < this.x - 256
+                && this.scene.player.y <= this.y
+                && this.scene.player.y >= this.y - 16)
+            {
+                this.unSeulEffect = true;
+            }
+        }
 
     }
+
 
     move(player)
     {
@@ -66,6 +121,7 @@ class MonsterSkeleton extends ObjetEnnemi{
         }
     }
 
+
     animation()
     {
         if(this.body)
@@ -80,6 +136,10 @@ class MonsterSkeleton extends ObjetEnnemi{
             {
                 this.flipX = false;
             }
+        }
+        else
+        {
+            this.dead();
         }
     }
     

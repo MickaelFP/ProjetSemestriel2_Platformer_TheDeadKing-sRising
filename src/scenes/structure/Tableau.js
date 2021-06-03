@@ -55,15 +55,15 @@ class Tableau extends Phaser.Scene{
         this.load.audio('waow', 'assets/Sound/boule_magique.mp3');
 
     }
-    create(){
+    create() {
 
         // ----------------------------------- Données primaires indispensable au tabbleau -----------------------------------
 
-        Tableau.current=this;
+        Tableau.current = this;
 
-        this.isMobile=this.game.device.os.android || this.game.device.os.iOS;
+        this.isMobile = this.game.device.os.android || this.game.device.os.iOS;
         this.sys.scene.scale.lockOrientation("landscape")
-        console.log("On est sur "+this.constructor.name+" / "+this.scene.key);
+        console.log("On est sur " + this.constructor.name + " / " + this.scene.key);
 
         this.depthConst = 500;
 
@@ -71,62 +71,62 @@ class Tableau extends Phaser.Scene{
          * Le ciel en fond
          * @type {Phaser.GameObjects.Image}
          */
-        this.sky=this.add.image(0, 0, 'sky').setOrigin(0,0);
-        this.sky.displayWidth=14*64;
-        this.sky.setScrollFactor(0,0);
+        this.sky = this.add.image(0, 0, 'sky').setOrigin(0, 0);
+        this.sky.displayWidth = 14 * 64;
+        this.sky.setScrollFactor(0, 0);
 
         /**
-        * Le joueur
-        * @type {Player}
-        */
-        this.player=new Player(this,0+160,0+1952);//160//1200/1968
-        this.player.setMaxVelocity(800,800); //évite que le player quand il tombe ne traverse des plateformes
+         * Le joueur
+         * @type {Player}
+         */
+        this.player = new Player(this, 0 + 160, 0 + 1952);//160//1200/1968
+        this.player.setMaxVelocity(800, 800); //évite que le player quand il tombe ne traverse des plateformes
         this.playerPower = 0;
 
         this.auraDamage = this.add.pointlight(this.player.x, this.player.y, 0, 2000, 0.02);
         this.auraDamage.setDepth(999);
         this.auraDamage.attenuation = 0.1;
         this.auraDamage.color.setTo(354, 10, 10);
-        this.auraDamage.visible=false;
+        this.auraDamage.visible = false;
 
         this.auraHeal = this.add.pointlight(this.player.x, this.player.y, 0, 2000, 0.02);
         this.auraHeal.setDepth(999);
         this.auraHeal.attenuation = 0.1;
         this.auraHeal.color.setTo(0, 255, 0);
-        this.auraHeal.visible=false;
+        this.auraHeal.visible = false;
 
         //this.boxRenderPlayer = new ObjetBoxRenderPlayer(this,this.player.x, this.player.y);
 
-        this.pv3=this.add.sprite(90, 100, "hp3");
+        this.pv3 = this.add.sprite(90, 100, "hp3");
         this.pv3.setDepth(1000);
         this.pv3.setScrollFactor(0);
 
         ui._hpText.setText('Body : ');
 
-        this.shoot = new ElementProjectils(this,0+8600,0+4448);
-        this.monsterOfVase = new MonsterZombie(this,0+8600,0+4448).setVelocity(0,0);
+        this.shoot = new ElementProjectils(this, 0 + 8600, 0 + 4448);
+        this.monsterOfVase = new MonsterZombie(this, 0 + 8600, 0 + 4448).setVelocity(0, 0);
 
 
         // ----------------------------------- fonction en booleans d'affichage d'image -----------------------------------
 
-        this.blood=this.add.sprite(this.sys.canvas.width/2, this.sys.canvas.height/2, "blood");
-        this.blood.displayWidth=64;
-        this.blood.displayHeight=64;
+        this.blood = this.add.sprite(this.sys.canvas.width / 2, this.sys.canvas.height / 2, "blood");
+        this.blood.displayWidth = 64;
+        this.blood.displayHeight = 64;
         this.blood.visible = false;
 
-        this.blood2=this.add.sprite(this.sys.canvas.width/2, this.sys.canvas.height/2, "osExplosion");
-        this.blood2.displayWidth=64;
-        this.blood2.displayHeight=64;
+        this.blood2 = this.add.sprite(this.sys.canvas.width / 2, this.sys.canvas.height / 2, "osExplosion");
+        this.blood2.displayWidth = 64;
+        this.blood2.displayHeight = 64;
         this.blood2.visible = false;
 
-        this.broke=this.add.sprite(this.sys.canvas.width/2, this.sys.canvas.height/2, "broke");
-        this.broke.displayWidth=32;
-        this.broke.displayHeight=32;
+        this.broke = this.add.sprite(this.sys.canvas.width / 2, this.sys.canvas.height / 2, "broke");
+        this.broke.displayWidth = 32;
+        this.broke.displayHeight = 32;
         this.broke.visible = false;
 
-        this.infCtrl=this.add.sprite(this.sys.canvas.width/2, this.sys.canvas.height/2, "infCtrl");
-        this.infCtrl.displayWidth=400;
-        this.infCtrl.displayHeight=400;
+        this.infCtrl = this.add.sprite(this.sys.canvas.width / 2, this.sys.canvas.height / 2, "infCtrl");
+        this.infCtrl.displayWidth = 400;
+        this.infCtrl.displayHeight = 400;
         this.infCtrl.visible = false;
         this.infCtrl.setScrollFactor(0).setDepth(1000);
 
@@ -199,28 +199,85 @@ class Tableau extends Phaser.Scene{
         //
         this.antiBug = true;
 
+        this.monsterVaseEffectUnSeul = false;
+        this.unSeulEffectMV = true;
+        this.onNeVieQuneFoisMV = true;
+
+        this.miniBossEffectUnSeul = false;
+        this.miniBossEffect2UnSeul = false;
+        this.miniBossEffect2StopUnSeul = false;
+
+        // ----------------------------------- Quelques sons -----------------------------------
+
         this.rocheSound = this.sound.add('pousserRoche');
         this.musicConfigX =
             {
                 mute: false,
                 volume: 1,
-                rate : 1,
+                rate: 1,
                 detune: 0,
                 seek: 0,
                 loop: true,
-                delay:0,
+                delay: 0,
             }
         this.rocheSound2 = this.sound.add('pousserRoche');
         this.musicConfigX2 =
             {
                 mute: false,
                 volume: 1,
-                rate : 1,
+                rate: 1,
                 detune: 0,
                 seek: 0,
                 loop: true,
-                delay:0,
+                delay: 0,
             }
+        this.deadSquelette = this.sound.add('crackSkull');
+        this.squeletteAttraction = this.sound.add('skullAttract');
+        this.musicConfigMSd =
+            {
+                mute: false,
+                volume: 0.5,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay: 0,
+            }
+        this.musicConfigMSa =
+            {
+                mute: false,
+                volume: 0.5,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay: 0,
+            }
+        this.deadZombie = this.sound.add('splashZomb');
+        this.zombieAttraction = this.sound.add('zombAttract');
+        this.musicConfigMZALL =
+            {
+                mute: false,
+                volume: 0.5,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay: 0,
+            }
+
+        /*this.deadMiniBoss = this.sound.add('splashMBoss')
+        this.miniBossAttraction = this.sound.add('mBossAttract')
+        this.musicConfigMBALL =
+            {
+                mute: false,
+                volume: 1,
+                rate : 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay:0,
+            }*/
     }
 
 
@@ -271,6 +328,78 @@ class Tableau extends Phaser.Scene{
         /* ************************************************************************************* */
 
     } // FIN DE UPDATE
+
+
+    zombieEffect()
+    {
+        console.log("zombieEffect");
+        this.deadZombie.play(this.musicConfigMZALL);
+    }
+    zombieEffect2()
+    {
+        console.log("zombieEffect 2");
+        this.zombieAttraction.play(this.musicConfigMZALL);
+    }
+
+
+    squeletteEffect()
+    {
+        console.log("squeletteEffect");
+        this.deadSquelette.play(this.musicConfigMSd)
+    }
+    squeletteEffect2()
+    {
+        console.log("squeletteEffect 2");
+        this.squeletteAttraction.play(this.musicConfigMSa);
+    }
+    squeletteEffect2Stop()
+    {
+        console.log("squeletteEffect 2 Stop");
+        this.squeletteAttraction.stop();
+    }
+
+
+    monsterVaseEffect()
+    {
+        console.log("monsterVaseEffect");
+        this.deadZombie.play(this.musicConfigDZ);
+    }
+    monsterVaseEffect2()
+    {
+        console.log("monsterVaseEffect 2");
+        this.zombieAttraction.play(this.musicConfigZA);
+    }
+
+
+    miniBossEffect()
+    {
+        if(!this.miniBossEffectUnSeul)
+        {
+            //console.log("miniBossEffect");
+            this.deadMiniBoss.play(this.musicConfigMBD);
+            this.miniBossEffectUnSeul = true;
+        }
+    }
+    miniBossEffect2()
+    {
+        if(!this.miniBossEffect2UnSeul)
+        {
+            //console.log("miniBossEffect 2");
+            this.miniBossEffectAttraction.play(this.musicConfigMBA);
+            this.miniBossEffect2UnSeul = true;
+            this.miniBossEffect2StopUnSeul = false;
+        }
+    }
+    miniBossEffect2Stop()
+    {
+        if(!this.miniBossEffect2StopUnSeul)
+        {
+            //console.log("miniBossEffect 2 Stop");
+            this.miniBossEffect.stop();
+            this.miniBossEffect2UnSeul = false;
+            this.miniBossEffect2StopUnSeul = true;
+        }
+    }
 
 
     collisionSup(monster, player, onComplete, monsterOfVase, miniBoss, shoot, bloquerFly, chauvesouris)
@@ -449,7 +578,7 @@ class Tableau extends Phaser.Scene{
 
 
     playerIntangible()
-    {;
+    {
         this.player.isDead = true;
     }
     playerTangible()
@@ -576,48 +705,8 @@ class Tableau extends Phaser.Scene{
             if (this.oneDrope)
             {
                 let me = this;
-                //console.log("oneDrope");
 
-                me.monsterOfVase=new MonsterZombie(this,this.player.x+150,this.player.y+24,"zombie2").setDepth(996);
-                me.physics.add.collider(me.monsterOfVase, this.solides);
-                me.physics.add.collider(me.monsterOfVase, this.platforms6);
-
-                if(!me.monsterOfVaseIsDead)
-                {                
-                    //console.log("FIRST DEBUG");
-                    this.time.addEvent
-                    ({
-                        delay: 5000,
-                        callback: ()=>
-                        {
-                            //console.log("SECOND DEBUG");
-                            if(!me.monsterOfVaseIsDead)
-                            {
-                                this.monsterOfVase.disableBody(true,true);
-                                //console.log("THIRD DEBUG");
-    
-                                this.saigne(me.monsterOfVase,function(){})
-                                this.music = this.sound.add('splash');
-                
-                                var musicConfig = 
-                                {
-                                    mute: false,
-                                    volume: 0.3,
-                                    rate : 1,
-                                    detune: 0,
-                                    seek: 0,
-                                    loop: false,
-                                    delay:0,
-                                }
-                                this.music.play(musicConfig);
-                                this.monsterOfVaseIsDead = true;
-                            }
-
-                        },
-                        loop: false
-                    })
-                }
-
+                me.randomDropVase();
 
                 while(this.oneDrope)
                 {
@@ -626,6 +715,54 @@ class Tableau extends Phaser.Scene{
                 }
                 me.vaseDrope = false;
             }
+        }
+    }
+
+
+    randomDropVase()
+    {
+        let me = this;
+        //console.log("oneDrope");
+
+        me.monsterOfVase = new MonsterVase(this,this.player.x+150,this.player.y+24,"zombie2").setDepth(996);
+        me.physics.add.collider(me.monsterOfVase, this.solides);
+        me.physics.add.collider(me.monsterOfVase, this.platforms6);
+
+        if(!me.monsterOfVaseIsDead)
+        {
+            //console.log("FIRST DEBUG");
+            this.time.addEvent
+            ({
+                delay: 5000,
+                callback: ()=>
+                {
+                    //console.log("SECOND DEBUG");
+                    if(!me.monsterOfVaseIsDead)
+                    {
+                        this.monsterOfVase.disableBody(true,true);
+                        this.monsterOfVase.body.destroy();
+
+                        this.monsterVaseEffect();
+
+                        this.saigne(me.monsterOfVase,function(){})
+                        this.music = this.sound.add('splash');
+                        var musicConfig =
+                            {
+                                mute: false,
+                                volume: 0.3,
+                                rate : 1,
+                                detune: 0,
+                                seek: 0,
+                                loop: false,
+                                delay:0,
+                            }
+                        this.music.play(musicConfig);
+                        this.monsterOfVaseIsDead = true;
+                    }
+
+                },
+                loop: false
+            })
         }
     }
 
@@ -1139,7 +1276,7 @@ class Tableau extends Phaser.Scene{
             })
  
             //petit son de mort du monstre
-            this.music = this.sound.add('splash');
+            /*this.music = this.sound.add('splash');
  
             var musicConfig = 
             {
@@ -1151,7 +1288,7 @@ class Tableau extends Phaser.Scene{
                 loop: false,
                 delay:0,
             }
-            this.music.play(musicConfig);
+            this.music.play(musicConfig);*/
         }
 
     }

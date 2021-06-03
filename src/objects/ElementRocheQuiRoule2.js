@@ -27,7 +27,7 @@ class ElementRocheQuiRoule2 extends Phaser.Physics.Arcade.Sprite
     {
         if(this.body.position.x > 5184 || this.body.position.x < 4998)
         {
-            console.log("bouge pas 2 = pas de son 2");
+            //console.log("bouge pas 2 = pas de son 2");
             this.setImmovable(true);
             this.neverMoveAgain2 = true;
         }
@@ -45,7 +45,7 @@ class ElementRocheQuiRoule2 extends Phaser.Physics.Arcade.Sprite
         {
             if(!this.soundUnSeul2)
             {
-                console.log("je veux du son 2");
+                //console.log("je veux du son 2");
                 Tableau.current.rocheSound2.play(this.musicConfigX2);
                 this.soundUnSeul2 = true;
                 /*Tableau.current.time.addEvent

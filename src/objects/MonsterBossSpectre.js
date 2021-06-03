@@ -16,7 +16,8 @@ class MonsterBossSpectre extends ObjetPhysique{
         );
 
         //pas de gravité
-        this.body.allowGravity=false;
+        this.body.allowGravity = false;
+        this.onNeVieQuneFois = true;
         
         //this.physics.add.sprite(300,this.sys.canvas.height-70,"monster-zombie");
         //this.physics.add.collider(monster, this.solides);
@@ -141,16 +142,37 @@ class MonsterBossSpectre extends ObjetPhysique{
 
     update(player)
     {  
-        //this.invulnerability();
-        /*if (player.x - monster.x > 0)
+        //this.miniBossEffectSound();
+    }
+
+    miniBossEffectSound()
+    {
+        if(Tableau.current.miniBoss.isDead && this.onNeVieQuneFois)
         {
-            monster.scale.x = 1;
-        } 
-        else 
-        {
-            monster.scale.x = -1;
-        }*/
-            
+            //console.log("odjsihdi");
+            Tableau.current.miniBossEffect();
+            Tableau.current.miniBossEffect2StopUnSeul = false;
+            Tableau.current.miniBossEffect2Stop();
+            this.onNeVieQuneFois = false;
+        }
+
+        if(!this.isDead){
+            if(this.scene.player.x > this.x - 400 && this.scene.player.x < this.x - 10 && this.scene.player.y <= this.y && this.scene.player.y >= this.y - 200)
+            {
+                Tableau.current.miniBossEffect2();
+            }
+            else if(this.scene.player.x < this.x + 400 && this.scene.player.x > this.x + 10 && this.scene.player.y <= this.y && this.scene.player.y >= this.y - 200)
+            {
+                //console.log("pk sa fonctionne pas 2");
+                Tableau.current.miniBossEffect2();
+            }
+            else
+            {
+                Tableau.current.miniBossEffect2Stop()
+                //this.setVelocityX(0);
+            }
+        }
+
     }
 
 }

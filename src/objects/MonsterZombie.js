@@ -18,17 +18,9 @@ class MonsterZombie extends ObjetEnnemi{
         this.setVelocityX(0);
 
         this.walking = true;
-        Tableau.current.monsterOfVaseIsDead = false;
-        //Tableau.current.zombieAlive = true;
-        //this.physics.add.overlap(this.player, this.monstre, this.hitSpike, null, this);
+        this.onNeVieQuneFoisZB = true;
+        this.unSeulEffect = true;
 
-        /*this.anims.create({
-            key: 'moving',
-            frames: this.anims.generateFrameNumbers('zombie2', { start: 7, end: 10 }),
-            frameRate: 4,
-            repeat: -1,
-        });
-        this.anims.play('moving', true);*/
 
         this.anims.create({
             key: 'left',
@@ -62,26 +54,69 @@ class MonsterZombie extends ObjetEnnemi{
 
     update()
     {
-        //this.die();
         this.move();
         this.animation();
-
+        this.zombieEffectSound();
     }
 
+
+    zombieEffectSound()
+    {
+        if(this.isDead && this.onNeVieQuneFoisZB)
+        {;
+            Tableau.current.zombieEffect();
+            this.onNeVieQuneFoisZB = false;
+            this.unSeulEffect = true;
+        }
+
+        if(!this.isDead && this.unSeulEffect)
+        {
+            if(this.scene.player.x > this.x - 400
+                && this.scene.player.x < this.x
+                && this.scene.player.y <= this.y
+                && this.scene.player.y >= this.y - 200)
+            {
+                Tableau.current.zombieEffect2();
+                this.unSeulEffect = false;
+            }
+            else if(this.scene.player.x < this.x + 400
+                && this.scene.player.x > this.x
+                && this.scene.player.y <= this.y
+                && this.scene.player.y >= this.y - 200)
+            {
+                Tableau.current.zombieEffect2();
+                this.unSeulEffect = false;
+            }
+        }
+        else if(!this.isDead && !this.unSeulEffect)
+        {
+            if(this.scene.player.x < this.x + 410
+                && this.scene.player.x > this.x + 400
+                && this.scene.player.y <= this.y
+                && this.scene.player.y >= this.y - 200)
+            {
+                this.unSeulEffect = true;
+            }
+            else if(this.scene.player.x > this.x - 410
+                && this.scene.player.x < this.x - 400
+                && this.scene.player.y <= this.y
+                && this.scene.player.y >= this.y - 200)
+            {
+                this.unSeulEffect = true;
+            }
+        }
+
+    }
 
     animation()
     {
         if(this.body.velocity.x < 0)
         {
-            //console.log("anims.play left");
             this.anims.play('left', true);
-            //this.flipX = true;
         }
-        else if (this.body.velocity.x > 0)
+        else if(this.body.velocity.x > 0)
         {
-            //console.log("anims.play right");
             this.anims.play('right', true);
-            //this.flipX = false;
         }
         else
         {
@@ -96,15 +131,11 @@ class MonsterZombie extends ObjetEnnemi{
         {
             if(this.scene.player.x > this.x - 400 && this.scene.player.x < this.x - 10 && this.scene.player.y <= this.y && this.scene.player.y >= this.y - 200)
             {
-                //console.log("GRRRRR GAUCHE");
                 this.setVelocityX(-40*(Math.random()+1.5));
-                //this.flipX = true;
             }
             else if(this.scene.player.x < this.x + 400 && this.scene.player.x > this.x + 10 && this.scene.player.y <= this.y && this.scene.player.y >= this.y - 200)
             {
-                //console.log("GRRRRR DROITE");
                 this.setVelocityX(40*(Math.random()+1.5));
-                //this.flipX = false;
             }
             else
             {
@@ -117,9 +148,6 @@ class MonsterZombie extends ObjetEnnemi{
         }
     }
 
-
-    //die(){}
-
     
     /**
     * arrête le monstre
@@ -131,47 +159,5 @@ class MonsterZombie extends ObjetEnnemi{
         this.directionY=0;
         this.directionX=0;
     }
-
-    /********** TEST MOVE MONSTER ********** /
-     * 
-     * 
-        if(this.body)
-        {
-            if(this.body.velocity.x < 0)
-            {
-                this.flipX=true;
-                if(this.walking)
-                {
-                    this.setVelocityX(-40*(Math.random()+1.5));
-                    this.walking = false;
-                }
-            }
-            else
-            {
-                this.flipX=false;
-                if(!this.walking)
-                {
-                    this.setVelocityX(40*(Math.random()+1.5));
-                    this.walking = true;
-                }
-            }
-        }
-
-        if(this.body)
-        {
-            if(this.body.touching.left)
-            {
-                console.log("touching LEFT LEFT");
-                this.flipX=false;
-            }
-            else if(this.body.touching.right)
-            {
-                console.log("touching RIGHT RIGHT");
-                this.flipX=true;
-            }
-        }
-     * 
-     * 
-     * **********/
 
 }
