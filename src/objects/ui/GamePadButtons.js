@@ -11,7 +11,7 @@ class GamePadButtons extends GameKeyboard
         game.input.addPointer();
         game.input.addPointer();
 
-        //if(!this.scene.sys.game.device.os.desktop) {
+        if(!this.scene.sys.game.device.os.desktop) {
             this.size = size;
             let w = this.size / 2;
             let pad2 = scene.add.container();
@@ -147,7 +147,7 @@ class GamePadButtons extends GameKeyboard
                 Tableau.current.dPressed = false;
                 Tableau.current.timingDash = true;
             });*/
-        //}
+        }
     }
 
 }

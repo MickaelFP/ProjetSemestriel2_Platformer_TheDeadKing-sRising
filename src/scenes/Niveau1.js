@@ -401,7 +401,6 @@ class Niveau1 extends Tableau
         //------------------------------------------------ Les elements interactifs (objets tiled) ------------------------------------------------
 
         // Elements cassables
-        //this.escaliers = this.physics.add.staticGroup();
         this.vaseList = [];
         this.vaseObjects = this.map.getObjectLayer('vase')['objects'];
         this.vaseObjects.forEach(monsterObject => 

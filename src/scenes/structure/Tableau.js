@@ -210,6 +210,7 @@ class Tableau extends Phaser.Scene{
 
         // ----------------------------------- Quelques sons -----------------------------------
 
+        if(!this.isMobile){
         this.rocheSound = this.sound.add('pousserRoche');
         this.musicConfigX =
             {
@@ -301,7 +302,7 @@ class Tableau extends Phaser.Scene{
                 seek: 0,
                 loop: false,
                 delay:0,
-            }*/
+            }*/}
     }
 
 
@@ -768,7 +769,9 @@ class Tableau extends Phaser.Scene{
             {
                 let me = this;
 
-                me.randomDropVase();
+                if(!this.isMobile) {
+                    me.randomDropVase();
+                }
 
                 while(this.oneDrope)
                 {
@@ -1088,13 +1091,13 @@ class Tableau extends Phaser.Scene{
      * @param {Sprite} object Objet qui saigne
      * @param {function} onComplete Fonction à appeler quand l'anim est finie
      */
-    saigne(object,onComplete)
+    saigne(/*object,onComplete*/)
     {
         let me = this;
         me.blood.visible = true;
         me.blood.rotation = Phaser.Math.Between(0,6);
-        me.blood.x = object.x;
-        me.blood.y = object.y;
+        me.blood.x = Tableau.current.player.body.position.x; // object.x;
+        me.blood.y = Tableau.current.player.body.position.y + 64; // object.y;
         me.tweens.add({
             targets:me.blood,
             duration:200,
@@ -1111,7 +1114,7 @@ class Tableau extends Phaser.Scene{
             onComplete: function () 
             {
                 me.blood.visible = false;
-                onComplete();
+                //onComplete();
             }
         })
     } // FIN DE SAIGNE

@@ -8,7 +8,7 @@ class Welcome extends Phaser.Scene {
         // images
         this.load.image('startBG', 'assets/backgrounds/startBackground.png');
         this.load.image('startB', 'assets/elements/startBouton.png');
-        this.load.image('logo', 'assets/elements/PlatformerLogoRemastered.png');
+        this.load.image('logo', 'assets/elements/PlatformerLogoRemastered_400x400.png');
         //this.load.spritesheet('cp', 'assets/cp.png', { frameWidth: 206, frameHeight: 184 } );
 
         // audios
@@ -66,8 +66,12 @@ class Welcome extends Phaser.Scene {
   
         //---------- on affiche les images à l'écran ----------
 
-        this.add.sprite(game.config.width/2, game.config.height/2, 'startBG');
-        this.add.sprite(game.config.width/2, game.config.height/2, 'startBG');
+        this.add.sprite(game.config.width/2, game.config.height/2, 'startBG').setAlpha(0.5);
+        this.add.sprite(game.config.width/6, game.config.height/3, 'logo').setDisplaySize(320,320);
+
+        let logoLight = this.add.pointlight(game.config.width/4, game.config.height/2.5, 0, 200, 0.5);
+        logoLight.attenuation = 0.05;
+        logoLight.color.setTo(255, 50, 255);
   
 
         //---------- on affiche les boutons ----------
@@ -114,16 +118,16 @@ class Welcome extends Phaser.Scene {
         lanterne5.attenuation = 0.05;
         lanterne5.color.setTo(255, 200, 0);
 
-        let lanterne2 = this.add.pointlight(game.config.width/2-250, game.config.height/2+40, 0, 30, 0.5);
+        /*let lanterne2 = this.add.pointlight(game.config.width/2-250, game.config.height/2+40, 0, 30, 0.5);
         lanterne2.attenuation = 0.05;
-        lanterne2.color.setTo(255, 200, 0);
+        lanterne2.color.setTo(255, 200, 0);*/
         let lanterne6 = this.add.pointlight(game.config.width/2+370, game.config.height/2+31, 0, 50, 0.5);
         lanterne6.attenuation = 0.05;
         lanterne6.color.setTo(255, 200, 0);
 
-        let lanterne3 = this.add.pointlight(game.config.width/2-190, game.config.height/2+45, 0, 15, 0.5);
+        /*let lanterne3 = this.add.pointlight(game.config.width/2-190, game.config.height/2+45, 0, 15, 0.5);
         lanterne3.attenuation = 0.05;
-        lanterne3.color.setTo(255, 200, 0);
+        lanterne3.color.setTo(255, 200, 0);*/
         let lanterne4 = this.add.pointlight(game.config.width/2+182, game.config.height/2+45, 0, 15, 0.5);
         lanterne4.attenuation = 0.05;
         lanterne4.color.setTo(255, 200, 0);
@@ -145,7 +149,7 @@ class Welcome extends Phaser.Scene {
         })
         this.tweens.add(
         {
-            targets:[lanterne2, lanterne5],
+            targets:[/*lanterne2, */lanterne5],
             duration:2000,
             yoyo: true,
             repeat:-1,
@@ -159,7 +163,7 @@ class Welcome extends Phaser.Scene {
         })
         this.tweens.add(
         {
-            targets:[lanterne3, lanterne4],
+            targets:[/*lanterne3, */lanterne4],
             duration:3000,
             yoyo: true,
             repeat:-1,

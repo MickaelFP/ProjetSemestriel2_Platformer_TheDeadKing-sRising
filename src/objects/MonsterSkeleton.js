@@ -42,7 +42,9 @@ class MonsterSkeleton extends ObjetEnnemi{
     {
         this.move();
         this.animation();
-        this.squeletteEffectSound();
+        if(this.scene.sys.game.device.os.desktop) {
+            this.squeletteEffectSound();
+        }
     }
 
 

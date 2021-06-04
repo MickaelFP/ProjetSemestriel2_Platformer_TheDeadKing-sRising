@@ -50,7 +50,9 @@ class MonsterVase extends ObjetEnnemi{
     {
         this.move();
         this.animation();
-        this.monsterVaseEffectSound();
+        if(this.scene.sys.game.device.os.desktop) {
+            this.monsterVaseEffectSound();
+        }
     }
 
 
