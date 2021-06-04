@@ -2060,11 +2060,11 @@ class Niveau1 extends Tableau
     {
         super.update();
         this.moveParallax();
-        this.musicHall();
 
         if(!this.isMobile)
         {
             this.storyBox();
+            this.musicHall();
         }
 
         this.monstersContainer.each(function (child) {child.update();})
