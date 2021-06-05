@@ -155,6 +155,48 @@ class Ui extends Phaser.Scene{
 
     }
 
+    reset()
+    {
+        let me = this;
+        me.score = 0;
+        me.nbPiece = 0;
+        me.hp = 3;
+
+        this._hpText.setText('');
+
+        if (me.score > 0)
+        {
+            me.score = 0;
+            me._scoreText.setText('');
+        }
+        else if (me.score < 0)
+        {
+            me.score = 0;
+            me._scoreText.setText('');
+        }
+        else
+        {
+            me.score = 0;
+            me._scoreText.setText('');
+        }
+
+        if (me.nbPiece > 0)
+        {
+            me.nbPiece = 0;
+            me._outfitText.setText('');
+        }
+        else if (me.nbPiece < 0)
+        {
+            me.nbPiece = 0;
+            me._outfitText.setText('');
+        }
+        else
+        {
+            me.nbPiece = 0;
+            me._outfitText.setText('');
+        }
+    }
+
     //------------------------------------------------ Gestion des points de score ---------------------------------
 
     /********** QUAND ON GAGNE DES POINTS **********/
@@ -349,7 +391,7 @@ class Ui extends Phaser.Scene{
             {
                 me._outfitText.setText('Outfit: ' + me.nbPiece);
             }
-            else if (me.score < 0)
+            else if (me.nbPiece < 0)
             {
                 me.nbPiece = 0;
                 me._outfitText.setText('Outfit: ' + me.nbPiece);

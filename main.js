@@ -23,6 +23,7 @@ let config = {
 
         new Welcome(""),
         new ControlsPanel(""),
+        new Credits(""),
         new Niveau1(""),
 
     ],

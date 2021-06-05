@@ -90,12 +90,12 @@ class Welcome extends Phaser.Scene {
 
         let startBText1_2 = this.add.text(game.config.width/2-12, game.config.height -265, "[enter]",{font: "28px Script MT", fill:"#000000"});
         let startBText2_2 = this.add.text(game.config.width/2-12, game.config.height -165, "[space]",{font: "28px Script MT", fill:"#000000"});
-        let startBText3_2 = this.add.text(game.config.width/2+12, game.config.height -65, "[-]",{font: "28px Script MT", fill:"#000000"});
+        let startBText3_2 = this.add.text(game.config.width/2+12, game.config.height -65, "[U]",{font: "28px Script MT", fill:"#000000"});
 
         //tweens permet de donner un petit effet à la cible voulue (target)
         this.tweens.add(
         {
-            targets:[startBText1_2, startBText2_2],
+            targets:[startBText1_2, startBText2_2, startBText3_2],
             duration:2000,
             yoyo: true,
             repeat:-1,
@@ -215,7 +215,7 @@ class Welcome extends Phaser.Scene {
         }, this);
 
 
-        this.input.keyboard.on('keydown-SPACE', function () //'keydown-SPACE', function () 
+        this.input.keyboard.on('keydown-SPACE', function ()
         {
             if (!this.touchePressed) //(!this.SpacePressed & !this.EnterPressed)
             {
@@ -244,11 +244,55 @@ class Welcome extends Phaser.Scene {
 
         }, this);
 
+        this.input.keyboard.on('keydown-U', function ()
+        {
+            if (!this.touchePressed) //(!this.SpacePressed & !this.EnterPressed)
+            {
+                this.touchePressed = true;
+
+                this.music = this.sound.add('drapeau');
+                var musicConfig =
+                    {
+                        mute: false,
+                        volume: 1,
+                        rate : 1,
+                        detune: 0,
+                        seek: 0,
+                        loop: false,
+                        delay:0,
+                    }
+                this.music.play(musicConfig);
+
+                this.cameras.main.fadeOut(1000, 0, 0, 0)
+                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) =>
+                {
+                    //this.EnterPressed = true;
+                    this.game.scene.start(Credits);
+                    this.scene.start("credit");
+                })
+            }
+
+        }, this);
+
         this.input.on('pointerdown', function(pointer)
         {
             if (!this.touchePressed)
             {
                 this.touchePressed = true;
+
+                this.music = this.sound.add('drapeau');
+                var musicConfig =
+                    {
+                        mute: false,
+                        volume: 1,
+                        rate : 1,
+                        detune: 0,
+                        seek: 0,
+                        loop: false,
+                        delay:0,
+                    }
+                this.music.play(musicConfig);
+
                 this.cameras.main.fadeOut(1000, 0, 0, 0)
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) =>
                 {

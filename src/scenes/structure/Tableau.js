@@ -1783,8 +1783,27 @@ class Tableau extends Phaser.Scene{
     win()
     {
         //console.log("Victory");
-        localStorage.removeItem("checkPoint");
-        Tableau.suivant();
+        //localStorage.removeItem("checkPoint");
+
+        ui.reset();
+        this.game.sound.stopAll();
+        this.welcome = this.sound.add('welcome');
+        var musicConfig =
+            {
+                mute: false,
+                volume: 1,
+                rate : 1,
+                detune: 0,
+                seek: 0,
+                loop: true,
+                delay:0,
+            }
+        this.welcome.play(musicConfig);
+
+        Tableau.current._destroy();
+        this.game.scene.start(Credits);
+        this.scene.start("credit");
+        //Tableau.suivant();
     }
 
     /**
@@ -1827,7 +1846,7 @@ class Tableau extends Phaser.Scene{
         {
             Tableau.current._destroy();
         }
-        game.scene.start(tableau);
+        //game.scene.start(tableau);
     }
 
 

@@ -7,7 +7,7 @@ class ControlsPanel extends Phaser.Scene {
     {
         // images
         this.load.image('pCBG', 'assets/backgrounds/startBackground.png');
-        this.load.image('pCB', 'assets/elements/pCBouton_100pct4.png');
+        this.load.image('pCBcp', 'assets/elements/pCBouton_100pct4.png');
         this.load.image('logo', 'assets/elements/PlatformerLogoRemastered_400x400.png');
         //this.load.spritesheet('cp', 'assets/cp.png', { frameWidth: 206, frameHeight: 184 } );
 
@@ -36,19 +36,20 @@ class ControlsPanel extends Phaser.Scene {
 
         //---------- on affiche les boutons ----------
 
-        let pCB = this.add.sprite(game.config.width/2-8, game.config.height -170, 'pCB');
-        //startB.scale = 0.5;
+        let pCB = this.add.sprite(game.config.width/2-8, game.config.height -170, 'pCBcp');
+        pCB.scale = 1.1;
 
 
         //---------- on affiche les textes que l'on veut faire apparaître (boutons, titre...) ----------
 
-        //let cPBText1 = this.add.text(game.config.width/2-90, game.config.height -270, "[A] = throw bones",{font: "15px visitor", fill:"#000000"}); //375,560,FFF
-        let cPBText2 = this.add.text(game.config.width/2-90, game.config.height -25, "[R] = back",{font: "15px Script MT Bold", fill:"#FFFFFF"});
-        /*let cPBText3 = this.add.text(game.config.width/2-90, game.config.height -210, "[I] = infos controls",{font: "15px visitor", fill:"#000000"});
-        let cPBText4 = this.add.text(game.config.width/2-90, game.config.height -180, "[ArrowLeft] = go left",{font: "15px visitor", fill:"#000000"});
-        let cPBText5 = this.add.text(game.config.width/2-90, game.config.height -150, "[ArrowRight] = go right",{font: "15px visitor", fill:"#000000"});
-        let cPBText6 = this.add.text(game.config.width/2-90, game.config.height -120, "[ArrowTop] = jump",{font: "15px visitor", fill:"#000000"});
-        let cPBText7 = this.add.text(game.config.width/2-90, game.config.height -90, "[Ctrl] = disable Checkpoint",{font: "15px visitor", fill:"#000000"});*/
+        let xs = 90;
+        //let cPBText1 = this.add.text(game.config.width/2-xs, game.config.height -270, "[A] = throw bones",{font: "15px visitor", fill:"#000000"}); //375,560,FFF
+        let cPBText2 = this.add.text(game.config.width/2-xs, game.config.height -25, "[R] = back",{font: "15px Script MT Bold", fill:"#FFFFFF"});
+        /*let cPBText3 = this.add.text(game.config.width/2-xs, game.config.height -210, "[I] = infos controls",{font: "15px visitor", fill:"#000000"});
+        let cPBText4 = this.add.text(game.config.width/2-xs, game.config.height -180, "[ArrowLeft] = go left",{font: "15px visitor", fill:"#000000"});
+        let cPBText5 = this.add.text(game.config.width/2-xs, game.config.height -150, "[ArrowRight] = go right",{font: "15px visitor", fill:"#000000"});
+        let cPBText6 = this.add.text(game.config.width/2-xs, game.config.height -120, "[ArrowTop] = jump",{font: "15px visitor", fill:"#000000"});
+        let cPBText7 = this.add.text(game.config.width/2-xs, game.config.height -90, "[Ctrl] = disable Checkpoint",{font: "15px visitor", fill:"#000000"});*/
 
         //let cPBText2_1 = this.add.text(game.config.width/2-64, game.config.height -45, "= back",{font: "15px visitor", fill:"#FFFFFF"});
 
