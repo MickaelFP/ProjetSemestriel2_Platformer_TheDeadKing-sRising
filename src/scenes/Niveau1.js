@@ -144,6 +144,10 @@ class Niveau1 extends Tableau
         //game.camera.flash(0xff0000, 500);
         //Tableau.current.player.body.fixedRotation = true;
 
+        this.cameraBoolean0 = true;
+        this.cameraBoolean64 = true;
+        this.cameraBoolean128 = true;
+
 
         //------------------------------------------------ Plateformes simples ------------------------------------------------
 
@@ -2066,17 +2070,34 @@ class Niveau1 extends Tableau
 
     cameraGestion()
     {
-
-        this.cameraBoolean = true;
-        if(Tableau.current.player.body.position.y < 768 && this.cameraBoolean)
+        if(Tableau.current.player.body.position.y < 768
+            && Tableau.current.player.body.position.y > 654
+            && Tableau.current.player.body.position.x > 6592
+            && this.cameraBoolean64
+            && Tableau.current.player.staticY)
         {
-            this.cameras.main.startFollow(this.player, true, 0.1, 0.1, 0, 128);
-            this.cameraBoolean = false;
+            this.cameras.main.startFollow(this.player, true, 1, 1.5, 0, 64);
+            this.cameraBoolean64 = false;
+            this.cameraBoolean0 = true;
+            this.cameraBoolean128 = true;
         }
-        else if(Tableau.current.player.body.position.y >= 768 && !this.cameraBoolean)
+        else if(Tableau.current.player.body.position.y >= 768
+            && this.cameraBoolean0)
         {
-            this.cameras.main.y -= 128;
-            this.cameraBoolean = true;
+            this.cameras.main.startFollow(this.player, true, 1, 1.5, 0, 128);
+            this.cameraBoolean0 = false;
+            this.cameraBoolean64 = true;
+            this.cameraBoolean128 = true;
+        }
+        else if(Tableau.current.player.body.position.y <= 654
+            && Tableau.current.player.body.position.x > 6592
+            && this.cameraBoolean128
+            && Tableau.current.player.staticY)
+        {
+            this.cameras.main.startFollow(this.player, true, 1, 1.5, 0, 0);
+            this.cameraBoolean128 = false;
+            this.cameraBoolean0 = true;
+            this.cameraBoolean64 = true;
         }
     }
 
@@ -2086,7 +2107,7 @@ class Niveau1 extends Tableau
         super.update();
         this.moveParallax();
         this.musicHall();
-        //this.cameraGestion();
+        this.cameraGestion();
 
         if(!this.isMobile)
         {
