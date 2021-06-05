@@ -197,7 +197,6 @@ class Tableau extends Phaser.Scene{
         this.oneDropePower = false;
         this.oneShotOnBoss = false;
         this.hpMiniBoss = 10;
-        console.log(this.hpMiniBoss);
         //
         this.antiBug = true;
 
@@ -331,12 +330,9 @@ class Tableau extends Phaser.Scene{
         this.jumper();                          // Quand le joueur saute
 
         this.throwBones();                      // Lancer des projectils
-        this.showInfoCtrl();                    // Afficher une image d'information
         this.playerHealing();                   // Se soigner
         this.dash();                            // dash...
-        this.clearCheckPoints();                // Reset les checkPoints
         //this.fullScreenFonction();
-        this.pause();                           // Mettre le jeu en pause (mouvements joueur et monstres stoppés, plus invulnérabilité)
         this.powerLevel();                      // Rammasser un collectible qui débloque des capacités / compétences
 
         // ----------------------------------- Effets déclenchés -----------------------------------
@@ -345,6 +341,13 @@ class Tableau extends Phaser.Scene{
         this.auraEffect();                      // Effet d'éclairage de l'écran (feedback : dégats, heal, luminosité...)
         //this.cacheCache();                      // Faire apparaître des images suivant la positions du joueur
         this.collisionSup();                    // Quelques effets de collisions (destruction de projectil, perte de pv...)
+
+        if(!this.isMobile)
+        {
+            this.showInfoCtrl();                    // Afficher une image d'information
+            this.pause();                           // Mettre le jeu en pause (mouvements joueur et monstres stoppés, plus invulnérabilité)
+            this.clearCheckPoints();                // Reset les checkPoints
+        }
 
 
         /* ************************************************************************************* */
@@ -762,24 +765,27 @@ class Tableau extends Phaser.Scene{
 
     vaseDropping()
     {
-        //this.monsterOfVase.update();
-        if (this.vaseDrope)
-        {      
-            // Certains paramètres déjà définis doivent de nouveau l'être ici : collisions...
-            if (this.oneDrope)
+        if(!this.isMobile)
+        {
+            //this.monsterOfVase.update();
+            if(this.vaseDrope)
             {
-                let me = this;
-
-                if(!this.isMobile) {
-                    me.randomDropVase();
-                }
-
-                while(this.oneDrope)
+                // Certains paramètres déjà définis doivent de nouveau l'être ici : collisions...
+                if (this.oneDrope)
                 {
-                    this.oneDrope = false;
-                    return;
+                    let me = this;
+
+
+                    me.randomDropVase();
+
+
+                    while (this.oneDrope)
+                    {
+                        this.oneDrope = false;
+                        return;
+                    }
+                    me.vaseDrope = false;
                 }
-                me.vaseDrope = false;
             }
         }
     }
@@ -1018,7 +1024,7 @@ class Tableau extends Phaser.Scene{
 
     clearCheckPoints()
     {
-        if (this.ControlPressed)
+        if(this.ControlPressed)
         {
             localStorage.removeItem("checkPoint");
         }
@@ -1092,13 +1098,20 @@ class Tableau extends Phaser.Scene{
      * @param {Sprite} object Objet qui saigne
      * @param {function} onComplete Fonction à appeler quand l'anim est finie
      */
-    saigne(/*object,onComplete*/)
+    saigne(object,onComplete)
     {
         let me = this;
         me.blood.visible = true;
         me.blood.rotation = Phaser.Math.Between(0,6);
-        me.blood.x = Tableau.current.player.body.position.x; // object.x;
-        me.blood.y = Tableau.current.player.body.position.y + 64; // object.y;
+        if(!this.isMobile) {
+            me.blood.x = Tableau.current.player.body.position.x; // object.x;
+            me.blood.y = Tableau.current.player.body.position.y + 64; // object.y;
+        }
+        else
+        {
+            me.blood.x = object.x; //
+            me.blood.y = object.y; // ;
+        }
         me.tweens.add({
             targets:me.blood,
             duration:200,
