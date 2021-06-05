@@ -26,7 +26,7 @@ class MonsterBossSpectre extends ObjetPhysique{
         this.body.allowGravity = false;
         this.setDisplaySize(160,180);
         this.setCollideWorldBounds(true);
-        this.setBodySize(this.body.width,this.body.height);
+        this.setBodySize(this.body.width-64,this.body.height);
         this.setVelocityX(0);
 
         /*

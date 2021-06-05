@@ -78,13 +78,17 @@ class Niveau1 extends Tableau
         this.load.audio('allumageBougie', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
         this.load.audio('allumageTorche', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
         this.load.audio('criCorbeau', 'assets/Sound/sf_corbeau_01.mp3');
-        this.load.audio('pousserRoche', 'assets/Sound/roche_pousser.mp3');
-        this.load.audio('splashZomb', 'assets/Sound/mort_zombie.mp3');
-        this.load.audio('zombAttract', 'assets/Sound/zombie_attract.wav');
-        this.load.audio('crackSkull', 'assets/Sound/sf_os_broye_01.mp3');
-        this.load.audio('skullAttract', 'assets/Sound/sf_os_broye_02.mp3');
-        this.load.audio('splashChauveSourie', 'assets/Sound/feulement_chat_ID_1883.mp3');
-        this.load.audio('chauveSourieAttract', 'assets/Sound/sf_souris_01.mp3');
+
+        if(!this.isMobile)
+        {
+            this.load.audio('pousserRoche', 'assets/Sound/roche_pousser.mp3');
+            this.load.audio('splashZomb', 'assets/Sound/mort_zombie.mp3');
+            this.load.audio('zombAttract', 'assets/Sound/zombie_attract.wav');
+            this.load.audio('crackSkull', 'assets/Sound/sf_os_broye_01.mp3');
+            this.load.audio('skullAttract', 'assets/Sound/sf_os_broye_02.mp3');
+            this.load.audio('splashChauveSourie', 'assets/Sound/feulement_chat_ID_1883.mp3');
+            this.load.audio('chauveSourieAttract', 'assets/Sound/sf_souris_01.mp3');
+        }
 
  
         // -----Atlas de texture généré avec https://free-tex-packer.com/app/ -------------
@@ -1935,7 +1939,7 @@ class Niveau1 extends Tableau
         this.musicConfigEpic =
             {
                 mute: false,
-                volume: 0.5,
+                volume: 0.2,
                 rate : 1,
                 detune: 0,
                 seek: 0,
@@ -2066,7 +2070,6 @@ class Niveau1 extends Tableau
         this.cameraBoolean = true;
         if(Tableau.current.player.body.position.y < 768 && this.cameraBoolean)
         {
-            console.log("marche stp");
             this.cameras.main.startFollow(this.player, true, 0.1, 0.1, 0, 128);
             this.cameraBoolean = false;
         }
