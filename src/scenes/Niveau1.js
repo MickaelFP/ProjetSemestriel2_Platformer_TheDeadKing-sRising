@@ -70,7 +70,6 @@ class Niveau1 extends Tableau
 
         // -----Sons-------------
         this.load.audio('brkkk', 'assets/Sound/broke_sound.mp3');
-        this.load.audio('bruitZombie', 'assets/Sound/bruitZombie.mp3');
         this.load.audio('welcome', 'assets/Sound/Piano_Sonata_no_14_SV.mp3');
         this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
         this.load.audio('CalmeGrotte', 'assets/Sound/Mourioche---passe-sous-silence_part2.mp3');
