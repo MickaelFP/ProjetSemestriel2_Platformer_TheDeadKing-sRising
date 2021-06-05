@@ -138,6 +138,8 @@ class Niveau1 extends Tableau
         this.cameras.main.setBounds(0, 0, largeurDuTableau, hauteurDuTableau);
         this.cameras.main.startFollow(this.player, true, 1, 1.5, 0, 128);
         this.cameras.main.setRoundPixels(true);
+        //game.camera.flash(0xff0000, 500);
+        //Tableau.current.player.body.fixedRotation = true;
 
 
         //------------------------------------------------ Plateformes simples ------------------------------------------------
@@ -2056,11 +2058,30 @@ class Niveau1 extends Tableau
     }
 
 
+    cameraGestion()
+    {
+
+        this.cameraBoolean = true;
+        if(Tableau.current.player.body.position.y < 768 && this.cameraBoolean)
+        {
+            console.log("marche stp");
+            this.cameras.main.startFollow(this.player, true, 0.1, 0.1, 0, 128);
+            this.cameraBoolean = false;
+        }
+        else if(Tableau.current.player.body.position.y >= 768 && !this.cameraBoolean)
+        {
+            this.cameras.main.y -= 128;
+            this.cameraBoolean = true;
+        }
+    }
+
+
     update()
     {
         super.update();
         this.moveParallax();
         this.musicHall();
+        //this.cameraGestion();
 
         if(!this.isMobile)
         {

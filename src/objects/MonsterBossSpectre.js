@@ -88,7 +88,7 @@ class MonsterBossSpectre extends ObjetPhysique{
             {
                 from: this.minX,
                 to: this.maxX,
-                duration: 2500, // 1500 de base
+                duration: 3500, // 2500
                 ease: 'Sine.easeInOut',
                 yoyo: -1,
                 repeat: -1,

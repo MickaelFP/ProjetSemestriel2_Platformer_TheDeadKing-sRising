@@ -79,7 +79,7 @@ class Tableau extends Phaser.Scene{
          * Le joueur
          * @type {Player}
          */
-        this.player = new Player(this, 0 + 160, 0 + 1952);//160//1200/1968
+        this.player = new Player(this, 160, 1952); // (this, 6208, 768);
         this.player.setMaxVelocity(800, 800); //évite que le player quand il tombe ne traverse des plateformes
         this.playerPower = 0;
 
@@ -197,6 +197,7 @@ class Tableau extends Phaser.Scene{
         this.oneDropePower = false;
         this.oneShotOnBoss = false;
         this.hpMiniBoss = 10;
+        console.log(this.hpMiniBoss);
         //
         this.antiBug = true;
 
