@@ -551,9 +551,12 @@ class Niveau1 extends Tableau
             .setOrigin(14,12.4);
             /*point.blendMode=Phaser.BlendModes.COLOR_DODGE;*/
             this.point.checkPointObject=checkPointObject;
-            this.checkPointsLight = this.add.pointlight(checkPointObject.x+32, checkPointObject.y-8, 0, 75, 0.15).setDepth(987+1);
-            this.checkPointsLight.attenuation = 0.05;
-            this.checkPointsLight.color.setTo(255, 50, 255);
+            if(!this.isMobile)
+            {
+                this.checkPointsLight = this.add.pointlight(checkPointObject.x+32, checkPointObject.y-8, 0, 75, 0.15).setDepth(987+1);
+                this.checkPointsLight.attenuation = 0.05;
+                this.checkPointsLight.color.setTo(255, 50, 255);
+            }
         });
 
 

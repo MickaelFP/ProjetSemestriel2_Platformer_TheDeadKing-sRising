@@ -11,7 +11,7 @@ let config = {
         default: 'arcade', //'arcade',
         arcade: {
             gravity: { y: 100*3 },
-            debug: false,
+            debug: true,
             plugins: {
             attractors: true
             }
