@@ -103,9 +103,11 @@ class Tableau extends Phaser.Scene{
         ui._hpText.setText('Body : ');
 
         this.shoot = new ElementProjectils(this, 0 + 8600, 0 + 4448);
-        this.monsterOfVase = new MonsterZombie(this, 0 + 8600, 0 + 4448)
-            .setVelocity(0, 0);
-
+        if(!this.isMobile)
+        {
+            this.monsterOfVase = new MonsterZombie(this, 0 + 8600, 0 + 4448)
+                .setVelocity(0, 0);
+        }
 
         // ----------------------------------- fonction en booleans d'affichage d'image -----------------------------------
 
