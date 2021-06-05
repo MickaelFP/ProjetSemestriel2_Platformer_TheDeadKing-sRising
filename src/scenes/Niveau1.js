@@ -72,8 +72,6 @@ class Niveau1 extends Tableau
         this.load.audio('brkkk', 'assets/Sound/broke_sound.mp3');
         this.load.audio('welcome', 'assets/Sound/Piano_Sonata_no_14_SV.mp3');
         this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
-        this.load.audio('CalmeGrotte', 'assets/Sound/Mourioche---passe-sous-silence_part2.mp3');
-        this.load.audio('epicMusic', 'assets/Sound/Dark-Hero-3.mp3');
         this.load.audio('openingGate', 'assets/Sound/Gate-barriere-metallique-ouverture_ID-2357.mp3');
         this.load.audio('allumageBougie', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
         this.load.audio('allumageTorche', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
@@ -81,6 +79,8 @@ class Niveau1 extends Tableau
 
         if(!this.isMobile)
         {
+            this.load.audio('CalmeGrotte', 'assets/Sound/Mourioche---passe-sous-silence_part2.mp3');
+            this.load.audio('epicMusic', 'assets/Sound/Dark-Hero-3.mp3');
             this.load.audio('pousserRoche', 'assets/Sound/roche_pousser.mp3');
             this.load.audio('splashZomb', 'assets/Sound/mort_zombie.mp3');
             this.load.audio('zombAttract', 'assets/Sound/zombie_attract.wav');
