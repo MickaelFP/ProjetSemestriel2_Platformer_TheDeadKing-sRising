@@ -77,7 +77,7 @@ class Niveau1 extends Tableau
         this.load.audio('allumageTorche', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
         this.load.audio('criCorbeau', 'assets/Sound/sf_corbeau_01.mp3');
 
-        if(!this.isMobile)
+        if(this.scene.sys.game.device.os.desktop)
         {
             this.load.audio('CalmeGrotte', 'assets/Sound/Mourioche---passe-sous-silence_part2.mp3');
             this.load.audio('epicMusic', 'assets/Sound/Dark-Hero-3.mp3');
@@ -123,6 +123,8 @@ class Niveau1 extends Tableau
         this.musicAmbPermission = true;
         this.musicEpicPermission = true;
         this.musicCalmeGPermission = true;
+
+        this.musicMobilePlay = true;
 
         //this.playerMoveStop = false;
 
@@ -558,7 +560,7 @@ class Niveau1 extends Tableau
             .setOrigin(14,12.4);
             /*point.blendMode=Phaser.BlendModes.COLOR_DODGE;*/
             this.point.checkPointObject=checkPointObject;
-            if(!this.isMobile)
+            if(this.scene.sys.game.device.os.desktop)
             {
                 this.checkPointsLight = this.add.pointlight(checkPointObject.x+32, checkPointObject.y-8, 0, 75, 0.15).setDepth(987+1);
                 this.checkPointsLight.attenuation = 0.05;
@@ -2106,12 +2108,31 @@ class Niveau1 extends Tableau
     {
         super.update();
         this.moveParallax();
-        this.musicHall();
         this.cameraGestion();
 
-        if(!this.isMobile)
+        if(this.scene.sys.game.device.os.desktop)
         {
             this.storyBox();
+            this.musicHall();
+        }
+        else if(!this.scene.sys.game.device.os.desktop && this.musicMobilePlay)
+        {
+            this.game.sound.stopAll();
+
+            this.musicMobile = this.sound.add('welcome');
+            this.musicConfigMobile =
+                {
+                    mute: false,
+                    volume: 0.7,
+                    rate: 1,
+                    detune: 0,
+                    seek: 0,
+                    loop: true,
+                    delay: 0,
+                }
+            this.musicMobile.play(this.musicConfigMobile);
+
+            this.musicMobilePlay = false;
         }
 
         this.monstersContainer.each(function (child) {child.update();})
