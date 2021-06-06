@@ -45,10 +45,10 @@ class MonsterFly extends ObjetEnnemi{
     {
         this.animation();
         this.move();
-        if(Tableau.current.isMobilePerso)
+        /*if(Tableau.current.isMobilePerso)
         {
             this.chauveSourieEffectSound();
-        }
+        }*/
     }
 
 

@@ -213,7 +213,7 @@ class Tableau extends Phaser.Scene{
 
         // ----------------------------------- Quelques sons -----------------------------------
 
-        if(this.isMobilePerso){
+        /*if(this.isMobilePerso){
         this.rocheSound = this.sound.add('pousserRoche');
         this.musicConfigX =
             {
@@ -305,7 +305,7 @@ class Tableau extends Phaser.Scene{
                 seek: 0,
                 loop: false,
                 delay:0,
-            }*/}
+            }*//*}*/
     }
 
 
@@ -768,7 +768,7 @@ class Tableau extends Phaser.Scene{
 
     vaseDropping()
     {
-        if(this.isMobilePerso)
+        /*if(this.isMobilePerso)
         {
             //this.monsterOfVase.update();
             if(this.vaseDrope)
@@ -790,11 +790,11 @@ class Tableau extends Phaser.Scene{
                     me.vaseDrope = false;
                 }
             }
-        }
+        }*/
     }
 
 
-    randomDropVase()
+    /*randomDropVase()
     {
         let me = this;
         //console.log("oneDrope");
@@ -839,7 +839,7 @@ class Tableau extends Phaser.Scene{
                 loop: false
             })
         }
-    }
+    }*/
 
 
     dash(player)

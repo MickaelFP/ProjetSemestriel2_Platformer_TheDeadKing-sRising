@@ -19,7 +19,7 @@ class Niveau1 extends Tableau
         this.load.image('plate', 'assets/elements/petitePlateformePierre.png');
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere3.png');
 
-        if(this.isMobilePerso)
+        /*if(this.isMobilePerso)
         {
             this.load.image('tutoBox1', 'assets/elements/TutoBox1_2.png');
             this.load.image('tutoBox2', 'assets/elements/TutoBox2_2.png');
@@ -27,7 +27,7 @@ class Niveau1 extends Tableau
             this.load.image('tutoBox4', 'assets/elements/TutoBox3_2.png');
             this.load.image('tutoBox5', 'assets/elements/TutoBox5.png');
             this.load.image('tutoBox6', 'assets/elements/TutoBox6_2.png');
-        }
+        }*/
 
         // les données du tableau qu'on a créé dans TILED
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingBeta8.json'); // -> 'TheDeadKingRisingAlpha9-3.json'
@@ -1740,7 +1740,7 @@ class Niveau1 extends Tableau
     } //---------------------------------- FIN DE MOVEPARALLAX ----------------------------------
 
 
-    storyBox() // Comme j'ai déjà surchargé mes assets Tiled, cette fois on essaye la méthode de position ( même si j'en raffole pas -_- ).
+    /*storyBox() // Comme j'ai déjà surchargé mes assets Tiled, cette fois on essaye la méthode de position ( même si j'en raffole pas -_- ).
     {
         if(this.player.body.position.x >= 352-12  && this.player.body.position.y > 1920 && this.player.body.position.x <= 760-12 && this.player.body.position.y <= 1984)
         {
@@ -1875,7 +1875,7 @@ class Niveau1 extends Tableau
         else
         {
             this.TutoBox5.visible = false;
-        }*/
+        }*//*
 
         if(this.player.body.position.x >= 628+32  && this.player.body.position.y > 504 && this.player.body.position.x <= 1036+32 && this.player.body.position.y <= 568)
         {
@@ -1907,7 +1907,7 @@ class Niveau1 extends Tableau
     } // FIN DE STORYBOX */
 
 
-    musicHall()
+    /*musicHall()
     {
         this.musicConfigWel =
             {
@@ -2064,10 +2064,10 @@ class Niveau1 extends Tableau
             this.musicWelcomePermission = true;
             this.musicEpicPermission = true;
         }
-    }
+    }*/
 
 
-    cameraGestion()
+    /*cameraGestion()
     {
         if(Tableau.current.player.body.position.y < 768
             && Tableau.current.player.body.position.y > 654
@@ -2098,21 +2098,21 @@ class Niveau1 extends Tableau
             this.cameraBoolean0 = true;
             this.cameraBoolean64 = true;
         }
-    }
+    }*/
 
 
     update()
     {
         super.update();
         this.moveParallax();
-        this.cameraGestion();
+        //this.cameraGestion();
 
-        if(this.isMobilePerso)
+        /*if(this.isMobilePerso)
         {
             this.storyBox();
             this.musicHall();
         }
-        else if(this.isMobile && this.musicMobilePlay)
+        else */if(/*this.isMobile && */this.musicMobilePlay)
         {
             this.game.sound.stopAll();
 
