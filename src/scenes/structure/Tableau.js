@@ -103,7 +103,7 @@ class Tableau extends Phaser.Scene{
         ui._hpText.setText('Body : ');
 
         this.shoot = new ElementProjectils(this, 0 + 8600, 0 + 4448);
-        if(!this.isMobile)
+        if(this.scene.sys.game.device.os.desktop)
         {
             this.monsterOfVase = new MonsterZombie(this, 0 + 8600, 0 + 4448)
                 .setVelocity(0, 0);
@@ -211,7 +211,7 @@ class Tableau extends Phaser.Scene{
 
         // ----------------------------------- Quelques sons -----------------------------------
 
-        if(!this.isMobile){
+        if(this.scene.sys.game.device.os.desktop){
         this.rocheSound = this.sound.add('pousserRoche');
         this.musicConfigX =
             {
@@ -343,7 +343,7 @@ class Tableau extends Phaser.Scene{
         //this.cacheCache();                      // Faire apparaître des images suivant la positions du joueur
         this.collisionSup();                    // Quelques effets de collisions (destruction de projectil, perte de pv...)
 
-        if(!this.isMobile)
+        if(this.scene.sys.game.device.os.desktop)
         {
             this.showInfoCtrl();                    // Afficher une image d'information
             this.pause();                           // Mettre le jeu en pause (mouvements joueur et monstres stoppés, plus invulnérabilité)
@@ -766,7 +766,7 @@ class Tableau extends Phaser.Scene{
 
     vaseDropping()
     {
-        if(!this.isMobile)
+        if(this.scene.sys.game.device.os.desktop)
         {
             //this.monsterOfVase.update();
             if(this.vaseDrope)
@@ -1104,7 +1104,7 @@ class Tableau extends Phaser.Scene{
         let me = this;
         me.blood.visible = true;
         me.blood.rotation = Phaser.Math.Between(0,6);
-        if(!this.isMobile) {
+        if(this.scene.sys.game.device.os.desktop) {
             me.blood.x = Tableau.current.player.body.position.x; // object.x;
             me.blood.y = Tableau.current.player.body.position.y + 64; // object.y;
         }
