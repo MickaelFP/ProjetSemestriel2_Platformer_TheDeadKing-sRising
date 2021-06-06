@@ -18,7 +18,7 @@ class Tableau extends Phaser.Scene{
      */
     preload(){
         this.load.image('sky', 'assets/backgrounds/sky3.png');
-        this.load.image('sun', 'assets/elements/sun.jpg');
+        //this.load.image('sun', 'assets/elements/sun.jpg');
 
         this.load.image('ossement', 'assets/elements/ossement.png');
         this.load.image('etoffe', 'assets/elements/etoffes.png');
@@ -64,7 +64,7 @@ class Tableau extends Phaser.Scene{
         this.isMobilePerso = !this.isMobile; // this./*scene.sys.*/game.device.os.desktop;
 
         this.sys.scene.scale.lockOrientation("landscape")
-        console.log("On est sur " + this.constructor.name + " / " + this.scene.key);
+        //console.log("On est sur " + this.constructor.name + " / " + this.scene.key);
 
         this.depthConst = 500;
 
@@ -105,11 +105,8 @@ class Tableau extends Phaser.Scene{
         ui._hpText.setText('Body : ');
 
         this.shoot = new ElementProjectils(this, 0 + 8600, 0 + 4448);
-        if(this.isMobilePerso)
-        {
-            this.monsterOfVase = new MonsterZombie(this, 0 + 8600, 0 + 4448)
+        this.monsterOfVase = new MonsterZombie(this, 0 + 8600, 0 + 4448)
                 .setVelocity(0, 0);
-        }
 
         // ----------------------------------- fonction en booleans d'affichage d'image -----------------------------------
 
@@ -320,7 +317,7 @@ class Tableau extends Phaser.Scene{
         super.update();
         this.player.update(); 
         this.shoot.update();
-        this.monsterOfVase.update();
+        //this.monsterOfVase.update();
 
         //this.boxRenderPlayer.update();
         //this.shoot.move();
