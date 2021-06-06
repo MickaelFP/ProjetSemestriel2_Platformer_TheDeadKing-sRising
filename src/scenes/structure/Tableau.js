@@ -37,7 +37,7 @@ class Tableau extends Phaser.Scene{
         //this.load.image('cacheTop', 'assets/backgrounds/cache_haut_ok.png');
         //this.load.image('cacheBot', 'assets/backgrounds/cache_bas_ok.png');
 
-        this.load.spritesheet('power', 'assets/Spritesheet/power1.png', { frameWidth: 260, frameHeight: 253  } );
+        //this.load.spritesheet('power', 'assets/Spritesheet/power1.png', { frameWidth: 260, frameHeight: 253  } );
         this.load.spritesheet('zombie2', 'assets/Spritesheet/zombie_remastered2.png', { frameWidth: 32, frameHeight: 56 } ); 
         this.load.spritesheet('monster-fly', 'assets/Spritesheet/chauve-sourie-1.png', { frameWidth: 55, frameHeight: 51 } );
         this.load.spritesheet('player', 'assets/Spritesheet/playerRemastered4.png', { frameWidth: 32, frameHeight: 64  } );
@@ -1205,7 +1205,7 @@ class Tableau extends Phaser.Scene{
                 onComplete();
             }
         })
-        me.power = new CollectiblePower(this,Tableau.current.player.body.position.x + 150,Tableau.current.player.body.position.y + 24,"power")
+        me.power = new CollectiblePower(this,Tableau.current.player.body.position.x + 150,Tableau.current.player.body.position.y + 24/*,"power"*/)
             .setDepth(996);
 
     } // FIN DE SAIGNEMINIBOSS
