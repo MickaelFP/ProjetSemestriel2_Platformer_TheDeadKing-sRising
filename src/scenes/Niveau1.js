@@ -556,7 +556,7 @@ class Niveau1 extends Tableau
         //on crée des checkpoints pour chaque objet rencontré
         this.checkPointsObjects.forEach(checkPointObject => 
         {
-            this.point=this.checkPoints.create(checkPointObject.x/*+248*/,checkPointObject.y-8/*+183*/, 'corbeau')/*,'checkPoint').play('cp', true)*/.setDisplaySize(16,16).setBodySize(64,64)
+            this.point=this.checkPoints.create(checkPointObject.x+32/*+248*/,checkPointObject.y-8/*+183*/, 'corbeau')/*,'checkPoint').play('cp', true)*/.setDisplaySize(16,16).setBodySize(64,64)
             /*.setOrigin(14,12.4)*/;
             /*point.blendMode=Phaser.BlendModes.COLOR_DODGE;*/
             this.point.checkPointObject=checkPointObject;
