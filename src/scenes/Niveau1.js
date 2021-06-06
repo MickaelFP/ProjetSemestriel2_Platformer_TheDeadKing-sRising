@@ -18,12 +18,16 @@ class Niveau1 extends Tableau
         this.load.image('platformStone', 'assets/elements/platformStone.png');
         this.load.image('plate', 'assets/elements/petitePlateformePierre.png');
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetCimetiere3.png');
-        this.load.image('tutoBox1', 'assets/elements/TutoBox1_2.png');
-        this.load.image('tutoBox2', 'assets/elements/TutoBox2_2.png');
-        this.load.image('tutoBox3', 'assets/elements/TutoBox4_2.png');
-        this.load.image('tutoBox4', 'assets/elements/TutoBox3_2.png');
-        this.load.image('tutoBox5', 'assets/elements/TutoBox5.png');
-        this.load.image('tutoBox6', 'assets/elements/TutoBox6_2.png');
+
+        if(this.isMobilePerso)
+        {
+            this.load.image('tutoBox1', 'assets/elements/TutoBox1_2.png');
+            this.load.image('tutoBox2', 'assets/elements/TutoBox2_2.png');
+            this.load.image('tutoBox3', 'assets/elements/TutoBox4_2.png');
+            this.load.image('tutoBox4', 'assets/elements/TutoBox3_2.png');
+            this.load.image('tutoBox5', 'assets/elements/TutoBox5.png');
+            this.load.image('tutoBox6', 'assets/elements/TutoBox6_2.png');
+        }
 
         // les données du tableau qu'on a créé dans TILED
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/TheDeadKingRisingBeta8.json'); // -> 'TheDeadKingRisingAlpha9-3.json'
@@ -42,9 +46,9 @@ class Niveau1 extends Tableau
         this.load.image('solFragilePierre', 'assets/elements/roche_devant1.jpg'); // solFragilePierre.png');
         this.load.image('rocheQuiRoule', 'assets/elements/roche_devant3_4.jpg'); // solFragilePierre1.png');
         this.load.image('rocheQuiRoule2', 'assets/elements/roche_devant3_2.jpg');
-        this.load.image('infCtrl', 'assets/elements/infos_controls3.png');
 
-        this.load.spritesheet('checkPoint', 'assets/Spritesheet/corbeauAnimation1.png', { frameWidth: 448, frameHeight: 448 } );
+        this.load.image('infCtrl', 'assets/elements/infos_controls3.png');
+        //this.load.spritesheet('checkPoint', 'assets/Spritesheet/corbeauAnimation1.png', { frameWidth: 448, frameHeight: 448 } );
 
         // -----Monstres-------------
         //this.load.image('monster-fly', 'assets/entities/chauve-souris.png'); // original 'monster-fly'
@@ -71,26 +75,22 @@ class Niveau1 extends Tableau
         // -----Sons-------------
         this.load.audio('brkkk', 'assets/Sound/broke_sound.mp3');
         this.load.audio('welcome', 'assets/Sound/Piano_Sonata_no_14_SV.mp3');
-        this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
         this.load.audio('openingGate', 'assets/Sound/Gate-barriere-metallique-ouverture_ID-2357.mp3');
         this.load.audio('allumageBougie', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
         this.load.audio('allumageTorche', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
         this.load.audio('criCorbeau', 'assets/Sound/sf_corbeau_01.mp3');
 
-        if(!this.isMobile)
-        {
-            this.load.audio('CalmeGrotte', 'assets/Sound/Mourioche---passe-sous-silence_part2.mp3');
-            this.load.audio('epicMusic', 'assets/Sound/Dark-Hero-3.mp3');
-            this.load.audio('pousserRoche', 'assets/Sound/roche_pousser.mp3');
-            this.load.audio('splashZomb', 'assets/Sound/mort_zombie.mp3');
-            this.load.audio('zombAttract', 'assets/Sound/zombie_attract.wav');
-            this.load.audio('crackSkull', 'assets/Sound/sf_os_broye_01.mp3');
-            this.load.audio('skullAttract', 'assets/Sound/sf_os_broye_02.mp3');
-            this.load.audio('splashChauveSourie', 'assets/Sound/feulement_chat_ID_1883.mp3');
-            this.load.audio('chauveSourieAttract', 'assets/Sound/sf_souris_01.mp3');
-        }
+        this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
+        this.load.audio('CalmeGrotte', 'assets/Sound/Mourioche---passe-sous-silence_part2.mp3');
+        this.load.audio('epicMusic', 'assets/Sound/Dark-Hero-3.mp3');
+        this.load.audio('pousserRoche', 'assets/Sound/roche_pousser.mp3');
+        this.load.audio('splashZomb', 'assets/Sound/mort_zombie.mp3');
+        this.load.audio('zombAttract', 'assets/Sound/zombie_attract.wav');
+        this.load.audio('crackSkull', 'assets/Sound/sf_os_broye_01.mp3');
+        this.load.audio('skullAttract', 'assets/Sound/sf_os_broye_02.mp3');
+        this.load.audio('splashChauveSourie', 'assets/Sound/feulement_chat_ID_1883.mp3');
+        this.load.audio('chauveSourieAttract', 'assets/Sound/sf_souris_01.mp3');
 
- 
         // -----Atlas de texture généré avec https://free-tex-packer.com/app/ -------------
         //on y trouve notre étoiles et une tête de mort
         //this.load.atlas('particles', 'assets/particles/particlesM.png', 'assets/particles/particles.json'); // original 'particles.png'
@@ -544,28 +544,25 @@ class Niveau1 extends Tableau
 
         //------------------------------------------------ Check point ------------------------------------------------
 
-        this.anims.create({
+        /*this.anims.create({
             key: 'cp',
-            frames: this.anims.generateFrameNumbers('checkPoint', { start: 0, end: 13 }),
+            frames: this.anims.generateFrameNumbers('checkPoint', {start: 0, end: 13}),
             frameRate: 6,
             repeat: -1
-        });
+        });*/
 
         this.checkPoints = this.physics.add.staticGroup();
         this.checkPointsObjects = this.map.getObjectLayer('checkPoints')['objects'];
         //on crée des checkpoints pour chaque objet rencontré
         this.checkPointsObjects.forEach(checkPointObject => 
         {
-            this.point=this.checkPoints.create(checkPointObject.x+248,checkPointObject.y+183,'checkPoint').play('cp', true).setDisplaySize(16,16).setBodySize(64,64)
-            .setOrigin(14,12.4);
+            this.point=this.checkPoints.create(checkPointObject.x/*+248*/,checkPointObject.y-8/*+183*/, 'corbeau')/*,'checkPoint').play('cp', true)*/.setDisplaySize(16,16).setBodySize(64,64)
+            /*.setOrigin(14,12.4)*/;
             /*point.blendMode=Phaser.BlendModes.COLOR_DODGE;*/
             this.point.checkPointObject=checkPointObject;
-            if(this.isMobilePerso)
-            {
-                this.checkPointsLight = this.add.pointlight(checkPointObject.x+32, checkPointObject.y-8, 0, 75, 0.15).setDepth(987+1);
-                this.checkPointsLight.attenuation = 0.05;
-                this.checkPointsLight.color.setTo(255, 50, 255);
-            }
+            this.checkPointsLight = this.add.pointlight(checkPointObject.x+32, checkPointObject.y-8, 0, 75, 0.15).setDepth(987+1);
+            this.checkPointsLight.attenuation = 0.05;
+            this.checkPointsLight.color.setTo(255, 50, 255);
         });
 
 

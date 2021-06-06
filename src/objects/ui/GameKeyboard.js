@@ -50,7 +50,7 @@ class GameKeyboard extends Phaser.GameObjects.Container{
                             break;
         
                         case "Control":
-                            Tableau.current.ControlPressed = true;
+                            //Tableau.current.ControlPressed = true;
                             break;
         
                         case "e":

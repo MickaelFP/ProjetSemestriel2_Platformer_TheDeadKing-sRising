@@ -28,6 +28,7 @@ class Tableau extends Phaser.Scene{
         this.load.image('broke', 'assets/elements/vaseBroke.png');
 
         this.load.image('infCtrl', 'assets/elements/infos_controls3.png');
+        this.load.image('corbeau', 'assets/entities/corbeauDuPauvre.png');
         this.load.image('hp0', 'assets/ui/hp0.png');
         this.load.image('hp1', 'assets/ui/hp1.png');
         this.load.image('hp2', 'assets/ui/hp2.png');
@@ -49,9 +50,13 @@ class Tableau extends Phaser.Scene{
         this.load.audio('chute', 'assets/Sound/boule_neige.mp3');
         this.load.audio('solPierreBrise', 'assets/Sound/explosion-1.mp3');
         this.load.audio('solEffondre', 'assets/Sound/explosion-2.mp3');
-        this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
         this.load.audio('shhh', 'assets/Sound/sabre-9.mp3');
         this.load.audio('waow', 'assets/Sound/boule_magique.mp3');
+
+        if(this.isMobilePerso)
+        {
+            this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
+        }
 
     }
     create() {
