@@ -80,16 +80,16 @@ class Niveau1 extends Tableau
         this.load.audio('allumageTorche', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
         this.load.audio('criCorbeau', 'assets/Sound/sf_corbeau_01.mp3');
 
-        this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
-        this.load.audio('CalmeGrotte', 'assets/Sound/Mourioche---passe-sous-silence_part2.mp3');
-        this.load.audio('epicMusic', 'assets/Sound/Dark-Hero-3.mp3');
-        this.load.audio('pousserRoche', 'assets/Sound/roche_pousser.mp3');
-        this.load.audio('splashZomb', 'assets/Sound/mort_zombie.mp3');
-        this.load.audio('zombAttract', 'assets/Sound/zombie_attract.wav');
-        this.load.audio('crackSkull', 'assets/Sound/sf_os_broye_01.mp3');
-        this.load.audio('skullAttract', 'assets/Sound/sf_os_broye_02.mp3');
-        this.load.audio('splashChauveSourie', 'assets/Sound/feulement_chat_ID_1883.mp3');
-        this.load.audio('chauveSourieAttract', 'assets/Sound/sf_souris_01.mp3');
+        // this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
+        // this.load.audio('CalmeGrotte', 'assets/Sound/Mourioche---passe-sous-silence_part2.mp3');
+        // this.load.audio('epicMusic', 'assets/Sound/Dark-Hero-3.mp3');
+        // this.load.audio('pousserRoche', 'assets/Sound/roche_pousser.mp3');
+        // this.load.audio('splashZomb', 'assets/Sound/mort_zombie.mp3');
+        // this.load.audio('zombAttract', 'assets/Sound/zombie_attract.wav');
+        // this.load.audio('crackSkull', 'assets/Sound/sf_os_broye_01.mp3');
+        // this.load.audio('skullAttract', 'assets/Sound/sf_os_broye_02.mp3');
+        // this.load.audio('splashChauveSourie', 'assets/Sound/feulement_chat_ID_1883.mp3');
+        // this.load.audio('chauveSourieAttract', 'assets/Sound/sf_souris_01.mp3');
 
         // -----Atlas de texture généré avec https://free-tex-packer.com/app/ -------------
         //on y trouve notre étoiles et une tête de mort

@@ -53,11 +53,6 @@ class Tableau extends Phaser.Scene{
         this.load.audio('shhh', 'assets/Sound/sabre-9.mp3');
         this.load.audio('waow', 'assets/Sound/boule_magique.mp3');
 
-        if(this.isMobilePerso)
-        {
-            this.load.audio('AmbianceHalloween1', 'assets/Sound/Ambiance_halloween_1_SV.mp3');
-        }
-
     }
     create() {
 
