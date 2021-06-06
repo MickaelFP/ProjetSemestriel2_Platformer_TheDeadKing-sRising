@@ -61,6 +61,8 @@ class Tableau extends Phaser.Scene{
         Tableau.current = this;
 
         this.isMobile = this.game.device.os.android || this.game.device.os.iOS;
+        this.isMobilePerso = !this.isMobile; // this./*scene.sys.*/game.device.os.desktop;
+
         this.sys.scene.scale.lockOrientation("landscape")
         console.log("On est sur " + this.constructor.name + " / " + this.scene.key);
 
@@ -103,7 +105,7 @@ class Tableau extends Phaser.Scene{
         ui._hpText.setText('Body : ');
 
         this.shoot = new ElementProjectils(this, 0 + 8600, 0 + 4448);
-        if(this.scene.sys.game.device.os.desktop)
+        if(this.isMobilePerso)
         {
             this.monsterOfVase = new MonsterZombie(this, 0 + 8600, 0 + 4448)
                 .setVelocity(0, 0);
@@ -211,7 +213,7 @@ class Tableau extends Phaser.Scene{
 
         // ----------------------------------- Quelques sons -----------------------------------
 
-        if(this.scene.sys.game.device.os.desktop){
+        if(this.isMobilePerso){
         this.rocheSound = this.sound.add('pousserRoche');
         this.musicConfigX =
             {
@@ -343,7 +345,7 @@ class Tableau extends Phaser.Scene{
         //this.cacheCache();                      // Faire apparaître des images suivant la positions du joueur
         this.collisionSup();                    // Quelques effets de collisions (destruction de projectil, perte de pv...)
 
-        if(this.scene.sys.game.device.os.desktop)
+        if(this.isMobilePerso)
         {
             this.showInfoCtrl();                    // Afficher une image d'information
             this.pause();                           // Mettre le jeu en pause (mouvements joueur et monstres stoppés, plus invulnérabilité)
@@ -766,7 +768,7 @@ class Tableau extends Phaser.Scene{
 
     vaseDropping()
     {
-        if(this.scene.sys.game.device.os.desktop)
+        if(this.isMobilePerso)
         {
             //this.monsterOfVase.update();
             if(this.vaseDrope)
@@ -1104,7 +1106,7 @@ class Tableau extends Phaser.Scene{
         let me = this;
         me.blood.visible = true;
         me.blood.rotation = Phaser.Math.Between(0,6);
-        if(this.scene.sys.game.device.os.desktop) {
+        if(this.isMobilePerso) {
             me.blood.x = Tableau.current.player.body.position.x; // object.x;
             me.blood.y = Tableau.current.player.body.position.y + 64; // object.y;
         }
@@ -1474,7 +1476,7 @@ class Tableau extends Phaser.Scene{
                 me.invincible();
                 me.lifePoints -= 1;
                 //console.log('playerDamage(player,hp) -> damage');
-                console.log(this.lifePoints);
+                //console.log(this.lifePoints);
                 me.InfosLifePoints();
                 //console.log('playerDamage(player,hp) -> postInfos');
             }
@@ -1536,7 +1538,7 @@ class Tableau extends Phaser.Scene{
                 ui.gagnePV();
                 this.startingHealAura();
                 me.lifePoints += 1;
-                console.log(this.lifePoints);
+                //console.log(this.lifePoints);
                 me.InfosLifePoints2();
                 this.oneHeal = true;
             }
@@ -1761,9 +1763,8 @@ class Tableau extends Phaser.Scene{
      */
     cleanStorage()
     {
-        console.log("cleanStorage");
         localStorage.removeItem("bougie"); // ,bougieName);
-        localStorage.removeItem("bougie1"); // ,bougie1Name);
+        localStorage.removeItem("bougie1");
         localStorage.removeItem("bougie2");
         localStorage.removeItem("bougie3");
         localStorage.removeItem("torche");
@@ -1783,7 +1784,7 @@ class Tableau extends Phaser.Scene{
     win()
     {
         //console.log("Victory");
-        //localStorage.removeItem("checkPoint");
+        localStorage.removeItem("checkPoint");
 
         ui.reset();
         this.game.sound.stopAll();

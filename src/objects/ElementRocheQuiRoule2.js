@@ -90,7 +90,11 @@ class ElementRocheQuiRoule2 extends Phaser.Physics.Arcade.Sprite
         }
 
         this.limits();
-        this.soundPlaying();
+
+        if(Tableau.current.isMobilePerso)
+        {
+            this.soundPlaying();
+        }
 
     }
 }

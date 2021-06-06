@@ -45,7 +45,8 @@ class MonsterFly extends ObjetEnnemi{
     {
         this.animation();
         this.move();
-        if(this.scene.sys.game.device.os.desktop) {
+        if(Tableau.current.isMobilePerso)
+        {
             this.chauveSourieEffectSound();
         }
     }

@@ -77,7 +77,7 @@ class Niveau1 extends Tableau
         this.load.audio('allumageTorche', 'assets/Sound/Essence-prend-feu_ID-1341.mp3');
         this.load.audio('criCorbeau', 'assets/Sound/sf_corbeau_01.mp3');
 
-        if(this.scene.sys.game.device.os.desktop)
+        if(!this.isMobile)
         {
             this.load.audio('CalmeGrotte', 'assets/Sound/Mourioche---passe-sous-silence_part2.mp3');
             this.load.audio('epicMusic', 'assets/Sound/Dark-Hero-3.mp3');
@@ -560,7 +560,7 @@ class Niveau1 extends Tableau
             .setOrigin(14,12.4);
             /*point.blendMode=Phaser.BlendModes.COLOR_DODGE;*/
             this.point.checkPointObject=checkPointObject;
-            if(this.scene.sys.game.device.os.desktop)
+            if(this.isMobilePerso)
             {
                 this.checkPointsLight = this.add.pointlight(checkPointObject.x+32, checkPointObject.y-8, 0, 75, 0.15).setDepth(987+1);
                 this.checkPointsLight.attenuation = 0.05;
@@ -2110,12 +2110,12 @@ class Niveau1 extends Tableau
         this.moveParallax();
         this.cameraGestion();
 
-        if(this.scene.sys.game.device.os.desktop)
+        if(this.isMobilePerso)
         {
             this.storyBox();
             this.musicHall();
         }
-        else if(!this.scene.sys.game.device.os.desktop && this.musicMobilePlay)
+        else if(this.isMobile && this.musicMobilePlay)
         {
             this.game.sound.stopAll();
 
